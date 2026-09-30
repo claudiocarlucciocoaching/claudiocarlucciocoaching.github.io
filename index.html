@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claudio Carluccio | Executive & Mental Coaching</title>
+    <meta name="description" content="Sblocca il tuo vero potenziale. Percorsi di coaching ad alte prestazioni per manager, imprenditori e atleti.">
+    
+    <link rel="icon" type="image/png" href="logo-claudio.png">
+    <link rel="apple-touch-icon" href="logo-claudio.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        premium: {
+                            950: '#030303', 
+                            900: '#0a0a0a', 
+                            800: '#141414', 
+                            champagne: '#E5D0A1', 
+                            champagneHover: '#C9B17D',
+                            light: '#f5f5f5'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'pulse-glow': 'pulseGlow 8s ease-in-out infinite',
+                        'float': 'float 8s ease-in-out infinite',
+                        'aurora': 'aurora 15s linear infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(40px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.1', transform: 'scale(1)' },
+                            '50%': { opacity: '0.2', transform: 'scale(1.2)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0) translateX(0)' },
+                            '50%': { transform: 'translateY(-20px) translateX(10px)' },
+                        },
+                        aurora: {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                            '100%': { backgroundPosition: '0% 50%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { background-color: #030303; color: #f5f5f5; overflow-x: hidden; }
+        
+        .glass-panel {
+            background: linear-gradient(145deg, rgba(25, 25, 25, 0.6) 0%, rgba(10, 10, 10, 0.8) 100%);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative; overflow: hidden;
+        }
+        .glass-panel::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(229, 208, 161, 0.1), transparent);
+            transform: skewX(-20deg); transition: all 0.7s ease;
+        }
+        .glass-panel:hover::before { left: 150%; }
+        .glass-panel:hover {
+            border-color: rgba(229, 208, 161, 0.3); transform: translateY(-5px);
+            box-shadow: 0 40px 80px -12px rgba(0, 0, 0, 0.9), 0 0 50px rgba(229, 208, 161, 0.08);
+        }
+
+        /* GRADIENTE DINAMICO POTENZIATO E PIÙ VISIBILE */
+        @keyframes shineFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animated-gradient-text {
+            background: linear-gradient(270deg, #ffffff, #E5D0A1, #fff5cc, #C9B17D, #ffffff);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shineFlow 3s ease infinite;
+        }
+        
+        .reveal { opacity: 0; }
+        .accent-line {
+            width: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, #E5D0A1, transparent);
+            transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.animate-fade-in-up .accent-line { width: 120px; }
+
+        .nav-link { position: relative; color: #a3a3a3; transition: color 0.3s ease; }
+        .nav-link:hover, .nav-link.active { color: #ffffff; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 50%;
+            background-color: #E5D0A1; transition: all 0.3s ease; transform: translateX(-50%);
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        /* NUOVO MENU MOBILE ELEGANTE E PULITO */
+        #mobile-menu {
+            opacity: 0; visibility: hidden; transition: all 0.3s ease-in-out;
+        }
+        #mobile-menu.open {
+            opacity: 1; visibility: visible;
+        }
+
+        .aurora-bg {
+            background: radial-gradient(circle at 50% 50%, rgba(229, 208, 161, 0.08) 0%, transparent 60%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 80%, rgba(229, 208, 161, 0.05) 0%, transparent 50%);
+            background-size: 200% 200%;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-premium-champagne selection:text-premium-950 font-sans">
+
+    <!-- HEADER -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-[9000] transition-all duration-500 py-6 px-6 md:px-12 bg-transparent">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white z-50">
+                CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
+            </div>
+            
+            <nav class="hidden lg:flex items-center gap-8 text-sm font-light tracking-wide">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="servizi.html" class="nav-link">Servizi</a>
+                <a href="area-riservata.html" class="nav-link">Area riservata</a>
+                <a href="testimonianza.html" class="nav-link">Invia testimonianza</a>
+                <a href="contatti.html" class="nav-link">Contattami</a>
+            </nav>
+
+            <button id="menu-btn" class="lg:hidden text-white z-[9999] p-2 focus:outline-none bg-premium-900 border border-white/10 rounded-md" aria-label="Menu">
+                <i data-lucide="menu" class="w-6 h-6 text-premium-champagne" id="menu-icon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- MENU MOBILE A SCOMPARSA (DRAWER LATERALE DESTRO) -->
+    <div id="mobile-menu" class="fixed inset-0 z-[9500] bg-black/80 backdrop-blur-md lg:hidden flex justify-end">
+        <div class="w-[80%] max-w-sm h-full bg-premium-950 border-l border-white/10 p-8 flex flex-col justify-between shadow-2xl">
+            <div>
+                <div class="flex items-center justify-between mb-12">
+                    <span class="font-serif text-lg font-bold text-white tracking-widest">MENU</span>
+                    <button id="close-menu-btn" class="text-gray-400 hover:text-white p-2">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                <nav class="flex flex-col gap-6 text-left">
+                    <a href="index.html" class="font-serif text-xl text-premium-champagne tracking-wider">Home</a>
+                    <a href="servizi.html" class="font-serif text-xl text-gray-300 hover:text-premium-champagne transition-colors tracking-wider">Servizi</a>
+                    <a href="area-riservata.html" class="font-serif text-xl text-gray-300 hover:text-premium-champagne transition-colors tracking-wider">Area riservata</a>
+                    <a href="testimonianza.html" class="font-serif text-xl text-gray-300 hover:text-premium-champagne transition-colors tracking-wider">Invia testimonianza</a>
+                    <a href="contatti.html" class="font-serif text-xl text-gray-300 hover:text-premium-champagne transition-colors tracking-wider">Contattami</a>
+                </nav>
+            </div>
+            <div class="text-[11px] text-gray-600 uppercase tracking-widest border-t border-white/5 pt-6">
+                Claudio Carluccio Coaching
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden aurora-bg animate-aurora">
+            <div class="absolute top-[20%] left-[15%] w-[400px] h-[400px] bg-premium-champagne/10 rounded-full blur-[120px] animate-float pointer-events-none"></div>
+            <div class="absolute bottom-[20%] right-[10%] w-[500px] h-[500px] bg-white/5 rounded-full blur-[150px] animate-pulse-glow pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-5xl mx-auto px-6 text-center animate-fade-in-up mt-12">
+                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-tight drop-shadow-2xl">
+                    Il tuo percorso verso <br>
+                    <span class="animated-gradient-text italic font-normal">l'eccellenza ti aspetta.</span>
+                </h1>
+                
+                <p class="text-gray-400 text-lg md:text-xl font-light max-w-2xl mx-auto mb-16 leading-relaxed">
+                    Inizia oggi. Un metodo concreto per superare i blocchi mentali, ridefinire i tuoi obiettivi e sbloccare il tuo vero potenziale.
+                </p>
+
+                <a href="contatti.html" class="relative inline-flex items-center justify-center gap-4 bg-premium-champagne text-premium-950 font-medium px-10 py-5 rounded-sm tracking-widest uppercase text-sm transition-all duration-500 transform hover:scale-105 group overflow-hidden">
+                    <span class="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"></span>
+                    <span class="relative z-10">Inizia Ora</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-2"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- SEZIONI SUCCESSIVE (Approccio, Chi sono, Testimonianze) -->
+        <section class="py-32 relative z-10 bg-premium-950">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+                    <div class="accent-line mx-auto mb-8"></div>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6">L'Eccellenza Strutturata</h2>
+                    <p class="text-gray-400 text-lg font-light italic">
+                        "Non servono stravolgimenti: spesso è una piccola leva motivazionale la differenza che fa la differenza."
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-premium-950 border-t border-white/5 py-16">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="flex items-center gap-4">
+                <img src="logo-claudio.png" alt="Logo" class="w-10 h-10 grayscale opacity-40">
+                <div class="font-serif text-xl font-bold text-white tracking-widest">C<span class="text-premium-champagne">C</span></div>
+            </div>
+            <p class="text-[11px] text-gray-600 font-light uppercase tracking-widest">© 2026 Claudio Carluccio Coaching.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Menu Mobile Drawer
+        const menuBtn = document.getElementById('menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : 'auto';
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) toggleMenu();
+        });
+
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-premium-950/80', 'backdrop-blur-2xl', 'border-b', 'border-white/5', 'shadow-2xl');
+                navbar.classList.remove('bg-transparent');
+            } else {
+                navbar.classList.remove('bg-premium-950/80', 'backdrop-blur-2xl', 'border-b', 'border-white/5', 'shadow-2xl');
+                navbar.classList.add('bg-transparent');
+            }
+        });
+    </script>
+</body>
+</html>

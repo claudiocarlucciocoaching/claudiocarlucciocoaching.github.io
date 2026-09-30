@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatti & Prenotazioni | Claudio Carluccio Coaching</title>
+    
+    <link rel="icon" type="image/png" href="logo-claudio.png">
+    <link rel="apple-touch-icon" href="logo-claudio.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        premium: { 950: '#050505', 900: '#0a0a0a', 800: '#141414', champagne: '#E5D0A1' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { background-color: #050505; color: #f5f5f5; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
+        .nav-link { position: relative; color: #a3a3a3; transition: color 0.3s ease; }
+        .nav-link:hover, .nav-link.active { color: #ffffff; }
+        .glass-panel { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.1); }
+        .form-group-contact { margin-bottom: 24px; }
+        .form-group-contact label { display: block; font-size: 11px; font-weight: 500; color: #E5D0A1; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 2px; }
+        .form-control-contact {
+            width: 100%; padding: 16px 20px; border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.02);
+            color: #ffffff; font-size: 15px; outline: none; transition: all 0.3s ease; box-sizing: border-box;
+        }
+        .form-control-contact:focus { border-color: #E5D0A1; background: rgba(229, 208, 161, 0.02); }
+        textarea.form-control-contact { resize: vertical; min-height: 140px; }
+        .btn-contact {
+            width: 100%; padding: 18px; background: transparent; border: 1px solid #E5D0A1;
+            color: #E5D0A1; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+            cursor: pointer; transition: all 0.4s ease; display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+        .btn-contact:hover { background: #E5D0A1; color: #050505; }
+    </style>
+</head>
+<body class="antialiased font-sans">
+
+    <header class="fixed top-0 left-0 right-0 z-[9000] py-6 px-6 md:px-12 bg-premium-950/80 backdrop-blur-2xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="font-serif text-xl font-semibold text-white">CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span></div>
+            <nav class="hidden lg:flex items-center gap-8 text-sm font-light">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="servizi.html" class="nav-link">Servizi</a>
+                <a href="area-riservata.html" class="nav-link">Area riservata</a>
+                <a href="testimonianza.html" class="nav-link">Invia testimonianza</a>
+                <a href="contatti.html" class="nav-link active">Contattami</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-32 pb-24 relative px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h1 class="font-serif text-4xl md:text-5xl font-bold text-white mb-4">Iniziamo un Percorso Insieme</h1>
+                <p class="text-gray-400 font-light text-lg">Prenota la tua sessione o inviami un messaggio diretto.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                
+                <!-- Calendly Iframe -->
+                <div class="glass-panel p-6 md:p-8 rounded-md">
+                    <h2 class="font-serif text-2xl font-bold text-white mb-6">Prenota Sessione (30 Min)</h2>
+                    <div class="w-full h-[600px] overflow-hidden rounded border border-white/5">
+                        <iframe src="https://calendly.com/claudiocarlucciocoaching/30min?embed_domain=claudiocarlucciocoaching.com&embed_type=Inline" width="100%" height="100%" frameborder="0"></iframe>
+                    </div>
+                </div>
+
+                <!-- MODULO DI CONTATTO SICURO (FORMESUBMIT FREE) -->
+                <div class="glass-panel p-8 md:p-10 rounded-md">
+                    <h3 class="font-serif text-2xl font-bold text-white mb-8">Invia un Messaggio</h3>
+                    
+                    <!-- Invia direttamente alla tua email in modo sicuro e gratuito -->
+                    <form action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST">
+                        <!-- Impostazioni di cortesia FormSubmit -->
+                        <input type="hidden" name="_subject" value="📩 Nuovo Contatto dal Sito Web!">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="form-group-contact">
+                                <label>Nome e Cognome</label>
+                                <input type="text" name="Nome" class="form-control-contact" placeholder="Il tuo nome" required>
+                            </div>
+                            <div class="form-group-contact">
+                                <label>Email</label>
+                                <input type="email" name="Email" class="form-control-contact" placeholder="email@esempio.com" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group-contact">
+                            <label>Oggetto</label>
+                            <input type="text" name="Oggetto" class="form-control-contact" placeholder="Motivo della richiesta" required>
+                        </div>
+
+                        <div class="form-group-contact">
+                            <label>Messaggio</label>
+                            <textarea name="Messaggio" class="form-control-contact" placeholder="Scrivi qui i dettagli..." required></textarea>
+                        </div>
+
+                        <div class="form-group-contact bg-premium-800/40 p-4 border border-white/5 rounded">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" name="Privacy" required class="mt-1 accent-[#E5D0A1]">
+                                <span class="text-xs text-gray-400">Accetto il trattamento dei dati personali ai sensi del GDPR.</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-contact">
+                            <span>Invia Messaggio</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-premium-950 border-t border-white/5 py-12 text-center text-xs text-gray-600">
+        © 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.
+    </footer>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

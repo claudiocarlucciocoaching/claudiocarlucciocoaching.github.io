@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invia Testimonianza | Claudio Carluccio Coaching</title>
+    
+    <link rel="icon" type="image/png" href="logo-claudio.png">
+    <link rel="apple-touch-icon" href="logo-claudio.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { premium: { 950: '#050505', 900: '#0a0a0a', champagne: '#E5D0A1' } },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { background-color: #050505; color: #f5f5f5; display: flex; flex-direction: column; min-height: 100vh; }
+        .glass-panel { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.1); }
+        .form-control {
+            width: 100%; padding: 16px 20px; border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.02);
+            color: #ffffff; font-size: 15px; outline: none; box-sizing: border-box; transition: all 0.3s ease;
+        }
+        .form-control:focus { border-color: #E5D0A1; }
+        .btn-submit {
+            width: 100%; padding: 18px; background: transparent; border: 1px solid #E5D0A1;
+            color: #E5D0A1; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+            cursor: pointer; transition: all 0.4s ease; display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+        .btn-submit:hover { background: #E5D0A1; color: #050505; }
+    </style>
+</head>
+<body class="antialiased font-sans">
+
+    <header class="fixed top-0 left-0 right-0 z-[9000] py-6 px-6 md:px-12 bg-premium-950/80 backdrop-blur-2xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="font-serif text-xl font-semibold text-white">CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span></div>
+            <nav class="hidden lg:flex items-center gap-8 text-sm font-light">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="servizi.html" class="nav-link">Servizi</a>
+                <a href="contatti.html" class="nav-link">Contattami</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-32 pb-24 relative px-6 flex items-center justify-center">
+        <div class="max-w-xl w-full glass-panel p-8 md:p-12 rounded-md">
+            
+            <div class="text-center mb-10">
+                <h1 class="font-serif text-3xl font-bold text-white mb-3">Lascia una Testimonianza</h1>
+                <p class="text-gray-400 text-sm font-light">Il tuo feedback è prezioso per raccontare il valore del percorso svolto.</p>
+            </div>
+
+            <!-- MODULO TESTIMONIANZE DIRETTO (GRATUITO) -->
+            <form action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="⭐ Nuova Testimonianza Ricevuta dal Sito!">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+
+                <div class="mb-6">
+                    <label class="block text-xs uppercase tracking-widest text-premium-champagne mb-2">Nome o Iniziali</label>
+                    <input type="text" name="Nome_Cliente" class="form-control" placeholder="Es. Alessandro M." required>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-xs uppercase tracking-widest text-premium-champagne mb-2">Ruolo / Professione</label>
+                    <input type="text" name="Ruolo" class="form-control" placeholder="Es. Manager / Imprenditore" required>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-xs uppercase tracking-widest text-premium-champagne mb-2">La tua Testimonianza</label>
+                    <textarea name="Testimonianza" class="form-control" rows="5" placeholder="Racconta la tua esperienza..." required></textarea>
+                </div>
+
+                <div class="mb-8 bg-premium-950/40 p-4 border border-white/5 rounded">
+                    <label class="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox" name="Privacy_Accettata" required class="mt-1 accent-[#E5D0A1]">
+                        <span class="text-xs text-gray-400">Autorizzo la pubblicazione di questa testimonianza sul sito web.</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <span>Invia Testimonianza</span>
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                </button>
+            </form>
+
+        </div>
+    </main>
+
+    <footer class="bg-premium0-950 border-t border-white/5 py-12 text-center text-xs text-gray-600">
+        © 2026 Claudio Carluccio Coaching.
+    </footer>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

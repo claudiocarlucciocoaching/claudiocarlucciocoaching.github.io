@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Hub Strategico | Claudio Carluccio Coaching</title>
+    
+    <link rel="icon" type="image/png" href="logo-claudio.png">
+    <link rel="apple-touch-icon" href="logo-claudio.png">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        premium: {
+                            950: '#050505', 
+                            900: '#0a0a0a', 
+                            800: '#141414', 
+                            champagne: '#E5D0A1', 
+                            champagneHover: '#C9B17D',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; padding: 0; width: 100%; 
+            background: #050505; color: #f5f5f5; overflow-x: hidden;
+            -webkit-user-select: none; user-select: none;
+        }
+
+        .nav-link { position: relative; color: #a3a3a3; transition: color 0.3s ease; }
+        .nav-link:hover, .nav-link.active { color: #ffffff; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #E5D0A1; transition: width 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        #gate, #lang-selector { 
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; 
+            align-items: center; background: radial-gradient(ellipse at center, #141414 0%, #050505 100%); 
+            position: fixed; width: 100%; top:0; left:0; z-index: 9999;
+        }
+        #lang-selector { display: none; z-index: 10000; }
+
+        .logo-main { 
+            font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 600; letter-spacing: 4px; 
+            color: #ffffff; margin-bottom: 40px; text-transform: uppercase; text-align: center;
+        }
+        .logo-main span { color: #E5D0A1; }
+        
+        .pw-wrapper { position: relative; width: 320px; margin-bottom: 20px; }
+        .pw-wrapper input { 
+            width: 100%; padding: 16px 50px 16px 20px; border-radius: 4px; 
+            border: 1px solid rgba(229, 208, 161, 0.2); background: rgba(255, 255, 255, 0.02); 
+            color: #f5f5f5; text-align: center; font-size: 14px; outline: none; letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+        .pw-wrapper input:focus { border-color: #E5D0A1; box-shadow: 0 0 20px rgba(229, 208, 161, 0.1); }
+        .toggle-pw { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #a3a3a3; }
+
+        .btn-access { 
+            padding: 16px 40px; background: transparent; border: 1px solid #E5D0A1; border-radius: 0; 
+            cursor: pointer; font-weight: 500; text-transform: uppercase; letter-spacing: 2px;
+            color: #E5D0A1; width: 320px; transition: all 0.4s ease; margin-bottom: 20px;
+        }
+        .btn-access:hover { background: #E5D0A1; color: #050505; }
+
+        /* Nuovo stile per il pulsante Torna alla Home */
+        .btn-back-home {
+            color: #a3a3a3; font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+            transition: color 0.3s ease; text-decoration: none; display: flex; align-items: center; gap: 6px;
+        }
+        .btn-back-home:hover { color: #E5D0A1; }
+
+        .maintenance-ticker { position: absolute; bottom: 40px; width: 100%; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 8px 0; }
+        .ticker-text { display: inline-block; white-space: nowrap; font-size: 10px; text-transform: uppercase; letter-spacing: 4px; color: rgba(229, 208, 161, 0.6); animation: marquee 25s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        #dashboard { display: none; padding-top: 120px; padding-bottom: 80px; min-height: 100vh; position: relative; }
+        
+        .glass-panel { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.08); transition: all 0.4s ease; }
+        
+        h2 { display: flex; align-items: center; color: #E5D0A1; text-transform: uppercase; font-size: 11px; font-weight: 600; letter-spacing: 4px; margin: 60px 0 30px 0; }
+        h2::after { content: ""; flex: 1; border-bottom: 1px solid rgba(229, 208, 161, 0.15); margin-left: 20px; }
+
+        .stack { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        @media (min-width: 768px) { .stack { grid-template-columns: 1fr 1fr; } }
+        
+        .card { background: rgba(255, 255, 255, 0.02); padding: 24px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.4s ease; }
+        .card:hover { transform: translateY(-3px); border-color: rgba(229, 208, 161, 0.3); background: rgba(229, 208, 161, 0.03); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .card strong { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: #ffffff; display: block; margin-bottom: 4px; }
+        .card small { color: #a3a3a3; font-size: 12px; font-weight: 300; }
+        
+        .pro-badge { font-size: 9px; color: #E5D0A1; background: rgba(229, 208, 161, 0.05); border: 1px solid rgba(229, 208, 161, 0.2); padding: 4px 10px; border-radius: 2px; font-weight: 600; letter-spacing: 1px; }
+
+        .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 320px; margin-top: 30px; }
+        .lang-btn { padding: 16px; border-radius: 4px; border: 1px solid rgba(229, 208, 161, 0.2); background: transparent; color: #f5f5f5; cursor: pointer; font-weight: 500; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .lang-btn:hover { border-color: #E5D0A1; background: rgba(229, 208, 161, 0.05); }
+    </style>
+</head>
+<body oncontextmenu="return false;" class="antialiased font-sans">
+
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-[9000] transition-all duration-500 py-6 px-6 md:px-12 bg-premium-950/90 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white">
+                CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
+            </div>
+            <nav class="hidden lg:flex items-center gap-8 text-sm font-light tracking-wide">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="servizi.html" class="nav-link">Servizi</a>
+                <a href="area-riservata.html" class="nav-link active">Area riservata</a>
+                <a href="testimonianza.html" class="nav-link">Invia testimonianza</a>
+                <a href="contatti.html" class="nav-link">Contattami</a>
+            </nav>
+        </div>
+    </header>
+
+    <div id="gate">
+        <div class="logo-main">HUB <span>STRATEGICO</span></div>
+        <div class="pw-wrapper">
+            <input type="password" id="pw" placeholder="INSERISCI PASSWORD">
+            <span class="toggle-pw" onclick="toggleVisibility()"><i data-lucide="eye" class="w-4 h-4"></i></span>
+        </div>
+        <button class="btn-access" onclick="verifyHub()">Accedi al Sistema</button>
+        
+        <!-- Pulsante Torna alla Home -->
+        <a href="index.html" class="btn-back-home">
+            <i data-lucide="arrow-left" class="w-3 h-3"></i> Torna alla Home
+        </a>
+
+        <div class="maintenance-ticker">
+            <div class="ticker-text">+++ HUB STRATEGICO · ACCESSO RISERVATO · CLAUDIO CARLUCCIO COACHING +++ HUB STRATEGICO · ACCESSO RISERVATO +++</div>
+        </div>
+    </div>
+
+    <div id="lang-selector">
+        <div class="logo-main">SELECT <span>LANGUAGE</span></div>
+        <div class="lang-grid">
+            <button class="lang-btn" onclick="selectLanguage('it')"><img src="https://flagcdn.com/w40/it.png" width="20"> Italiano</button>
+            <button class="lang-btn" style="opacity:0.4; cursor:not-allowed;"><img src="https://flagcdn.com/w40/gb.png" width="20"> English</button>
+        </div>
+    </div>
+
+    <div id="dashboard">
+        <div class="absolute right-0 top-1/4 w-[600px] h-[600px] bg-premium-champagne/5 rounded-full blur-[150px] pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto px-6 relative z-10">
+            <div class="glass-panel p-8 mb-12 flex justify-between items-center rounded-sm">
+                <div>
+                    <h1 class="font-serif text-2xl font-bold text-white mb-2">Pannello di Controllo</h1>
+                    <p class="text-gray-400 font-light text-sm">Seleziona uno strumento per avviare il protocollo.</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-1">Livello Autorizzazione</p>
+                    <p id="status-text" class="text-premium-champagne font-bold text-sm tracking-widest uppercase">Sincronizzazione...</p>
+                </div>
+            </div>
+            <div id="content-container"></div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        window.addEventListener('keydown', function (e) {
+            if (e.key === "F12" || (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) || (e.ctrlKey && (e.key === "u" || e.key === "U"))) { e.preventDefault(); }
+        });
+        const scriptURL = "https://script.google.com/macros/s/AKfycbyh9IQKnAtmXsc4Gy0deb-r589nJLzJMgGnbHCgiuk4dmDgmUfV05Rb4QszHzF_hA6aZA/exec";
+        let userLevel = "";
+        function _0x(s) { return atob(s); }
+        function toggleVisibility() {
+            const input = document.getElementById('pw');
+            input.type = input.type === "password" ? "text" : "password";
+        }
+        function verifyHub() {
+            const pwInput = document.getElementById('pw');
+            const pw = pwInput.value.trim();
+            const btn = document.querySelector('.btn-access');
+            if (!pw) return;
+            btn.innerText = "VERIFICA IN CORSO...";
+            btn.disabled = true;
+            fetch(scriptURL + "?pw=" + encodeURIComponent(pw) + "&t=" + new Date().getTime())
+                .then(res => res.json())
+                .then(data => {
+                    if (data.auth === true) { userLevel = data.level; showLangSelector(); } 
+                    else { alert('Accesso Negato.'); btn.innerText = "ACCEDI AL SISTEMA"; btn.disabled = false; }
+                })
+                .catch(err => { alert("Errore di connessione."); btn.innerText = "ACCEDI AL SISTEMA"; btn.disabled = false; });
+        }
+        function showLangSelector() {
+            document.getElementById('gate').style.display = 'none';
+            document.getElementById('navbar').style.display = 'none';
+            document.getElementById('lang-selector').style.display = 'flex';
+        }
+        function selectLanguage(lang) {
+            if(lang === 'it') {
+                renderContent();
+                document.getElementById('lang-selector').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                document.getElementById('navbar').style.display = 'block';
+                document.getElementById('status-text').innerText = userLevel;
+                window.scrollTo(0,0);
+            }
+        }
+        function renderContent() {
+            const container = document.getElementById('content-container');
+            const html = `
+                <h2>Strumenti Base</h2>
+                <div class="stack">
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvc2NoZWRhY29hY2hlZS9zY2hlZGFjb2FjaGVlP2F1dGh1c2VyPTM=')" class="card"><div><strong>Scheda Coachee</strong><small>Reporting & Archivio Sessione</small></div><div class="pro-badge">ACTIVE</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvcnVvdGFkZWxsYXZpdGEvcnVvdGF2aXRh')" class="card"><div><strong>Ruota della Vita</strong><small>Analisi multidimensionale</small></div><div class="pro-badge">ACTIVE</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvbGluZWFkZWxsYXZpdGFjb2FjaC9saW5lYWRlbGxhdml0YQ==')" class="card"><div><strong>Linea della Vita</strong><small>Analisi temporale e traguardi</small></div><div class="pro-badge">ACTIVE</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvY3JlZGVuemVsaW1pdGNhcmx1Y2Npb2NvYWNoL2NyZWRlbnplbGltaXRhbnRp')" class="card"><div><strong>Protocollo Credenze 2.0</strong><small>Analisi Blocchi & Interferenze</small></div><div class="pro-badge">UPGRADED</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvdmlzdWFsaXp6YXRvcmVwcmVncmVzc2ljbGF1ZGlvL3Zpc3VhbGl6emFwcm9ncmVzc2k=')" class="card"><div><strong>Visualizzatore Progressi</strong><small>Analisi evolutiva</small></div><div class="pro-badge">ACTIVE</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvbWFwcGFkZWxsZXByaW9yaXRjbGF1ZGlvY29hZ2gvbWFwcGFwcmlvcml0eQ==')" class="card"><div><strong>Mappa delle Priorità</strong><small>Gestione flussi</small></div><div class="pro-badge">ACTIVE</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvdHJhY2NpYXRvcmVjbGF1ZGlvY2FybHVjY2lvL2hhYml0dHJhY2tlcg==')" class="card"><div><strong>Habit Tracker</strong><small>Routine</small></div><div class="pro-badge">ACTIVE</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvZ2FwpWFwY2FybHVjY2lvY29hZ2gvaG9tZS1wYWdl')" class="card"><div><strong>Gap Map Strategica</strong><small>Punto A → B</small></div><div class="pro-badge">ACTIVE</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvZGlhcmlvZGVsbGFncmF0aXR1ZGluZWNsYXVkaW8vaG9tZS1wYWdl')" class="card"><div><strong>Diario Gratitudine</strong><small>Focus risorse</small></div><div class="pro-badge">ACTIVE</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvc3RhbXBhcnVvdGEvc3RhbXBhLXJ1b3RhP2F1dGh1c2VyPTMmcmVhZF9jdXJyZW50PTE=')" class="card"><div><strong>Stampa Ruota</strong><small>Esportazione cartacea</small></div><div class="pro-badge">PDF</div></div>
+                </div>
+
+                <h2>Palestra Personale</h2>
+                <div class="stack">
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvcHJvdm9jYW1pL3Byb3ZvY2FtaQ==')" class="card"><div><strong>Provocami</strong><small>Inneschi di Cambiamento</small></div><div class="pro-badge">ACTIVE</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvdGVzdG1ldGEyL3Rlc3QtbWV0YS0y')" class="card"><div><strong>Test Metamodello 2.0</strong><small>Analisi Linguistica Avanzata</small></div><div class="pro-badge">NEW</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvdGVzdG1ldGFtb2RlbGxvL3Rlc3RtZXRhbW9kZWxsbw==')" class="card"><div><strong>Test Metamodello 1.0</strong><small>Analisi linguistica base</small></div><div class="pro-badge">ACTIVE</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXwvaWNmY3JlZGVudGlaglpbmdzaW11bGF0b3IvaWNmLWNyZWRlbnRpYWxpbmctc2ltdWxhdG9yP2F1dGh1c2VyPTMmcmVhZF9jdXJyZW50PTE=')" class="card"><div><strong>ICF Credentialing Simulator</strong><small>Preparazione Certificazione</small></div><div class="pro-badge">BETA</div></div>
+                </div>
+
+                <h2>Protocolli PNL</h2>
+                <div class="stack">
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvcG5sY2xhdWRpb2Nhcmx1Y2Npby9wbmw/YXV0aHVzZXI9MQ==')" class="card"><div><strong>PNL Assessment</strong><small>Risorse & Tecniche Mentali</small></div><div class="pro-badge">POP</div></div>
+                </div>
+
+                <h2>Assessment Individuali & Team</h2>
+                <div class="stack">
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvb25lcHJvZmlsZWNhcmx1Y2Npb2NvYWNoL29uZS1wcm9maWxlP2F1dGh1c2VyPTEmcmVhZF9jdXJyZW50PTE=')" class="card"><div><strong>Assessment O.N.E.</strong><small>Motivazione Profonda</small></div><div class="pro-badge">RESERVED</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvcHJvdmFjbGF1ZGlvdHdvL2Fzc2Vzc21lbnQtdHdvP2F1dGh1c2VyPTMmcmVhZF9jdXJyZW50PTE=')" class="card"><div><strong>Protocollo T.W.O.</strong><small>Comportamento Operativo</small></div><div class="pro-badge">RESERVED</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvc3luYXBzaS9zeW5hcHNpcw==')" class="card"><div><strong>SYNAPSIS Assessment</strong><small>Sinergia & Team Levers</small></div><div class="pro-badge">RESERVED</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvb25lLW1hdGNoLWFuYWx5c2lzL21hdGNoYW5hbHlzaXM=')" class="card"><div><strong>O.N.E. Match Analysis</strong><small>Sincronia di Coppia</small></div><div class="pro-badge">ACTIVE</div></div>
+                </div>
+
+                <h2>Programmi Avanzati</h2>
+                <div class="stack">
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvbGFuZGluZy1maW5hbmNpYWxjbGF1ZGlvL2xhbmRpbmctZmluYW5jaWFs')" class="card"><div><strong>Financial Strategy</strong></div><div class="pro-badge">RESERVED</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvY2FyZWVydHJhbnNpdGlvbmNhcmx1Y2Npby9sYW5kaW5nY2FyZWVyP2F1dGh1c2VyPTM=')" class="card"><div><strong>Career Transition</strong></div><div class="pro-badge">RESERVED</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvbGFuZGluZy1leGVjdXRpdmUvaG9tZS1wYWdl')" class="card"><div><strong>Executive / Business</strong></div><div class="pro-badge">RESERVED</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvbGFuZGluZ3Nwb3J0Y2xhdWRpb2Nhcmx1Y2Npby9wZXJmb3JtYW5jZS1zcG9ydA==')" class="card"><div><strong>Performance Sportiva</strong></div><div class="pro-badge">ULTRA</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvbGFuZGluZy1oZWFsdGgtYW5kLWJpb2hhY2tpbmcvbGFuZGluZy1oZWFsdGgtYW5kLWJpb2hhY2tpbmc=')" class="card"><div><strong>Health & Biohacking</strong></div><div class="pro-badge">RESERVED</div></div>
+                    <div onclick="openLock('aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvbGFuZGluZy1yZWxhdGlvbmFsL2xhbmRpbmctcmVsYXRpb25hbA==')" class="card"><div><strong>Relational Strategy</strong></div><div class="pro-badge">RESERVED</div></div>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+        function openLock(encodedUrl) {
+            const url = _0x(encodedUrl);
+            if (userLevel === "master") { window.open(url, "_blank"); } 
+            else { alert("⚠️ Livello di autorizzazione non sufficiente per l'accesso a questo protocollo."); }
+        }
+    </script>
+</body>
+</html>
