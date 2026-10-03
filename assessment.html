@@ -58,6 +58,9 @@
         .btn-gold-solid { background: #E5D0A1 !important; color: #050505 !important; border: none !important; }
         .btn-gold-solid:hover { background: #C5A880 !important; }
 
+        .filter-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #a3a3a3; padding: 8px 16px; border-radius: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s; }
+        .filter-btn:hover, .filter-btn.active-filter { background: #E5D0A1; color: #050505; border-color: #E5D0A1; font-weight: 600; }
+
         .progress-container { width: 100%; background: #141414; height: 4px; border-radius: 10px; margin-bottom: 30px; overflow: hidden; border: 1px solid rgba(229, 208, 161, 0.1); }
         #bar-fill-one, #bar-fill-burnout { height: 100%; background: #E5D0A1; width: 16.6%; transition: width 0.5s ease; }
         #grafico-container-one, #grafico-container-burnout { position: relative; margin-top: 30px; padding: 20px; background: rgba(20,20,20,0.4); border-radius: 8px;}
@@ -103,7 +106,7 @@
     <main class="flex-grow pt-32 pb-24 relative px-6">
         <div class="max-w-5xl mx-auto relative z-10">
             
-            <div class="text-center mb-16" id="hub-header">
+            <div class="text-center mb-12" id="hub-header">
                 <span class="text-premium-champagne text-xs uppercase tracking-[0.3em] font-semibold mb-4 block">Area Assessment & Sviluppo</span>
                 <h1 class="font-serif text-4xl md:text-5xl font-bold text-white mb-6">Mappa il tuo potenziale</h1>
                 <p class="text-gray-400 font-light text-lg max-w-2xl mx-auto leading-relaxed">
@@ -112,36 +115,45 @@
             </div>
 
             <div id="meta-assessment" class="mb-12">
-                <h2 class="text-white font-serif text-2xl mb-6 flex items-center gap-3">
-                    <span class="w-8 h-px bg-premium-champagne"></span> Strumenti di Valutazione
-                </h2>
+                <div class="flex flex-col md:flex-row items-center justify-between mb-8 pb-4 border-b border-white/5 gap-4">
+                    <h2 class="text-white font-serif text-xl flex items-center gap-3 m-0">
+                        <span class="w-8 h-px bg-premium-champagne"></span> Strumenti Disponibili
+                    </h2>
+                    <!-- FILTRI RAPIDI PER CATEGORIA -->
+                    <div class="flex flex-wrap gap-2">
+                        <button class="filter-btn active-filter" onclick="filtra('tutti', this)">Tutti</button>
+                        <button class="filter-btn" onclick="filtra('life', this)">Life & Balance</button>
+                        <button class="filter-btn" onclick="filtra('business', this)">Business & Executive</button>
+                        <button class="filter-btn" onclick="filtra('sport', this)">Sport Performance</button>
+                    </div>
+                </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                    <div onclick="avviaTest('ruota-vita')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12" id="cards-grid">
+                    <div data-cat="life" onclick="avviaTest('ruota-vita')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
                         <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20"><i data-lucide="pie-chart" class="w-5 h-5"></i></div>
                         <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota della Vita</h3>
                         <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Ottieni una fotografia istantanea del tuo equilibrio attuale (carriera, finanze, relazioni, salute).</p>
                     </div>
 
-                    <div onclick="avviaTest('ruota-manager')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
+                    <div data-cat="business" onclick="avviaTest('ruota-manager')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
                         <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20"><i data-lucide="briefcase" class="w-5 h-5"></i></div>
                         <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota del Manager</h3>
                         <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Business & Executive. Analizza leadership, gestione team, doti negoziali e time management.</p>
                     </div>
 
-                    <div onclick="avviaTest('ruota-atleta')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
+                    <div data-cat="sport" onclick="avviaTest('ruota-atleta')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
                         <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20"><i data-lucide="swords" class="w-5 h-5"></i></div>
                         <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota dell'Atleta</h3>
                         <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Mappa la tua tenuta mentale, gestione della pressione agonistica, focus e preparazione.</p>
                     </div>
 
-                    <div onclick="avviaTest('one-profile')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
+                    <div data-cat="life business" onclick="avviaTest('one-profile')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
                         <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20"><i data-lucide="brain" class="w-5 h-5"></i></div>
                         <h3 class="text-xl font-serif text-white font-semibold mb-3">ONE Profile</h3>
                         <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Mappa i tuoi tratti neuro-comportamentali profondi per sbloccare il tuo potenziale intrinseco.</p>
                     </div>
 
-                    <div onclick="avviaTest('burnout')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-premium-champagne/30 md:col-span-2">
+                    <div data-cat="business life" onclick="avviaTest('burnout')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-premium-champagne/30 md:col-span-2">
                         <div class="absolute top-4 right-4 bg-premium-champagne/10 text-premium-champagne text-xs uppercase font-bold tracking-widest px-3 py-1 rounded">Disponibile Ora</div>
                         <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20"><i data-lucide="activity" class="w-5 h-5"></i></div>
                         <h3 class="text-xl font-serif text-white font-semibold mb-3">Mappatura dello Stress & Carico Mentale</h3>
@@ -150,7 +162,7 @@
                     </div>
                 </div>
 
-                <!-- SEZIONE FAQ AGGIUNTA -->
+                <!-- SEZIONE FAQ -->
                 <div class="glass-panel p-8 md:p-12 rounded-xl mt-16 border border-white/5">
                     <h3 class="font-serif text-2xl font-bold text-white mb-8 text-center">Domande Frequenti sugli Assessment</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -323,7 +335,7 @@
                     <input type="text" id="nome-burnout" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
                     <input type="email" id="email-burnout" class="input-lead" placeholder="Indirizzo Email *" oninput="this.classList.remove('input-error')">
                     <input type="tel" id="tel-burnout" class="input-lead" placeholder="Numero di Telefono *" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.classList.remove('input-error')">
-                    <div class="flex items-start gap-3 mt-4 mb-6 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="privacy-container-burnout">
+                    <div class="flex items-start gap-3 mt-6 mb-8 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="privacy-container-burnout">
                         <input type="checkbox" id="privacy-burnout" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('privacy-container-burnout').classList.remove('privacy-error')"> 
                         <label for="privacy-burnout" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per ricevere il report di analisi e comunicazioni di coaching. *</label>
                     </div>
@@ -354,6 +366,20 @@
     <script>lucide.createIcons();</script>
 
     <script>
+        // SCRIPT FILTRI RAPIDI
+        function filtra(categoria, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active-filter'));
+            btn.classList.add('active-filter');
+            
+            document.querySelectorAll('#cards-grid > div').forEach(card => {
+                if (categoria === 'tutti' || card.getAttribute('data-cat').includes(categoria)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
         function avviaTest(id) {
             document.getElementById('meta-assessment').classList.add('hidden-step');
             document.getElementById('hub-header').classList.add('hidden-step');
@@ -547,7 +573,7 @@
             let n = document.getElementById("nome-burnout"), e = document.getElementById("email-burnout"), t = document.getElementById("tel-burnout"), p = document.getElementById("privacy-burnout");
             let valid = true;
             if(n.value.length < 2) { n.classList.add("input-error"); valid = false; }
-            if(!e.value.includes("@") || e.value.length < 5) { e.classList.add("input-error"); valid = false; }
+            if(!e.value.includes("@") || e.value.length < 5) { n.classList.add("input-error"); valid = false; }
             if(t.value.length < 6) { t.classList.add("input-error"); valid = false; }
             if(!p.checked) { document.getElementById("privacy-container-burnout").classList.add("privacy-error"); valid = false; }
             if(!valid) return;
