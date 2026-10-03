@@ -8,7 +8,6 @@
     <link rel="icon" type="image/png" href="logo-claudio.png">
     <link rel="apple-touch-icon" href="logo-claudio.png">
     
-    <!-- Librerie essenziali -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
@@ -40,7 +39,6 @@
         .meta-card:hover { border-color: #E5D0A1; transform: translateY(-3px); background: rgba(229, 208, 161, 0.03); }
         .active-card { border: 1px solid rgba(229, 208, 161, 0.3); }
 
-        /* Stili condivisi input forms */
         .input-lead { 
             width: 100%; padding: 16px 20px; margin: 10px 0; box-sizing: border-box; 
             background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1); 
@@ -60,13 +58,11 @@
         .btn-gold-solid { background: #E5D0A1 !important; color: #050505 !important; border: none !important; }
         .btn-gold-solid:hover { background: #C5A880 !important; }
 
-        /* ONE Profile Styles */
         .progress-container { width: 100%; background: #141414; height: 4px; border-radius: 10px; margin-bottom: 30px; overflow: hidden; border: 1px solid rgba(229, 208, 161, 0.1); }
         #bar-fill { height: 100%; background: #E5D0A1; width: 16.6%; transition: width 0.5s ease; }
         #grafico-container-one { position: relative; margin-top: 30px; padding: 20px; background: rgba(20,20,20,0.4); border-radius: 8px;}
         canvas { max-width: 100%; }
 
-        /* Ruota della Vita Styles (Chart.js) */
         .ruota-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
         .ruota-controls { flex: 1; min-width: 300px; }
         .ruota-chart { flex: 1; min-width: 320px; max-width: 450px; display: flex; align-items: center; justify-content: center; }
@@ -77,7 +73,6 @@
         input[type=range] { width: 100%; cursor: pointer; height: 4px; appearance: none; background: rgba(255,255,255,0.1); outline: none; border-radius: 5px; }
         input[type=range]::-webkit-slider-thumb { appearance: none; width: 16px; height: 16px; background: #fff; border-radius: 50%; border: 2px solid #E5D0A1; }
 
-        /* Interattive Wheels (Atleta/Manager) */
         .interactive-canvas-container { width: 100%; max-width: 500px; margin: 0 auto 30px; position: relative; }
         .interactive-canvas-container canvas { width: 100%; height: auto; cursor: crosshair; user-select: none; }
         .reset-btn { text-align: center; margin-bottom: 20px; }
@@ -116,61 +111,38 @@
                 </p>
             </div>
 
-            <!-- FASE 1: MENU ASSESSMENTS -->
             <div id="meta-assessment" class="mb-12">
-                
                 <h2 class="text-white font-serif text-2xl mb-6 flex items-center gap-3">
                     <span class="w-8 h-px bg-premium-champagne"></span> Analisi Attive
                 </h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                    
                     <div onclick="avviaTest('ruota-vita')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20">
-                            <i data-lucide="pie-chart" class="w-5 h-5"></i>
-                        </div>
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20"><i data-lucide="pie-chart" class="w-5 h-5"></i></div>
                         <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota della Vita</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">
-                            Il punto di partenza per eccellenza. Ottieni una fotografia istantanea del tuo equilibrio attuale (carriera, finanze, relazioni, salute).
-                        </p>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Ottieni una fotografia istantanea del tuo equilibrio attuale (carriera, finanze, relazioni, salute).</p>
                     </div>
 
                     <div onclick="avviaTest('ruota-manager')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20">
-                            <i data-lucide="briefcase" class="w-5 h-5"></i>
-                        </div>
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20"><i data-lucide="briefcase" class="w-5 h-5"></i></div>
                         <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota del Manager</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">
-                            Business & Executive. Analizza la tua leadership, la gestione del team, le doti negoziali e il time management.
-                        </p>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Business & Executive. Analizza leadership, gestione team, doti negoziali e time management.</p>
                     </div>
 
                     <div onclick="avviaTest('ruota-atleta')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20">
-                            <i data-lucide="swords" class="w-5 h-5"></i>
-                        </div>
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20"><i data-lucide="swords" class="w-5 h-5"></i></div>
                         <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota dell'Atleta</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">
-                            Mappa la tua tenuta mentale, gestione della pressione agonistica, focus strategico e preparazione fisica.
-                        </p>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Mappa la tua tenuta mentale, gestione della pressione agonistica, focus e preparazione.</p>
                     </div>
 
                     <div onclick="avviaTest('one-profile')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20">
-                            <i data-lucide="brain" class="w-5 h-5"></i>
-                        </div>
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20"><i data-lucide="brain" class="w-5 h-5"></i></div>
                         <h3 class="text-xl font-serif text-white font-semibold mb-3">ONE Profile</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">
-                            Il nostro strumento proprietario. Mappa i tuoi tratti neuro-comportamentali profondi per sbloccare il tuo potenziale intrinseco.
-                        </p>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Mappa i tuoi tratti neuro-comportamentali profondi per sbloccare il tuo potenziale intrinseco.</p>
                     </div>
-
                 </div>
 
-                <h2 class="text-gray-500 font-serif text-xl mb-6 flex items-center gap-3">
-                    <span class="w-8 h-px bg-gray-800"></span> Prossimamente
-                </h2>
-
+                <h2 class="text-gray-500 font-serif text-xl mb-6 flex items-center gap-3"><span class="w-8 h-px bg-gray-800"></span> Prossimamente</h2>
                 <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
                     <div onclick="mostraComingSoon('Valutazione Stress & Burnout')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative opacity-50 hover:opacity-100 max-w-md">
                         <h3 class="text-lg font-serif text-white font-semibold mb-2">Valutazione Stress & Burnout</h3>
@@ -178,10 +150,8 @@
                         <div class="text-gray-500 text-xs uppercase tracking-widest font-semibold flex items-center gap-2"><i data-lucide="lock" class="w-3 h-3"></i> Bloccato</div>
                     </div>
                 </div>
-
             </div>
 
-            <!-- MESSAGGIO COMING SOON -->
             <div id="coming-soon-msg" class="hidden-step glass-panel p-12 text-center rounded-xl border-t-2 border-t-premium-champagne">
                 <i data-lucide="lock" class="w-12 h-12 text-premium-champagne mx-auto mb-6 opacity-50"></i>
                 <h3 class="text-2xl font-serif text-white font-bold mb-4">Assessment in arrivo</h3>
@@ -189,21 +159,17 @@
                 <button onclick="tornaIndietro()" class="text-premium-champagne text-xs uppercase tracking-widest font-semibold border-b border-premium-champagne/30 pb-1 hover:border-white transition-colors">Torna al Centro Diagnostico</button>
             </div>
 
-            <!-- ========================================== -->
-            <!-- APP 1: RUOTA DELLA VITA -->
-            <!-- ========================================== -->
+            <!-- RUOTA DELLA VITA -->
             <div id="ruota-vita-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl border-t-2 border-t-premium-champagne">
                 <div class="text-center border-b border-white/5 pb-8 mb-10 relative">
                     <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
                     <h2 class="font-serif text-3xl font-bold text-white tracking-widest uppercase">La Ruota della Vita</h2>
                     <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Fotografa il tuo Equilibrio</p>
                 </div>
-                
                 <div class="ruota-container">
                     <div class="ruota-controls">
-                        <p class="text-gray-400 text-sm mb-6">Trascina gli indicatori per dare un punteggio da 1 a 10 al tuo grado di soddisfazione attuale per ogni area.</p>
+                        <p class="text-gray-400 text-sm mb-6">Trascina gli indicatori per dare un punteggio da 1 a 10 al tuo grado di soddisfazione attuale.</p>
                         <div id="inputs-container-ruota" class="mb-8"></div>
-                        
                         <div class="border-t border-white/10 pt-8">
                             <h3 class="text-lg text-white font-serif mb-4">Ottieni l'Analisi Completa</h3>
                             <input type="text" id="ruota-nome" class="input-lead" placeholder="Nome Completo" oninput="this.classList.remove('input-error')">
@@ -220,9 +186,7 @@
                 </div>
             </div>
 
-            <!-- ========================================== -->
-            <!-- APP 2: RUOTA DELL'ATLETA -->
-            <!-- ========================================== -->
+            <!-- RUOTA DELL'ATLETA -->
             <div id="ruota-atleta-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl border-t-2 border-t-premium-champagne">
                 <div class="text-center border-b border-white/5 pb-8 mb-10 relative">
                     <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
@@ -230,28 +194,23 @@
                     <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Costruisci la tua Performance</p>
                 </div>
                 <div class="text-center mb-8"><p class="text-gray-300 font-medium">Clicca e trascina all'interno del grafico per impostare la tua valutazione (da 0 a 10).</p></div>
-                
                 <div class="interactive-canvas-container"><canvas id="wheelCanvasAtleta" width="500" height="500"></canvas></div>
                 <div class="reset-btn"><button onclick="resetScoresAtleta()">Ricomincia da Zero</button></div>
-
                 <div class="border-t border-white/10 pt-8 max-w-lg mx-auto mt-8">
                     <h3 class="text-center text-xl text-white font-serif mb-6">Ottieni l'Analisi della Performance</h3>
                     <input type="text" id="atleta-nome" class="input-lead" placeholder="Nome Completo" oninput="this.classList.remove('input-error')">
                     <input type="email" id="atleta-email" class="input-lead" placeholder="Email" oninput="this.classList.remove('input-error')">
                     <input type="tel" id="atleta-tel" class="input-lead" placeholder="Telefono" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.classList.remove('input-error')">
-                    <textarea id="atleta-note" class="input-lead h-24 resize-none" placeholder="Note facoltative: Obiettivi, sport praticato, punti di forza..."></textarea>
-                    
+                    <textarea id="atleta-note" class="input-lead h-24 resize-none" placeholder="Note facoltative..."></textarea>
                     <div class="flex items-start gap-3 mt-4 mb-6 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="atleta-privBox">
                         <input type="checkbox" id="atleta-priv" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('atleta-privBox').classList.remove('privacy-error')">
-                        <label for="atleta-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dati personali ai sensi del GDPR.</label>
+                        <label for="atleta-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dati personali.</label>
                     </div>
                     <button id="btnInviaAtleta" class="tasto-assessment btn-gold-solid w-full" onclick="inviaDatiAtleta()">Invia al Coach</button>
                 </div>
             </div>
 
-            <!-- ========================================== -->
-            <!-- APP 3: RUOTA DEL MANAGER -->
-            <!-- ========================================== -->
+            <!-- RUOTA DEL MANAGER -->
             <div id="ruota-manager-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl border-t-2 border-t-premium-champagne">
                 <div class="text-center border-b border-white/5 pb-8 mb-10 relative">
                     <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
@@ -259,35 +218,29 @@
                     <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Leadership & Business</p>
                 </div>
                 <div class="text-center mb-8"><p class="text-gray-300 font-medium">Clicca e trascina all'interno del grafico per impostare la tua valutazione (da 0 a 10).</p></div>
-                
                 <div class="interactive-canvas-container"><canvas id="wheelCanvasManager" width="500" height="500"></canvas></div>
                 <div class="reset-btn"><button onclick="resetScoresManager()">Ricomincia da Zero</button></div>
-
                 <div class="border-t border-white/10 pt-8 max-w-lg mx-auto mt-8">
                     <h3 class="text-center text-xl text-white font-serif mb-6">Ottieni l'Analisi Manageriale</h3>
                     <input type="text" id="manager-nome" class="input-lead" placeholder="Nome Completo" oninput="this.classList.remove('input-error')">
                     <input type="email" id="manager-email" class="input-lead" placeholder="Email" oninput="this.classList.remove('input-error')">
                     <input type="tel" id="manager-tel" class="input-lead" placeholder="Telefono" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.classList.remove('input-error')">
-                    <textarea id="manager-note" class="input-lead h-24 resize-none" placeholder="Note facoltative: Ruolo attuale, sfide aziendali, obiettivi..."></textarea>
-                    
+                    <textarea id="manager-note" class="input-lead h-24 resize-none" placeholder="Note facoltative..."></textarea>
                     <div class="flex items-start gap-3 mt-4 mb-6 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="manager-privBox">
                         <input type="checkbox" id="manager-priv" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('manager-privBox').classList.remove('privacy-error')">
-                        <label for="manager-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dati personali ai sensi del GDPR.</label>
+                        <label for="manager-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dati personali.</label>
                     </div>
                     <button id="btnInviaManager" class="tasto-assessment btn-gold-solid w-full" onclick="inviaDatiManager()">Invia al Coach</button>
                 </div>
             </div>
 
-            <!-- ========================================== -->
-            <!-- APP 4: ONE PROFILE ASSESSMENT -->
-            <!-- ========================================== -->
+            <!-- ONE PROFILE -->
             <div id="one-profile-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl max-w-2xl mx-auto border-t-2 border-t-premium-champagne">
                 <div class="text-center border-b border-white/5 pb-8 mb-8 relative">
                     <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
                     <h2 class="font-serif text-3xl font-bold text-white tracking-widest uppercase">ONE Profile</h2>
                     <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Observe • Navigate • Evolve</p>
                 </div>
-
                 <div id="step-observe">
                     <div class="progress-container"><div id="bar-fill"></div></div>
                     <div id="testo-domanda" class="text-xl md:text-2xl text-white font-serif font-light text-center mb-10 min-h-[80px] flex items-center justify-center leading-snug"></div>
@@ -298,7 +251,6 @@
                         <button type="button" class="tasto-assessment" onclick="prossima(0)">Per nulla</button>
                     </div>
                 </div>
-
                 <div id="step-lead" class="hidden-step text-center">
                     <h3 class="text-2xl text-white font-serif mb-2">Elaborazione Dati</h3>
                     <p class="text-gray-400 text-sm mb-8">Inserisci i tuoi dati per sbloccare la tua Mappa delle Potenzialità.</p>
@@ -307,11 +259,10 @@
                     <input type="tel" id="tel-one" class="input-lead" placeholder="Telefono" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                     <div class="flex items-start gap-3 mt-6 mb-8 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="privacy-container-one">
                         <input type="checkbox" id="privacy-one" class="mt-1 accent-premium-champagne cursor-pointer"> 
-                        <label for="privacy-one" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dati personali ai sensi del GDPR.</label>
+                        <label for="privacy-one" class="text-xs text-gray-400 cursor-pointer">Autorizzo il trattamento dei dati personali.</label>
                     </div>
                     <button id="btnInviaOne" type="button" class="tasto-assessment btn-gold-solid" onclick="inviaDatiOne()">Genera la mia Mappa</button>
                 </div>
-
                 <div id="step-result" class="hidden-step text-center">
                     <h3 class="text-3xl text-premium-champagne font-serif mb-2">La Tua Mappa</h3>
                     <p class="text-gray-400 text-sm mb-6">L'osservazione è completata.</p>
@@ -336,10 +287,6 @@
     <script>lucide.createIcons();</script>
 
     <script>
-        // 1. GESTIONE UI GENERALE E PROTEZIONE
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.onkeydown = function(e) { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 67 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false; };
-
         function avviaTest(id) {
             document.getElementById('meta-assessment').classList.add('hidden-step');
             document.getElementById('hub-header').classList.add('hidden-step');
@@ -350,13 +297,8 @@
         }
         function mostraComingSoon(nome) { document.getElementById('meta-assessment').classList.add('hidden-step'); document.getElementById('modulo-nome').innerText = nome; document.getElementById('coming-soon-msg').classList.remove('hidden-step'); }
         function tornaIndietro() { document.getElementById('one-profile-app').classList.add('hidden-step'); document.getElementById('ruota-vita-app').classList.add('hidden-step'); document.getElementById('ruota-atleta-app').classList.add('hidden-step'); document.getElementById('ruota-manager-app').classList.add('hidden-step'); document.getElementById('coming-soon-msg').classList.add('hidden-step'); document.getElementById('meta-assessment').classList.remove('hidden-step'); document.getElementById('hub-header').classList.remove('hidden-step'); }
-        
-        // Helper condiviso Canvas
         function drawRoundedRect(ctx, x, y, w, h, r, fCol) { ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r); ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h); ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r); ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath(); ctx.fillStyle=fCol; ctx.fill(); }
 
-        // ==========================================
-        // 2. RUOTA DELLA VITA (Chart.js)
-        // ==========================================
         const ruota_areas = ["Ambiente", "Crescita", "Emozioni", "Famiglia", "Finanze", "Lavoro", "Missione", "Salute", "Svago", "Sociale", "Amore"];
         const ruota_colors = ['#c5a059', '#34a853', '#fbbc04', '#ea4335', '#a29bfe', '#46bdc6', '#ff8343', '#2ecc71', '#9e9e9e', '#03a9f4', '#e91e63'];
         let myChartRuota = null, ruotaIniziata = false;
@@ -373,20 +315,11 @@
             btn.innerText = "INVIO IN CORSO..."; btn.disabled = true;
             let payload = { _subject: "🎯 Nuovo Lead: Ruota della Vita", Nome: n.value, Email: e.value, Telefono: t.value };
             ruota_areas.forEach((area, i) => { payload[area] = myChartRuota.data.datasets[0].data[i]; });
-            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(res => res.json()).then(data => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color = "#000"; alert("Analisi inviata!"); }).catch(error => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; alert("Analisi acquisita."); });
+            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(res => res.json()).then(data => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; alert("Analisi inviata!"); }).catch(error => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; });
         }
 
-        // ==========================================
-        // 3. RUOTA DELL'ATLETA (Canvas)
-        // ==========================================
-        const catAtleta = [
-            { name: "TECNICA", color: "#e53935", rgb: "229, 57, 53" }, { name: "TATTICA", color: "#3949ab", rgb: "57, 73, 171" },
-            { name: "PREP. FISICA", color: "#00897b", rgb: "0, 137, 123" }, { name: "RECUPERO", color: "#8e24aa", rgb: "142, 36, 170" },
-            { name: "ALIMENTAZIONE", color: "#43a047", rgb: "67, 160, 71" }, { name: "FOCUS MENTALE", color: "#d81b60", rgb: "216, 27, 96" },
-            { name: "MOTIVAZIONE", color: "#fb8c00", rgb: "251, 140, 0" }, { name: "VITA PRIVATA", color: "#00acc1", rgb: "0, 172, 193" }
-        ];
+        const catAtleta = [{ name: "TECNICA", color: "#e53935", rgb: "229, 57, 53" }, { name: "TATTICA", color: "#3949ab", rgb: "57, 73, 171" }, { name: "PREP. FISICA", color: "#00897b", rgb: "0, 137, 123" }, { name: "RECUPERO", color: "#8e24aa", rgb: "142, 36, 170" }, { name: "ALIMENTAZIONE", color: "#43a047", rgb: "67, 160, 71" }, { name: "FOCUS", color: "#d81b60", rgb: "216, 27, 96" }, { name: "MOTIVAZIONE", color: "#fb8c00", rgb: "251, 140, 0" }, { name: "VITA PRIVATA", color: "#00acc1", rgb: "0, 172, 193" }];
         let scoresAtleta = [0,0,0,0,0,0,0,0], canvasAtleta, ctxAtleta, isDraggingAtleta = false, maxRad = 160, inRad = 30, atletaIniziata = false;
-
         function initAtleta() {
             atletaIniziata = true; canvasAtleta = document.getElementById('wheelCanvasAtleta'); ctxAtleta = canvasAtleta.getContext('2d'); drawWheelAtleta();
             const handleAtletaInter = (e) => {
@@ -442,20 +375,11 @@
             btn.innerText = "INVIO IN CORSO..."; btn.disabled = true;
             let payload = { _subject: "🏃 Nuovo Lead: Ruota dell'Atleta", Nome: n.value, Email: e.value, Telefono: t.value, Note_Aggiuntive: note.value };
             catAtleta.forEach((cat, i) => { payload[cat.name] = scoresAtleta[i]; });
-            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(res => res.json()).then(data => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; alert("Analisi Atleta inviata con successo!"); }).catch(error => { btn.innerText="INVIATO ✓"; btn.style.background="#2ecc71"; btn.style.color="#000"; });
+            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(res => res.json()).then(data => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; alert("Analisi Atleta inviata!"); }).catch(error => { btn.innerText="INVIATO ✓"; btn.style.background="#2ecc71"; btn.style.color="#000"; });
         }
 
-        // ==========================================
-        // 4. RUOTA DEL MANAGER (Canvas)
-        // ==========================================
-        const catManager = [
-            { name: "LEADERSHIP", color: "#e53935", rgb: "229, 57, 53" }, { name: "VISIONE STRATEGICA", color: "#3949ab", rgb: "57, 73, 171" },
-            { name: "GESTIONE TEAM", color: "#00897b", rgb: "0, 137, 123" }, { name: "PROBLEM SOLVING", color: "#8e24aa", rgb: "142, 36, 170" },
-            { name: "TIME MANAGEMENT", color: "#43a047", rgb: "67, 160, 71" }, { name: "NEGOZIAZIONE", color: "#d81b60", rgb: "216, 27, 96" },
-            { name: "INT. EMOTIVA", color: "#fb8c00", rgb: "251, 140, 0" }, { name: "GESTIONE STRESS", color: "#00acc1", rgb: "0, 172, 193" }
-        ];
+        const catManager = [{ name: "LEADERSHIP", color: "#e53935", rgb: "229, 57, 53" }, { name: "STRATEGIA", color: "#3949ab", rgb: "57, 73, 171" }, { name: "TEAM", color: "#00897b", rgb: "0, 137, 123" }, { name: "PROBLEM SOLVING", color: "#8e24aa", rgb: "142, 36, 170" }, { name: "TIME MGMT", color: "#43a047", rgb: "67, 160, 71" }, { name: "NEGOZIAZIONE", color: "#d81b60", rgb: "216, 27, 96" }, { name: "INT. EMOTIVA", color: "#fb8c00", rgb: "251, 140, 0" }, { name: "STRESS MGMT", color: "#00acc1", rgb: "0, 172, 193" }];
         let scoresManager = [0,0,0,0,0,0,0,0], canvasManager, ctxManager, isDraggingManager = false, managerIniziata = false;
-
         function initManager() {
             managerIniziata = true; canvasManager = document.getElementById('wheelCanvasManager'); ctxManager = canvasManager.getContext('2d'); drawWheelManager();
             const handleManagerInter = (e) => {
@@ -511,12 +435,9 @@
             btn.innerText = "INVIO IN CORSO..."; btn.disabled = true;
             let payload = { _subject: "👔 Nuovo Lead: Ruota del Manager", Nome: n.value, Email: e.value, Telefono: t.value, Note_Aggiuntive: note.value };
             catManager.forEach((cat, i) => { payload[cat.name] = scoresManager[i]; });
-            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(res => res.json()).then(data => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; alert("Analisi Manager inviata con successo!"); }).catch(error => { btn.innerText="INVIATO ✓"; btn.style.background="#2ecc71"; btn.style.color="#000"; });
+            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(res => res.json()).then(data => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; alert("Analisi Manager inviata!"); }).catch(error => { btn.innerText="INVIATO ✓"; btn.style.background="#2ecc71"; btn.style.color="#000"; });
         }
 
-        // ==========================================
-        // 5. ONE PROFILE
-        // ==========================================
         const domande_one = [{cat:"Drive", q:"Quanto senti forte la spinta verso l'ambizione e il successo?"},{cat:"Logica", q:"Preferisci decidere basandoti su dati e fatti oggettivi?"},{cat:"Empatia", q:"Quanto sei influenzato dallo stato d'animo di chi ti circonda?"},{cat:"Visione", q:"Quanto sei proiettato verso il futuro e progetti innovativi?"},{cat:"Stabilita", q:"Cerchi attivamente sicurezza e routine nel tuo quotidiano?"},{cat:"Social", q:"Quanto è vitale per te il contatto costante con le persone?"}];
         let step_one = 0, punteggi_one = { Drive:0, Logica:0, Empatia:0, Visione:0, Stabilita:0, Social:0 };
         window.prossima = function(v) { punteggi_one[domande_one[step_one].cat] = v; step_one++; if(step_one < domande_one.length) { document.getElementById("testo-domanda").innerText = domande_one[step_one].q; document.getElementById("bar-fill").style.width = ((step_one + 1) / domande_one.length * 100) + "%"; } else { document.getElementById("step-observe").classList.add("hidden-step"); document.getElementById("step-lead").classList.remove("hidden-step"); } };
