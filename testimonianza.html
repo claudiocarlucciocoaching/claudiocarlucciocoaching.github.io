@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invia Testimonianza | Claudio Carluccio Coaching</title>
+    <title>Testimonianze | Claudio Carluccio Coaching</title>
     
     <link rel="icon" type="image/png" href="logo-claudio.png">
     <link rel="apple-touch-icon" href="logo-claudio.png">
@@ -30,7 +30,10 @@
         .nav-link:hover, .nav-link.active { color: #ffffff; }
         .nav-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #E5D0A1; transition: width 0.3s ease; }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        
         .glass-panel { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.1); }
+        
+        /* Form Styles */
         .form-group-contact { margin-bottom: 24px; }
         .form-group-contact label { display: block; font-size: 11px; font-weight: 500; color: #E5D0A1; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 2px; }
         .form-control-contact {
@@ -40,12 +43,21 @@
         }
         .form-control-contact:focus { border-color: #E5D0A1; background: rgba(229, 208, 161, 0.02); }
         textarea.form-control-contact { resize: vertical; min-height: 140px; }
+        
+        /* Buttons */
         .btn-contact {
             width: 100%; padding: 18px; background: transparent; border: 1px solid #E5D0A1;
             color: #E5D0A1; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
             cursor: pointer; transition: all 0.4s ease; display: flex; justify-content: center; align-items: center; gap: 10px;
         }
         .btn-contact:hover { background: #E5D0A1; color: #050505; }
+        
+        .btn-gold-solid { 
+            background: #E5D0A1; color: #050505; transition: all 0.4s ease; 
+            display: inline-flex; items-center; justify-center; gap: 8px;
+            padding: 16px 32px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-radius: 2px;
+        }
+        .btn-gold-solid:hover { background: #C5A880; transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(229, 208, 161, 0.2); }
     </style>
 </head>
 <body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950">
@@ -68,52 +80,108 @@
     </header>
 
     <main class="flex-grow pt-32 pb-24 relative px-6">
-        <div class="max-w-3xl mx-auto">
+        <div class="max-w-7xl mx-auto">
             
-            <div class="text-center mb-12">
-                <h1 class="font-serif text-4xl md:text-5xl font-bold text-white mb-4">La Tua Esperienza</h1>
-                <p class="text-gray-400 font-light text-lg">Condividi i risultati che abbiamo raggiunto insieme. Il tuo feedback è prezioso.</p>
+            <!-- HERO & CALL TO ACTION -->
+            <div class="text-center mb-20 flex flex-col items-center">
+                <h1 class="font-serif text-4xl md:text-5xl font-bold text-white mb-6">Storie di Successo</h1>
+                <p class="text-gray-400 font-light text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+                    Scopri i risultati raggiunti da chi ha già iniziato il suo percorso. La trasformazione dei miei clienti è il mio più grande successo.
+                </p>
+                <a href="#modulo-testimonianza" class="btn-gold-solid">
+                    <span>Invia la tua testimonianza</span>
+                    <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                </a>
             </div>
 
-            <!-- MODULO TESTIMONIANZA (FORMSUBMIT) -->
-            <div class="glass-panel p-8 md:p-12 rounded-md">
-                <form action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST">
-                    
-                    <!-- Impostazioni FormSubmit con Redirect alla pagina di Grazie -->
-                    <input type="hidden" name="_subject" value="🌟 Nuova Testimonianza Ricevuta!">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_next" value="https://claudiocarlucciocoaching.com/grazie.html"> 
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="form-group-contact">
-                            <label>Nome (o Iniziali)</label>
-                            <input type="text" name="Nome" class="form-control-contact" placeholder="Es. Mario R. oppure Mario Rossi" required>
+            <!-- GRIGLIA TESTIMONIANZE (Esempi da sostituire) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
+                
+                <!-- Card 1 -->
+                <div class="glass-panel p-8 rounded-md relative group hover:border-premium-champagne/30 transition-all duration-500">
+                    <i data-lucide="quote" class="w-10 h-10 text-premium-champagne/10 absolute top-6 right-6"></i>
+                    <p class="text-gray-300 font-light text-sm leading-relaxed mb-8 italic relative z-10">
+                        "Il percorso con Claudio ha letteralmente cambiato il mio approccio al business. Ho acquisito una chiarezza mentale e una capacità decisionale che cercavo da anni."
+                    </p>
+                    <div class="relative z-10 border-t border-white/10 pt-4 mt-auto">
+                        <h4 class="text-white font-serif font-semibold text-lg">Marco R.</h4>
+                        <p class="text-premium-champagne text-xs uppercase tracking-wider mt-1">Imprenditore</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-panel p-8 rounded-md relative group hover:border-premium-champagne/30 transition-all duration-500">
+                    <i data-lucide="quote" class="w-10 h-10 text-premium-champagne/10 absolute top-6 right-6"></i>
+                    <p class="text-gray-300 font-light text-sm leading-relaxed mb-8 italic relative z-10">
+                        "Un'esperienza trasformativa. Ho ritrovato il focus che avevo perso e superato blocchi che mi trascinavo da tempo. Altamente raccomandato."
+                    </p>
+                    <div class="relative z-10 border-t border-white/10 pt-4 mt-auto">
+                        <h4 class="text-white font-serif font-semibold text-lg">Laura B.</h4>
+                        <p class="text-premium-champagne text-xs uppercase tracking-wider mt-1">Manager</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-panel p-8 rounded-md relative group hover:border-premium-champagne/30 transition-all duration-500">
+                    <i data-lucide="quote" class="w-10 h-10 text-premium-champagne/10 absolute top-6 right-6"></i>
+                    <p class="text-gray-300 font-light text-sm leading-relaxed mb-8 italic relative z-10">
+                        "Le sessioni sono state un investimento su me stesso formidabile. Claudio sa ascoltare e ti fornisce strumenti pratici da applicare subito."
+                    </p>
+                    <div class="relative z-10 border-t border-white/10 pt-4 mt-auto">
+                        <h4 class="text-white font-serif font-semibold text-lg">Alessandro T.</h4>
+                        <p class="text-premium-champagne text-xs uppercase tracking-wider mt-1">Libero Professionista</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- SEZIONE FORM DI INVIO (Ancorata al pulsante) -->
+            <!-- "scroll-mt-32" serve a non far coprire il titolo dal menu fisso in alto -->
+            <div id="modulo-testimonianza" class="max-w-3xl mx-auto scroll-mt-32">
+                
+                <div class="text-center mb-10">
+                    <h2 class="font-serif text-3xl font-bold text-white mb-3">La Tua Esperienza</h2>
+                    <p class="text-gray-400 font-light">Condividi i risultati che abbiamo raggiunto insieme.</p>
+                </div>
+
+                <div class="glass-panel p-8 md:p-12 rounded-md">
+                    <!-- Il form FormSubmit intatto -->
+                    <form action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST">
+                        
+                        <input type="hidden" name="_subject" value="🌟 Nuova Testimonianza Ricevuta!">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_next" value="https://claudiocarlucciocoaching.com/grazie.html"> 
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="form-group-contact">
+                                <label>Nome (o Iniziali)</label>
+                                <input type="text" name="Nome" class="form-control-contact" placeholder="Es. Mario R." required>
+                            </div>
+                            <div class="form-group-contact">
+                                <label>Ruolo / Professione</label>
+                                <input type="text" name="Professione" class="form-control-contact" placeholder="Es. Imprenditore">
+                            </div>
                         </div>
+
                         <div class="form-group-contact">
-                            <label>Ruolo / Professione</label>
-                            <input type="text" name="Professione" class="form-control-contact" placeholder="Es. Imprenditore, Atleta, ecc.">
+                            <label>La tua Testimonianza</label>
+                            <textarea name="Messaggio" class="form-control-contact" placeholder="Racconta la tua esperienza e i risultati ottenuti..." required></textarea>
                         </div>
-                    </div>
 
-                    <div class="form-group-contact">
-                        <label>La tua Testimonianza</label>
-                        <textarea name="Messaggio" class="form-control-contact" placeholder="Racconta la tua esperienza di coaching e i risultati che hai ottenuto..." required></textarea>
-                    </div>
+                        <div class="form-group-contact bg-premium-800/40 p-4 border border-white/5 rounded mt-6">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" name="Consenso_Pubblicazione" required class="mt-1 accent-[#E5D0A1]">
+                                <span class="text-xs text-gray-400">Autorizzo la pubblicazione di questa testimonianza sul sito web e sui canali di Claudio Carluccio Coaching.</span>
+                            </label>
+                        </div>
 
-                    <!-- Checkbox per la Privacy e il consenso alla pubblicazione -->
-                    <div class="form-group-contact bg-premium-800/40 p-4 border border-white/5 rounded mt-6">
-                        <label class="flex items-start gap-3 cursor-pointer">
-                            <input type="checkbox" name="Consenso_Pubblicazione" required class="mt-1 accent-[#E5D0A1]">
-                            <span class="text-xs text-gray-400">Autorizzo la pubblicazione di questa testimonianza sul sito web e sui canali di Claudio Carluccio Coaching.</span>
-                        </label>
-                    </div>
-
-                    <button type="submit" class="btn-contact mt-6">
-                        <span>Invia Testimonianza</span>
-                        <i data-lucide="send" class="w-4 h-4"></i>
-                    </button>
-                </form>
+                        <button type="submit" class="btn-contact mt-6">
+                            <span>Invia Testimonianza</span>
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
             
         </div>
