@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servizi per Coach | Claudio Carluccio Coaching</title>
+    
+    <link rel="icon" type="image/png" href="logo-claudio.png">
+    <link rel="apple-touch-icon" href="logo-claudio.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { premium: { 950: '#050505', 900: '#0a0a0a', 800: '#141414', champagne: '#E5D0A1' } },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { background-color: #050505; color: #f5f5f5; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
+        .nav-link { position: relative; color: #a3a3a3; transition: color 0.3s ease; }
+        .nav-link:hover, .nav-link.active { color: #ffffff; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #E5D0A1; transition: width 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        
+        .glass-panel { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.1); }
+        .btn-gold-solid { background: #E5D0A1; color: #050505; transition: all 0.4s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 32px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-radius: 4px;}
+        .btn-gold-solid:hover { background: #C5A880; transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(229, 208, 161, 0.2); }
+    </style>
+</head>
+<body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="fixed top-0 left-0 right-0 z-[9000] py-6 px-6 md:px-12 bg-premium-950/80 backdrop-blur-2xl border-b border-white/5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors cursor-pointer block">
+                CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
+            </a>
+            
+            <nav class="hidden lg:flex items-center gap-6 text-sm font-light tracking-wide">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="servizi.html" class="nav-link">I Miei Percorsi</a>
+                <a href="servizi-coach.html" class="nav-link text-premium-champagne font-semibold active">Per i Coach</a>
+                <a href="assessment.html" class="nav-link">Assessment</a>
+                <a href="area-riservata.html" class="nav-link">Area Riservata</a>
+                <a href="testimonianza.html" class="nav-link">Testimonianze</a>
+                <a href="contatti.html" class="nav-link">Contattami</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-32 pb-24 relative px-6">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- HERO SECTION B2B -->
+            <div class="text-center mb-20 flex flex-col items-center">
+                <span class="text-premium-champagne text-xs uppercase tracking-[0.3em] font-semibold mb-4 block">B2B Coaching Solutions</span>
+                <h1 class="font-serif text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">L'Infrastruttura per il <span class="text-premium-champagne">Tuo Successo</span></h1>
+                <p class="text-gray-400 font-light text-lg max-w-3xl mx-auto leading-relaxed mb-8">
+                    La maggior parte dei coach ha grandi competenze metodologiche, ma è bloccata da una gestione artigianale della professione. 
+                    Costruisco ecosistemi digitali e fornisco strumenti avanzati (assessment, dashboard, automazioni) per trasformare il tuo metodo in un business scalabile e altospendente.
+                </p>
+                <a href="contatti.html" class="btn-gold-solid">Richiedi una Consulenza Tecnica</a>
+            </div>
+
+            <!-- SERVIZI OFFERTI -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+                
+                <!-- Web Development -->
+                <div class="glass-panel p-10 rounded-xl relative group hover:border-premium-champagne/40 transition-colors">
+                    <i data-lucide="layout-template" class="w-12 h-12 text-premium-champagne mb-6"></i>
+                    <h3 class="font-serif text-2xl text-white font-bold mb-4">Siti Web per Coach (High-Ticket)</h3>
+                    <p class="text-gray-400 font-light leading-relaxed mb-6">
+                        Non il classico sito vetrina WordPress lento e vulnerabile. Sviluppo piattaforme in puro codice (HTML/Tailwind), velocissime, dal design "premium", ottimizzate esclusivamente per la lead generation e la conversione di percorsi ad alto costo.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> Design Nero & Oro Premium</li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> Integrazione Calendly invisibile</li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> Moduli di acquisizione senza database (Zero Spam)</li>
+                    </ul>
+                </div>
+
+                <!-- Licenza Hub & Assessment -->
+                <div class="glass-panel p-10 rounded-xl relative group hover:border-premium-champagne/40 transition-colors border-t-2 border-t-premium-champagne">
+                    <div class="absolute top-4 right-4 bg-premium-champagne/10 text-premium-champagne text-xs uppercase font-bold tracking-widest px-3 py-1 rounded">Il mio Core</div>
+                    <i data-lucide="network" class="w-12 h-12 text-premium-champagne mb-6"></i>
+                    <h3 class="font-serif text-2xl text-white font-bold mb-4">Hub Strategico & Assessment</h3>
+                    <p class="text-gray-400 font-light leading-relaxed mb-6">
+                        Accedi in licenza d'uso al mio "Hub Strategico" o richiedi lo sviluppo di un hub personalizzato per i tuoi coachee. Un'infrastruttura completa per gestire le sessioni e alzare il valore percepito.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> Concessione <strong>Ruota della Vita Dinamica</strong></li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> <strong>Scheda Coachee</strong> e Visualizzatore Progressi</li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> <strong>Assessment O.N.E. / T.W.O.</strong> e Gap Map Strategica</li>
+                    </ul>
+                </div>
+
+                <!-- Sistemi Automazione -->
+                <div class="glass-panel p-10 rounded-xl relative group hover:border-premium-champagne/40 transition-colors">
+                    <i data-lucide="cog" class="w-12 h-12 text-premium-champagne mb-6"></i>
+                    <h3 class="font-serif text-2xl text-white font-bold mb-4">Sistemi e Automazioni</h3>
+                    <p class="text-gray-400 font-light leading-relaxed">
+                        Costruzione di Funnel di acquisizione. Integrazione di moduli per raccogliere testimonianze post-sessione e sistemi per gestire l'onboarding dei clienti in modo automatizzato. Liberati dall'operatività per concentrarti sulle sessioni.
+                    </p>
+                </div>
+
+                <!-- Mentoring PNL e ICF -->
+                <div class="glass-panel p-10 rounded-xl relative group hover:border-premium-champagne/40 transition-colors">
+                    <i data-lucide="book-open" class="w-12 h-12 text-premium-champagne mb-6"></i>
+                    <h3 class="font-serif text-2xl text-white font-bold mb-4">Mentoring & Strumenti PNL</h3>
+                    <p class="text-gray-400 font-light leading-relaxed">
+                        Sfrutta il "Test Metamodello 2.0" e i simulatori ICF Credentialing per affinare la tua tecnica. Ti aiuto a strutturare pacchetti di coaching solidi e a padroneggiare la linguistica di vendita in fase di "Discovery Call".
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- CALL TO ACTION FINALE -->
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h3 class="text-3xl font-serif text-white mb-6">Smettila di fare il tecnico del tuo sito.</h3>
+                <p class="text-gray-400 mb-8">Concentrati sull'aiutare i tuoi clienti. Alla tua infrastruttura di acquisizione e gestione ci penso io.</p>
+                <a href="contatti.html" class="text-premium-champagne font-bold uppercase tracking-widest border-b border-premium-champagne hover:text-white hover:border-white transition-colors pb-1">Prenota una Call Conoscitiva</a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-premium-950 border-t border-white/5 py-12 px-6 text-center text-xs text-gray-500 mt-auto">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <a href="index.html" class="font-serif text-sm font-semibold text-white tracking-widest hover:text-premium-champagne transition-colors">
+                CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
+            </a>
+            <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
+            <div class="flex gap-6">
+                <a href="servizi-coach.html" class="hover:text-premium-champagne transition-colors">Per i Coach</a>
+                <a href="contatti.html" class="hover:text-premium-champagne transition-colors">Contatti</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>
