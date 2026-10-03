@@ -149,8 +149,32 @@
                         <div class="text-premium-champagne text-xs uppercase tracking-widest font-semibold flex items-center gap-2">Avvia Mappatura <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
                     </div>
                 </div>
+
+                <!-- SEZIONE FAQ AGGIUNTA -->
+                <div class="glass-panel p-8 md:p-12 rounded-xl mt-16 border border-white/5">
+                    <h3 class="font-serif text-2xl font-bold text-white mb-8 text-center">Domande Frequenti sugli Assessment</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-premium-champagne font-semibold text-sm uppercase tracking-wider mb-2">Gli assessment sono gratuiti?</h4>
+                            <p class="text-gray-400 text-xs font-light leading-relaxed">Sì, tutti i test di autovalutazione presenti in quest'area sono gratuiti e servono a generare il tuo report iniziale di consapevolezza.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-premium-champagne font-semibold text-sm uppercase tracking-wider mb-2">I miei dati sono al sicuro?</h4>
+                            <p class="text-gray-400 text-xs font-light leading-relaxed">Assolutamente sì. I dati vengono trattati nel pieno rispetto del GDPR e inviati direttamente a Claudio Carluccio per l'analisi confidenziale.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-premium-champagne font-semibold text-sm uppercase tracking-wider mb-2">Cosa succede dopo l'invio?</h4>
+                            <p class="text-gray-400 text-xs font-light leading-relaxed">Riceverai un riscontro diretto e potrai prenotare una sessione strategica di approfondimento per esaminare i risultati insieme.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-premium-champagne font-semibold text-sm uppercase tracking-wider mb-2">Quale test dovrei scegliere?</h4>
+                            <p class="text-gray-400 text-xs font-light leading-relaxed">Se cerchi un bilancio generale parti dalla Ruota della Vita; se hai obiettivi specifici di leadership o sport, scegli i moduli verticali.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
+            <!-- MESSAGGIO COMING SOON -->
             <div id="coming-soon-msg" class="hidden-step glass-panel p-12 text-center rounded-xl border-t-2 border-t-premium-champagne">
                 <i data-lucide="lock" class="w-12 h-12 text-premium-champagne mx-auto mb-6 opacity-50"></i>
                 <h3 class="text-2xl font-serif text-white font-bold mb-4">Assessment in arrivo</h3>
@@ -299,7 +323,7 @@
                     <input type="text" id="nome-burnout" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
                     <input type="email" id="email-burnout" class="input-lead" placeholder="Indirizzo Email *" oninput="this.classList.remove('input-error')">
                     <input type="tel" id="tel-burnout" class="input-lead" placeholder="Numero di Telefono *" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.classList.remove('input-error')">
-                    <div class="flex items-start gap-3 mt-6 mb-8 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="privacy-container-burnout">
+                    <div class="flex items-start gap-3 mt-4 mb-6 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="privacy-container-burnout">
                         <input type="checkbox" id="privacy-burnout" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('privacy-container-burnout').classList.remove('privacy-error')"> 
                         <label for="privacy-burnout" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per ricevere il report di analisi e comunicazioni di coaching. *</label>
                     </div>
