@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Kit del Coach Digitale (Capitolo 1) | Claudio Carluccio Coaching</title>
+    
+    <link rel="icon" type="image/png" href="logo-claudio.png">
+    <link rel="apple-touch-icon" href="logo-claudio.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { premium: { 950: '#050505', 900: '#0a0a0a', 800: '#141414', champagne: '#E5D0A1' } },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { background-color: #050505; color: #f5f5f5; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; }
+        .glass-panel { background: rgba(20, 20, 20, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.15); }
+        .btn-gold-solid { background: #E5D0A1; color: #050505; transition: all 0.4s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-radius: 4px; cursor: pointer; }
+        .btn-gold-solid:hover { background: #C5A880; transform: translateY(-2px); }
+        .input-lead { width: 100%; padding: 14px 18px; margin: 8px 0; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1); color: white; border-radius: 4px; font-size: 14px; outline: none; }
+        .input-lead:focus { border-color: #E5D0A1; }
+        @media print {
+            body { background: #ffffff !important; color: #000000 !important; }
+            .no-print { display: none !important; }
+            .glass-panel { background: #ffffff !important; border: none !important; color: #000000 !important; box-shadow: none !important; }
+            .text-white { color: #000000 !important; }
+            .text-gray-300, .text-gray-400 { color: #333333 !important; }
+            .text-premium-champagne { color: #8c6d23 !important; }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-premium-champagne selection:text-premium-950 py-12 px-6">
+
+    <header class="max-w-3xl mx-auto w-full text-center mb-10 no-print">
+        <a href="index.html" class="font-serif text-xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors inline-block">
+            CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
+        </a>
+    </header>
+
+    <main class="max-w-3xl mx-auto w-full flex-grow">
+        <div class="glass-panel p-8 md:p-14 rounded-xl shadow-2xl relative border-t-2 border-t-premium-champagne">
+            
+            <!-- Intestazione del Documento -->
+            <div class="text-center border-b border-white/10 pb-8 mb-8">
+                <span class="text-premium-champagne text-xs uppercase tracking-[0.3em] font-semibold mb-3 block">Risorsa Riservata • Whitepaper</span>
+                <h1 class="font-serif text-3xl md:text-4xl font-bold text-white mb-3">Il Kit del Coach Digitale</h1>
+                <p class="text-gray-400 text-sm font-light italic">Come trasformare il tuo metodo in un ecosistema ad alte performance nel rispetto degli standard ICF.</p>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mt-4">Autore: Claudio Carluccio</p>
+            </div>
+
+            <!-- Contenuto del Capitolo 1 -->
+            <div class="space-y-6 text-gray-300 font-light text-base leading-relaxed">
+                <h2 class="font-serif text-2xl text-white font-semibold pt-4 border-b border-white/5 pb-2">Capitolo 1: Superare l'Approccio Artigianale</h2>
+                
+                <p>
+                    La maggior parte dei coach professionisti possiede competenze metodologiche straordinarie. Ore di formazione rigorosa, supervisioni, pratica sul campo e un profondo rispetto per l'etica e la deontologia guidano ogni sessione. Eppure, la stragrande maggioranza dei coach si scontra quotidianamente con un blocco invisibile: <strong class="text-white font-medium">la gestione artigianale della propria attività.</strong>
+                </p>
+
+                <h3 class="font-serif text-xl text-premium-champagne font-semibold pt-2">Il Paradosso della Digitalizzazione Tradizionale</h3>
+                <p>
+                    Quando un coach decide di strutturarsi online, solitamente compie tre errori classici dettati da agenzie generaliste o da soluzioni standard:
+                </p>
+                <ul class="space-y-3 pl-4 border-l-2 border-premium-champagne/40 my-4">
+                    <li><strong class="text-white">1. Siti "Vetrina" Pesanti:</strong> Piattaforme basate su CMS complessi e pieni di plugin che rallentano la navigazione e lasciano falle di sicurezza aperte.</li>
+                    <li><strong class="text-white">2. Confusione di Linguaggio:</strong> Uso di una terminologia ambigua o vicina al mondo clinico, perdendo di vista il vero focus del coaching: la partnership e il potenziale del coachee.</li>
+                    <li><strong class="text-white">3. Assenza di Interattività:</strong> Siti limitati a una lista di tariffe o biografie, senza un'esperienza di autovalutazione immediata per il potenziale cliente.</li>
+                </ul>
+
+                <h3 class="font-serif text-xl text-premium-champagne font-semibold pt-2">Pensare in Ottica di Ecosistema</h3>
+                <p>
+                    Per attrarre clienti ad alto valore (high-ticket), il tuo spazio digitale non deve essere una semplice brochure, ma un <strong>ecosistema di performance</strong> basato su velocità, assessment interattivi e totale trasparenza deontologica.
+                </p>
+            </div>
+
+            <!-- BLOCCO ISCRIZIONE MAILING LIST PER I CAPITOLI SUCCESSIVI -->
+            <div class="mt-16 pt-10 border-t-2 border-premium-champagne/30 text-center bg-premium-900/40 p-8 rounded-lg no-print">
+                <h3 class="font-serif text-2xl font-bold text-white mb-3">Vuoi sbloccare i capitoli successivi?</h3>
+                <p class="text-gray-400 text-sm font-light mb-6 max-w-lg mx-auto">Iscriviti alla lista riservata ai coach professionisti per ricevere direttamente nella tua casella email gli aggiornamenti e le guide avanzate.</p>
+                
+                <form action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" class="max-w-md mx-auto text-left">
+                    <input type="hidden" name="_subject" value="📬 Nuova Iscrizione Mailing List Coach (Whitepaper Completo)">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://claudiocarlucciocoaching.com/grazie.html">
+                    
+                    <label class="block text-xs uppercase tracking-widest text-[#E5D0A1] mb-1">Nome e Cognome *</label>
+                    <input type="text" name="Nome_Iscritto" class="input-lead" placeholder="Il tuo nome" required>
+                    
+                    <label class="block text-xs uppercase tracking-widest text-[#E5D0A1] mb-1 mt-3">Indirizzo Email *</label>
+                    <input type="email" name="Email_Iscritto" class="input-lead" placeholder="latua@email.com" required>
+                    
+                    <button type="submit" class="btn-gold-solid w-full mt-6">Iscriviti eRicevi i Prossimi Capitoli</button>
+                </form>
+            </div>
+
+            <!-- Pulsanti Azione (Stampa / Torna indietro) -->
+            <div class="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 no-print">
+                <button onclick="window.print()" class="text-xs uppercase tracking-widest text-premium-champagne hover:underline flex items-center gap-2">
+                    <i data-lucide="printer" class="w-4 h-4"></i> Stampa o Salva questo Capitolo in PDF
+                </button>
+                <a href="servizi-coach.html" class="text-xs uppercase tracking-widest text-gray-400 hover:text-premium-champagne transition-colors">
+                    ← Torna alla sezione Per i Coach
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="max-w-3xl mx-auto w-full text-center text-xs text-gray-500 mt-12 no-print">
+        <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>
