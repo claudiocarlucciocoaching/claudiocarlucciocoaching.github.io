@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="logo-claudio.png">
     <link rel="apple-touch-icon" href="logo-claudio.png">
     
+    <!-- Librerie essenziali -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
@@ -59,8 +60,8 @@
         .btn-gold-solid:hover { background: #C5A880 !important; }
 
         .progress-container { width: 100%; background: #141414; height: 4px; border-radius: 10px; margin-bottom: 30px; overflow: hidden; border: 1px solid rgba(229, 208, 161, 0.1); }
-        #bar-fill { height: 100%; background: #E5D0A1; width: 16.6%; transition: width 0.5s ease; }
-        #grafico-container-one { position: relative; margin-top: 30px; padding: 20px; background: rgba(20,20,20,0.4); border-radius: 8px;}
+        #bar-fill-one, #bar-fill-burnout { height: 100%; background: #E5D0A1; width: 16.6%; transition: width 0.5s ease; }
+        #grafico-container-one, #grafico-container-burnout { position: relative; margin-top: 30px; padding: 20px; background: rgba(20,20,20,0.4); border-radius: 8px;}
         canvas { max-width: 100%; }
 
         .ruota-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
@@ -140,18 +141,19 @@
                         <h3 class="text-xl font-serif text-white font-semibold mb-3">ONE Profile</h3>
                         <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Mappa i tuoi tratti neuro-comportamentali profondi per sbloccare il tuo potenziale intrinseco.</p>
                     </div>
-                </div>
 
-                <h2 class="text-gray-500 font-serif text-xl mb-6 flex items-center gap-3"><span class="w-8 h-px bg-gray-800"></span> Prossimamente</h2>
-                <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
-                    <div onclick="mostraComingSoon('Valutazione Stress & Burnout')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative opacity-50 hover:opacity-100 max-w-md">
-                        <h3 class="text-lg font-serif text-white font-semibold mb-2">Valutazione Stress & Burnout</h3>
-                        <p class="text-gray-400 text-xs font-light leading-relaxed mb-4 flex-grow">Misura l'affaticamento mentale e previeni il rischio di burnout professionale.</p>
-                        <div class="text-gray-500 text-xs uppercase tracking-widest font-semibold flex items-center gap-2"><i data-lucide="lock" class="w-3 h-3"></i> Bloccato</div>
+                    <!-- SBLOCCATO: STRESS & BURNOUT -->
+                    <div onclick="avviaTest('burnout')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-premium-champagne/30 md:col-span-2">
+                        <div class="absolute top-4 right-4 bg-premium-champagne/10 text-premium-champagne text-xs uppercase font-bold tracking-widest px-3 py-1 rounded">Disponibile Ora</div>
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20"><i data-lucide="activity" class="w-5 h-5"></i></div>
+                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Valutazione Stress & Burnout (Metodo MBI)</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Misura l'affaticamento mentale, il logorio professionale e il rischio di burnout. Ideale per manager, professionisti e docenti.</p>
+                        <div class="text-premium-champagne text-xs uppercase tracking-widest font-semibold flex items-center gap-2">Avvia Test <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
                     </div>
                 </div>
             </div>
 
+            <!-- MESSAGGIO COMING SOON -->
             <div id="coming-soon-msg" class="hidden-step glass-panel p-12 text-center rounded-xl border-t-2 border-t-premium-champagne">
                 <i data-lucide="lock" class="w-12 h-12 text-premium-champagne mx-auto mb-6 opacity-50"></i>
                 <h3 class="text-2xl font-serif text-white font-bold mb-4">Assessment in arrivo</h3>
@@ -242,7 +244,7 @@
                     <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Observe • Navigate • Evolve</p>
                 </div>
                 <div id="step-observe">
-                    <div class="progress-container"><div id="bar-fill"></div></div>
+                    <div class="progress-container"><div id="bar-fill-one"></div></div>
                     <div id="testo-domanda" class="text-xl md:text-2xl text-white font-serif font-light text-center mb-10 min-h-[80px] flex items-center justify-center leading-snug"></div>
                     <div class="space-y-3">
                         <button type="button" class="tasto-assessment" onclick="prossima(30)">Moltissimo</button>
@@ -274,6 +276,50 @@
                 </div>
             </div>
 
+            <!-- VALUTAZIONE STRESS & BURNOUT -->
+            <div id="burnout-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl max-w-2xl mx-auto border-t-2 border-t-premium-champagne">
+                <div class="text-center border-b border-white/5 pb-8 mb-8 relative">
+                    <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+                    <h2 class="font-serif text-3xl font-bold text-white tracking-widest uppercase">Stress & Burnout</h2>
+                    <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Metodo di Analisi MBI</p>
+                </div>
+
+                <div id="burnout-observe">
+                    <div class="progress-container"><div id="bar-fill-burnout"></div></div>
+                    <div id="testo-burnout" class="text-xl md:text-2xl text-white font-serif font-light text-center mb-10 min-h-[80px] flex items-center justify-center leading-snug"></div>
+                    <div class="space-y-3">
+                        <button type="button" class="tasto-assessment" onclick="rispondiBurnout(4)">Molto spesso / Sempre</button>
+                        <button type="button" class="tasto-assessment" onclick="rispondiBurnout(3)">Spesso</button>
+                        <button type="button" class="tasto-assessment" onclick="rispondiBurnout(2)">A volte</button>
+                        <button type="button" class="tasto-assessment" onclick="rispondiBurnout(1)">Raramente</button>
+                        <button type="button" class="tasto-assessment" onclick="rispondiBurnout(0)">Mai</button>
+                    </div>
+                </div>
+
+                <div id="burnout-lead" class="hidden-step text-center">
+                    <h3 class="text-2xl text-white font-serif mb-2">Elaborazione Indice di Stress</h3>
+                    <p class="text-gray-400 text-sm mb-8">Inserisci i tuoi dati per visualizzare il report e ricevere la consulenza preventiva.</p>
+                    <input type="text" id="nome-burnout" class="input-lead" placeholder="Nome Completo">
+                    <input type="email" id="email-burnout" class="input-lead" placeholder="Email">
+                    <input type="tel" id="tel-burnout" class="input-lead" placeholder="Telefono" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <div class="flex items-start gap-3 mt-6 mb-8 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="privacy-container-burnout">
+                        <input type="checkbox" id="privacy-burnout" class="mt-1 accent-premium-champagne cursor-pointer"> 
+                        <label for="privacy-burnout" class="text-xs text-gray-400 cursor-pointer">Autorizzo il trattamento dei dati personali ai sensi del GDPR.</label>
+                    </div>
+                    <button id="btnInviaBurnout" type="button" class="tasto-assessment btn-gold-solid" onclick="inviaDatiBurnout()">Visualizza il Report</button>
+                </div>
+
+                <div id="burnout-result" class="hidden-step text-center">
+                    <h3 class="text-3xl text-premium-champagne font-serif mb-2">Il Tuo Profilo Energetico</h3>
+                    <p class="text-gray-400 text-sm mb-6">Analisi del carico mentale completata.</p>
+                    <div id="grafico-container-burnout"><canvas id="grafico-burnout"></canvas></div>
+                    <div class="mt-10 pt-8 border-t border-white/10">
+                        <p class="text-white font-serif text-xl italic mb-4">"Il recupero non è un lusso, è la base della performance."</p>
+                        <p class="text-sm text-gray-400 uppercase tracking-widest">Claudio Carluccio ti contatterà per definire le strategie di ricarica.</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 
@@ -294,9 +340,10 @@
             else if (id === 'ruota-vita') { document.getElementById('ruota-vita-app').classList.remove('hidden-step'); if(!ruotaIniziata) initRuota(); }
             else if (id === 'ruota-atleta') { document.getElementById('ruota-atleta-app').classList.remove('hidden-step'); if(!atletaIniziata) initAtleta(); }
             else if (id === 'ruota-manager') { document.getElementById('ruota-manager-app').classList.remove('hidden-step'); if(!managerIniziata) initManager(); }
+            else if (id === 'burnout') { document.getElementById('burnout-app').classList.remove('hidden-step'); if(step_burnout === 0) document.getElementById("testo-burnout").innerText = domande_burnout[0].q; }
         }
         function mostraComingSoon(nome) { document.getElementById('meta-assessment').classList.add('hidden-step'); document.getElementById('modulo-nome').innerText = nome; document.getElementById('coming-soon-msg').classList.remove('hidden-step'); }
-        function tornaIndietro() { document.getElementById('one-profile-app').classList.add('hidden-step'); document.getElementById('ruota-vita-app').classList.add('hidden-step'); document.getElementById('ruota-atleta-app').classList.add('hidden-step'); document.getElementById('ruota-manager-app').classList.add('hidden-step'); document.getElementById('coming-soon-msg').classList.add('hidden-step'); document.getElementById('meta-assessment').classList.remove('hidden-step'); document.getElementById('hub-header').classList.remove('hidden-step'); }
+        function tornaIndietro() { document.getElementById('one-profile-app').classList.add('hidden-step'); document.getElementById('ruota-vita-app').classList.add('hidden-step'); document.getElementById('ruota-atleta-app').classList.add('hidden-step'); document.getElementById('ruota-manager-app').classList.add('hidden-step'); document.getElementById('burnout-app').classList.add('hidden-step'); document.getElementById('coming-soon-msg').classList.add('hidden-step'); document.getElementById('meta-assessment').classList.remove('hidden-step'); document.getElementById('hub-header').classList.remove('hidden-step'); }
         function drawRoundedRect(ctx, x, y, w, h, r, fCol) { ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r); ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h); ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r); ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath(); ctx.fillStyle=fCol; ctx.fill(); }
 
         const ruota_areas = ["Ambiente", "Crescita", "Emozioni", "Famiglia", "Finanze", "Lavoro", "Missione", "Salute", "Svago", "Sociale", "Amore"];
@@ -440,7 +487,7 @@
 
         const domande_one = [{cat:"Drive", q:"Quanto senti forte la spinta verso l'ambizione e il successo?"},{cat:"Logica", q:"Preferisci decidere basandoti su dati e fatti oggettivi?"},{cat:"Empatia", q:"Quanto sei influenzato dallo stato d'animo di chi ti circonda?"},{cat:"Visione", q:"Quanto sei proiettato verso il futuro e progetti innovativi?"},{cat:"Stabilita", q:"Cerchi attivamente sicurezza e routine nel tuo quotidiano?"},{cat:"Social", q:"Quanto è vitale per te il contatto costante con le persone?"}];
         let step_one = 0, punteggi_one = { Drive:0, Logica:0, Empatia:0, Visione:0, Stabilita:0, Social:0 };
-        window.prossima = function(v) { punteggi_one[domande_one[step_one].cat] = v; step_one++; if(step_one < domande_one.length) { document.getElementById("testo-domanda").innerText = domande_one[step_one].q; document.getElementById("bar-fill").style.width = ((step_one + 1) / domande_one.length * 100) + "%"; } else { document.getElementById("step-observe").classList.add("hidden-step"); document.getElementById("step-lead").classList.remove("hidden-step"); } };
+        window.prossima = function(v) { punteggi_one[domande_one[step_one].cat] = v; step_one++; if(step_one < domande_one.length) { document.getElementById("testo-domanda").innerText = domande_one[step_one].q; document.getElementById("bar-fill-one").style.width = ((step_one + 1) / domande_one.length * 100) + "%"; } else { document.getElementById("step-observe").classList.add("hidden-step"); document.getElementById("step-lead").classList.remove("hidden-step"); } };
         window.inviaDatiOne = function() {
             let n = document.getElementById("nome-one"), e = document.getElementById("email-one"), t = document.getElementById("tel-one"), p = document.getElementById("privacy-one");
             let valid = true; if(n.value.length < 2) { n.classList.add("input-error"); valid = false; } if(!e.value.includes("@") || e.value.length < 5) { e.classList.add("input-error"); valid = false; } if(t.value.length < 6) { t.classList.add("input-error"); valid = false; } if(!p.checked) { document.getElementById("privacy-container-one").classList.add("privacy-error"); valid = false; } if(!valid) return;
@@ -449,6 +496,95 @@
             fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(res => res.json()).then(data => { document.getElementById("step-lead").classList.add("hidden-step"); document.getElementById("step-result").classList.remove("hidden-step"); window.creaGraficoOne(); }).catch(err => { document.getElementById("step-lead").classList.add("hidden-step"); document.getElementById("step-result").classList.remove("hidden-step"); window.creaGraficoOne(); });
         };
         window.creaGraficoOne = function() { new Chart(document.getElementById("grafico-one").getContext("2d"), { type: "radar", data: { labels: ["Drive", "Logica", "Empatia", "Visione", "Stabilità", "Social"], datasets: [{ data: [punteggi_one.Drive, punteggi_one.Logica, punteggi_one.Empatia, punteggi_one.Visione, punteggi_one.Stabilita, punteggi_one.Social], backgroundColor: "rgba(229, 208, 161, 0.3)", borderColor: "#E5D0A1", borderWidth: 2, pointBackgroundColor: "#fff" }] }, options: { scales: { r: { grid: { color: "rgba(255,255,255,0.1)" }, pointLabels: { color: "#E5D0A1", font: { size: 12, family: "'Inter', sans-serif" } }, ticks: { display: false }, min: 0, max: 30 } }, plugins: { legend: { display: false } } } }); };
+
+        // ==========================================
+        // 6. VALUTAZIONE STRESS & BURNOUT (MBI)
+        // ==========================================
+        const domande_burnout = [
+            { cat: "Esaurimento", q: "Ti senti emotivamente svuotato e stanco a causa del tuo lavoro o della tua routine?" },
+            { cat: "Esaurimento", q: "Ti senti esausto già al mattino quando devi affrontare la giornata?" },
+            { cat: "Distacco", q: "Hai sviluppato una certa freddezza o cinismo verso le persone con cui ti relazioni o lavori?" },
+            { cat: "Distacco", q: "Hai l'impressione di trattare le persone come oggetti impersonali anziché con empatia?" },
+            { cat: "Realizzazione", q: "Ti senti efficiente e capace di portare a termine cose di valore nel tuo quotidiano?" },
+            { cat: "Realizzazione", q: "Ti senti gratificato e stimolato dai traguardi che raggiungi?" }
+        ];
+        let step_burnout = 0;
+        let punteggi_burnout = { Esaurimento: 0, Distacco: 0, Realizzazione: 0 };
+
+        window.rispondiBurnout = function(valore) {
+            let cat = domande_burnout[step_burnout].cat;
+            punteggi_burnout[cat] += valore;
+            step_burnout++;
+
+            if(step_burnout < domande_burnout.length) {
+                document.getElementById("testo-burnout").innerText = domande_burnout[step_burnout].q;
+                document.getElementById("bar-fill-burnout").style.width = ((step_burnout + 1) / domande_burnout.length * 100) + "%";
+            } else {
+                document.getElementById("burnout-observe").classList.add("hidden-step");
+                document.getElementById("burnout-lead").classList.remove("hidden-step");
+            }
+        };
+
+        window.inviaDatiBurnout = function() {
+            let n = document.getElementById("nome-burnout"), e = document.getElementById("email-burnout"), t = document.getElementById("tel-burnout"), p = document.getElementById("privacy-burnout");
+            let valid = true;
+            if(n.value.length < 2) { n.classList.add("input-error"); valid = false; }
+            if(!e.value.includes("@") || e.value.length < 5) { e.classList.add("input-error"); valid = false; }
+            if(t.value.length < 6) { t.classList.add("input-error"); valid = false; }
+            if(!p.checked) { document.getElementById("privacy-container-burnout").classList.add("privacy-error"); valid = false; }
+            if(!valid) return;
+
+            let btn = document.getElementById('btnInviaBurnout');
+            btn.innerText = "ELABORAZIONE..."; btn.disabled = true;
+
+            let payload = {
+                _subject: "🔥 Nuovo Lead: Test Stress & Burnout",
+                Nome: n.value,
+                Email: e.value,
+                Telefono: t.value,
+                ...punteggi_burnout
+            };
+
+            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("burnout-lead").classList.add("hidden-step");
+                document.getElementById("burnout-result").classList.remove("hidden-step");
+                window.creaGraficoBurnout();
+            })
+            .catch(err => {
+                document.getElementById("burnout-lead").classList.add("hidden-step");
+                document.getElementById("burnout-result").classList.remove("hidden-step");
+                window.creaGraficoBurnout();
+            });
+        };
+
+        window.creaGraficoBurnout = function() {
+            let ctx = document.getElementById("grafico-burnout").getContext("2d");
+            new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: ["Esaurimento Emotivo", "Distacco / Cinismo", "Realizzazione Personale"],
+                    datasets: [{
+                        data: [punteggi_burnout.Esaurimento, punteggi_burnout.Distacco, punteggi_burnout.Realizzazione],
+                        backgroundColor: ["rgba(231, 76, 60, 0.6)", "rgba(241, 196, 15, 0.6)", "rgba(46, 204, 113, 0.6)"],
+                        borderColor: ["#e74c3c", "#f1c40f", "#2ecc71"],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: { grid: { color: "rgba(255,255,255,0.1)" }, ticks: { color: "#fff" }, min: 0, max: 8 },
+                        x: { grid: { display: false }, ticks: { color: "#E5D0A1", font: { family: "'Inter', sans-serif" } } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        };
     </script>
 </body>
 </html>
