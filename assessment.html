@@ -8,7 +8,6 @@
     <link rel="icon" type="image/png" href="logo-claudio.png">
     <link rel="apple-touch-icon" href="logo-claudio.png">
     
-    <!-- Librerie essenziali -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -34,7 +33,7 @@
         
         .glass-panel { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.1); }
         
-        /* Stili Custom per Assessment Integrato */
+        /* Stili Custom per Assessment Integrati */
         .progress-container { width: 100%; background: #141414; height: 4px; border-radius: 10px; margin-bottom: 30px; overflow: hidden; border: 1px solid rgba(229, 208, 161, 0.1); }
         #bar-fill { height: 100%; background: #E5D0A1; width: 16.6%; transition: width 0.5s ease; }
         
@@ -59,23 +58,24 @@
         #grafico-container { position: relative; margin-top: 30px; padding: 20px; background: rgba(20,20,20,0.4); border-radius: 8px;}
         canvas { max-width: 100%; }
         
-        /* Meta-Assessment Cards */
         .meta-card { cursor: pointer; transition: all 0.4s ease; border: 1px solid rgba(255,255,255,0.05); }
         .meta-card:hover { border-color: #E5D0A1; transform: translateY(-3px); background: rgba(229, 208, 161, 0.03); }
+        .active-card { border: 1px solid rgba(229, 208, 161, 0.3); }
     </style>
 </head>
 <body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950">
 
-    <!-- HEADER / NAVBAR (Nota: è stato aggiunto il link Assessment) -->
+    <!-- HEADER / NAVBAR -->
     <header class="fixed top-0 left-0 right-0 z-[9000] py-6 px-6 md:px-12 bg-premium-950/80 backdrop-blur-2xl border-b border-white/5 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors cursor-pointer block">
                 CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
             </a>
             
-            <nav class="hidden lg:flex items-center gap-8 text-sm font-light tracking-wide">
+            <nav class="hidden lg:flex items-center gap-6 text-sm font-light tracking-wide">
                 <a href="index.html" class="nav-link">Home</a>
-                <a href="servizi.html" class="nav-link">Servizi</a>
+                <a href="servizi.html" class="nav-link">I Miei Percorsi</a>
+                <a href="servizi-coach.html" class="nav-link text-premium-champagne font-semibold">Per i Coach</a>
                 <a href="assessment.html" class="nav-link active">Assessment</a>
                 <a href="area-riservata.html" class="nav-link">Area Riservata</a>
                 <a href="testimonianza.html" class="nav-link">Testimonianze</a>
@@ -96,62 +96,66 @@
                 </p>
             </div>
 
-            <!-- FASE 1: IL META-ASSESSMENT (Scegli il test) -->
-            <div id="meta-assessment" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <!-- FASE 1: IL META-ASSESSMENT -->
+            <div id="meta-assessment" class="mb-12">
                 
-                <!-- Card 1: ONE Profile (Attivo) -->
-                <div onclick="avviaTest('one-profile')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
-                    <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20">
-                        <i data-lucide="brain" class="w-5 h-5"></i>
+                <h2 class="text-white font-serif text-2xl mb-6 flex items-center gap-3">
+                    <span class="w-8 h-px bg-premium-champagne"></span> Analisi Attive
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                    <!-- Ruota della Vita (Lead Magnet Universale) -->
+                    <div onclick="avviaTest('ruota-vita')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20">
+                            <i data-lucide="pie-chart" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-xl font-serif text-white font-semibold mb-3">La Ruota della Vita</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">
+                            Il punto di partenza per eccellenza. Ottieni una fotografia istantanea del tuo equilibrio attuale tra carriera, finanze, relazioni e salute.
+                        </p>
+                        <div class="text-premium-champagne text-xs uppercase tracking-widest font-semibold flex items-center gap-2">
+                            Avvia Analisi Gratuita <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-serif text-white font-semibold mb-3">ONE Profile</h3>
-                    <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">
-                        Mappa i tuoi tratti neuro-comportamentali. Osserva, naviga ed evolvi per sbloccare il tuo potenziale intrinseco.
-                    </p>
-                    <div class="text-premium-champagne text-xs uppercase tracking-widest font-semibold flex items-center gap-2">
-                        Avvia Assessment <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+
+                    <!-- ONE Profile (Lead Magnet Specifico) -->
+                    <div onclick="avviaTest('one-profile')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20">
+                            <i data-lucide="brain" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-xl font-serif text-white font-semibold mb-3">ONE Profile</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">
+                            Mappa i tuoi tratti neuro-comportamentali profondi. Osserva, naviga ed evolvi per sbloccare il tuo potenziale intrinseco.
+                        </p>
+                        <div class="text-premium-champagne text-xs uppercase tracking-widest font-semibold flex items-center gap-2">
+                            Avvia ONE Profile <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Card 2: Stress / Burnout (Futuro) -->
-                <div onclick="mostraComingSoon('Stress & Burnout (Metodo MBI)')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative opacity-70 hover:opacity-100">
-                    <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-gray-500 mb-6 border border-white/5">
-                        <i data-lucide="activity" class="w-5 h-5"></i>
-                    </div>
-                    <h3 class="text-xl font-serif text-white font-semibold mb-3">Valutazione Stress</h3>
-                    <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">
-                        Misura i livelli di affaticamento mentale e previene il rischio di burnout professionale (Docenti, Manager, Liberi Professionisti).
-                    </p>
-                    <div class="text-gray-500 text-xs uppercase tracking-widest font-semibold flex items-center gap-2">
-                        <i data-lucide="lock" class="w-3 h-3"></i> Prossimamente
-                    </div>
-                </div>
+                <h2 class="text-gray-500 font-serif text-xl mb-6 flex items-center gap-3">
+                    <span class="w-8 h-px bg-gray-800"></span> Prossimamente
+                </h2>
 
-                <!-- Card 3: Sport (Futuro) -->
-                <div onclick="mostraComingSoon('Performance Sportiva')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative opacity-70 hover:opacity-100">
-                    <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-gray-500 mb-6 border border-white/5">
-                        <i data-lucide="swords" class="w-5 h-5"></i>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div onclick="mostraComingSoon('Valutazione Stress & Burnout')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative opacity-50 hover:opacity-100">
+                        <h3 class="text-lg font-serif text-white font-semibold mb-2">Valutazione Stress</h3>
+                        <p class="text-gray-400 text-xs font-light leading-relaxed mb-4 flex-grow">
+                            Misura l'affaticamento mentale e previeni il rischio di burnout professionale.
+                        </p>
+                        <div class="text-gray-500 text-xs uppercase tracking-widest font-semibold flex items-center gap-2">
+                            <i data-lucide="lock" class="w-3 h-3"></i> Bloccato
+                        </div>
                     </div>
-                    <h3 class="text-xl font-serif text-white font-semibold mb-3">Sport Performance</h3>
-                    <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">
-                        Dagli sport da combattimento alle discipline di precisione: valuta la tua tenuta mentale sotto alta pressione agonistica.
-                    </p>
-                    <div class="text-gray-500 text-xs uppercase tracking-widest font-semibold flex items-center gap-2">
-                        <i data-lucide="lock" class="w-3 h-3"></i> Prossimamente
-                    </div>
-                </div>
 
-                <!-- Card 4: Negoziazione (Futuro) -->
-                <div onclick="mostraComingSoon('Sales & Negoziazione')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative opacity-70 hover:opacity-100">
-                    <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-gray-500 mb-6 border border-white/5">
-                        <i data-lucide="briefcase" class="w-5 h-5"></i>
-                    </div>
-                    <h3 class="text-xl font-serif text-white font-semibold mb-3">Negoziazione Avanzata</h3>
-                    <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">
-                        Scopri il tuo stile di vendita e la tua capacità di gestire obiezioni complesse nelle trattative ad alto rischio.
-                    </p>
-                    <div class="text-gray-500 text-xs uppercase tracking-widest font-semibold flex items-center gap-2">
-                        <i data-lucide="lock" class="w-3 h-3"></i> Prossimamente
+                    <div onclick="mostraComingSoon('Performance Sportiva')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative opacity-50 hover:opacity-100">
+                        <h3 class="text-lg font-serif text-white font-semibold mb-2">Sport Performance</h3>
+                        <p class="text-gray-400 text-xs font-light leading-relaxed mb-4 flex-grow">
+                            Valuta la tua tenuta mentale sotto alta pressione agonistica.
+                        </p>
+                        <div class="text-gray-500 text-xs uppercase tracking-widest font-semibold flex items-center gap-2">
+                            <i data-lucide="lock" class="w-3 h-3"></i> Bloccato
+                        </div>
                     </div>
                 </div>
 
@@ -167,9 +171,26 @@
                 </button>
             </div>
 
+            <!-- ========================================== -->
+            <!-- APP 1: RUOTA DELLA VITA (Placeholder pronto per il tuo codice) -->
+            <!-- ========================================== -->
+            <div id="ruota-vita-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl max-w-2xl mx-auto border-t-2 border-t-premium-champagne">
+                <div class="text-center border-b border-white/5 pb-8 mb-8 relative">
+                    <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors">
+                        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                    </button>
+                    <h2 class="font-serif text-3xl font-bold text-white tracking-widest uppercase">Ruota della Vita</h2>
+                </div>
+                
+                <div class="text-center">
+                    <p class="text-gray-400 mb-6">[QUI INSERIREMO IL TUO CODICE PER LA RUOTA DELLA VITA]</p>
+                </div>
+            </div>
 
-            <!-- FASE 2: ONE PROFILE ASSESSMENT (Nascosto di default, si apre cliccando la Card 1) -->
-            <div id="one-profile-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl shadow-black max-w-2xl mx-auto border-t-2 border-t-premium-champagne">
+            <!-- ========================================== -->
+            <!-- APP 2: ONE PROFILE ASSESSMENT (Funzionante) -->
+            <!-- ========================================== -->
+            <div id="one-profile-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl max-w-2xl mx-auto border-t-2 border-t-premium-champagne">
                 
                 <div class="text-center border-b border-white/5 pb-8 mb-8 relative">
                     <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors">
@@ -179,7 +200,6 @@
                     <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Observe • Navigate • Evolve</p>
                 </div>
 
-                <!-- Modulo Domande -->
                 <div id="step-observe">
                     <div class="progress-container"><div id="bar-fill"></div></div>
                     <div id="testo-domanda" class="text-xl md:text-2xl text-white font-serif font-light text-center mb-10 min-h-[80px] flex items-center justify-center leading-snug"></div>
@@ -192,7 +212,6 @@
                     </div>
                 </div>
 
-                <!-- Modulo Lead Generation -->
                 <div id="step-lead" class="hidden-step text-center">
                     <h3 class="text-2xl text-white font-serif mb-2">Elaborazione Dati</h3>
                     <p class="text-gray-400 text-sm mb-8">Inserisci i tuoi dati per generare e sbloccare la tua Mappa delle Potenzialità.</p>
@@ -203,7 +222,7 @@
                     
                     <div class="flex items-start gap-3 mt-6 mb-8 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="privacy-container">
                         <input type="checkbox" id="privacy" class="mt-1 accent-premium-champagne cursor-pointer"> 
-                        <label for="privacy" class="text-xs text-gray-400 cursor-pointer">Autorizzo il trattamento dei dati personali ai sensi del GDPR per ricevere il risultato dell'analisi e comunicazioni inerenti al coaching.</label>
+                        <label for="privacy" class="text-xs text-gray-400 cursor-pointer">Autorizzo il trattamento dei dati personali ai sensi del GDPR per ricevere il risultato.</label>
                     </div>
                     
                     <button type="button" class="tasto-assessment bg-premium-champagne !text-premium-950 hover:!bg-[#C5A880] border-none !font-bold" onclick="inviaDati()">
@@ -211,7 +230,6 @@
                     </button>
                 </div>
 
-                <!-- Risultato Finale -->
                 <div id="step-result" class="hidden-step text-center">
                     <h3 class="text-3xl text-premium-champagne font-serif mb-2">La Tua Mappa</h3>
                     <p class="text-gray-400 text-sm mb-6">L'osservazione è completata.</p>
@@ -231,47 +249,41 @@
         </div>
     </main>
 
-    <footer class="bg-premium-950 border-t border-white/5 py-12 px-6 text-center text-xs text-gray-500 mt-auto">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-            <a href="index.html" class="font-serif text-sm font-semibold text-white tracking-widest hover:text-premium-champagne transition-colors">
-                CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
-            </a>
-            <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
-        </div>
-    </footer>
-
     <script>lucide.createIcons();</script>
 
-    <!-- SCRIPT PROTEZIONE E LOGICA OBFUSCATA -->
+    <!-- SCRIPT PROTEZIONE E LOGICA -->
     <script>
-        // PROTEZIONE BASE DEL CODICE (No Tasto Destro, No Ispeziona Elemento)
         document.addEventListener('contextmenu', e => e.preventDefault());
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123) return false;
-            if(e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) return false;
-            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
-        };
+        document.onkeydown = function(e) { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 67 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false; };
 
-        // GESTIONE UI META-ASSESSMENT
+        // GESTORE NAVIGAZIONE META-ASSESSMENT
         function avviaTest(id) {
             document.getElementById('meta-assessment').classList.add('hidden-step');
             document.getElementById('hub-header').classList.add('hidden-step');
-            document.getElementById('one-profile-app').classList.remove('hidden-step');
-            if(n===0) document.getElementById("testo-domanda").innerText=t[0].q; // Inizializza testo
+            
+            if (id === 'one-profile') {
+                document.getElementById('one-profile-app').classList.remove('hidden-step');
+                if(n===0) document.getElementById("testo-domanda").innerText=t[0].q;
+            } else if (id === 'ruota-vita') {
+                document.getElementById('ruota-vita-app').classList.remove('hidden-step');
+            }
         }
+
         function mostraComingSoon(nome) {
             document.getElementById('meta-assessment').classList.add('hidden-step');
             document.getElementById('modulo-nome').innerText = nome;
             document.getElementById('coming-soon-msg').classList.remove('hidden-step');
         }
+
         function tornaIndietro() {
             document.getElementById('one-profile-app').classList.add('hidden-step');
+            document.getElementById('ruota-vita-app').classList.add('hidden-step');
             document.getElementById('coming-soon-msg').classList.add('hidden-step');
             document.getElementById('meta-assessment').classList.remove('hidden-step');
             document.getElementById('hub-header').classList.remove('hidden-step');
         }
 
-        // LOGICA CORE OBFUSCATA E MINIFICATA PER ONE PROFILE
+        // LOGICA OBFUSCATA ONE PROFILE
         var e="https://script.google.com/macros/s/AKfycbztk1vf2hFLcY8_4IHFblekyDWE-cvfoNxYfq7GxPT5nBdmNfDJwJanAbP-AFKaRhrDpA/exec",t=[{cat:"drive",q:"Quanto senti forte la spinta verso l'ambizione e il successo?"},{cat:"logica",q:"Preferisci decidere basandoti su dati e fatti oggettivi?"},{cat:"empatia",q:"Quanto sei influenzato dallo stato d'animo di chi ti circonda?"},{cat:"visione",q:"Quanto sei proiettato verso il futuro e progetti innovativi?"},{cat:"stabilita",q:"Cerchi attivamente sicurezza e routine nel tuo quotidiano?"},{cat:"social",q:"Quanto è vitale per te il contatto costante con le persone?"}],n=0,a={drive:0,logica:0,empatia:0,visione:0,stabilita:0,social:0};window.prossima=function(e){var i=t[n].cat;a[i]=e,++n<t.length?(document.getElementById("testo-domanda").innerText=t[n].q,document.getElementById("bar-fill").style.width=(n+1)/t.length*100+"%"):(document.getElementById("step-observe").classList.add("hidden-step"),document.getElementById("step-lead").classList.remove("hidden-step"))},window.inviaDati=function(){["nome","email","tel"].forEach((e=>document.getElementById(e).classList.remove("input-error"))),document.getElementById("privacy-container").classList.remove("privacy-error");var t=document.getElementById("nome").value.trim(),n=document.getElementById("email").value.trim(),i=document.getElementById("tel").value.trim(),c=document.getElementById("privacy").checked,o=!0;t.length<2&&(document.getElementById("nome").classList.add("input-error"),o=!1),(!n.includes("@")||n.length<5)&&(document.getElementById("email").classList.add("input-error"),o=!1),i.length<6&&(document.getElementById("tel").classList.add("input-error"),o=!1),c||(document.getElementById("privacy-container").classList.add("privacy-error"),o=!1),o&&(document.getElementById("step-lead").classList.add("hidden-step"),document.getElementById("step-result").classList.remove("hidden-step"),window.creaGrafico(),fetch(e,{method:"POST",mode:"no-cors",body:JSON.stringify({name:t,email:n,phone:i,...a})}))},window.creaGrafico=function(){var e=document.getElementById("grafico").getContext("2d");new Chart(e,{type:"radar",data:{labels:["Drive","Logica","Empatia","Visione","Stabilità","Social"],datasets:[{data:[a.drive,a.logica,a.empatia,a.visione,a.stabilita,a.social],backgroundColor:"rgba(229, 208, 161, 0.3)",borderColor:"#E5D0A1",borderWidth:2,pointBackgroundColor:"#fff"}]},options:{scales:{r:{grid:{color:"rgba(255,255,255,0.1)"},pointLabels:{color:"#E5D0A1",font:{size:12,family:"'Inter', sans-serif"}},ticks:{display:!1},min:0,max:30}},plugins:{legend:{display:!1}}}});};
     </script>
 </body>
