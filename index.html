@@ -3,226 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claudio Carluccio | Professional Mental & Business Coaching</title>
-    
+    <title>Claudio Carluccio Coaching | Observe, Navigate, Evolve</title>
     <link rel="icon" type="image/png" href="logo-claudio.png">
     <link rel="apple-touch-icon" href="logo-claudio.png">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        premium: {
-                            950: '#050505',
-                            900: '#0a0a0a',
-                            800: '#141414',
-                            champagne: '#E5D0A1',
-                            champagneDark: '#C5A880'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif']
-                    }
+                    colors: { premium: { 950: '#050505', 900: '#0a0a0a', 800: '#141414', champagne: '#E5D0A1' } },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
                 }
             }
         }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-
     <style>
-        body { background-color: #050505; color: #f5f5f5; overflow-x: hidden; }
+        body { background-color: #050505; color: #f5f5f5; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
         .nav-link { position: relative; color: #a3a3a3; transition: color 0.3s ease; }
         .nav-link:hover, .nav-link.active { color: #ffffff; }
         .nav-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #E5D0A1; transition: width 0.3s ease; }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-        .glass-panel { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.1); }
-        .btn-gold { background: #E5D0A1; color: #050505; transition: all 0.4s ease; }
-        .btn-gold:hover { background: #C5A880; transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(229, 208, 161, 0.2); }
-        .btn-outline-gold { border: 1px solid #E5D0A1; color: #E5D0A1; background: transparent; transition: all 0.4s ease; }
-        .btn-outline-gold:hover { background: #E5D0A1; color: #050505; }
+        .btn-gold-solid { background: #E5D0A1; color: #050505; transition: all 0.4s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 32px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-radius: 4px;}
+        .btn-gold-solid:hover { background: #C5A880; transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(229, 208, 161, 0.2); }
+        .btn-outline { border: 1px solid #E5D0A1; color: #E5D0A1; transition: all 0.4s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 32px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-radius: 4px;}
+        .btn-outline:hover { background: #E5D0A1; color: #050505; }
     </style>
 </head>
-<body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950">
+<body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950 flex flex-col justify-center">
 
-    <!-- HEADER / NAVBAR -->
     <header class="fixed top-0 left-0 right-0 z-[9000] py-6 px-6 md:px-12 bg-premium-950/80 backdrop-blur-2xl border-b border-white/5 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors cursor-pointer block">
                 CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
             </a>
-            
             <nav class="hidden lg:flex items-center gap-8 text-sm font-light tracking-wide">
                 <a href="index.html" class="nav-link active">Home</a>
                 <a href="servizi.html" class="nav-link">Servizi</a>
+                <a href="assessment.html" class="nav-link">Assessment</a>
                 <a href="area-riservata.html" class="nav-link">Area Riservata</a>
                 <a href="testimonianza.html" class="nav-link">Testimonianze</a>
                 <a href="contatti.html" class="nav-link">Contattami</a>
             </nav>
-
-            <div class="hidden lg:block">
-                <a href="contatti.html" class="btn-outline-gold px-6 py-2.5 text-xs font-semibold uppercase tracking-widest rounded-sm">
-                    Prenota Sessione
-                </a>
-            </div>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
-    <section class="relative min-h-screen flex items-center justify-center pt-32 pb-20 px-6">
-        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#E5D0A1_1px,transparent_1px)] [background-size:32px_32px] pointer-events-none"></div>
-        
-        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
-            
-            <div class="lg:col-span-7 space-y-8 text-left">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-premium-champagne/20 bg-premium-champagne/5 text-premium-champagne text-xs uppercase tracking-widest">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-                    <span>Mental & Business Coaching</span>
-                </div>
-                
-                <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1]">
-                    Oltre i tuoi limiti, <br>
-                    <span class="italic font-normal text-premium-champagne">verso la tua eccellenza.</span>
-                </h1>
-                
-                <p class="text-gray-400 text-lg md:text-xl font-light leading-relaxed max-w-2xl">
-                    Aiuto imprenditori, manager e professionisti a sbloccare il proprio potenziale, allineare la mentalità strategica e raggiungere traguardi di altissimo livello.
-                </p>
-
-                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
-                    <a href="contatti.html" class="btn-gold px-8 py-4 text-xs font-semibold uppercase tracking-widest rounded-sm text-center flex items-center justify-center gap-2">
-                        <span>Inizia il Percorso</span>
-                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </a>
-                    <a href="servizi.html" class="btn-outline-gold px-8 py-4 text-xs font-semibold uppercase tracking-widest rounded-sm text-center">
-                        Esplora i Servizi
-                    </a>
-                </div>
-            </div>
-
-            <!-- FOTO / VISUAL BOX (Unica foto pulita) -->
-            <div class="lg:col-span-5 flex justify-center">
-                <div class="relative w-full max-w-md">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-premium-champagne to-transparent opacity-30 blur-xl rounded-lg"></div>
-                    <div class="glass-panel p-4 rounded-lg relative border border-white/10">
-                        <div class="w-full h-[450px] rounded bg-premium-900 overflow-hidden flex items-center justify-center relative">
-                            <img src="claudio-coach.png" alt="Claudio Carluccio" class="w-full h-full object-contain p-2" onerror="this.style.display='none'; document.getElementById('fallback-img').style.display='flex';">
-                            <div id="fallback-img" class="absolute inset-0 hidden flex-col items-center justify-center p-6 text-center bg-premium-900 text-gray-500">
-                                <i data-lucide="user" class="w-16 h-16 mb-3 text-premium-champagne opacity-60"></i>
-                                <span class="text-xs uppercase tracking-widest text-gray-400">Claudio Carluccio</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- SEZIONE CHI SONO E IL MIO APPROCCIO (Senza foto, layout testuale pulito) -->
-    <section class="py-24 px-6 border-t border-white/5 bg-premium-900/30">
-        <div class="max-w-4xl mx-auto space-y-8">
-            <div class="text-center space-y-4">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-premium-champagne/20 bg-premium-champagne/5 text-premium-champagne text-xs uppercase tracking-widest">
-                    <span>Chi Sono e Il Mio Approccio</span>
-                </div>
-                
-                <h2 class="font-serif text-3xl md:text-4xl font-bold text-white leading-snug">
-                    Dal lavoro di squadra al potenziale individuale: un metodo concreto e orientato ai risultati.
-                </h2>
-            </div>
-            
-            <div class="glass-panel p-8 md:p-12 rounded-xl space-y-6 border border-white/10">
-                <p class="text-gray-300 font-light leading-relaxed text-base md:text-lg">
-                    Ciao, sono <strong>Claudio Carluccio</strong>. La mia esperienza nasce sul campo, guidando e coordinando team fino a 40 persone e gestendo realtà organizzative complesse in contesti ad alta pressione. Negli anni ho imparato che le performance, l'organizzazione e la crescita di qualsiasi progetto passano prima di tutto dalle <strong>persone</strong>, dalla chiarezza del loro mindset e dall'efficacia della loro comunicazione.
-                </p>
-                
-                <p class="text-gray-400 font-light leading-relaxed text-base md:text-lg">
-                    Oggi affianco professionisti, atleti e individui che vogliono superare i propri limiti, definire obiettivi sfidanti e sviluppare strategie d'azione concrete.
-                </p>
-
-                <div class="space-y-4 pt-4 text-sm md:text-base text-gray-300 border-t border-white/5">
-                    <div class="flex items-start gap-3">
-                        <div class="w-1.5 h-1.5 rounded-full bg-premium-champagne mt-2.5 shrink-0"></div>
-                        <p><strong class="text-white">Metodologia ICF & PNL:</strong> Un percorso formativo d'eccellenza (<em>Adamas - Allenati per l'Eccellenza</em>) e strumenti avanzati di Programmazione Neuro-Linguistica focalizzati sul potenziamento delle risorse, sulla rimodulazione degli schemi mentali e sull'ascolto attivo.</p>
-                    </div>
-
-                    <div class="flex items-start gap-3">
-                        <div class="w-1.5 h-1.5 rounded-full bg-premium-champagne mt-2.5 shrink-0"></div>
-                        <p><strong class="text-white">Assessment Scientifici sulle Leve Motivazionali:</strong> Creazione e analisi di valutazioni professionali basate su evidenze scientifiche, pensate per accelerare notevolmente la tua evocazione di consapevolezza e individuare i tuoi reali driver d'azione.</p>
-                    </div>
-
-                    <div class="flex items-start gap-3">
-                        <div class="w-1.5 h-1.5 rounded-full bg-premium-champagne mt-2.5 shrink-0"></div>
-                        <p><strong class="text-white">Pragmatismo, Problem Solving & Sport Coaching:</strong> Strategie pratiche per la gestione dello stress, il raggiungimento del peak state nello sport e nella vita quotidiana, e lo sviluppo della leadership personale.</p>
-                    </div>
-
-                    <div class="flex items-start gap-3">
-                        <div class="w-1.5 h-1.5 rounded-full bg-premium-champagne mt-2.5 shrink-0"></div>
-                        <p><strong class="text-white">Comunicazione Efficace:</strong> Strumenti concreti per allineare intenzione e azione, migliorando l'impatto delle tue relazioni personali e professionali.</p>
-                    </div>
-                </div>
-
-                <div class="pt-6 border-t border-white/5 text-center italic text-premium-champagne text-base font-serif">
-                    "Non servono stravolgimenti: spesso è una piccola leva motivazionale la differenza che fa la differenza tra restare bloccati e raggiungere il successo."
-                </div>
+    <main class="flex-grow flex items-center justify-center text-center px-6 pt-32 pb-24">
+        <div class="max-w-4xl mx-auto">
+            <span class="text-premium-champagne text-sm uppercase tracking-[0.4em] font-semibold mb-6 block">Mental & Business Coaching</span>
+            <h1 class="font-serif text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">Observe.<br><span class="text-gray-500">Navigate.</span><br><span class="text-premium-champagne">Evolve.</span></h1>
+            <p class="text-gray-400 font-light text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
+                Esplora i confini del tuo potenziale. Ottieni chiarezza mentale, sblocca le tue risorse e domina la tua area di competenza.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                <a href="assessment.html" class="btn-gold-solid w-full sm:w-auto">Inizia l'Assessment</a>
+                <a href="servizi.html" class="btn-outline w-full sm:w-auto">Scopri i Percorsi</a>
             </div>
         </div>
-    </section>
+    </main>
 
-    <!-- SEZIONE VALORI / PILASTRI -->
-    <section class="py-24 px-6 border-t border-white/5 bg-premium-900/50">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="font-serif text-3xl md:text-4xl font-bold text-white mb-4">Un Metodo Strutturato per Risultati Reali</h2>
-                <p class="text-gray-400 font-light">Un approccio rigoroso che unisce performance mentale, strategia di business e leadership.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="glass-panel p-8 rounded-md">
-                    <div class="w-12 h-12 rounded bg-premium-champagne/10 flex items-center justify-center text-premium-champagne mb-6">
-                        <i data-lucide="target" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="font-serif text-xl font-bold text-white mb-3">Visione & Strategia</h3>
-                    <p class="text-gray-400 text-sm font-light leading-relaxed">Definiamo obiettivi chiari e misurabili, eliminando le distrazioni per concentrarci unicamente su ciò che genera valore reale.</p>
-                </div>
-
-                <div class="glass-panel p-8 rounded-md">
-                    <div class="w-12 h-12 rounded bg-premium-champagne/10 flex items-center justify-center text-premium-champagne mb-6">
-                        <i data-lucide="zap" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="font-serif text-xl font-bold text-white mb-3">Mentalità Vincente</h3>
-                    <p class="text-gray-400 text-sm font-light leading-relaxed">Supera blocchi mentali, sindrome dell'impostore e resistenza al cambiamento per agire con assoluta sicurezza.</p>
-                </div>
-
-                <div class="glass-panel p-8 rounded-md">
-                    <div class="w-12 h-12 rounded bg-premium-champagne/10 flex items-center justify-center text-premium-champagne mb-6">
-                        <i data-lucide="trending-up" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="font-serif text-xl font-bold text-white mb-3">Crescita Sostenibile</h3>
-                    <p class="text-gray-400 text-sm font-light leading-relaxed">Costruiamo abitudini durature e sistemi di gestione del tempo che ti permettono di scalare senza bruciare energie.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
     <footer class="bg-premium-950 border-t border-white/5 py-12 px-6 text-center text-xs text-gray-500">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-            <a href="index.html" class="font-serif text-sm font-semibold text-white tracking-widest hover:text-premium-champagne transition-colors">
-                CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
-            </a>
+            <a href="index.html" class="font-serif text-sm font-semibold text-white tracking-widest hover:text-premium-champagne transition-colors">CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span></a>
             <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
             <div class="flex gap-6">
+                <a href="assessment.html" class="hover:text-premium-champagne transition-colors">Assessment</a>
                 <a href="contatti.html" class="hover:text-premium-champagne transition-colors">Contatti</a>
-                <a href="testimonianza.html" class="hover:text-premium-champagne transition-colors">Testimonianze</a>
             </div>
         </div>
     </footer>
-
     <script>lucide.createIcons();</script>
 </body>
 </html>
