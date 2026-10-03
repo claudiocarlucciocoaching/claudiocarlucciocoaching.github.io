@@ -50,7 +50,6 @@
 </head>
 <body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950">
 
-    <!-- HEADER / NAVBAR -->
     <header class="fixed top-0 left-0 right-0 z-[9000] py-6 px-6 md:px-12 bg-premium-950/80 backdrop-blur-2xl border-b border-white/5 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors cursor-pointer block">
@@ -60,6 +59,7 @@
             <nav class="hidden lg:flex items-center gap-8 text-sm font-light tracking-wide">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="servizi.html" class="nav-link">Servizi</a>
+                <a href="assessment.html" class="nav-link">Assessment</a>
                 <a href="area-riservata.html" class="nav-link">Area Riservata</a>
                 <a href="testimonianza.html" class="nav-link">Testimonianze</a>
                 <a href="contatti.html" class="nav-link active">Contattami</a>
@@ -70,10 +70,8 @@
     <main class="flex-grow pt-32 pb-24 relative px-6">
         <div class="max-w-7xl mx-auto">
             
-            <!-- Inizio Sezione Griglia (Calendly a sx, Form a dx) -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mt-8">
                 
-                <!-- Calendly Iframe -->
                 <div class="glass-panel p-6 md:p-8 rounded-md h-full min-h-[650px] flex flex-col relative overflow-hidden">
                     <iframe src="https://calendly.com/claudiocarlucciocoaching/30min?embed_domain=claudiocarlucciocoaching.com&embed_type=Inline" 
                             width="100%" 
@@ -83,11 +81,9 @@
                     </iframe>
                 </div>
 
-                <!-- MODULO DI CONTATTO SICURO (FORMSUBMIT) -->
                 <div class="glass-panel p-8 md:p-10 rounded-md">
                     <form action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST">
                         
-                        <!-- Impostazioni FormSubmit CORRETTE PER IL REDIRECT -->
                         <input type="hidden" name="_subject" value="📩 Nuovo Contatto dal Sito Web!">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_template" value="table">
@@ -104,7 +100,6 @@
                             </div>
                         </div>
 
-                        <!-- CAMPO TELEFONO AGGIUNTO QUI -->
                         <div class="form-group-contact">
                             <label>Telefono (Opzionale)</label>
                             <input type="tel" name="Telefono" class="form-control-contact" placeholder="Es. +39 333 1234567">
@@ -145,6 +140,7 @@
             </a>
             <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
             <div class="flex gap-6">
+                <a href="assessment.html" class="hover:text-premium-champagne transition-colors">Assessment</a>
                 <a href="contatti.html" class="hover:text-premium-champagne transition-colors">Contatti</a>
                 <a href="testimonianza.html" class="hover:text-premium-champagne transition-colors">Testimonianze</a>
             </div>
