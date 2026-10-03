@@ -32,6 +32,8 @@
         .glass-panel { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.1); }
         .btn-gold-solid { background: #E5D0A1; color: #050505; transition: all 0.4s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 32px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-radius: 4px;}
         .btn-gold-solid:hover { background: #C5A880; transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(229, 208, 161, 0.2); }
+        .input-lead { width: 100%; padding: 16px 20px; margin: 10px 0; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1); color: white; border-radius: 4px; font-size: 15px; outline: none; }
+        .input-lead:focus { border-color: #E5D0A1; }
     </style>
 </head>
 <body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950">
@@ -114,10 +116,20 @@
 
             </div>
 
-            <div class="text-center max-w-2xl mx-auto mb-12">
-                <h3 class="text-3xl font-serif text-white mb-6">Smettila di fare il tecnico del tuo sito.</h3>
-                <p class="text-gray-400 mb-8">Concentrati sull'aiutare i tuoi clienti. Alla tua infrastruttura di acquisizione e gestione ci penso io.</p>
-                <a href="contatti.html" class="text-premium-champagne font-bold uppercase tracking-widest border-b border-premium-champagne hover:text-white hover:border-white transition-colors pb-1">Prenota una Call Conoscitiva</a>
+            <!-- SEZIONE WHITEPAPER / LEAD MAGNET PER COACH -->
+            <div class="glass-panel p-10 md:p-14 rounded-xl max-w-4xl mx-auto border-t-2 border-t-premium-champagne mb-16 text-center">
+                <span class="text-premium-champagne text-xs uppercase tracking-[0.3em] font-semibold mb-3 block">Risorsa Gratuita per Colleghi Coach</span>
+                <h3 class="font-serif text-3xl font-bold text-white mb-4">Scarica il Kit del Coach Digitale</h3>
+                <p class="text-gray-400 font-light text-sm max-w-xl mx-auto mb-8">Ottieni la guida pratica su come strutturare un ecosistema di acquisizione ad alto valore e digitalizzare i tuoi strumenti di valutazione.</p>
+                
+                <form action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" class="max-w-md mx-auto">
+                    <input type="hidden" name="_subject" value="📥 Richiesta Kit Coach Digitale (Whitepaper)">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://claudiocarlucciocoaching.com/grazie.html">
+                    <input type="text" name="Nome_Coach" class="input-lead" placeholder="Nome e Cognome *" required>
+                    <input type="email" name="Email_Coach" class="input-lead" placeholder="La tua migliore Email *" required>
+                    <button type="submit" class="btn-gold-solid w-full mt-4">Ricevi la Guida Gratuita</button>
+                </form>
             </div>
 
         </div>
