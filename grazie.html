@@ -3,19 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messaggio Inviato | Claudio Carluccio Coaching</title>
-    
+    <title>Grazie! | Claudio Carluccio Coaching</title>
     <link rel="icon" type="image/png" href="logo-claudio.png">
     <link rel="apple-touch-icon" href="logo-claudio.png">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        premium: { 950: '#050505', 900: '#0a0a0a', 800: '#141414', champagne: '#E5D0A1' }
-                    },
+                    colors: { premium: { 950: '#050505', 900: '#0a0a0a', 800: '#141414', champagne: '#E5D0A1' } },
                     fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
                 }
             }
@@ -23,50 +19,59 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-
     <style>
         body { background-color: #050505; color: #f5f5f5; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
+        .nav-link { position: relative; color: #a3a3a3; transition: color 0.3s ease; }
+        .nav-link:hover, .nav-link.active { color: #ffffff; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #E5D0A1; transition: width 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
         .glass-panel { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.1); }
-        .btn-gold { background: #E5D0A1; color: #050505; transition: all 0.4s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px;}
-        .btn-gold:hover { background: #C5A880; transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(229, 208, 161, 0.2); }
+        .btn-outline { border: 1px solid #E5D0A1; color: #E5D0A1; transition: all 0.4s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 32px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-radius: 4px;}
+        .btn-outline:hover { background: #E5D0A1; color: #050505; }
     </style>
 </head>
-<body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950">
+<body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950 flex flex-col">
 
-    <!-- HEADER SEMPLIFICATO -->
-    <header class="fixed top-0 left-0 right-0 z-[9000] py-6 px-6 md:px-12 bg-premium-950/80 backdrop-blur-2xl border-b border-white/5">
-        <div class="max-w-7xl mx-auto flex items-center justify-center">
-            <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors">
+    <header class="fixed top-0 left-0 right-0 z-[9000] py-6 px-6 md:px-12 bg-premium-950/80 backdrop-blur-2xl border-b border-white/5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors cursor-pointer block">
                 CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
             </a>
+            <nav class="hidden lg:flex items-center gap-8 text-sm font-light tracking-wide">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="servizi.html" class="nav-link">Servizi</a>
+                <a href="assessment.html" class="nav-link">Assessment</a>
+                <a href="area-riservata.html" class="nav-link">Area Riservata</a>
+                <a href="testimonianza.html" class="nav-link">Testimonianze</a>
+                <a href="contatti.html" class="nav-link">Contattami</a>
+            </nav>
         </div>
     </header>
 
-    <!-- CONTENUTO GRAZIE -->
-    <main class="flex-grow flex items-center justify-center pt-32 pb-24 px-6 relative">
-        <!-- Effetto luce sfondo -->
-        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#E5D0A1_1px,transparent_1px)] [background-size:32px_32px] pointer-events-none"></div>
-        
-        <div class="glass-panel p-10 md:p-16 rounded-xl text-center max-w-lg relative z-10 border-t-2 border-t-premium-champagne">
-            <div class="w-20 h-20 rounded-full bg-premium-champagne/10 flex items-center justify-center mx-auto mb-6 text-premium-champagne">
-                <i data-lucide="check-circle" class="w-10 h-10"></i>
+    <main class="flex-grow flex items-center justify-center px-6 pt-32 pb-24">
+        <div class="glass-panel p-10 md:p-14 rounded-xl max-w-lg w-full text-center border-t-2 border-t-premium-champagne">
+            <div class="w-20 h-20 rounded-full bg-premium-900 border border-premium-champagne/30 flex items-center justify-center mx-auto mb-8">
+                <i data-lucide="check" class="w-10 h-10 text-premium-champagne"></i>
             </div>
+            <h2 class="font-serif text-4xl font-bold text-white mb-4">Operazione Riuscita</h2>
+            <p class="text-gray-400 text-lg mb-10 leading-relaxed">Grazie. Ho ricevuto il tuo messaggio. Ti ricontatterò al più presto per organizzare i prossimi passi.</p>
             
-            <h1 class="font-serif text-3xl md:text-4xl font-bold text-white mb-4">Messaggio Inviato!</h1>
-            <p class="text-gray-400 font-light mb-8 leading-relaxed text-sm md:text-base">
-                Grazie per avermi contattato. Ho ricevuto la tua richiesta e ti risponderò il prima possibile all'indirizzo email che hai fornito.
-            </p>
-            
-            <a href="index.html" class="btn-gold px-8 py-4 text-xs font-semibold uppercase tracking-widest rounded-sm w-full md:w-auto">
-                Torna alla Home
+            <a href="index.html" class="btn-outline">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Torna alla Home
             </a>
         </div>
     </main>
 
-    <footer class="bg-premium-950 border-t border-white/5 py-8 px-6 text-center text-xs text-gray-500 mt-auto">
-        <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
+    <footer class="bg-premium-950 border-t border-white/5 py-12 px-6 text-center text-xs text-gray-500 mt-auto">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <a href="index.html" class="font-serif text-sm font-semibold text-white tracking-widest hover:text-premium-champagne transition-colors">CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span></a>
+            <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
+            <div class="flex gap-6">
+                <a href="assessment.html" class="hover:text-premium-champagne transition-colors">Assessment</a>
+                <a href="contatti.html" class="hover:text-premium-champagne transition-colors">Contatti</a>
+            </div>
+        </div>
     </footer>
-
     <script>lucide.createIcons();</script>
 </body>
 </html>
