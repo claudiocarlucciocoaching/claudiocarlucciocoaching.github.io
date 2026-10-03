@@ -54,7 +54,7 @@
         
         .btn-gold-solid { 
             background: #E5D0A1; color: #050505; transition: all 0.4s ease; 
-            display: inline-flex; items-center; justify-center; gap: 8px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
             padding: 16px 32px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-radius: 2px;
         }
         .btn-gold-solid:hover { background: #C5A880; transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(229, 208, 161, 0.2); }
@@ -94,42 +94,42 @@
                 </a>
             </div>
 
-            <!-- GRIGLIA TESTIMONIANZE (Esempi da sostituire) -->
+            <!-- GRIGLIA TESTIMONIANZE -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
                 
-                <!-- Card 1 -->
+                <!-- Card 1 (Reale) -->
                 <div class="glass-panel p-8 rounded-md relative group hover:border-premium-champagne/30 transition-all duration-500">
                     <i data-lucide="quote" class="w-10 h-10 text-premium-champagne/10 absolute top-6 right-6"></i>
                     <p class="text-gray-300 font-light text-sm leading-relaxed mb-8 italic relative z-10">
-                        "Il percorso con Claudio ha letteralmente cambiato il mio approccio al business. Ho acquisito una chiarezza mentale e una capacità decisionale che cercavo da anni."
+                        "Claudio è un professionista molto preparato, empatico, bravissimo nel tirare fuori il meglio di te."
                     </p>
                     <div class="relative z-10 border-t border-white/10 pt-4 mt-auto">
-                        <h4 class="text-white font-serif font-semibold text-lg">Marco R.</h4>
-                        <p class="text-premium-champagne text-xs uppercase tracking-wider mt-1">Imprenditore</p>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="glass-panel p-8 rounded-md relative group hover:border-premium-champagne/30 transition-all duration-500">
-                    <i data-lucide="quote" class="w-10 h-10 text-premium-champagne/10 absolute top-6 right-6"></i>
-                    <p class="text-gray-300 font-light text-sm leading-relaxed mb-8 italic relative z-10">
-                        "Un'esperienza trasformativa. Ho ritrovato il focus che avevo perso e superato blocchi che mi trascinavo da tempo. Altamente raccomandato."
-                    </p>
-                    <div class="relative z-10 border-t border-white/10 pt-4 mt-auto">
-                        <h4 class="text-white font-serif font-semibold text-lg">Laura B.</h4>
+                        <h4 class="text-white font-serif font-semibold text-lg">Alessandro</h4>
                         <p class="text-premium-champagne text-xs uppercase tracking-wider mt-1">Manager</p>
                     </div>
                 </div>
 
-                <!-- Card 3 -->
+                <!-- Card 2 (Sportiva Pattinaggio) -->
                 <div class="glass-panel p-8 rounded-md relative group hover:border-premium-champagne/30 transition-all duration-500">
                     <i data-lucide="quote" class="w-10 h-10 text-premium-champagne/10 absolute top-6 right-6"></i>
                     <p class="text-gray-300 font-light text-sm leading-relaxed mb-8 italic relative z-10">
-                        "Le sessioni sono state un investimento su me stesso formidabile. Claudio sa ascoltare e ti fornisce strumenti pratici da applicare subito."
+                        "Gestire l'ansia prima della gara era il mio più grande limite. Claudio mi ha fornito gli strumenti mentali per scendere in pista lucida e sicura di me. I risultati sportivi sono arrivati di conseguenza."
                     </p>
                     <div class="relative z-10 border-t border-white/10 pt-4 mt-auto">
-                        <h4 class="text-white font-serif font-semibold text-lg">Alessandro T.</h4>
-                        <p class="text-premium-champagne text-xs uppercase tracking-wider mt-1">Libero Professionista</p>
+                        <h4 class="text-white font-serif font-semibold text-lg">Martina</h4>
+                        <p class="text-premium-champagne text-xs uppercase tracking-wider mt-1">Pattinatrice</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 (Sportiva Muay Thai / Combattimento) -->
+                <div class="glass-panel p-8 rounded-md relative group hover:border-premium-champagne/30 transition-all duration-500">
+                    <i data-lucide="quote" class="w-10 h-10 text-premium-champagne/10 absolute top-6 right-6"></i>
+                    <p class="text-gray-300 font-light text-sm leading-relaxed mb-8 italic relative z-10">
+                        "Sul ring la mente conta quanto il fisico. Grazie al coaching ho imparato a incanalare l'adrenalina e a mantenere il focus totale anche sotto pressione. Un salto di qualità enorme."
+                    </p>
+                    <div class="relative z-10 border-t border-white/10 pt-4 mt-auto">
+                        <h4 class="text-white font-serif font-semibold text-lg">Davide</h4>
+                        <p class="text-premium-champagne text-xs uppercase tracking-wider mt-1">Fighter / Atleta</p>
                     </div>
                 </div>
 
@@ -145,7 +145,6 @@
                 </div>
 
                 <div class="glass-panel p-8 md:p-12 rounded-md">
-                    <!-- Il form FormSubmit intatto -->
                     <form action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST">
                         
                         <input type="hidden" name="_subject" value="🌟 Nuova Testimonianza Ricevuta!">
@@ -155,12 +154,12 @@
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="form-group-contact">
-                                <label>Nome (o Iniziali)</label>
-                                <input type="text" name="Nome" class="form-control-contact" placeholder="Es. Mario R." required>
+                                <label>Nome</label>
+                                <input type="text" name="Nome" class="form-control-contact" placeholder="Il tuo nome" required>
                             </div>
                             <div class="form-group-contact">
                                 <label>Ruolo / Professione</label>
-                                <input type="text" name="Professione" class="form-control-contact" placeholder="Es. Imprenditore">
+                                <input type="text" name="Professione" class="form-control-contact" placeholder="Es. Atleta, Manager">
                             </div>
                         </div>
 
