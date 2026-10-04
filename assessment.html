@@ -66,16 +66,6 @@
         #grafico-container-one, #grafico-container-burnout { position: relative; margin-top: 30px; padding: 20px; background: rgba(20,20,20,0.4); border-radius: 8px;}
         canvas { max-width: 100%; }
 
-        .ruota-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-        .ruota-controls { flex: 1; min-width: 300px; }
-        .ruota-chart { flex: 1; min-width: 320px; max-width: 450px; display: flex; align-items: center; justify-content: center; }
-        .input-group { display: flex; flex-direction: column; margin-bottom: 12px; }
-        .label-container { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
-        .color-dot { width: 10px; height: 10px; border-radius: 50%; }
-        .input-group label { font-size: 10px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; }
-        input[type=range] { width: 100%; cursor: pointer; height: 4px; appearance: none; background: rgba(255,255,255,0.1); outline: none; border-radius: 5px; }
-        input[type=range]::-webkit-slider-thumb { appearance: none; width: 16px; height: 16px; background: #fff; border-radius: 50%; border: 2px solid #E5D0A1; }
-
         .interactive-canvas-container { width: 100%; max-width: 500px; margin: 0 auto 30px; position: relative; }
         .interactive-canvas-container canvas { width: 100%; height: auto; cursor: crosshair; user-select: none; }
         .reset-btn { text-align: center; margin-bottom: 20px; }
@@ -119,7 +109,6 @@
                     <h2 class="text-white font-serif text-xl flex items-center gap-3 m-0">
                         <span class="w-8 h-px bg-premium-champagne"></span> Strumenti Disponibili
                     </h2>
-                    <!-- FILTRI RAPIDI PER CATEGORIA -->
                     <div class="flex flex-wrap gap-2">
                         <button class="filter-btn active-filter" onclick="filtra('tutti', this)">Tutti</button>
                         <button class="filter-btn" onclick="filtra('life', this)">Life & Balance</button>
@@ -194,30 +183,27 @@
                 <button onclick="tornaIndietro()" class="text-premium-champagne text-xs uppercase tracking-widest font-semibold border-b border-premium-champagne/30 pb-1 hover:border-white transition-colors">Torna all'Area Assessment</button>
             </div>
 
-            <!-- 1. RUOTA DELLA VITA -->
+            <!-- 1. RUOTA DELLA VITA (ORA UNIFORMATA A TRASCINAMENTO CIRCOLARE) -->
             <div id="ruota-vita-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl border-t-2 border-t-premium-champagne">
                 <div class="text-center border-b border-white/5 pb-8 mb-10 relative">
                     <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
                     <h2 class="font-serif text-3xl font-bold text-white tracking-widest uppercase">La Ruota della Vita</h2>
                     <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Fotografa il tuo Equilibrio</p>
                 </div>
-                <div class="ruota-container">
-                    <div class="ruota-controls">
-                        <p class="text-gray-400 text-sm mb-6">Trascina gli indicatori per dare un punteggio da 1 a 10 al tuo grado di soddisfazione attuale.</p>
-                        <div id="inputs-container-ruota" class="mb-8"></div>
-                        <div class="border-t border-white/10 pt-8">
-                            <h3 class="text-lg text-white font-serif mb-4">I tuoi dati per ricevere il report di analisi</h3>
-                            <input type="text" id="ruota-nome" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
-                            <input type="email" id="ruota-email" class="input-lead" placeholder="Indirizzo Email *" oninput="this.classList.remove('input-error')">
-                            <input type="tel" id="ruota-tel" class="input-lead" placeholder="Numero di Telefono *" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.classList.remove('input-error')">
-                            <div class="flex items-start gap-3 mt-4 mb-6 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="ruota-privBox">
-                                <input type="checkbox" id="ruota-priv" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('ruota-privBox').classList.remove('privacy-error')">
-                                <label for="ruota-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per ricevere il report di analisi e comunicazioni di coaching. *</label>
-                            </div>
-                            <button id="btnInviaRuota" class="tasto-assessment btn-gold-solid" onclick="inviaDatiRuota()">Invia al Coach</button>
-                        </div>
+                <div class="text-center mb-8"><p class="text-gray-300 font-medium">Clicca e trascina all'interno del grafico per impostare la tua valutazione (da 0 a 10).</p></div>
+                <div class="interactive-canvas-container"><canvas id="wheelCanvasVita" width="500" height="500"></canvas></div>
+                <div class="reset-btn"><button onclick="resetScoresVita()">Ricomincia da Zero</button></div>
+                <div class="border-t border-white/10 pt-8 max-w-lg mx-auto mt-8">
+                    <h3 class="text-center text-xl text-white font-serif mb-6">I tuoi dati per ricevere il report di analisi</h3>
+                    <input type="text" id="ruota-nome" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
+                    <input type="email" id="ruota-email" class="input-lead" placeholder="Indirizzo Email *" oninput="this.classList.remove('input-error')">
+                    <input type="tel" id="ruota-tel" class="input-lead" placeholder="Numero di Telefono *" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.classList.remove('input-error')">
+                    <textarea id="ruota-note" class="input-lead h-24 resize-none" placeholder="Note facoltative (es. obiettivi di equilibrio)..."></textarea>
+                    <div class="flex items-start gap-3 mt-4 mb-6 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="ruota-privBox">
+                        <input type="checkbox" id="ruota-priv" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('ruota-privBox').classList.remove('privacy-error')">
+                        <label for="ruota-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per ricevere il report di analisi e comunicazioni di coaching. *</label>
                     </div>
-                    <div class="ruota-chart"><canvas id="lifeWheel"></canvas></div>
+                    <button id="btnInviaRuota" class="tasto-assessment btn-gold-solid w-full" onclick="inviaDatiRuota()">Invia al Coach</button>
                 </div>
             </div>
 
@@ -366,7 +352,6 @@
     <script>lucide.createIcons();</script>
 
     <script>
-        // SCRIPT FILTRI RAPIDI
         function filtra(categoria, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active-filter'));
             btn.classList.add('active-filter');
@@ -384,7 +369,7 @@
             document.getElementById('meta-assessment').classList.add('hidden-step');
             document.getElementById('hub-header').classList.add('hidden-step');
             if (id === 'one-profile') { document.getElementById('one-profile-app').classList.remove('hidden-step'); if(step_one === 0) document.getElementById("testo-domanda").innerText = domande_one[0].q; } 
-            else if (id === 'ruota-vita') { document.getElementById('ruota-vita-app').classList.remove('hidden-step'); if(!ruotaIniziata) initRuota(); }
+            else if (id === 'ruota-vita') { document.getElementById('ruota-vita-app').classList.remove('hidden-step'); if(!vitaIniziata) initVita(); }
             else if (id === 'ruota-atleta') { document.getElementById('ruota-atleta-app').classList.remove('hidden-step'); if(!atletaIniziata) initAtleta(); }
             else if (id === 'ruota-manager') { document.getElementById('ruota-manager-app').classList.remove('hidden-step'); if(!managerIniziata) initManager(); }
             else if (id === 'burnout') { document.getElementById('burnout-app').classList.remove('hidden-step'); if(step_burnout === 0) document.getElementById("testo-burnout").innerText = domande_burnout[0].q; }
@@ -393,27 +378,86 @@
         function tornaIndietro() { document.getElementById('one-profile-app').classList.add('hidden-step'); document.getElementById('ruota-vita-app').classList.add('hidden-step'); document.getElementById('ruota-atleta-app').classList.add('hidden-step'); document.getElementById('ruota-manager-app').classList.add('hidden-step'); document.getElementById('burnout-app').classList.add('hidden-step'); document.getElementById('coming-soon-msg').classList.add('hidden-step'); document.getElementById('meta-assessment').classList.remove('hidden-step'); document.getElementById('hub-header').classList.remove('hidden-step'); }
         function drawRoundedRect(ctx, x, y, w, h, r, fCol) { ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r); ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h); ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r); ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath(); ctx.fillStyle=fCol; ctx.fill(); }
 
-        const ruota_areas = ["Ambiente", "Crescita", "Emozioni", "Famiglia", "Finanze", "Lavoro", "Missione", "Salute", "Svago", "Sociale", "Amore"];
-        const ruota_colors = ['#c5a059', '#34a853', '#fbbc04', '#ea4335', '#a29bfe', '#46bdc6', '#ff8343', '#2ecc71', '#9e9e9e', '#03a9f4', '#e91e63'];
-        let myChartRuota = null, ruotaIniziata = false;
-        function initRuota() {
-            ruotaIniziata = true; const container = document.getElementById('inputs-container-ruota'); container.innerHTML = '';
-            ruota_areas.forEach((area, i) => { container.innerHTML += `<div class="input-group"><div class="label-container"><span class="color-dot" style="background-color: ${ruota_colors[i]}"></span><label style="color: ${ruota_colors[i]}">${area}</label></div><input type="range" min="0" max="10" value="0" oninput="updRuota(${i}, this.value)"></div>`; });
-            Chart.register(ChartDataLabels); const ctx = document.getElementById('lifeWheel').getContext('2d');
-            myChartRuota = new Chart(ctx, { type: 'polarArea', data: { labels: ruota_areas, datasets: [{ data: Array(ruota_areas.length).fill(0), backgroundColor: ruota_colors.map(c => c + '88'), borderColor: '#ffffff22', borderWidth: 2 }] }, options: { responsive: true, startAngle: -90, scales: { r: { max: 10, min: 0, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { display: false }, pointLabels: { display: true, centerPointLabels: true, font: { size: 10, weight: 'bold', family: "'Inter', sans-serif" }, color: (context) => ruota_colors[context.index] } } }, plugins: { legend: { display: false }, datalabels: { color: '#fff', font: { weight: 'bold', size: 12 }, display: function(context) { return context.dataset.data[context.dataIndex] > 0; }, formatter: function(value) { return value; }, anchor: 'center', align: 'center' } } } });
+        const maxRad = 160, inRad = 30;
+
+        // --- RUOTA DELLA VITA (INTERATTIVA A TRASCINAMENTO) ---
+        const catVita = [
+            { name: "AMBIENTE", color: "#c5a059", rgb: "197, 160, 89" },
+            { name: "CRESCITA", color: "#34a853", rgb: "52, 168, 83" },
+            { name: "EMOZIONI", color: "#fbbc04", rgb: "251, 188, 4" },
+            { name: "FAMIGLIA", color: "#ea4335", rgb: "234, 67, 53" },
+            { name: "FINANZE", color: "#a29bfe", rgb: "162, 155, 254" },
+            { name: "LAVORO", color: "#46bdc6", rgb: "70, 189, 198" },
+            { name: "MISSIONE", color: "#ff8343", rgb: "255, 131, 67" },
+            { name: "SALUTE", color: "#2ecc71", rgb: "46, 204, 113" },
+            { name: "SVAGO", color: "#9e9e9e", rgb: "158, 158, 158" },
+            { name: "SOCIALE", color: "#03a9f4", rgb: "3, 169, 244" },
+            { name: "AMORE", color: "#e91e63", rgb: "233, 30, 99" }
+        ];
+        let scoresVita = Array(catVita.length).fill(0), canvasVita, ctxVita, isDraggingVita = false, vitaIniziata = false;
+
+        function initVita() {
+            vitaIniziata = true; canvasVita = document.getElementById('wheelCanvasVita'); ctxVita = canvasVita.getContext('2d'); drawWheelVita();
+            const handleVitaInter = (e) => {
+                const rect = canvasVita.getBoundingClientRect(); const scaleX = canvasVita.width / rect.width; const scaleY = canvasVita.height / rect.height;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX; const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                const x = (clientX - rect.left) * scaleX - canvasVita.width / 2; const y = (clientY - rect.top) * scaleY - canvasVita.height / 2;
+                if (Math.sqrt(x*x + y*y) <= maxRad + 20) {
+                    let angle = Math.atan2(y, x) - (-Math.PI / 2); if (angle < 0) angle += 2 * Math.PI;
+                    const sIdx = Math.floor(angle / ((2 * Math.PI) / catVita.length)) % catVita.length;
+                    scoresVita[sIdx] = Math.max(0, Math.min(10, Math.round(((Math.sqrt(x*x + y*y) - inRad) / (maxRad - inRad)) * 10)));
+                    drawWheelVita();
+                }
+            };
+            canvasVita.addEventListener('mousedown', (e) => { isDraggingVita = true; handleVitaInter(e); });
+            canvasVita.addEventListener('mousemove', (e) => { if (isDraggingVita) handleVitaInter(e); });
+            window.addEventListener('mouseup', () => { isDraggingVita = false; });
+            canvasVita.addEventListener('touchstart', (e) => { isDraggingVita = true; handleVitaInter(e); }, { passive: true });
+            canvasVita.addEventListener('touchmove', (e) => { if (isDraggingVita) handleVitaInter(e); }, { passive: true });
+            window.addEventListener('touchend', () => { isDraggingVita = false; });
         }
-        function updRuota(i, v) { myChartRuota.data.datasets[0].data[i] = v; myChartRuota.update(); }
+        function resetScoresVita() { scoresVita = Array(catVita.length).fill(0); drawWheelVita(); }
+        function drawWheelVita() {
+            const w=canvasVita.width, h=canvasVita.height, cX=w/2, cY=h/2, step=(2*Math.PI)/catVita.length, startOffset=-Math.PI/2;
+            ctxVita.clearRect(0,0,w,h); ctxVita.strokeStyle='rgba(255,255,255,0.05)'; ctxVita.lineWidth=1;
+            for(let i=1;i<=10;i++) { ctxVita.beginPath(); ctxVita.arc(cX,cY,inRad+(maxRad-inRad)*(i/10),0,2*Math.PI); ctxVita.stroke(); }
+            for(let i=0;i<catVita.length;i++) {
+                const sAngle=startOffset+i*step, eAngle=sAngle+step, mAngle=sAngle+step/2, cat=catVita[i];
+                if(scoresVita[i]>0) {
+                    const scRad=inRad+(maxRad-inRad)*(scoresVita[i]/10);
+                    ctxVita.fillStyle=`rgba(${cat.rgb}, 0.35)`; ctxVita.beginPath(); ctxVita.arc(cX,cY,scRad,sAngle,eAngle); ctxVita.arc(cX,cY,inRad,eAngle,sAngle,true); ctxVita.closePath(); ctxVita.fill();
+                    ctxVita.strokeStyle=cat.color; ctxVita.lineWidth=2.5; ctxVita.beginPath(); ctxVita.arc(cX,cY,scRad,sAngle,eAngle); ctxVita.stroke();
+                    const nx=cX+(inRad+(scRad-inRad)/2)*Math.cos(mAngle), ny=cY+(inRad+(scRad-inRad)/2)*Math.sin(mAngle);
+                    ctxVita.fillStyle='#fff'; ctxVita.beginPath(); ctxVita.arc(nx,ny,10,0,2*Math.PI); ctxVita.fill(); ctxVita.strokeStyle=cat.color; ctxVita.lineWidth=2; ctxVita.stroke();
+                    ctxVita.fillStyle=cat.color; ctxVita.font='bold 11px Inter'; ctxVita.textAlign='center'; ctxVita.textBaseline='middle'; ctxVita.fillText(scoresVita[i], nx, ny);
+                }
+            }
+            ctxVita.strokeStyle='rgba(255,255,255,0.1)'; ctxVita.lineWidth=1.5;
+            for(let i=0;i<catVita.length;i++) { const ang=startOffset+i*step; ctxVita.beginPath(); ctxVita.moveTo(cX+inRad*Math.cos(ang), cY+inRad*Math.sin(ang)); ctxVita.lineTo(cX+maxRad*Math.cos(ang), cY+maxRad*Math.sin(ang)); ctxVita.stroke(); }
+            ctxVita.beginPath(); ctxVita.arc(cX,cY,maxRad,0,2*Math.PI); ctxVita.stroke();
+            ctxVita.beginPath(); ctxVita.arc(cX,cY,inRad,0,2*Math.PI); ctxVita.fillStyle='#050505'; ctxVita.fill(); ctxVita.stroke();
+            for(let i=0;i<catVita.length;i++) {
+                const cat=catVita[i], mAngle=startOffset+i*step+step/2, lRad=maxRad+30;
+                const lx=cX+lRad*Math.cos(mAngle), ly=cY+lRad*Math.sin(mAngle);
+                ctxVita.font='bold 9px Inter'; const tW=ctxVita.measureText(cat.name).width, bW=tW+14, bH=18;
+                let bx=lx; const cosA=Math.cos(mAngle); if(Math.abs(cosA)<0.3) bx=lx-bW/2; else if(cosA<0) bx=lx-bW;
+                drawRoundedRect(ctxVita, bx, ly-bH/2, bW, bH, 4, cat.color);
+                ctxVita.fillStyle='#fff'; ctxVita.textAlign='center'; ctxVita.textBaseline='middle'; ctxVita.fillText(cat.name, bx+bW/2, ly+1);
+            }
+        }
         function inviaDatiRuota() {
-            const btn = document.getElementById('btnInviaRuota'), n = document.getElementById('ruota-nome'), e = document.getElementById('ruota-email'), t = document.getElementById('ruota-tel'), p = document.getElementById('ruota-priv');
+            const btn = document.getElementById('btnInviaRuota'), n = document.getElementById('ruota-nome'), e = document.getElementById('ruota-email'), t = document.getElementById('ruota-tel'), p = document.getElementById('ruota-priv'), note = document.getElementById('ruota-note');
             let valid = true; if(!n.value.trim()){ n.classList.add('input-error'); valid = false; } if(!e.value.includes('@')){ e.classList.add('input-error'); valid = false; } if(t.value.length < 6){ t.classList.add('input-error'); valid = false; } if(!p.checked){ document.getElementById('ruota-privBox').classList.add('privacy-error'); valid = false; } if(!valid) return;
             btn.innerText = "INVIO IN CORSO..."; btn.disabled = true;
-            let payload = { _subject: "🎯 Nuovo Lead: Ruota della Vita", Nome: n.value, Email: e.value, Telefono: t.value };
-            ruota_areas.forEach((area, i) => { payload[area] = myChartRuota.data.datasets[0].data[i]; });
-            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(res => res.json()).then(data => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; alert("Report di analisi inviato con successo!"); }).catch(error => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; });
+            let payload = { _subject: "🎯 Nuovo Lead: Ruota della Vita", Nome: n.value, Email: e.value, Telefono: t.value, Note_Aggiuntive: note.value };
+            catVita.forEach((cat, i) => { payload[cat.name] = scoresVita[i]; });
+            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(res => res.json()).then(data => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; alert("Report Ruota della Vita inviato con successo!"); }).catch(error => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; });
         }
 
+
+        // --- RUOTA DELL'ATLETA ---
         const catAtleta = [{ name: "TECNICA", color: "#e53935", rgb: "229, 57, 53" }, { name: "TATTICA", color: "#3949ab", rgb: "57, 73, 171" }, { name: "PREP. FISICA", color: "#00897b", rgb: "0, 137, 123" }, { name: "RECUPERO", color: "#8e24aa", rgb: "142, 36, 170" }, { name: "ALIMENTAZIONE", color: "#43a047", rgb: "67, 160, 71" }, { name: "FOCUS", color: "#d81b60", rgb: "216, 27, 96" }, { name: "MOTIVAZIONE", color: "#fb8c00", rgb: "251, 140, 0" }, { name: "VITA PRIVATA", color: "#00acc1", rgb: "0, 172, 193" }];
-        let scoresAtleta = [0,0,0,0,0,0,0,0], canvasAtleta, ctxAtleta, isDraggingAtleta = false, maxRad = 160, inRad = 30, atletaIniziata = false;
+        let scoresAtleta = Array(catAtleta.length).fill(0), canvasAtleta, ctxAtleta, isDraggingAtleta = false, atletaIniziata = false;
         function initAtleta() {
             atletaIniziata = true; canvasAtleta = document.getElementById('wheelCanvasAtleta'); ctxAtleta = canvasAtleta.getContext('2d'); drawWheelAtleta();
             const handleAtletaInter = (e) => {
@@ -434,7 +478,7 @@
             canvasAtleta.addEventListener('touchmove', (e) => { if (isDraggingAtleta) handleAtletaInter(e); }, { passive: true });
             window.addEventListener('touchend', () => { isDraggingAtleta = false; });
         }
-        function resetScoresAtleta() { scoresAtleta = [0,0,0,0,0,0,0,0]; drawWheelAtleta(); }
+        function resetScoresAtleta() { scoresAtleta = Array(catAtleta.length).fill(0); drawWheelAtleta(); }
         function drawWheelAtleta() {
             const w=canvasAtleta.width, h=canvasAtleta.height, cX=w/2, cY=h/2, step=(2*Math.PI)/catAtleta.length, startOffset=-Math.PI/2;
             ctxAtleta.clearRect(0,0,w,h); ctxAtleta.strokeStyle='rgba(255,255,255,0.05)'; ctxAtleta.lineWidth=1;
@@ -472,8 +516,10 @@
             fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(res => res.json()).then(data => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; alert("Report Atleta inviato con successo!"); }).catch(error => { btn.innerText="INVIATO ✓"; btn.style.background="#2ecc71"; btn.style.color="#000"; });
         }
 
+
+        // --- RUOTA DEL MANAGER ---
         const catManager = [{ name: "LEADERSHIP", color: "#e53935", rgb: "229, 57, 53" }, { name: "STRATEGIA", color: "#3949ab", rgb: "57, 73, 171" }, { name: "TEAM", color: "#00897b", rgb: "0, 137, 123" }, { name: "PROBLEM SOLVING", color: "#8e24aa", rgb: "142, 36, 170" }, { name: "TIME MGMT", color: "#43a047", rgb: "67, 160, 71" }, { name: "NEGOZIAZIONE", color: "#d81b60", rgb: "216, 27, 96" }, { name: "INT. EMOTIVA", color: "#fb8c00", rgb: "251, 140, 0" }, { name: "STRESS MGMT", color: "#00acc1", rgb: "0, 172, 193" }];
-        let scoresManager = [0,0,0,0,0,0,0,0], canvasManager, ctxManager, isDraggingManager = false, managerIniziata = false;
+        let scoresManager = Array(catManager.length).fill(0), canvasManager, ctxManager, isDraggingManager = false, managerIniziata = false;
         function initManager() {
             managerIniziata = true; canvasManager = document.getElementById('wheelCanvasManager'); ctxManager = canvasManager.getContext('2d'); drawWheelManager();
             const handleManagerInter = (e) => {
@@ -494,7 +540,7 @@
             canvasManager.addEventListener('touchmove', (e) => { if (isDraggingManager) handleManagerInter(e); }, { passive: true });
             window.addEventListener('touchend', () => { isDraggingManager = false; });
         }
-        function resetScoresManager() { scoresManager = [0,0,0,0,0,0,0,0]; drawWheelManager(); }
+        function resetScoresManager() { scoresManager = Array(catManager.length).fill(0); drawWheelManager(); }
         function drawWheelManager() {
             const w=canvasManager.width, h=canvasManager.height, cX=w/2, cY=h/2, step=(2*Math.PI)/catManager.length, startOffset=-Math.PI/2;
             ctxManager.clearRect(0,0,w,h); ctxManager.strokeStyle='rgba(255,255,255,0.05)'; ctxManager.lineWidth=1;
@@ -532,6 +578,8 @@
             fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(res => res.json()).then(data => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; alert("Report Manager inviato con successo!"); }).catch(error => { btn.innerText="INVIATO ✓"; btn.style.background="#2ecc71"; btn.style.color="#000"; });
         }
 
+
+        // --- ONE PROFILE ---
         const domande_one = [{cat:"Drive", q:"Quanto senti forte la spinta verso l'ambizione e il successo?"},{cat:"Logica", q:"Preferisci decidere basandoti su dati e fatti oggettivi?"},{cat:"Empatia", q:"Quanto sei influenzato dallo stato d'animo di chi ti circonda?"},{cat:"Visione", q:"Quanto sei proiettato verso il futuro e progetti innovativi?"},{cat:"Stabilita", q:"Cerchi attivamente sicurezza e routine nel tuo quotidiano?"},{cat:"Social", q:"Quanto è vitale per te il contatto costante con le persone?"}];
         let step_one = 0, punteggi_one = { Drive:0, Logica:0, Empatia:0, Visione:0, Stabilita:0, Social:0 };
         window.prossima = function(v) { punteggi_one[domande_one[step_one].cat] = v; step_one++; if(step_one < domande_one.length) { document.getElementById("testo-domanda").innerText = domande_one[step_one].q; document.getElementById("bar-fill-one").style.width = ((step_one + 1) / domande_one.length * 100) + "%"; } else { document.getElementById("step-observe").classList.add("hidden-step"); document.getElementById("step-lead").classList.remove("hidden-step"); } };
@@ -544,6 +592,8 @@
         };
         window.creaGraficoOne = function() { new Chart(document.getElementById("grafico-one").getContext("2d"), { type: "radar", data: { labels: ["Drive", "Logica", "Empatia", "Visione", "Stabilità", "Social"], datasets: [{ data: [punteggi_one.Drive, punteggi_one.Logica, punteggi_one.Empatia, punteggi_one.Visione, punteggi_one.Stabilita, punteggi_one.Social], backgroundColor: "rgba(229, 208, 161, 0.3)", borderColor: '#E5D0A1', borderWidth: 2, pointBackgroundColor: "#fff" }] }, options: { scales: { r: { grid: { color: "rgba(255,255,255,0.1)" }, pointLabels: { color: "#E5D0A1", font: { size: 12, family: "'Inter', sans-serif" } }, ticks: { display: false }, min: 0, max: 30 } }, plugins: { legend: { display: false } } } }); };
 
+
+        // --- STRESS & CARICO MENTALE ---
         const domande_burnout = [
             { cat: "Esaurimento", q: "Ti senti emotivamente svuotato e stanco a causa del tuo lavoro o della tua routine?" },
             { cat: "Esaurimento", q: "Ti senti esausto già al mattino quando devi affrontare la giornata?" },
@@ -573,7 +623,7 @@
             let n = document.getElementById("nome-burnout"), e = document.getElementById("email-burnout"), t = document.getElementById("tel-burnout"), p = document.getElementById("privacy-burnout");
             let valid = true;
             if(n.value.length < 2) { n.classList.add("input-error"); valid = false; }
-            if(!e.value.includes("@") || e.value.length < 5) { n.classList.add("input-error"); valid = false; }
+            if(!e.value.includes("@") || e.value.length < 5) { e.classList.add("input-error"); valid = false; }
             if(t.value.length < 6) { t.classList.add("input-error"); valid = false; }
             if(!p.checked) { document.getElementById("privacy-container-burnout").classList.add("privacy-error"); valid = false; }
             if(!valid) return;
