@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONE Match Analysis | Couple Coaching | Claudio Carluccio Coaching</title>
+    
+    <link rel="icon" type="image/png" href="logo-claudio.png">
+    <link rel="apple-touch-icon" href="logo-claudio.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { premium: { 950: '#050505', 900: '#0a0a0a', 800: '#141414', champagne: '#E5D0A1' } },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        body { background-color: #050505; color: #f5f5f5; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+        .nav-link { position: relative; color: #a3a3a3; transition: color 0.3s ease; }
+        .nav-link:hover, .nav-link.active { color: #ffffff; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #E5D0A1; transition: width 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        .glass-panel { background: rgba(20, 20, 20, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.15); }
+        .nascosto { display: none !important; }
+
+        .input-lead { 
+            width: 100%; padding: 14px 18px; margin: 8px 0; box-sizing: border-box; 
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1); 
+            color: white; border-radius: 8px; font-size: 15px; outline: none; transition: border-color 0.3s; 
+        }
+        .input-lead:focus { border-color: #E5D0A1; background: rgba(229, 208, 161, 0.02); }
+        .input-error { border: 1px solid #ff4d4d !important; background: rgba(255, 77, 77, 0.05); }
+
+        .tasto { 
+            display: block; width: 100%; padding: 16px; margin: 12px 0; 
+            background: transparent; color: #E5D0A1; border: 1px solid rgba(229, 208, 161, 0.4); 
+            border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; 
+            transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .tasto:hover { background: #E5D0A1; color: #050505; }
+        .btn-B { color: #00f2ff; border-color: rgba(0, 242, 255, 0.4); }
+        .btn-B:hover { background: #00f2ff; color: #000; }
+        .cta-gold { background: #E5D0A1 !important; color: #050505 !important; border: none !important; }
+        .cta-gold:hover { background: #C5A880 !important; }
+
+        .progress-container { width: 100%; background: #141414; height: 4px; border-radius: 10px; margin: 20px 0; overflow: hidden; border: 1px solid rgba(229, 208, 161, 0.1); }
+        #bar-fill { height: 100%; background: #E5D0A1; width: 0%; transition: 0.4s; }
+
+        .user-tag { padding: 6px 18px; border-radius: 50px; font-size: 11px; font-weight: bold; margin-bottom: 20px; display: inline-block; text-transform: uppercase; letter-spacing: 1.5px; }
+        .tag-A { background: #E5D0A1; color: #000; }
+        .tag-B { background: #00f2ff; color: #000; box-shadow: 0 0 15px rgba(0, 242, 255, 0.3); }
+        .domanda { font-size: 18px; color: #fff; margin-bottom: 25px; min-height: 50px; font-weight: 300; line-height: 1.5; }
+    </style>
+</head>
+<body class="antialiased selection:bg-premium-champagne selection:text-premium-950">
+
+    <!-- HEADER UNIFICATO -->
+    <header class="fixed top-0 left-0 right-0 z-[9000] py-6 px-6 md:px-12 bg-premium-950/85 backdrop-blur-2xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors block">
+                CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
+            </a>
+            <nav class="hidden lg:flex items-center gap-6 text-sm font-light tracking-wide">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="servizi.html" class="nav-link">I Miei Percorsi</a>
+                <a href="servizi-coach.html" class="nav-link text-premium-champagne font-semibold">Per i Coach</a>
+                <a href="assessment.html" class="nav-link active">Assessment</a>
+                <a href="contatti.html" class="nav-link">Contattami</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-36 pb-24 px-6 flex flex-col items-center justify-center">
+        
+        <!-- BANNER DI POSIZIONAMENTO (UNICO SPECIALISTA IN ITALIA) -->
+        <div class="max-w-xl w-full mb-8 text-center bg-premium-champagne/10 border border-premium-champagne/30 rounded-lg p-4">
+            <p class="text-premium-champagne text-xs uppercase tracking-[0.2em] font-semibold mb-1">Eccellenza Esclusiva</p>
+            <p class="text-gray-300 text-xs font-light">Tra i pochissimi professionisti in Italia specializzati in percorsi avanzati di <strong class="text-white font-medium">Couple Coaching</strong>.</p>
+        </div>
+
+        <div class="max-w-lg w-full glass-panel p-8 md:p-10 rounded-xl shadow-2xl border-t-2 border-t-premium-champagne">
+            
+            <div class="text-center mb-8">
+                <h1 class="font-serif text-2xl md:text-3xl font-bold text-white tracking-widest uppercase">ONE Match</h1>
+                <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Strategic Synergy Analysis per Coppie</p>
+            </div>
+
+            <!-- STEP 1: INTRODUZIONE & LEAD GATE (OBBLIGATORIO) -->
+            <div id="step-intro">
+                <p class="text-gray-300 text-sm font-light mb-6 text-center leading-relaxed">
+                    Inserisci i dati di entrambi i partner per sbloccare l'assessment comparativo e ricevere il report strategico di coppia.
+                </p>
+
+                <div class="space-y-4 mb-6 text-left">
+                    <div class="p-4 bg-premium-900/50 rounded border border-white/5">
+                        <label class="block text-xs uppercase tracking-widest text-premium-champagne mb-1 font-semibold">Persona A</label>
+                        <input type="text" id="nomeA" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
+                        <input type="email" id="emailA" class="input-lead" placeholder="Email Persona A *" oninput="this.classList.remove('input-error')">
+                        <input type="tel" id="telA" class="input-lead" placeholder="Telefono Persona A *" oninput="this.value = this.value.replace(/[^0-9+]/g, ''); this.classList.remove('input-error')">
+                    </div>
+
+                    <div class="p-4 bg-premium-900/50 rounded border border-white/5">
+                        <label class="block text-xs uppercase tracking-widest text-[#00f2ff] mb-1 font-semibold">Persona B</label>
+                        <input type="text" id="nomeB" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
+                        <input type="email" id="emailB" class="input-lead" placeholder="Email Persona B *" oninput="this.classList.remove('input-error')">
+                        <input type="tel" id="telB" class="input-lead" placeholder="Telefono Persona B *" oninput="this.value = this.value.replace(/[^0-9+]/g, ''); this.classList.remove('input-error')">
+                    </div>
+
+                    <div class="flex items-start gap-3 p-4 bg-premium-900/50 rounded border border-white/5" id="privacy-box">
+                        <input type="checkbox" id="privacy-coppia" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('privacy-box').classList.remove('input-error')">
+                        <label for="privacy-coppia" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per la ricezione del report di coppia e comunicazioni di Couple Coaching. *</label>
+                    </div>
+                </div>
+
+                <button class="tasto cta-gold" onclick="iniziaMatch()">Sblocca Assessment di Coppia</button>
+            </div>
+
+            <!-- STEP 2: QUIZ INTERATTIVO (A TURNI) -->
+            <div id="step-quiz" class="nascosto">
+                <div class="progress-container"><div id="bar-fill"></div></div>
+                <div id="user-label" class="user-tag"></div>
+                <div id="testo-domanda" class="domanda"></div>
+                <div id="opzioni" class="space-y-3">
+                    <button id="b1" class="tasto" onclick="prossima(30)">Moltissimo</button>
+                    <button id="b2" class="tasto" onclick="prossima(20)">Abbastanza</button>
+                    <button id="b3" class="tasto" onclick="prossima(10)">Poco</button>
+                    <button id="b4" class="tasto" onclick="prossima(0)">Per nulla</button>
+                </div>
+            </div>
+
+            <!-- STEP 3: RISULTATI COMPARATIVI -->
+            <div id="step-result" class="nascosto text-center">
+                <h3 class="font-serif text-xl font-bold text-white tracking-widest mb-4">Sintesi Sinergica di Coppia</h3>
+                <div class="bg-premium-900/40 p-4 rounded-xl border border-white/5"><canvas id="grafico"></canvas></div>
+                <div id="analisi-box" class="text-gray-300 text-xs font-light mt-6 text-left border-t border-white/10 pt-4 leading-relaxed"></div>
+                <button class="tasto cta-gold mt-6" onclick="window.print()">Stampa Report PDF</button>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-premium-950 border-t border-white/5 py-8 text-center text-xs text-gray-500 mt-auto">
+        <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati. Specialista in Couple Coaching.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const quiz = [
+            { c: "drive", q: "Quanto senti forte la spinta verso l'ambizione e il successo?" },
+            { c: "logica", q: "Preferisci decidere basandoti su dati e fatti oggettivi?" },
+            { c: "empatia", q: "Quanto sei influenzato dallo stato d'animo di chi ti circonda?" },
+            { c: "visione", q: "Quanto sei proiettato verso il futuro e progetti innovativi?" },
+            { c: "stabilita", q: "Cerchi attivamente sicurezza e routine nel tuo quotidiano?" },
+            { c: "social", q: "Quanto è vitale per te il contatto costante con le persone?" }
+        ];
+
+        let pA = {}, pB = {}, nA = "", nB = "", turn = "A", idx = 0;
+
+        function iniziaMatch() {
+            const naInput = document.getElementById('nomeA'), eaInput = document.getElementById('emailA'), taInput = document.getElementById('telA');
+            const nbInput = document.getElementById('nomeB'), ebInput = document.getElementById('emailB'), tbInput = document.getElementById('telB');
+            const priv = document.getElementById('privacy-coppia');
+
+            let valid = true;
+            [naInput, eaInput, taInput, nbInput, ebInput, tbInput].forEach(el => {
+                if(!el.value.trim() || (el.type === 'email' && !el.value.includes('@'))) { el.classList.add('input-error'); valid = false; }
+                else { el.classList.remove('input-error'); }
+            });
+            if(!priv.checked) { document.getElementById('privacy-box').classList.add('input-error'); valid = false; }
+            if(!valid) { alert("Compila tutti i campi di entrambe le persone e accetta la privacy per sbloccare il test."); return; }
+
+            nA = naInput.value.trim();
+            nB = nbInput.value.trim();
+
+            // INVIO DATI TRAMITE FORMSUBMIT PRIMA DI INIZIARE IL QUIZ (LEAD GATE RIGOROSO)
+            let payload = {
+                _subject: "❤️ Nuovo Lead Couple Coaching: ONE Match (" + nA + " & " + nB + ")",
+                Persona_A: nA, Email_A: eaInput.value, Telefono_A: taInput.value,
+                Persona_B: nB, Email_B: ebInput.value, Telefono_B: tbInput.value
+            };
+
+            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(err => console.log(err));
+
+            document.getElementById('step-intro').classList.add('nascosto');
+            document.getElementById('step-quiz').classList.remove('nascosto');
+            caricaDomanda();
+        }
+
+        function caricaDomanda() {
+            let tag = document.getElementById('user-label');
+            tag.innerText = "TURNO DI: " + (turn === "A" ? nA : nB).toUpperCase();
+            tag.className = "user-tag " + (turn === "A" ? "tag-A" : "tag-B");
+            
+            for(let i=1; i<=4; i++) {
+                let b = document.getElementById('b'+i);
+                if(turn === "B") b.classList.add('btn-B');
+                else b.classList.remove('btn-B');
+            }
+
+            document.getElementById('testo-domanda').innerText = quiz[idx].q;
+            let prog = turn === "A" ? (idx / 12 * 100) : ((idx + 6) / 12 * 100);
+            document.getElementById('bar-fill').style.width = prog + "%";
+        }
+
+        function prossima(v) {
+            if(turn === "A") pA[quiz[idx].c] = v;
+            else pB[quiz[idx].c] = v;
+
+            idx++;
+            if(idx >= quiz.length) {
+                if(turn === "A") { turn = "B"; idx = 0; caricaDomanda(); }
+                else { mostraGrafico(); }
+            } else { caricaDomanda(); }
+        }
+
+        function mostraGrafico() {
+            document.getElementById('step-quiz').classList.add('nascosto');
+            document.getElementById('step-result').classList.remove('nascosto');
+            
+            new Chart(document.getElementById('grafico'), {
+                type: 'radar',
+                data: {
+                    labels: ['Drive', 'Logica', 'Empatia', 'Visione', 'Stabilità', 'Social'],
+                    datasets: [
+                        { label: nA, data: Object.values(pA), backgroundColor: 'rgba(229, 208, 161, 0.35)', borderColor: '#E5D0A1', borderWidth: 2 },
+                        { label: nB, data: Object.values(pB), backgroundColor: 'rgba(0, 242, 255, 0.25)', borderColor: '#00f2ff', borderWidth: 2 }
+                    ]
+                },
+                options: {
+                    scales: { r: { grid: { color: 'rgba(255,255,255,0.1)' }, pointLabels: { color: '#E5D0A1', font: { size: 11, family: "'Inter', sans-serif" } }, ticks: { display: false }, min: 0, max: 30 } },
+                    plugins: { legend: { labels: { color: '#fff', font: { family: "'Inter', sans-serif" } } } }
+                }
+            });
+
+            let fb = "<strong class='text-premium-champagne'>Analisi Sinergica Preliminare:</strong><br><br>";
+            if(Math.abs((pA.logica || 0) - (pB.logica || 0)) > 15) fb += "• <strong class='text-white'>Polarità Decisionale:</strong> Emerge una differenza significativa tra approccio logico-oggettivo e intuitivo-emotivo. Ottimo complemento se gestito con la comunicazione consapevole.<br>";
+            else fb += "• <strong class='text-white'>Allineamento Decisionale:</strong> Condividete una simile struttura di elaborazione delle scelte quotidiane.<br>";
+
+            if((pA.visione || 0) > 20 && (pB.visione || 0) > 20) fb += "• <strong class='text-white'>Sintonia Proiettiva:</strong> Entrambi orientati a grandi prospettive future; attenzione condivisa alla concretezza operativa.<br>";
+            
+            fb += "<br><em>Nota: Questo grafico rappresenta una fotografia iniziale. Per sbloccare il piano di allineamento strategico di coppia, prenota una sessione di Couple Coaching.</em>";
+            
+            document.getElementById('analisi-box').innerHTML = fb;
+        }
+    </script>
+</body>
+</html>
