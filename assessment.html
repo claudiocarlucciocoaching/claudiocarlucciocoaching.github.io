@@ -66,7 +66,7 @@
         #grafico-container-one, #grafico-container-burnout { position: relative; margin-top: 30px; padding: 20px; background: rgba(20,20,20,0.4); border-radius: 8px;}
         canvas { max-width: 100%; }
 
-        .interactive-canvas-container { width: 100%; max-width: 500px; margin: 0 auto 30px; position: relative; }
+        .interactive-canvas-container { width: 100%; max-width: 560px; margin: 0 auto 30px; position: relative; }
         .interactive-canvas-container canvas { width: 100%; height: auto; cursor: crosshair; user-select: none; }
         .reset-btn { text-align: center; margin-bottom: 20px; }
         .reset-btn button { background: rgba(255,255,255,0.05); color: #ccc; border: 1px solid rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; cursor: pointer; }
@@ -185,7 +185,7 @@
                     <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Fotografa il tuo Equilibrio</p>
                 </div>
                 <div class="text-center mb-8"><p class="text-gray-300 font-medium">Clicca e trascina all'interno del grafico per impostare la tua valutazione (da 0 a 10).</p></div>
-                <div class="interactive-canvas-container"><canvas id="wheelCanvasVita" width="500" height="500"></canvas></div>
+                <div class="interactive-canvas-container"><canvas id="wheelCanvasVita" width="560" height="560"></canvas></div>
                 <div class="reset-btn"><button onclick="resetScoresVita()">Ricomincia da Zero</button></div>
                 <div class="border-t border-white/10 pt-8 max-w-lg mx-auto mt-8">
                     <h3 class="text-center text-xl text-white font-serif mb-6">I tuoi dati per ricevere il report di analisi</h3>
@@ -209,7 +209,7 @@
                     <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Costruisci la tua Performance</p>
                 </div>
                 <div class="text-center mb-8"><p class="text-gray-300 font-medium">Clicca e trascina all'interno del grafico per impostare la tua valutazione (da 0 a 10).</p></div>
-                <div class="interactive-canvas-container"><canvas id="wheelCanvasAtleta" width="500" height="500"></canvas></div>
+                <div class="interactive-canvas-container"><canvas id="wheelCanvasAtleta" width="560" height="560"></canvas></div>
                 <div class="reset-btn"><button onclick="resetScoresAtleta()">Ricomincia da Zero</button></div>
                 <div class="border-t border-white/10 pt-8 max-w-lg mx-auto mt-8">
                     <h3 class="text-center text-xl text-white font-serif mb-6">I tuoi dati per ricevere il report di analisi</h3>
@@ -225,7 +225,7 @@
                 </div>
             </div>
 
-            <!-- 3. RUOTA DEL MANAGER -->
+            <!-- 3. RUOTA DEL MANAGER (SPAZIO ETICHETTE AMPLIATO) -->
             <div id="ruota-manager-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl border-t-2 border-t-premium-champagne">
                 <div class="text-center border-b border-white/5 pb-8 mb-10 relative">
                     <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
@@ -233,7 +233,7 @@
                     <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Leadership & Business</p>
                 </div>
                 <div class="text-center mb-8"><p class="text-gray-300 font-medium">Clicca e trascina all'interno del grafico per impostare la tua valutazione (da 0 a 10).</p></div>
-                <div class="interactive-canvas-container"><canvas id="wheelCanvasManager" width="500" height="500"></canvas></div>
+                <div class="interactive-canvas-container"><canvas id="wheelCanvasManager" width="600" height="600"></canvas></div>
                 <div class="reset-btn"><button onclick="resetScoresManager()">Ricomincia da Zero</button></div>
                 <div class="border-t border-white/10 pt-8 max-w-lg mx-auto mt-8">
                     <h3 class="text-center text-xl text-white font-serif mb-6">I tuoi dati per ricevere il report di analisi</h3>
@@ -370,7 +370,7 @@
         function tornaIndietro() { document.getElementById('one-profile-app').classList.add('hidden-step'); document.getElementById('ruota-vita-app').classList.add('hidden-step'); document.getElementById('ruota-atleta-app').classList.add('hidden-step'); document.getElementById('ruota-manager-app').classList.add('hidden-step'); document.getElementById('burnout-app').classList.add('hidden-step'); document.getElementById('coming-soon-msg').classList.add('hidden-step'); document.getElementById('meta-assessment').classList.remove('hidden-step'); document.getElementById('hub-header').classList.remove('hidden-step'); }
         function drawRoundedRect(ctx, x, y, w, h, r, fCol) { ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r); ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h); ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r); ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath(); ctx.fillStyle=fCol; ctx.fill(); }
 
-        const maxRad = 160, inRad = 30;
+        const maxRad = 150, inRad = 35;
 
         // --- RUOTA DELLA VITA ---
         const catVita = [
@@ -414,8 +414,8 @@
                     ctxVita.fillStyle=`rgba(${cat.rgb}, 0.35)`; ctxVita.beginPath(); ctxVita.arc(cX,cY,scRad,sAngle,eAngle); ctxVita.arc(cX,cY,inRad,eAngle,sAngle,true); ctxVita.closePath(); ctxVita.fill();
                     ctxVita.strokeStyle=cat.color; ctxVita.lineWidth=2.5; ctxVita.beginPath(); ctxVita.arc(cX,cY,scRad,sAngle,eAngle); ctxVita.stroke();
                     const nx=cX+(inRad+(scRad-inRad)/2)*Math.cos(mAngle), ny=cY+(inRad+(scRad-inRad)/2)*Math.sin(mAngle);
-                    ctxVita.fillStyle='#fff'; ctxVita.beginPath(); ctxVita.arc(nx,ny,10,0,2*Math.PI); ctxVita.fill(); ctxVita.strokeStyle=cat.color; ctxVita.lineWidth=2; ctxVita.stroke();
-                    ctxVita.fillStyle=cat.color; ctxVita.font='bold 11px Inter'; ctxVita.textAlign='center'; ctxVita.textBaseline='middle'; ctxVita.fillText(scoresVita[i], nx, ny);
+                    ctxVita.fillStyle='#fff'; ctxVita.beginPath(); ctxVita.arc(nx,ny,9,0,2*Math.PI); ctxVita.fill(); ctxVita.strokeStyle=cat.color; ctxVita.lineWidth=2; ctxVita.stroke();
+                    ctxVita.fillStyle=cat.color; ctxVita.font='bold 10px Inter'; ctxVita.textAlign='center'; ctxVita.textBaseline='middle'; ctxVita.fillText(scoresVita[i], nx, ny);
                 }
             }
             ctxVita.strokeStyle='rgba(255,255,255,0.1)'; ctxVita.lineWidth=1.5;
@@ -423,12 +423,12 @@
             ctxVita.beginPath(); ctxVita.arc(cX,cY,maxRad,0,2*Math.PI); ctxVita.stroke();
             ctxVita.beginPath(); ctxVita.arc(cX,cY,inRad,0,2*Math.PI); ctxVita.fillStyle='#050505'; ctxVita.fill(); ctxVita.stroke();
             for(let i=0;i<catVita.length;i++) {
-                const cat=catVita[i], mAngle=startOffset+i*step+step/2, lRad=maxRad+30;
+                const cat=catVita[i], mAngle=startOffset+i*step+step/2, lRad=maxRad+40;
                 const lx=cX+lRad*Math.cos(mAngle), ly=cY+lRad*Math.sin(mAngle);
                 ctxVita.font='bold 9px Inter'; const tW=ctxVita.measureText(cat.name).width, bW=tW+14, bH=18;
-                let bx=lx; const cosA=Math.cos(mAngle); if(Math.abs(cosA)<0.3) bx=lx-bW/2; else if(cosA<0) bx=lx-bW;
-                drawRoundedRect(ctxVita, bx, ly-bH/2, bW, bH, 4, cat.color);
-                ctxVita.fillStyle='#fff'; ctxVita.textAlign='center'; ctxVita.textBaseline='middle'; ctxVita.fillText(cat.name, bx+bW/2, ly+1);
+                let bx=lx-bW/2; let by=ly-bH/2;
+                drawRoundedRect(ctxVita, bx, by, bW, bH, 4, cat.color);
+                ctxVita.fillStyle='#fff'; ctxVita.textAlign='center'; ctxVita.textBaseline='middle'; ctxVita.fillText(cat.name, lx, ly);
             }
         }
         function inviaDatiRuota() {
@@ -475,8 +475,8 @@
                     ctxAtleta.fillStyle=`rgba(${cat.rgb}, 0.35)`; ctxAtleta.beginPath(); ctxAtleta.arc(cX,cY,scRad,sAngle,eAngle); ctxAtleta.arc(cX,cY,inRad,eAngle,sAngle,true); ctxAtleta.closePath(); ctxAtleta.fill();
                     ctxAtleta.strokeStyle=cat.color; ctxAtleta.lineWidth=2.5; ctxAtleta.beginPath(); ctxAtleta.arc(cX,cY,scRad,sAngle,eAngle); ctxAtleta.stroke();
                     const nx=cX+(inRad+(scRad-inRad)/2)*Math.cos(mAngle), ny=cY+(inRad+(scRad-inRad)/2)*Math.sin(mAngle);
-                    ctxAtleta.fillStyle='#fff'; ctxAtleta.beginPath(); ctxAtleta.arc(nx,ny,10,0,2*Math.PI); ctxAtleta.fill(); ctxAtleta.strokeStyle=cat.color; ctxAtleta.lineWidth=2; ctxAtleta.stroke();
-                    ctxAtleta.fillStyle=cat.color; ctxAtleta.font='bold 11px Inter'; ctxAtleta.textAlign='center'; ctxAtleta.textBaseline='middle'; ctxAtleta.fillText(scoresAtleta[i], nx, ny);
+                    ctxAtleta.fillStyle='#fff'; ctxAtleta.beginPath(); ctxAtleta.arc(nx,ny,9,0,2*Math.PI); ctxAtleta.fill(); ctxAtleta.strokeStyle=cat.color; ctxAtleta.lineWidth=2; ctxAtleta.stroke();
+                    ctxAtleta.fillStyle=cat.color; ctxAtleta.font='bold 10px Inter'; ctxAtleta.textAlign='center'; ctxAtleta.textBaseline='middle'; ctxAtleta.fillText(scoresAtleta[i], nx, ny);
                 }
             }
             ctxAtleta.strokeStyle='rgba(255,255,255,0.1)'; ctxAtleta.lineWidth=1.5;
@@ -484,12 +484,12 @@
             ctxAtleta.beginPath(); ctxAtleta.arc(cX,cY,maxRad,0,2*Math.PI); ctxAtleta.stroke();
             ctxAtleta.beginPath(); ctxAtleta.arc(cX,cY,inRad,0,2*Math.PI); ctxAtleta.fillStyle='#050505'; ctxAtleta.fill(); ctxAtleta.stroke();
             for(let i=0;i<catAtleta.length;i++) {
-                const cat=catAtleta[i], mAngle=startOffset+i*step+step/2, lRad=maxRad+30;
+                const cat=catAtleta[i], mAngle=startOffset+i*step+step/2, lRad=maxRad+40;
                 const lx=cX+lRad*Math.cos(mAngle), ly=cY+lRad*Math.sin(mAngle);
                 ctxAtleta.font='bold 10px Inter'; const tW=ctxAtleta.measureText(cat.name).width, bW=tW+16, bH=20;
-                let bx=lx; const cosA=Math.cos(mAngle); if(Math.abs(cosA)<0.3) bx=lx-bW/2; else if(cosA<0) bx=lx-bW;
-                drawRoundedRect(ctxAtleta, bx, ly-bH/2, bW, bH, 4, cat.color);
-                ctxAtleta.fillStyle='#fff'; ctxAtleta.textAlign='center'; ctxAtleta.textBaseline='middle'; ctxAtleta.fillText(cat.name, bx+bW/2, ly+1);
+                let bx=lx-bW/2; let by=ly-bH/2;
+                drawRoundedRect(ctxAtleta, bx, by, bW, bH, 4, cat.color);
+                ctxAtleta.fillStyle='#fff'; ctxAtleta.textAlign='center'; ctxAtleta.textBaseline='middle'; ctxAtleta.fillText(cat.name, lx, ly);
             }
         }
         function inviaDatiAtleta() {
@@ -501,7 +501,7 @@
             fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(res => res.json()).then(data => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; alert("Report Atleta inviato con successo!"); }).catch(error => { btn.innerText="INVIATO ✓"; btn.style.background="#2ecc71"; btn.style.color="#000"; });
         }
 
-        // --- RUOTA DEL MANAGER ---
+        // --- RUOTA DEL MANAGER (ETICHETTE PERFETTAMENTE CENTRATE E DISTANZIATE) ---
         const catManager = [{ name: "LEADERSHIP", color: "#e53935", rgb: "229, 57, 53" }, { name: "STRATEGIA", color: "#3949ab", rgb: "57, 73, 171" }, { name: "TEAM", color: "#00897b", rgb: "0, 137, 123" }, { name: "PROBLEM SOLVING", color: "#8e24aa", rgb: "142, 36, 170" }, { name: "TIME MGMT", color: "#43a047", rgb: "67, 160, 71" }, { name: "NEGOZIAZIONE", color: "#d81b60", rgb: "216, 27, 96" }, { name: "INT. EMOTIVA", color: "#fb8c00", rgb: "251, 140, 0" }, { name: "STRESS MGMT", color: "#00acc1", rgb: "0, 172, 193" }];
         let scoresManager = Array(catManager.length).fill(0), canvasManager, ctxManager, isDraggingManager = false, managerIniziata = false;
         function initManager() {
@@ -536,8 +536,8 @@
                     ctxManager.fillStyle=`rgba(${cat.rgb}, 0.35)`; ctxManager.beginPath(); ctxManager.arc(cX,cY,scRad,sAngle,eAngle); ctxManager.arc(cX,cY,inRad,eAngle,sAngle,true); ctxManager.closePath(); ctxManager.fill();
                     ctxManager.strokeStyle=cat.color; ctxManager.lineWidth=2.5; ctxManager.beginPath(); ctxManager.arc(cX,cY,scRad,sAngle,eAngle); ctxManager.stroke();
                     const nx=cX+(inRad+(scRad-inRad)/2)*Math.cos(mAngle), ny=cY+(inRad+(scRad-inRad)/2)*Math.sin(mAngle);
-                    ctxManager.fillStyle='#fff'; ctxManager.beginPath(); ctxManager.arc(nx,ny,10,0,2*Math.PI); ctxManager.fill(); ctxManager.strokeStyle=cat.color; ctxManager.lineWidth=2; ctxManager.stroke();
-                    ctxManager.fillStyle=cat.color; ctxManager.font='bold 11px Inter'; ctxManager.textAlign='center'; ctxManager.textBaseline='middle'; ctxManager.fillText(scoresManager[i], nx, ny);
+                    ctxManager.fillStyle='#fff'; ctxManager.beginPath(); ctxManager.arc(nx,ny,9,0,2*Math.PI); ctxManager.fill(); ctxManager.strokeStyle=cat.color; ctxManager.lineWidth=2; ctxManager.stroke();
+                    ctxManager.fillStyle=cat.color; ctxManager.font='bold 10px Inter'; ctxManager.textAlign='center'; ctxManager.textBaseline='middle'; ctxManager.fillText(scoresManager[i], nx, ny);
                 }
             }
             ctxManager.strokeStyle='rgba(255,255,255,0.1)'; ctxManager.lineWidth=1.5;
@@ -545,12 +545,12 @@
             ctxManager.beginPath(); ctxManager.arc(cX,cY,maxRad,0,2*Math.PI); ctxManager.stroke();
             ctxManager.beginPath(); ctxManager.arc(cX,cY,inRad,0,2*Math.PI); ctxManager.fillStyle='#050505'; ctxManager.fill(); ctxManager.stroke();
             for(let i=0;i<catManager.length;i++) {
-                const cat=catManager[i], mAngle=startOffset+i*step+step/2, lRad=maxRad+30;
+                const cat=catManager[i], mAngle=startOffset+i*step+step/2, lRad=maxRad+50;
                 const lx=cX+lRad*Math.cos(mAngle), ly=cY+lRad*Math.sin(mAngle);
-                ctxManager.font='bold 10px Inter'; const tW=ctxManager.measureText(cat.name).width, bW=tW+16, bH=20;
-                let bx=lx; const cosA=Math.cos(mAngle); if(Math.abs(cosA)<0.3) bx=lx-bW/2; else if(cosA<0) bx=lx-bW;
-                drawRoundedRect(ctxManager, bx, ly-bH/2, bW, bH, 4, cat.color);
-                ctxManager.fillStyle='#fff'; ctxManager.textAlign='center'; ctxManager.textBaseline='middle'; ctxManager.fillText(cat.name, bx+bW/2, ly+1);
+                ctxManager.font='bold 10px Inter'; const tW=ctxManager.measureText(cat.name).width, bW=tW+16, bH=22;
+                let bx=lx-bW/2; let by=ly-bH/2;
+                drawRoundedRect(ctxManager, bx, by, bW, bH, 4, cat.color);
+                ctxManager.fillStyle='#fff'; ctxManager.textAlign='center'; ctxManager.textBaseline='middle'; ctxManager.fillText(cat.name, lx, ly);
             }
         }
         function inviaDatiManager() {
