@@ -39,13 +39,41 @@
         .meta-card:hover { border-color: #E5D0A1; transform: translateY(-3px); background: rgba(229, 208, 161, 0.03); }
         .active-card { border: 1px solid rgba(229, 208, 161, 0.3); }
 
-        .filter-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #a3a3a3; padding: 8px 16px; border-radius: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s; }
-        .filter-btn:hover, .filter-btn.active-filter { background: #E5D0A1; color: #050505; border-color: #E5D0A1; font-weight: 600; }
+        .input-lead { 
+            width: 100%; padding: 16px 20px; margin: 10px 0; box-sizing: border-box; 
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1); 
+            color: white; border-radius: 4px; font-size: 15px; outline: none; transition: border-color 0.3s; 
+        }
+        .input-lead:focus { border-color: #E5D0A1; }
+        .input-error { border: 1px solid #ff4d4d !important; background: rgba(255, 77, 77, 0.05); }
+        .privacy-error { border: 1px solid #ff4d4d !important; background: rgba(255, 77, 77, 0.05) !important; }
+        
+        .tasto-assessment { 
+            display: block; width: 100%; padding: 18px; margin: 12px 0; 
+            background: transparent; color: #E5D0A1; border: 1px solid rgba(229, 208, 161, 0.3); 
+            border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; 
+            transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .tasto-assessment:hover { background: #E5D0A1; color: #050505; }
         .btn-gold-solid { background: #E5D0A1 !important; color: #050505 !important; border: none !important; }
         .btn-gold-solid:hover { background: #C5A880 !important; }
+
+        .filter-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #a3a3a3; padding: 8px 16px; border-radius: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s; }
+        .filter-btn:hover, .filter-btn.active-filter { background: #E5D0A1; color: #050505; border-color: #E5D0A1; font-weight: 600; }
+
+        .progress-container { width: 100%; background: #141414; height: 4px; border-radius: 10px; margin-bottom: 30px; overflow: hidden; border: 1px solid rgba(229, 208, 161, 0.1); }
+        #bar-fill-one, #bar-fill-burnout { height: 100%; background: #E5D0A1; width: 16.6%; transition: width 0.5s ease; }
+        #grafico-container-one, #grafico-container-burnout { position: relative; margin-top: 30px; padding: 20px; background: rgba(20,20,20,0.4); border-radius: 8px;}
+        canvas { max-width: 100%; }
+
+        .interactive-canvas-container { width: 100%; max-width: 500px; margin: 0 auto 30px; position: relative; }
+        .interactive-canvas-container canvas { width: 100%; height: auto; cursor: crosshair; user-select: none; }
+        .reset-btn { text-align: center; margin-bottom: 20px; }
+        .reset-btn button { background: rgba(255,255,255,0.05); color: #ccc; border: 1px solid rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; cursor: pointer; }
+        .reset-btn button:hover { background: rgba(229, 208, 161, 0.1); color: #E5D0A1; border-color: #E5D0A1; }
     </style>
 </head>
-<body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950">
+<body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950" oncontextmenu="return false;">
 
     <header class="fixed top-0 left-0 right-0 z-[9000] py-6 px-6 md:px-12 bg-premium-950/80 backdrop-blur-2xl border-b border-white/5 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
@@ -68,7 +96,7 @@
     <main class="flex-grow pt-32 pb-24 relative px-6">
         <div class="max-w-5xl mx-auto relative z-10">
             
-            <div class="text-center mb-12">
+            <div class="text-center mb-12" id="hub-header">
                 <span class="text-premium-champagne text-xs uppercase tracking-[0.3em] font-semibold mb-4 block">Area Assessment & Sviluppo</span>
                 <h1 class="font-serif text-4xl md:text-5xl font-bold text-white mb-6">Mappa il tuo potenziale</h1>
                 <p class="text-gray-400 font-light text-lg max-w-2xl mx-auto leading-relaxed">
@@ -79,7 +107,7 @@
             <div id="meta-assessment" class="mb-12">
                 
                 <!-- EVIDENZA COUPLE COACHING -->
-                <div class="glass-panel p-8 rounded-xl mb-10 border-2 border-premium-champagne relative overflow-hidden group">
+                <div class="glass-panel p-8 rounded-xl mb-12 border-2 border-premium-champagne relative overflow-hidden group">
                     <div class="absolute top-0 right-0 bg-premium-champagne text-premium-950 text-[10px] uppercase font-bold tracking-widest px-4 py-1.5 rounded-bl">Specializzazione di Coppia</div>
                     <div class="flex flex-col md:flex-row items-center gap-6">
                         <div class="w-16 h-16 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne shrink-0 border border-premium-champagne/30">
@@ -107,7 +135,201 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12" id="cards-grid">
-                    <!-- Le card individuali rimangono invariate -->
+                    <div data-cat="life" onclick="avviaTest('ruota-vita')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20"><i data-lucide="pie-chart" class="w-5 h-5"></i></div>
+                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota della Vita</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Ottieni una fotografia istantanea del tuo equilibrio attuale (carriera, finanze, relazioni, salute).</p>
+                    </div>
+
+                    <div data-cat="business" onclick="avviaTest('ruota-manager')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20"><i data-lucide="briefcase" class="w-5 h-5"></i></div>
+                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota del Manager</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Business & Executive. Analizza leadership, gestione team, doti negoziali e time management.</p>
+                    </div>
+
+                    <div data-cat="sport" onclick="avviaTest('ruota-atleta')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20"><i data-lucide="swords" class="w-5 h-5"></i></div>
+                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota dell'Atleta</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Mappa la tua tenuta mentale, gestione della pressione agonistica, focus e preparazione.</p>
+                    </div>
+
+                    <div data-cat="life business" onclick="avviaTest('one-profile')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group">
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20"><i data-lucide="brain" class="w-5 h-5"></i></div>
+                        <h3 class="text-xl font-serif text-white font-semibold mb-3">ONE Profile</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Mappa i tuoi tratti neuro-comportamentali profondi per sbloccare il tuo potenziale intrinseco.</p>
+                    </div>
+
+                    <div data-cat="business life" onclick="avviaTest('burnout')" class="glass-panel meta-card active-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-premium-champagne/30 md:col-span-2">
+                        <div class="absolute top-4 right-4 bg-premium-champagne/10 text-premium-champagne text-xs uppercase font-bold tracking-widest px-3 py-1 rounded">Disponibile Ora</div>
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-premium-champagne mb-6 border border-premium-champagne/20"><i data-lucide="activity" class="w-5 h-5"></i></div>
+                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Mappatura dello Stress & Carico Mentale</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Esplora i livelli di affaticamento e le risorse energetiche professionali. Ideale per manager, professionisti e docenti.</p>
+                        <div class="text-premium-champagne text-xs uppercase tracking-widest font-semibold flex items-center gap-2">Avvia Mappatura <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MESSAGGIO COMING SOON -->
+            <div id="coming-soon-msg" class="hidden-step glass-panel p-12 text-center rounded-xl border-t-2 border-t-premium-champagne">
+                <i data-lucide="lock" class="w-12 h-12 text-premium-champagne mx-auto mb-6 opacity-50"></i>
+                <h3 class="text-2xl font-serif text-white font-bold mb-4">Assessment in arrivo</h3>
+                <p class="text-gray-400 mb-8">Il modulo "<span id="modulo-nome" class="text-premium-champagne font-semibold"></span>" è in fase di calibrazione.</p>
+                <button onclick="tornaIndietro()" class="text-premium-champagne text-xs uppercase tracking-widest font-semibold border-b border-premium-champagne/30 pb-1 hover:border-white transition-colors">Torna all'Area Assessment</button>
+            </div>
+
+            <!-- 1. RUOTA DELLA VITA -->
+            <div id="ruota-vita-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl border-t-2 border-t-premium-champagne">
+                <div class="text-center border-b border-white/5 pb-8 mb-10 relative">
+                    <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+                    <h2 class="font-serif text-3xl font-bold text-white tracking-widest uppercase">La Ruota della Vita</h2>
+                    <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Fotografa il tuo Equilibrio</p>
+                </div>
+                <div class="text-center mb-8"><p class="text-gray-300 font-medium">Clicca e trascina all'interno del grafico per impostare la tua valutazione (da 0 a 10).</p></div>
+                <div class="interactive-canvas-container"><canvas id="wheelCanvasVita" width="500" height="500"></canvas></div>
+                <div class="reset-btn"><button onclick="resetScoresVita()">Ricomincia da Zero</button></div>
+                <div class="border-t border-white/10 pt-8 max-w-lg mx-auto mt-8">
+                    <h3 class="text-center text-xl text-white font-serif mb-6">I tuoi dati per ricevere il report di analisi</h3>
+                    <input type="text" id="ruota-nome" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
+                    <input type="email" id="ruota-email" class="input-lead" placeholder="Indirizzo Email *" oninput="this.classList.remove('input-error')">
+                    <input type="tel" id="ruota-tel" class="input-lead" placeholder="Numero di Telefono *" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.classList.remove('input-error')">
+                    <textarea id="ruota-note" class="input-lead h-24 resize-none" placeholder="Note facoltative..."></textarea>
+                    <div class="flex items-start gap-3 mt-4 mb-6 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="ruota-privBox">
+                        <input type="checkbox" id="ruota-priv" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('ruota-privBox').classList.remove('privacy-error')">
+                        <label for="ruota-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per ricevere il report di analisi e comunicazioni di coaching. *</label>
+                    </div>
+                    <button id="btnInviaRuota" class="tasto-assessment btn-gold-solid w-full" onclick="inviaDatiRuota()">Invia al Coach</button>
+                </div>
+            </div>
+
+            <!-- 2. RUOTA DELL'ATLETA -->
+            <div id="ruota-atleta-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl border-t-2 border-t-premium-champagne">
+                <div class="text-center border-b border-white/5 pb-8 mb-10 relative">
+                    <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+                    <h2 class="font-serif text-3xl font-bold text-white tracking-widest uppercase">Ruota dell'Atleta</h2>
+                    <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Costruisci la tua Performance</p>
+                </div>
+                <div class="text-center mb-8"><p class="text-gray-300 font-medium">Clicca e trascina all'interno del grafico per impostare la tua valutazione (da 0 a 10).</p></div>
+                <div class="interactive-canvas-container"><canvas id="wheelCanvasAtleta" width="500" height="500"></canvas></div>
+                <div class="reset-btn"><button onclick="resetScoresAtleta()">Ricomincia da Zero</button></div>
+                <div class="border-t border-white/10 pt-8 max-w-lg mx-auto mt-8">
+                    <h3 class="text-center text-xl text-white font-serif mb-6">I tuoi dati per ricevere il report di analisi</h3>
+                    <input type="text" id="atleta-nome" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
+                    <input type="email" id="atleta-email" class="input-lead" placeholder="Indirizzo Email *" oninput="this.classList.remove('input-error')">
+                    <input type="tel" id="atleta-tel" class="input-lead" placeholder="Numero di Telefono *" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.classList.remove('input-error')">
+                    <textarea id="atleta-note" class="input-lead h-24 resize-none" placeholder="Note facoltative..."></textarea>
+                    <div class="flex items-start gap-3 mt-4 mb-6 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="atleta-privBox">
+                        <input type="checkbox" id="atleta-priv" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('atleta-privBox').classList.remove('privacy-error')">
+                        <label for="atleta-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per ricevere il report di analisi e comunicazioni di coaching. *</label>
+                    </div>
+                    <button id="btnInviaAtleta" class="tasto-assessment btn-gold-solid w-full" onclick="inviaDatiAtleta()">Invia al Coach</button>
+                </div>
+            </div>
+
+            <!-- 3. RUOTA DEL MANAGER -->
+            <div id="ruota-manager-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl border-t-2 border-t-premium-champagne">
+                <div class="text-center border-b border-white/5 pb-8 mb-10 relative">
+                    <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+                    <h2 class="font-serif text-3xl font-bold text-white tracking-widest uppercase">Ruota del Manager</h2>
+                    <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Leadership & Business</p>
+                </div>
+                <div class="text-center mb-8"><p class="text-gray-300 font-medium">Clicca e trascina all'interno del grafico per impostare la tua valutazione (da 0 a 10).</p></div>
+                <div class="interactive-canvas-container"><canvas id="wheelCanvasManager" width="500" height="500"></canvas></div>
+                <div class="reset-btn"><button onclick="resetScoresManager()">Ricomincia da Zero</button></div>
+                <div class="border-t border-white/10 pt-8 max-w-lg mx-auto mt-8">
+                    <h3 class="text-center text-xl text-white font-serif mb-6">I tuoi dati per ricevere il report di analisi</h3>
+                    <input type="text" id="manager-nome" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
+                    <input type="email" id="manager-email" class="input-lead" placeholder="Indirizzo Email *" oninput="this.classList.remove('input-error')">
+                    <input type="tel" id="manager-tel" class="input-lead" placeholder="Numero di Telefono *" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.classList.remove('input-error')">
+                    <textarea id="manager-note" class="input-lead h-24 resize-none" placeholder="Note facoltative..."></textarea>
+                    <div class="flex items-start gap-3 mt-4 mb-6 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="manager-privBox">
+                        <input type="checkbox" id="manager-priv" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('manager-privBox').classList.remove('privacy-error')">
+                        <label for="manager-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per ricevere il report di analisi e comunicazioni di coaching. *</label>
+                    </div>
+                    <button id="btnInviaManager" class="tasto-assessment btn-gold-solid w-full" onclick="inviaDatiManager()">Invia al Coach</button>
+                </div>
+            </div>
+
+            <!-- 4. ONE PROFILE -->
+            <div id="one-profile-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl max-w-2xl mx-auto border-t-2 border-t-premium-champagne">
+                <div class="text-center border-b border-white/5 pb-8 mb-8 relative">
+                    <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+                    <h2 class="font-serif text-3xl font-bold text-white tracking-widest uppercase">ONE Profile</h2>
+                    <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Observe • Navigate • Evolve</p>
+                </div>
+                <div id="step-observe">
+                    <div class="progress-container"><div id="bar-fill-one"></div></div>
+                    <div id="testo-domanda" class="text-xl md:text-2xl text-white font-serif font-light text-center mb-10 min-h-[80px] flex items-center justify-center leading-snug"></div>
+                    <div class="space-y-3">
+                        <button type="button" class="tasto-assessment" onclick="prossima(30)">Moltissimo</button>
+                        <button type="button" class="tasto-assessment" onclick="prossima(20)">Abbastanza</button>
+                        <button type="button" class="tasto-assessment" onclick="prossima(10)">Poco</button>
+                        <button type="button" class="tasto-assessment" onclick="prossima(0)">Per nulla</button>
+                    </div>
+                </div>
+                <div id="step-lead" class="hidden-step text-center">
+                    <h3 class="text-2xl text-white font-serif mb-2">Elaborazione Dati</h3>
+                    <p class="text-gray-400 text-sm mb-8">Inserisci i tuoi dati per sbloccare la tua Mappa delle Potenzialità.</p>
+                    <input type="text" id="nome-one" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
+                    <input type="email" id="email-one" class="input-lead" placeholder="Indirizzo Email *" oninput="this.classList.remove('input-error')">
+                    <input type="tel" id="tel-one" class="input-lead" placeholder="Numero di Telefono *" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.classList.remove('input-error')">
+                    <div class="flex items-start gap-3 mt-6 mb-8 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="privacy-container-one">
+                        <input type="checkbox" id="privacy-one" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('privacy-container-one').classList.remove('privacy-error')"> 
+                        <label for="privacy-one" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per ricevere il report di analisi e comunicazioni di coaching. *</label>
+                    </div>
+                    <button id="btnInviaOne" type="button" class="tasto-assessment btn-gold-solid" onclick="inviaDatiOne()">Genera la mia Mappa</button>
+                </div>
+                <div id="step-result" class="hidden-step text-center">
+                    <h3 class="text-3xl text-premium-champagne font-serif mb-2">La Tua Mappa</h3>
+                    <p class="text-gray-400 text-sm mb-6">L'osservazione è completata.</p>
+                    <div id="grafico-container-one"><canvas id="grafico-one"></canvas></div>
+                    <div class="mt-10 pt-8 border-t border-white/10">
+                        <p class="text-white font-serif text-xl italic mb-4">"Ora navighiamo insieme per evolvere."</p>
+                        <p class="text-sm text-gray-400 uppercase tracking-widest">Verrai contattato a breve per l'analisi strategica.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. STRESS & CARICO MENTALE -->
+            <div id="burnout-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl max-w-2xl mx-auto border-t-2 border-t-premium-champagne">
+                <div class="text-center border-b border-white/5 pb-8 mb-8 relative">
+                    <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+                    <h2 class="font-serif text-3xl font-bold text-white tracking-widest uppercase">Stress & Carico Mentale</h2>
+                    <p class="text-xs text-premium-champagne uppercase tracking-[0.2em] mt-2 font-semibold">Analisi Energetica</p>
+                </div>
+
+                <div id="burnout-observe">
+                    <div class="progress-container"><div id="bar-fill-burnout"></div></div>
+                    <div id="testo-burnout" class="text-xl md:text-2xl text-white font-serif font-light text-center mb-10 min-h-[80px] flex items-center justify-center leading-snug"></div>
+                    <div class="space-y-3">
+                        <button type="button" class="tasto-assessment" onclick="rispondiBurnout(4)">Molto spesso / Sempre</button>
+                        <button type="button" class="tasto-assessment" onclick="rispondiBurnout(3)">Spesso</button>
+                        <button type="button" class="tasto-assessment" onclick="rispondiBurnout(2)">A volte</button>
+                        <button type="button" class="tasto-assessment" onclick="rispondiBurnout(1)">Raramente</button>
+                        <button type="button" class="tasto-assessment" onclick="rispondiBurnout(0)">Mai</button>
+                    </div>
+                </div>
+
+                <div id="burnout-lead" class="hidden-step text-center">
+                    <h3 class="text-2xl text-white font-serif mb-2">Elaborazione Indice Energetico</h3>
+                    <p class="text-gray-400 text-sm mb-8">Inserisci i tuoi dati per visualizzare il report e ricevere indicazioni di recupero.</p>
+                    <input type="text" id="nome-burnout" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
+                    <input type="email" id="email-burnout" class="input-lead" placeholder="Indirizzo Email *" oninput="this.classList.remove('input-error')">
+                    <input type="tel" id="tel-burnout" class="input-lead" placeholder="Numero di Telefono *" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.classList.remove('input-error')">
+                    <div class="flex items-start gap-3 mt-6 mb-8 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="privacy-container-burnout">
+                        <input type="checkbox" id="privacy-burnout" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('privacy-container-burnout').classList.remove('privacy-error')"> 
+                        <label for="privacy-burnout" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per ricevere il report di analisi e comunicazioni di coaching. *</label>
+                    </div>
+                    <button id="btnInviaBurnout" type="button" class="tasto-assessment btn-gold-solid" onclick="inviaDatiBurnout()">Visualizza il Report</button>
+                </div>
+
+                <div id="burnout-result" class="hidden-step text-center">
+                    <h3 class="text-3xl text-premium-champagne font-serif mb-2">Il Tuo Profilo Energetico</h3>
+                    <p class="text-gray-400 text-sm mb-6">Analisi del carico mentale completata.</p>
+                    <div id="grafico-container-burnout"><canvas id="grafico-burnout"></canvas></div>
+                    <div class="mt-10 pt-8 border-t border-white/10">
+                        <p class="text-white font-serif text-xl italic mb-4">"Il recupero non è un lusso, è la base della performance."</p>
+                        <p class="text-sm text-gray-400 uppercase tracking-widest">Claudio Carluccio ti contatterà per definire le strategie di ricarica.</p>
+                    </div>
                 </div>
             </div>
 
@@ -120,6 +342,325 @@
             <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
         </div>
     </footer>
+
     <script>lucide.createIcons();</script>
+
+    <script>
+        function filtra(categoria, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active-filter'));
+            btn.classList.add('active-filter');
+            document.querySelectorAll('#cards-grid > div').forEach(card => {
+                if (categoria === 'tutti' || card.getAttribute('data-cat').includes(categoria)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function avviaTest(id) {
+            document.getElementById('meta-assessment').classList.add('hidden-step');
+            document.getElementById('hub-header').classList.add('hidden-step');
+            if (id === 'one-profile') { document.getElementById('one-profile-app').classList.remove('hidden-step'); if(step_one === 0) document.getElementById("testo-domanda").innerText = domande_one[0].q; } 
+            else if (id === 'ruota-vita') { document.getElementById('ruota-vita-app').classList.remove('hidden-step'); if(!vitaIniziata) initVita(); }
+            else if (id === 'ruota-atleta') { document.getElementById('ruota-atleta-app').classList.remove('hidden-step'); if(!atletaIniziata) initAtleta(); }
+            else if (id === 'ruota-manager') { document.getElementById('ruota-manager-app').classList.remove('hidden-step'); if(!managerIniziata) initManager(); }
+            else if (id === 'burnout') { document.getElementById('burnout-app').classList.remove('hidden-step'); if(step_burnout === 0) document.getElementById("testo-burnout").innerText = domande_burnout[0].q; }
+        }
+        function tornaIndietro() { document.getElementById('one-profile-app').classList.add('hidden-step'); document.getElementById('ruota-vita-app').classList.add('hidden-step'); document.getElementById('ruota-atleta-app').classList.add('hidden-step'); document.getElementById('ruota-manager-app').classList.add('hidden-step'); document.getElementById('burnout-app').classList.add('hidden-step'); document.getElementById('coming-soon-msg').classList.add('hidden-step'); document.getElementById('meta-assessment').classList.remove('hidden-step'); document.getElementById('hub-header').classList.remove('hidden-step'); }
+        function drawRoundedRect(ctx, x, y, w, h, r, fCol) { ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r); ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h); ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r); ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath(); ctx.fillStyle=fCol; ctx.fill(); }
+
+        const maxRad = 160, inRad = 30;
+
+        // --- RUOTA DELLA VITA ---
+        const catVita = [
+            { name: "AMBIENTE", color: "#c5a059", rgb: "197, 160, 89" }, { name: "CRESCITA", color: "#34a853", rgb: "52, 168, 83" },
+            { name: "EMOZIONI", color: "#fbbc04", rgb: "251, 188, 4" }, { name: "FAMIGLIA", color: "#ea4335", rgb: "234, 67, 53" },
+            { name: "FINANZE", color: "#a29bfe", rgb: "162, 155, 254" }, { name: "LAVORO", color: "#46bdc6", rgb: "70, 189, 198" },
+            { name: "MISSIONE", color: "#ff8343", rgb: "255, 131, 67" }, { name: "SALUTE", color: "#2ecc71", rgb: "46, 204, 113" },
+            { name: "SVAGO", color: "#9e9e9e", rgb: "158, 158, 158" }, { name: "SOCIALE", color: "#03a9f4", rgb: "3, 169, 244" }, { name: "AMORE", color: "#e91e63", rgb: "233, 30, 99" }
+        ];
+        let scoresVita = Array(catVita.length).fill(0), canvasVita, ctxVita, isDraggingVita = false, vitaIniziata = false;
+
+        function initVita() {
+            vitaIniziata = true; canvasVita = document.getElementById('wheelCanvasVita'); ctxVita = canvasVita.getContext('2d'); drawWheelVita();
+            const handleVitaInter = (e) => {
+                const rect = canvasVita.getBoundingClientRect(); const scaleX = canvasVita.width / rect.width; const scaleY = canvasVita.height / rect.height;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX; const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                const x = (clientX - rect.left) * scaleX - canvasVita.width / 2; const y = (clientY - rect.top) * scaleY - canvasVita.height / 2;
+                if (Math.sqrt(x*x + y*y) <= maxRad + 20) {
+                    let angle = Math.atan2(y, x) - (-Math.PI / 2); if (angle < 0) angle += 2 * Math.PI;
+                    const sIdx = Math.floor(angle / ((2 * Math.PI) / catVita.length)) % catVita.length;
+                    scoresVita[sIdx] = Math.max(0, Math.min(10, Math.round(((Math.sqrt(x*x + y*y) - inRad) / (maxRad - inRad)) * 10)));
+                    drawWheelVita();
+                }
+            };
+            canvasVita.addEventListener('mousedown', (e) => { isDraggingVita = true; handleVitaInter(e); });
+            canvasVita.addEventListener('mousemove', (e) => { if (isDraggingVita) handleVitaInter(e); });
+            window.addEventListener('mouseup', () => { isDraggingVita = false; });
+            canvasVita.addEventListener('touchstart', (e) => { isDraggingVita = true; handleVitaInter(e); }, { passive: true });
+            canvasVita.addEventListener('touchmove', (e) => { if (isDraggingVita) handleVitaInter(e); }, { passive: true });
+            window.addEventListener('touchend', () => { isDraggingVita = false; });
+        }
+        function resetScoresVita() { scoresVita = Array(catVita.length).fill(0); drawWheelVita(); }
+        function drawWheelVita() {
+            const w=canvasVita.width, h=canvasVita.height, cX=w/2, cY=h/2, step=(2*Math.PI)/catVita.length, startOffset=-Math.PI/2;
+            ctxVita.clearRect(0,0,w,h); ctxVita.strokeStyle='rgba(255,255,255,0.05)'; ctxVita.lineWidth=1;
+            for(let i=1;i<=10;i++) { ctxVita.beginPath(); ctxVita.arc(cX,cY,inRad+(maxRad-inRad)*(i/10),0,2*Math.PI); ctxVita.stroke(); }
+            for(let i=0;i<catVita.length;i++) {
+                const sAngle=startOffset+i*step, eAngle=sAngle+step, mAngle=sAngle+step/2, cat=catVita[i];
+                if(scoresVita[i]>0) {
+                    const scRad=inRad+(maxRad-inRad)*(scoresVita[i]/10);
+                    ctxVita.fillStyle=`rgba(${cat.rgb}, 0.35)`; ctxVita.beginPath(); ctxVita.arc(cX,cY,scRad,sAngle,eAngle); ctxVita.arc(cX,cY,inRad,eAngle,sAngle,true); ctxVita.closePath(); ctxVita.fill();
+                    ctxVita.strokeStyle=cat.color; ctxVita.lineWidth=2.5; ctxVita.beginPath(); ctxVita.arc(cX,cY,scRad,sAngle,eAngle); ctxVita.stroke();
+                    const nx=cX+(inRad+(scRad-inRad)/2)*Math.cos(mAngle), ny=cY+(inRad+(scRad-inRad)/2)*Math.sin(mAngle);
+                    ctxVita.fillStyle='#fff'; ctxVita.beginPath(); ctxVita.arc(nx,ny,10,0,2*Math.PI); ctxVita.fill(); ctxVita.strokeStyle=cat.color; ctxVita.lineWidth=2; ctxVita.stroke();
+                    ctxVita.fillStyle=cat.color; ctxVita.font='bold 11px Inter'; ctxVita.textAlign='center'; ctxVita.textBaseline='middle'; ctxVita.fillText(scoresVita[i], nx, ny);
+                }
+            }
+            ctxVita.strokeStyle='rgba(255,255,255,0.1)'; ctxVita.lineWidth=1.5;
+            for(let i=0;i<catVita.length;i++) { const ang=startOffset+i*step; ctxVita.beginPath(); ctxVita.moveTo(cX+inRad*Math.cos(ang), cY+inRad*Math.sin(ang)); ctxVita.lineTo(cX+maxRad*Math.cos(ang), cY+maxRad*Math.sin(ang)); ctxVita.stroke(); }
+            ctxVita.beginPath(); ctxVita.arc(cX,cY,maxRad,0,2*Math.PI); ctxVita.stroke();
+            ctxVita.beginPath(); ctxVita.arc(cX,cY,inRad,0,2*Math.PI); ctxVita.fillStyle='#050505'; ctxVita.fill(); ctxVita.stroke();
+            for(let i=0;i<catVita.length;i++) {
+                const cat=catVita[i], mAngle=startOffset+i*step+step/2, lRad=maxRad+30;
+                const lx=cX+lRad*Math.cos(mAngle), ly=cY+lRad*Math.sin(mAngle);
+                ctxVita.font='bold 9px Inter'; const tW=ctxVita.measureText(cat.name).width, bW=tW+14, bH=18;
+                let bx=lx; const cosA=Math.cos(mAngle); if(Math.abs(cosA)<0.3) bx=lx-bW/2; else if(cosA<0) bx=lx-bW;
+                drawRoundedRect(ctxVita, bx, ly-bH/2, bW, bH, 4, cat.color);
+                ctxVita.fillStyle='#fff'; ctxVita.textAlign='center'; ctxVita.textBaseline='middle'; ctxVita.fillText(cat.name, bx+bW/2, ly+1);
+            }
+        }
+        function inviaDatiRuota() {
+            const btn = document.getElementById('btnInviaRuota'), n = document.getElementById('ruota-nome'), e = document.getElementById('ruota-email'), t = document.getElementById('ruota-tel'), p = document.getElementById('ruota-priv'), note = document.getElementById('ruota-note');
+            let valid = true; if(!n.value.trim()){ n.classList.add('input-error'); valid = false; } if(!e.value.includes('@')){ e.classList.add('input-error'); valid = false; } if(t.value.length < 6){ t.classList.add('input-error'); valid = false; } if(!p.checked){ document.getElementById('ruota-privBox').classList.add('privacy-error'); valid = false; } if(!valid) return;
+            btn.innerText = "INVIO IN CORSO..."; btn.disabled = true;
+            let payload = { _subject: "🎯 Nuovo Lead: Ruota della Vita", Nome: n.value, Email: e.value, Telefono: t.value, Note_Aggiuntive: note.value };
+            catVita.forEach((cat, i) => { payload[cat.name] = scoresVita[i]; });
+            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(res => res.json()).then(data => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; alert("Report Ruota della Vita inviato con successo!"); }).catch(error => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; });
+        }
+
+        // --- RUOTA DELL'ATLETA ---
+        const catAtleta = [{ name: "TECNICA", color: "#e53935", rgb: "229, 57, 53" }, { name: "TATTICA", color: "#3949ab", rgb: "57, 73, 171" }, { name: "PREP. FISICA", color: "#00897b", rgb: "0, 137, 123" }, { name: "RECUPERO", color: "#8e24aa", rgb: "142, 36, 170" }, { name: "ALIMENTAZIONE", color: "#43a047", rgb: "67, 160, 71" }, { name: "FOCUS", color: "#d81b60", rgb: "216, 27, 96" }, { name: "MOTIVAZIONE", color: "#fb8c00", rgb: "251, 140, 0" }, { name: "VITA PRIVATA", color: "#00acc1", rgb: "0, 172, 193" }];
+        let scoresAtleta = Array(catAtleta.length).fill(0), canvasAtleta, ctxAtleta, isDraggingAtleta = false, atletaIniziata = false;
+        function initAtleta() {
+            atletaIniziata = true; canvasAtleta = document.getElementById('wheelCanvasAtleta'); ctxAtleta = canvasAtleta.getContext('2d'); drawWheelAtleta();
+            const handleAtletaInter = (e) => {
+                const rect = canvasAtleta.getBoundingClientRect(); const scaleX = canvasAtleta.width / rect.width; const scaleY = canvasAtleta.height / rect.height;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX; const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                const x = (clientX - rect.left) * scaleX - canvasAtleta.width / 2; const y = (clientY - rect.top) * scaleY - canvasAtleta.height / 2;
+                if (Math.sqrt(x*x + y*y) <= maxRad + 20) {
+                    let angle = Math.atan2(y, x) - (-Math.PI / 2); if (angle < 0) angle += 2 * Math.PI;
+                    const sIdx = Math.floor(angle / ((2 * Math.PI) / catAtleta.length)) % catAtleta.length;
+                    scoresAtleta[sIdx] = Math.max(0, Math.min(10, Math.round(((Math.sqrt(x*x + y*y) - inRad) / (maxRad - inRad)) * 10)));
+                    drawWheelAtleta();
+                }
+            };
+            canvasAtleta.addEventListener('mousedown', (e) => { isDraggingAtleta = true; handleAtletaInter(e); });
+            canvasAtleta.addEventListener('mousemove', (e) => { if (isDraggingAtleta) handleAtletaInter(e); });
+            window.addEventListener('mouseup', () => { isDraggingAtleta = false; });
+            canvasAtleta.addEventListener('touchstart', (e) => { isDraggingAtleta = true; handleAtletaInter(e); }, { passive: true });
+            canvasAtleta.addEventListener('touchmove', (e) => { if (isDraggingAtleta) handleAtletaInter(e); }, { passive: true });
+            window.addEventListener('touchend', () => { isDraggingAtleta = false; });
+        }
+        function resetScoresAtleta() { scoresAtleta = Array(catAtleta.length).fill(0); drawWheelAtleta(); }
+        function drawWheelAtleta() {
+            const w=canvasAtleta.width, h=canvasAtleta.height, cX=w/2, cY=h/2, step=(2*Math.PI)/catAtleta.length, startOffset=-Math.PI/2;
+            ctxAtleta.clearRect(0,0,w,h); ctxAtleta.strokeStyle='rgba(255,255,255,0.05)'; ctxAtleta.lineWidth=1;
+            for(let i=1;i<=10;i++) { ctxAtleta.beginPath(); ctxAtleta.arc(cX,cY,inRad+(maxRad-inRad)*(i/10),0,2*Math.PI); ctxAtleta.stroke(); }
+            for(let i=0;i<catAtleta.length;i++) {
+                const sAngle=startOffset+i*step, eAngle=sAngle+step, mAngle=sAngle+step/2, cat=catAtleta[i];
+                if(scoresAtleta[i]>0) {
+                    const scRad=inRad+(maxRad-inRad)*(scoresAtleta[i]/10);
+                    ctxAtleta.fillStyle=`rgba(${cat.rgb}, 0.35)`; ctxAtleta.beginPath(); ctxAtleta.arc(cX,cY,scRad,sAngle,eAngle); ctxAtleta.arc(cX,cY,inRad,eAngle,sAngle,true); ctxAtleta.closePath(); ctxAtleta.fill();
+                    ctxAtleta.strokeStyle=cat.color; ctxAtleta.lineWidth=2.5; ctxAtleta.beginPath(); ctxAtleta.arc(cX,cY,scRad,sAngle,eAngle); ctxAtleta.stroke();
+                    const nx=cX+(inRad+(scRad-inRad)/2)*Math.cos(mAngle), ny=cY+(inRad+(scRad-inRad)/2)*Math.sin(mAngle);
+                    ctxAtleta.fillStyle='#fff'; ctxAtleta.beginPath(); ctxAtleta.arc(nx,ny,10,0,2*Math.PI); ctxAtleta.fill(); ctxAtleta.strokeStyle=cat.color; ctxAtleta.lineWidth=2; ctxAtleta.stroke();
+                    ctxAtleta.fillStyle=cat.color; ctxAtleta.font='bold 11px Inter'; ctxAtleta.textAlign='center'; ctxAtleta.textBaseline='middle'; ctxAtleta.fillText(scoresAtleta[i], nx, ny);
+                }
+            }
+            ctxAtleta.strokeStyle='rgba(255,255,255,0.1)'; ctxAtleta.lineWidth=1.5;
+            for(let i=0;i<catAtleta.length;i++) { const ang=startOffset+i*step; ctxAtleta.beginPath(); ctxAtleta.moveTo(cX+inRad*Math.cos(ang), cY+inRad*Math.sin(ang)); ctxAtleta.lineTo(cX+maxRad*Math.cos(ang), cY+maxRad*Math.sin(ang)); ctxAtleta.stroke(); }
+            ctxAtleta.beginPath(); ctxAtleta.arc(cX,cY,maxRad,0,2*Math.PI); ctxAtleta.stroke();
+            ctxAtleta.beginPath(); ctxAtleta.arc(cX,cY,inRad,0,2*Math.PI); ctxAtleta.fillStyle='#050505'; ctxAtleta.fill(); ctxAtleta.stroke();
+            for(let i=0;i<catAtleta.length;i++) {
+                const cat=catAtleta[i], mAngle=startOffset+i*step+step/2, lRad=maxRad+30;
+                const lx=cX+lRad*Math.cos(mAngle), ly=cY+lRad*Math.sin(mAngle);
+                ctxAtleta.font='bold 10px Inter'; const tW=ctxAtleta.measureText(cat.name).width, bW=tW+16, bH=20;
+                let bx=lx; const cosA=Math.cos(mAngle); if(Math.abs(cosA)<0.3) bx=lx-bW/2; else if(cosA<0) bx=lx-bW;
+                drawRoundedRect(ctxAtleta, bx, ly-bH/2, bW, bH, 4, cat.color);
+                ctxAtleta.fillStyle='#fff'; ctxAtleta.textAlign='center'; ctxAtleta.textBaseline='middle'; ctxAtleta.fillText(cat.name, bx+bW/2, ly+1);
+            }
+        }
+        function inviaDatiAtleta() {
+            const btn = document.getElementById('btnInviaAtleta'), n = document.getElementById('atleta-nome'), e = document.getElementById('atleta-email'), t = document.getElementById('atleta-tel'), p = document.getElementById('atleta-priv'), note = document.getElementById('atleta-note');
+            let valid = true; if(!n.value.trim()){ n.classList.add('input-error'); valid = false; } if(!e.value.includes('@')){ e.classList.add('input-error'); valid = false; } if(t.value.length < 6){ t.classList.add('input-error'); valid = false; } if(!p.checked){ document.getElementById('atleta-privBox').classList.add('privacy-error'); valid = false; } if(!valid) return;
+            btn.innerText = "INVIO IN CORSO..."; btn.disabled = true;
+            let payload = { _subject: "🏃 Nuovo Lead: Ruota dell'Atleta", Nome: n.value, Email: e.value, Telefono: t.value, Note_Aggiuntive: note.value };
+            catAtleta.forEach((cat, i) => { payload[cat.name] = scoresAtleta[i]; });
+            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(res => res.json()).then(data => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; alert("Report Atleta inviato con successo!"); }).catch(error => { btn.innerText="INVIATO ✓"; btn.style.background="#2ecc71"; btn.style.color="#000"; });
+        }
+
+        // --- RUOTA DEL MANAGER ---
+        const catManager = [{ name: "LEADERSHIP", color: "#e53935", rgb: "229, 57, 53" }, { name: "STRATEGIA", color: "#3949ab", rgb: "57, 73, 171" }, { name: "TEAM", color: "#00897b", rgb: "0, 137, 123" }, { name: "PROBLEM SOLVING", color: "#8e24aa", rgb: "142, 36, 170" }, { name: "TIME MGMT", color: "#43a047", rgb: "67, 160, 71" }, { name: "NEGOZIAZIONE", color: "#d81b60", rgb: "216, 27, 96" }, { name: "INT. EMOTIVA", color: "#fb8c00", rgb: "251, 140, 0" }, { name: "STRESS MGMT", color: "#00acc1", rgb: "0, 172, 193" }];
+        let scoresManager = Array(catManager.length).fill(0), canvasManager, ctxManager, isDraggingManager = false, managerIniziata = false;
+        function initManager() {
+            managerIniziata = true; canvasManager = document.getElementById('wheelCanvasManager'); ctxManager = canvasManager.getContext('2d'); drawWheelManager();
+            const handleManagerInter = (e) => {
+                const rect = canvasManager.getBoundingClientRect(); const scaleX = canvasManager.width / rect.width; const scaleY = canvasManager.height / rect.height;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX; const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                const x = (clientX - rect.left) * scaleX - canvasManager.width / 2; const y = (clientY - rect.top) * scaleY - canvasManager.height / 2;
+                if (Math.sqrt(x*x + y*y) <= maxRad + 20) {
+                    let angle = Math.atan2(y, x) - (-Math.PI / 2); if (angle < 0) angle += 2 * Math.PI;
+                    const sIdx = Math.floor(angle / ((2 * Math.PI) / catManager.length)) % catManager.length;
+                    scoresManager[sIdx] = Math.max(0, Math.min(10, Math.round(((Math.sqrt(x*x + y*y) - inRad) / (maxRad - inRad)) * 10)));
+                    drawWheelManager();
+                }
+            };
+            canvasManager.addEventListener('mousedown', (e) => { isDraggingManager = true; handleManagerInter(e); });
+            canvasManager.addEventListener('mousemove', (e) => { if (isDraggingManager) handleManagerInter(e); });
+            window.addEventListener('mouseup', () => { isDraggingManager = false; });
+            canvasManager.addEventListener('touchstart', (e) => { isDraggingManager = true; handleManagerInter(e); }, { passive: true });
+            canvasManager.addEventListener('touchmove', (e) => { if (isDraggingManager) handleManagerInter(e); }, { passive: true });
+            window.addEventListener('touchend', () => { isDraggingManager = false; });
+        }
+        function resetScoresManager() { scoresManager = Array(catManager.length).fill(0); drawWheelManager(); }
+        function drawWheelManager() {
+            const w=canvasManager.width, h=canvasManager.height, cX=w/2, cY=h/2, step=(2*Math.PI)/catManager.length, startOffset=-Math.PI/2;
+            ctxManager.clearRect(0,0,w,h); ctxManager.strokeStyle='rgba(255,255,255,0.05)'; ctxManager.lineWidth=1;
+            for(let i=1;i<=10;i++) { ctxManager.beginPath(); ctxManager.arc(cX,cY,inRad+(maxRad-inRad)*(i/10),0,2*Math.PI); ctxManager.stroke(); }
+            for(let i=0;i<catManager.length;i++) {
+                const sAngle=startOffset+i*step, eAngle=sAngle+step, mAngle=sAngle+step/2, cat=catManager[i];
+                if(scoresManager[i]>0) {
+                    const scRad=inRad+(maxRad-inRad)*(scoresManager[i]/10);
+                    ctxManager.fillStyle=`rgba(${cat.rgb}, 0.35)`; ctxManager.beginPath(); ctxManager.arc(cX,cY,scRad,sAngle,eAngle); ctxManager.arc(cX,cY,inRad,eAngle,sAngle,true); ctxManager.closePath(); ctxManager.fill();
+                    ctxManager.strokeStyle=cat.color; ctxManager.lineWidth=2.5; ctxManager.beginPath(); ctxManager.arc(cX,cY,scRad,sAngle,eAngle); ctxManager.stroke();
+                    const nx=cX+(inRad+(scRad-inRad)/2)*Math.cos(mAngle), ny=cY+(inRad+(scRad-inRad)/2)*Math.sin(mAngle);
+                    ctxManager.fillStyle='#fff'; ctxManager.beginPath(); ctxManager.arc(nx,ny,10,0,2*Math.PI); ctxManager.fill(); ctxManager.strokeStyle=cat.color; ctxManager.lineWidth=2; ctxManager.stroke();
+                    ctxManager.fillStyle=cat.color; ctxManager.font='bold 11px Inter'; ctxManager.textAlign='center'; ctxManager.textBaseline='middle'; ctxManager.fillText(scoresManager[i], nx, ny);
+                }
+            }
+            ctxManager.strokeStyle='rgba(255,255,255,0.1)'; ctxManager.lineWidth=1.5;
+            for(let i=0;i<catManager.length;i++) { const ang=startOffset+i*step; ctxManager.beginPath(); ctxManager.moveTo(cX+inRad*Math.cos(ang), cY+inRad*Math.sin(ang)); ctxManager.lineTo(cX+maxRad*Math.cos(ang), cY+maxRad*Math.sin(ang)); ctxManager.stroke(); }
+            ctxManager.beginPath(); ctxManager.arc(cX,cY,maxRad,0,2*Math.PI); ctxManager.stroke();
+            ctxManager.beginPath(); ctxManager.arc(cX,cY,inRad,0,2*Math.PI); ctxManager.fillStyle='#050505'; ctxManager.fill(); ctxManager.stroke();
+            for(let i=0;i<catManager.length;i++) {
+                const cat=catManager[i], mAngle=startOffset+i*step+step/2, lRad=maxRad+30;
+                const lx=cX+lRad*Math.cos(mAngle), ly=cY+lRad*Math.sin(mAngle);
+                ctxManager.font='bold 10px Inter'; const tW=ctxManager.measureText(cat.name).width, bW=tW+16, bH=20;
+                let bx=lx; const cosA=Math.cos(mAngle); if(Math.abs(cosA)<0.3) bx=lx-bW/2; else if(cosA<0) bx=lx-bW;
+                drawRoundedRect(ctxManager, bx, ly-bH/2, bW, bH, 4, cat.color);
+                ctxManager.fillStyle='#fff'; ctxManager.textAlign='center'; ctxManager.textBaseline='middle'; ctxManager.fillText(cat.name, bx+bW/2, ly+1);
+            }
+        }
+        function inviaDatiManager() {
+            const btn = document.getElementById('btnInviaManager'), n = document.getElementById('manager-nome'), e = document.getElementById('manager-email'), t = document.getElementById('manager-tel'), p = document.getElementById('manager-priv'), note = document.getElementById('manager-note');
+            let valid = true; if(!n.value.trim()){ n.classList.add('input-error'); valid = false; } if(!e.value.includes('@')){ e.classList.add('input-error'); valid = false; } if(t.value.length < 6){ t.classList.add('input-error'); valid = false; } if(!p.checked){ document.getElementById('manager-privBox').classList.add('privacy-error'); valid = false; } if(!valid) return;
+            btn.innerText = "INVIO IN CORSO..."; btn.disabled = true;
+            let payload = { _subject: "👔 Nuovo Lead: Ruota del Manager", Nome: n.value, Email: e.value, Telefono: t.value, Note_Aggiuntive: note.value };
+            catManager.forEach((cat, i) => { payload[cat.name] = scoresManager[i]; });
+            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(res => res.json()).then(data => { btn.innerText = "INVIATO ✓"; btn.style.background = "#2ecc71"; btn.style.color="#000"; alert("Report Manager inviato con successo!"); }).catch(error => { btn.innerText="INVIATO ✓"; btn.style.background="#2ecc71"; btn.style.color="#000"; });
+        }
+
+        // --- ONE PROFILE ---
+        const domande_one = [{cat:"Drive", q:"Quanto senti forte la spinta verso l'ambizione e il successo?"},{cat:"Logica", q:"Preferisci decidere basandoti su dati e fatti oggettivi?"},{cat:"Empatia", q:"Quanto sei influenzato dallo stato d'animo di chi ti circonda?"},{cat:"Visione", q:"Quanto sei proiettato verso il futuro e progetti innovativi?"},{cat:"Stabilita", q:"Cerchi attivamente sicurezza e routine nel tuo quotidiano?"},{cat:"Social", q:"Quanto è vitale per te il contatto costante con le persone?"}];
+        let step_one = 0, punteggi_one = { Drive:0, Logica:0, Empatia:0, Visione:0, Stabilita:0, Social:0 };
+        window.prossima = function(v) { punteggi_one[domande_one[step_one].cat] = v; step_one++; if(step_one < domande_one.length) { document.getElementById("testo-domanda").innerText = domande_one[step_one].q; document.getElementById("bar-fill-one").style.width = ((step_one + 1) / domande_one.length * 100) + "%"; } else { document.getElementById("step-observe").classList.add("hidden-step"); document.getElementById("step-lead").classList.remove("hidden-step"); } };
+        window.inviaDatiOne = function() {
+            let n = document.getElementById("nome-one"), e = document.getElementById("email-one"), t = document.getElementById("tel-one"), p = document.getElementById("privacy-one");
+            let valid = true; if(n.value.length < 2) { n.classList.add("input-error"); valid = false; } if(!e.value.includes("@") || e.value.length < 5) { e.classList.add("input-error"); valid = false; } if(t.value.length < 6) { t.classList.add("input-error"); valid = false; } if(!p.checked) { document.getElementById("privacy-container-one").classList.add("privacy-error"); valid = false; } if(!valid) return;
+            let btn = document.getElementById('btnInviaOne'); btn.innerText = "ELABORAZIONE..."; btn.disabled = true;
+            let payload = { _subject: "🧠 Nuovo Lead: ONE Profile", Nome: n.value, Email: e.value, Telefono: t.value, ...punteggi_one };
+            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(res => res.json()).then(data => { document.getElementById("step-lead").classList.add("hidden-step"); document.getElementById("step-result").classList.remove("hidden-step"); window.creaGraficoOne(); }).catch(err => { document.getElementById("step-lead").classList.add("hidden-step"); document.getElementById("step-result").classList.remove("hidden-step"); window.creaGraficoOne(); });
+        };
+        window.creaGraficoOne = function() { new Chart(document.getElementById("grafico-one").getContext("2d"), { type: "radar", data: { labels: ["Drive", "Logica", "Empatia", "Visione", "Stabilità", "Social"], datasets: [{ data: [punteggi_one.Drive, punteggi_one.Logica, punteggi_one.Empatia, punteggi_one.Visione, punteggi_one.Stabilita, punteggi_one.Social], backgroundColor: "rgba(229, 208, 161, 0.3)", borderColor: '#E5D0A1', borderWidth: 2, pointBackgroundColor: "#fff" }] }, options: { scales: { r: { grid: { color: "rgba(255,255,255,0.1)" }, pointLabels: { color: "#E5D0A1", font: { size: 12, family: "'Inter', sans-serif" } }, ticks: { display: false }, min: 0, max: 30 } }, plugins: { legend: { display: false } } } }); };
+
+        // --- STRESS & CARICO MENTALE ---
+        const domande_burnout = [
+            { cat: "Esaurimento", q: "Ti senti emotivamente svuotato e stanco a causa del tuo lavoro o della tua routine?" },
+            { cat: "Esaurimento", q: "Ti senti esausto già al mattino quando devi affrontare la giornata?" },
+            { cat: "Distacco", q: "Hai sviluppato una certa freddezza o cinismo verso le persone con cui ti relazioni o lavori?" },
+            { cat: "Distacco", q: "Hai l'impressione di trattare le persone come oggetti impersonali anziché con empatia?" },
+            { cat: "Realizzazione", q: "Ti senti efficiente e capace di portare a termine cose di valore nel tuo quotidiano?" },
+            { cat: "Realizzazione", q: "Ti senti gratificato e stimolato dai traguardi che raggiungi?" }
+        ];
+        let step_burnout = 0;
+        let punteggi_burnout = { Esaurimento: 0, Distacco: 0, Realizzazione: 0 };
+
+        window.rispondiBurnout = function(valore) {
+            let cat = domande_burnout[step_burnout].cat;
+            punteggi_burnout[cat] += valore;
+            step_burnout++;
+
+            if(step_burnout < domande_burnout.length) {
+                document.getElementById("testo-burnout").innerText = domande_burnout[step_burnout].q;
+                document.getElementById("bar-fill-burnout").style.width = ((step_burnout + 1) / domande_burnout.length * 100) + "%";
+            } else {
+                document.getElementById("burnout-observe").classList.add("hidden-step");
+                document.getElementById("burnout-lead").classList.remove("hidden-step");
+            }
+        };
+
+        window.inviaDatiBurnout = function() {
+            let n = document.getElementById("nome-burnout"), e = document.getElementById("email-burnout"), t = document.getElementById("tel-burnout"), p = document.getElementById("privacy-burnout");
+            let valid = true;
+            if(n.value.length < 2) { n.classList.add("input-error"); valid = false; }
+            if(!e.value.includes("@") || e.value.length < 5) { n.classList.add("input-error"); valid = false; }
+            if(t.value.length < 6) { t.classList.add("input-error"); valid = false; }
+            if(!p.checked) { document.getElementById("privacy-container-burnout").classList.add("privacy-error"); valid = false; }
+            if(!valid) return;
+
+            let btn = document.getElementById('btnInviaBurnout');
+            btn.innerText = "ELABORAZIONE..."; btn.disabled = true;
+
+            let payload = {
+                _subject: "🔥 Nuovo Lead: Test Stress & Carico Mentale",
+                Nome: n.value,
+                Email: e.value,
+                Telefono: t.value,
+                ...punteggi_burnout
+            };
+
+            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("burnout-lead").classList.add("hidden-step");
+                document.getElementById("burnout-result").classList.remove("hidden-step");
+                window.creaGraficoBurnout();
+            })
+            .catch(err => {
+                document.getElementById("burnout-lead").classList.add("hidden-step");
+                document.getElementById("burnout-result").classList.remove("hidden-step");
+                window.creaGraficoBurnout();
+            });
+        };
+
+        window.creaGraficoBurnout = function() {
+            let ctx = document.getElementById("grafico-burnout").getContext("2d");
+            new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: ["Esaurimento Emotivo", "Distacco / Cinismo", "Realizzazione Personale"],
+                    datasets: [{
+                        data: [punteggi_burnout.Esaurimento, punteggi_burnout.Distacco, punteggi_burnout.Realizzazione],
+                        backgroundColor: ["rgba(231, 76, 60, 0.6)", "rgba(241, 196, 15, 0.6)", "rgba(46, 204, 113, 0.6)"],
+                        borderColor: ["#e74c3c", "#f1c40f", "#2ecc71"],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: { grid: { color: "rgba(255,255,255,0.1)" }, ticks: { color: "#fff" }, min: 0, max: 8 },
+                        x: { grid: { display: false }, ticks: { color: "#E5D0A1", font: { family: "'Inter', sans-serif" } } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        };
+    </script>
 </body>
 </html>
