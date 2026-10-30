@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilo Decisionale Strategico | Claudio Carluccio Coaching</title>
+    
+    <link rel="icon" type="image/png" href="logo-claudio.png">
+    <link rel="apple-touch-icon" href="logo-claudio.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { premium: { 950: '#050505', 900: '#0a0a0a', 800: '#141414', champagne: '#E5D0A1' } },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        body { background-color: #050505; color: #f5f5f5; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+        .nav-link { position: relative; color: #a3a3a3; transition: color 0.3s ease; }
+        .nav-link:hover, .nav-link.active { color: #ffffff; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #E5D0A1; transition: width 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        .glass-panel { background: rgba(20, 20, 20, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.15); }
+        .hidden-step { display: none !important; }
+
+        .input-lead { 
+            width: 100%; padding: 16px 20px; margin: 10px 0; box-sizing: border-box; 
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1); 
+            color: white; border-radius: 4px; font-size: 15px; outline: none; transition: border-color 0.3s; 
+        }
+        .input-lead:focus { border-color: #E5D0A1; background: rgba(229, 208, 161, 0.02); }
+        .input-error { border: 1px solid #ff4d4d !important; background: rgba(255, 77, 77, 0.05); }
+
+        .tasto-assessment { 
+            display: block; width: 100%; padding: 18px; margin: 12px 0; 
+            background: transparent; color: #E5D0A1; border: 1px solid rgba(229, 208, 161, 0.3); 
+            border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; 
+            transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .tasto-assessment:hover { background: #E5D0A1; color: #050505; }
+        .btn-gold-solid { background: #E5D0A1 !important; color: #050505 !important; border: none !important; }
+        .btn-gold-solid:hover { background: #C5A880 !important; }
+
+        .progress-container { width: 100%; background: #141414; height: 4px; border-radius: 10px; margin-bottom: 30px; overflow: hidden; border: 1px solid rgba(229, 208, 161, 0.1); }
+        #bar-fill { height: 100%; background: #E5D0A1; width: 0%; transition: width 0.4s ease; }
+        canvas { max-width: 100%; }
+    </style>
+</head>
+<body class="antialiased selection:bg-premium-champagne selection:text-premium-950">
+
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 right-0 z-[9000] py-6 px-6 md:px-12 bg-premium-950/85 backdrop-blur-2xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors block">
+                CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
+            </a>
+            <nav class="hidden lg:flex items-center gap-6 text-sm font-light tracking-wide">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="servizi.html" class="nav-link">I Miei Percorsi</a>
+                <a href="servizi-coach.html" class="nav-link text-premium-champagne font-semibold">Per i Coach</a>
+                <a href="assessment.html" class="nav-link active">Assessment</a>
+                <a href="contatti.html" class="nav-link">Contattami</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-36 pb-24 px-6 flex flex-col items-center justify-center">
+        <div class="max-w-xl w-full glass-panel p-8 md:p-12 rounded-xl shadow-2xl border-t-2 border-t-premium-champagne relative">
+            
+            <div class="text-center mb-8" id="header-titolo">
+                <span class="text-premium-champagne text-xs uppercase tracking-[0.3em] font-semibold mb-2 block">Profiling Strategico Avanzato</span>
+                <h1 class="font-serif text-3xl md:text-4xl font-bold text-white tracking-widest uppercase">Profilo Decisionale</h1>
+                <p class="text-xs text-gray-400 mt-2">Mappa i driver psicologici che guidano le tue scelte professionali e relazionali.</p>
+            </div>
+
+            <!-- STEP 1: LEAD GATE -->
+            <div id="step-lead">
+                <div class="space-y-3 mb-6 text-left">
+                    <input type="text" id="lead-nome" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
+                    <input type="email" id="lead-email" class="input-lead" placeholder="Indirizzo Email *" oninput="this.classList.remove('input-error')">
+                    <input type="tel" id="lead-tel" class="input-lead" placeholder="Numero di Telefono *" oninput="this.value = this.value.replace(/[^0-9+]/g, ''); this.classList.remove('input-error')">
+                    
+                    <div class="flex items-start gap-3 p-4 bg-premium-900/50 rounded border border-white/5 mt-4" id="privacy-box">
+                        <input type="checkbox" id="lead-priv" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('privacy-box').classList.remove('input-error')">
+                        <label for="lead-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per ricevere il report di profilazione e comunicazioni di coaching. *</label>
+                    </div>
+                </div>
+                <button class="tasto-assessment btn-gold-solid" onclick="avviaTest()">Sblocca il Profiling</button>
+            </div>
+
+            <!-- STEP 2: QUIZ -->
+            <div id="step-quiz" class="hidden-step">
+                <div class="progress-container"><div id="bar-fill"></div></div>
+                <div id="testo-domanda" class="text-lg md:text-xl text-white font-serif font-light text-center mb-8 min-h-[80px] flex items-center justify-center leading-snug"></div>
+                <div class="space-y-3">
+                    <button type="button" class="tasto-assessment" onclick="rispondi(30)">Moltissimo / Sempre</button>
+                    <button type="button" class="tasto-assessment" onclick="rispondi(20)">Abbastanza</button>
+                    <button type="button" class="tasto-assessment" onclick="rispondi(10)">Poco</button>
+                    <button type="button" class="tasto-assessment" onclick="rispondi(0)">Per nulla / Mai</button>
+                </div>
+            </div>
+
+            <!-- STEP 3: RISULTATI -->
+            <div id="step-result" class="hidden-step text-center">
+                <h3 class="font-serif text-2xl font-bold text-premium-champagne mb-2">Il Tuo Driver Dominante</h3>
+                <p id="profilo-principale" class="text-white text-sm font-semibold uppercase tracking-wider mb-6"></p>
+                
+                <div class="bg-premium-900/40 p-4 rounded-xl border border-white/5"><canvas id="grafico-profilo"></canvas></div>
+                
+                <div id="analisi-profilo" class="text-gray-300 text-xs font-light mt-6 text-left border-t border-white/10 pt-4 leading-relaxed"></div>
+                
+                <a href="contatti.html" class="tasto-assessment btn-gold-solid mt-8 inline-block text-center">Prenota una Call Strategica</a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-premium-950 border-t border-white/5 py-8 text-center text-xs text-gray-500 mt-auto">
+        <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const domande = [
+            { principio: "Reciprocità", q: "Ti senti fortemente in obbligo di restituire un favore o un'attenzione ricevuta da qualcuno?" },
+            { q: "Se un professionista ti offre valore gratuito in anticipo, tendi a sentirti incline ad affidarti a lui?" },
+            { principio: "Coerenza", q: "Una volta presa una decisione o fatto una promessa, senti una spinta irrinunciabile a portarla a termine?" },
+            { q: "Dai molta importanza alla coerenza tra ciò che dichiari pubblicamente e le tue azioni reali?" },
+            { principio: "Riprova Sociale", q: "Prima di decidere per un servizio importante, analizzi con attenzione recensioni e case study altrui?" },
+            { q: "Ti senti più sicuro nelle tue scelte professionali se vedi che altri leader hanno adottato lo stesso metodo?" },
+            { principio: "Autorità", q: "La presenza di standard rigorosi, certificazioni e metodi strutturati incide in modo assoluto sulla tua fiducia?" },
+            { q: "Tendi a seguire con maggiore rapidità le indicazioni di figure altamente specializzate nel loro settore?" },
+            { principio: "Simpatia", q: "La connessione empatica e la condivisione di valori umani sono fattori decisivi per instaurare una collaborazione?" },
+            { q: "Ti leghi con maggiore facilità a professionisti che dimostrano autentico ascolto e sintonia personale?" },
+            { principio: "Scarsità", q: "La percezione di un'opportunità a tempo limitato o di un'agenda ristretta accelera la tua decisione d'azione?" },
+            { q: "Provi un forte senso di urgenza quando un percorso esclusivo ha disponibilità limitate?" }
+        ];
+
+        let currentIdx = 0;
+        let punteggi = { "Reciprocità": 0, "Coerenza": 0, "Riprova Sociale": 0, "Autorità": 0, "Simpatia": 0, "Scarsità": 0 };
+        let leadData = {};
+
+        function avviaTest() {
+            const nome = document.getElementById('lead-nome');
+            const email = document.getElementById('lead-email');
+            const tel = document.getElementById('lead-tel');
+            const priv = document.getElementById('lead-priv');
+
+            let valid = true;
+            [nome, email, tel].forEach(el => {
+                if(!el.value.trim() || (el.type === 'email' && !el.value.includes('@'))) { el.classList.add('input-error'); valid = false; }
+                else { el.classList.remove('input-error'); }
+            });
+            if(!priv.checked) { document.getElementById('privacy-box').classList.add('input-error'); valid = false; }
+            if(!valid) { alert("Inserisci tutti i dati richiesti e accetta la privacy per sbloccare l'assessment."); return; }
+
+            leadData = { Nome: nome.value, Email: email.value, Telefono: tel.value };
+
+            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({ _subject: "🧠 Nuovo Lead: Profilo Decisionale", ...leadData })
+            }).catch(err => console.log(err));
+
+            document.getElementById('step-lead').classList.add('hidden-step');
+            document.getElementById('header-titolo').classList.add('hidden-step');
+            document.getElementById('step-quiz').classList.remove('hidden-step');
+            caricaDomanda();
+        }
+
+        function caricaDomanda() {
+            document.getElementById('testo-domanda').innerText = domande[currentIdx].q;
+            document.getElementById('bar-fill').style.width = ((currentIdx / domande.length) * 100) + "%";
+        }
+
+        function rispondi(valore) {
+            let principioCorrente = domande[currentIdx].principio;
+            punteggi[principioCorrente] += valore;
+
+            currentIdx++;
+            if(currentIdx < domande.length) {
+                caricaDomanda();
+            } else {
+                mostraRisultati();
+            }
+        }
+
+        function mostraRisultati() {
+            document.getElementById('step-quiz').classList.add('hidden-step');
+            document.getElementById('step-result').classList.remove('hidden-step');
+
+            let principeDominante = Object.keys(punteggi).reduce((a, b) => punteggi[a] > punteggi[b] ? a : b);
+            document.getElementById('profilo-principale').innerText = "Driver Dominante: " + principeDominante;
+
+            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({ _subject: "📊 Risultati Profilo Decisionale - " + leadData.Nome, ...leadData, ...punteggi })
+            }).catch(err => console.log(err));
+
+            let ctx = document.getElementById('grafico-profilo').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(punteggi),
+                    datasets: [{
+                        label: 'Intensità Driver',
+                        data: Object.values(punteggi),
+                        backgroundColor: 'rgba(229, 208, 161, 0.6)',
+                        borderColor: '#E5D0A1',
+                        borderWidth: 1.5
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#fff' }, min: 0, max: 60 },
+                        x: { grid: { display: false }, ticks: { color: '#E5D0A1', font: { size: 10, family: "'Inter', sans-serif" } } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            let descrizioni = {
+                "Reciprocità": "Hai una naturale propensione a riconoscere e ricambiare il valore ricevuto. Rispondi positivamente a un approccio basato sulla generosità strategica e sulla competenza condivisa in anticipo.",
+                "Coerenza": "La linearità tra i tuoi impegni passati e le decisioni future è la tua bussola. Una volta riconosciuto il valore di un percorso strutturato, lo affronti con totale dedizione.",
+                "Riprova Sociale": "Hai bisogno di toccare con mano l'efficacia attraverso le esperienze di chi ti ha preceduto. Le evidenze di successo altrui azzerano ogni tua esitazione.",
+                "Autorità": "Cerchi rigore, metodo e standard elevati. Riconosci immediatamente il valore di un professionista certificato che adotta protocolli rigorosi e trasparenti.",
+                "Simpatia": "Il fattore relazionale e l'allineamento valoriale guidano le tue scelte. Prediligi partner di percorso con cui instaurare una partnership empatica e autentica.",
+                "Scarsità": "Reagisci con prontezza di fronte a opportunità esclusive e limitate nel tempo. La chiarezza delle priorità attiva immediatamente la tua spinta all'azione."
+            };
+
+            document.getElementById('analisi-profilo').innerHTML = `<strong>Sintesi Strategica:</strong><br>${descrizioni[principeDominante]}<br><br><em>Questo schema evidenza le leve chiave che muovono le tue scelte evolutive. Approfondiamole insieme in una call dedicata.</em>`;
+        }
+    </script>
+</body>
+</html>
