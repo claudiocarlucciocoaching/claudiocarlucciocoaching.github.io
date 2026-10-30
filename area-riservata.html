@@ -25,55 +25,55 @@
         .nav-link:hover, .nav-link.active { color: #ffffff; }
         .nav-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #E5D0A1; transition: width 0.3s ease; }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-        .glass-panel { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.1); }
+        .glass-panel { background: rgba(20, 20, 20, 0.65); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.12); }
         .form-control-contact { width: 100%; padding: 16px 20px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.02); color: #ffffff; font-size: 15px; outline: none; transition: all 0.3s ease; box-sizing: border-box; margin-bottom: 20px; }
         .form-control-contact:focus { border-color: #E5D0A1; background: rgba(229, 208, 161, 0.02); }
-        .btn-gold-solid { width: 100%; background: #E5D0A1; color: #050505; transition: all 0.4s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 32px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-radius: 4px;}
-        .btn-gold-solid:hover { background: #C5A880; transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(229, 208, 161, 0.2); }
+        .btn-gold-solid { width: 100%; background: linear-gradient(135deg, #E5D0A1 0%, #C5A880 100%); color: #050505; transition: all 0.4s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 32px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-radius: 4px; cursor: pointer; }
     </style>
 </head>
 <body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950 flex flex-col">
 
-    <header class="fixed top-0 left-0 right-0 z-[9000] py-6 px-6 md:px-12 bg-premium-950/80 backdrop-blur-2xl border-b border-white/5 transition-all duration-300">
+    <header class="fixed top-0 left-0 right-0 z-[9000] py-5 px-6 md:px-12 bg-premium-950/85 backdrop-blur-2xl border-b border-white/5">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors cursor-pointer block">
-                CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
-            </a>
-            <nav class="hidden lg:flex items-center gap-8 text-sm font-light tracking-wide">
+            <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors block">CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span></a>
+            <nav class="hidden lg:flex items-center gap-6 text-sm font-light tracking-wide">
                 <a href="index.html" class="nav-link">Home</a>
-                <a href="servizi.html" class="nav-link">Servizi</a>
+                <a href="servizi.html" class="nav-link">I Miei Percorsi</a>
+                <a href="servizi-coach.html" class="nav-link text-premium-champagne font-semibold">Per i Coach</a>
                 <a href="assessment.html" class="nav-link">Assessment</a>
                 <a href="area-riservata.html" class="nav-link active">Area Riservata</a>
                 <a href="testimonianza.html" class="nav-link">Testimonianze</a>
                 <a href="contatti.html" class="nav-link">Contattami</a>
             </nav>
+            <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="lg:hidden text-white hover:text-premium-champagne focus:outline-none p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-premium-900/95 backdrop-blur-xl border-b border-white/10 px-6 py-6 mt-5 space-y-4 text-center">
+            <a href="index.html" class="block py-2 text-gray-300 hover:text-white">Home</a>
+            <a href="servizi.html" class="block py-2 text-gray-300 hover:text-white">I Miei Percorsi</a>
+            <a href="servizi-coach.html" class="block py-2 text-premium-champagne font-semibold">Per i Coach</a>
+            <a href="assessment.html" class="block py-2 text-gray-300 hover:text-white">Assessment</a>
+            <a href="area-riservata.html" class="block py-2 text-white font-medium">Area Riservata</a>
+            <a href="testimonianza.html" class="block py-2 text-gray-300 hover:text-white">Testimonianze</a>
+            <a href="contatti.html" class="block py-2 text-gray-300 hover:text-white">Contattami</a>
         </div>
     </header>
 
-    <main class="flex-grow flex items-center justify-center px-6 pt-32 pb-24">
-        <div class="glass-panel p-10 md:p-14 rounded-xl max-w-md w-full text-center">
+    <main class="flex-grow flex items-center justify-center px-6 pt-36 pb-24">
+        <div class="glass-panel p-10 md:p-14 rounded-xl max-w-md w-full text-center border-t-2 border-t-premium-champagne">
             <i data-lucide="lock" class="w-12 h-12 text-premium-champagne mx-auto mb-6"></i>
-            <h2 class="font-serif text-3xl font-bold text-white mb-2">Accesso Clienti</h2>
-            <p class="text-gray-400 text-sm mb-8">Inserisci le tue credenziali per accedere ai materiali del tuo percorso.</p>
-            
-            <form onsubmit="event.preventDefault(); alert('Accesso non ancora configurato. Contatta l\'amministratore.');">
+            <h2 class="font-serif text-3xl font-bold text-white mb-2">Area Coachee</h2>
+            <p class="text-gray-400 text-sm mb-8 font-light">Inserisci le credenziali fornite dal Coach per accedere alle schede di sessione e al monitoraggio dei progressi.</p>
+            <form onsubmit="event.preventDefault(); alert('Credenziali non riconosciute o profilo in fase di attivazione. Contatta Claudio Carluccio.');">
                 <input type="email" class="form-control-contact" placeholder="La tua Email" required>
-                <input type="password" class="form-control-contact" placeholder="Password" required>
-                <button type="submit" class="btn-gold-solid">Accedi all'Area</button>
+                <input type="password" class="form-control-contact" placeholder="Codice Accesso / Password" required>
+                <button type="submit" class="btn-gold-solid">Accedi alla Dashboard</button>
             </form>
-            <p class="text-xs text-gray-500 mt-6 mt-4 hover:text-premium-champagne cursor-pointer transition-colors">Password dimenticata?</p>
+            <a href="contatti.html" class="inline-block text-xs text-gray-500 mt-6 hover:text-premium-champagne transition-colors">Non hai ancora un codice di accesso? Contattami →</a>
         </div>
     </main>
 
     <footer class="bg-premium-950 border-t border-white/5 py-12 px-6 text-center text-xs text-gray-500 mt-auto">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-            <a href="index.html" class="font-serif text-sm font-semibold text-white tracking-widest hover:text-premium-champagne transition-colors">CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span></a>
-            <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
-            <div class="flex gap-6">
-                <a href="assessment.html" class="hover:text-premium-champagne transition-colors">Assessment</a>
-                <a href="contatti.html" class="hover:text-premium-champagne transition-colors">Contatti</a>
-            </div>
-        </div>
+        <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
     </footer>
     <script>lucide.createIcons();</script>
 </body>
