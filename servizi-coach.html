@@ -29,9 +29,9 @@
         .nav-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #E5D0A1; transition: width 0.3s ease; }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
         
-        .glass-panel { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.1); }
-        .btn-gold-solid { background: #E5D0A1; color: #050505; transition: all 0.4s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 32px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-radius: 4px; width: 100%; cursor: pointer; }
-        .btn-gold-solid:hover { background: #C5A880; transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(229, 208, 161, 0.2); }
+        .glass-panel { background: rgba(20, 20, 20, 0.65); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.12); }
+        .btn-gold-solid { background: linear-gradient(135deg, #E5D0A1 0%, #C5A880 100%); color: #050505; transition: all 0.4s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 32px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-radius: 4px; width: 100%; cursor: pointer; }
+        .btn-gold-solid:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(229, 208, 161, 0.25); }
         
         .input-lead { 
             width: 100%; padding: 16px 20px; margin: 8px 0 20px 0; box-sizing: border-box; 
@@ -43,12 +43,11 @@
 </head>
 <body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950">
 
-    <header class="fixed top-0 left-0 right-0 z-[9000] py-6 px-6 md:px-12 bg-premium-950/80 backdrop-blur-2xl border-b border-white/5 transition-all duration-300">
+    <header class="fixed top-0 left-0 right-0 z-[9000] py-5 px-6 md:px-12 bg-premium-950/85 backdrop-blur-2xl border-b border-white/5 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors cursor-pointer block">
                 CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
             </a>
-            
             <nav class="hidden lg:flex items-center gap-6 text-sm font-light tracking-wide">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="servizi.html" class="nav-link">I Miei Percorsi</a>
@@ -58,34 +57,44 @@
                 <a href="testimonianza.html" class="nav-link">Testimonianze</a>
                 <a href="contatti.html" class="nav-link">Contattami</a>
             </nav>
+            <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="lg:hidden text-white hover:text-premium-champagne focus:outline-none p-2">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-premium-900/95 backdrop-blur-xl border-b border-white/10 px-6 py-6 mt-5 space-y-4 text-center">
+            <a href="index.html" class="block py-2 text-gray-300 hover:text-white">Home</a>
+            <a href="servizi.html" class="block py-2 text-gray-300 hover:text-white">I Miei Percorsi</a>
+            <a href="servizi-coach.html" class="block py-2 text-premium-champagne font-semibold">Per i Coach</a>
+            <a href="assessment.html" class="block py-2 text-gray-300 hover:text-white">Assessment</a>
+            <a href="area-riservata.html" class="block py-2 text-gray-300 hover:text-white">Area Riservata</a>
+            <a href="testimonianza.html" class="block py-2 text-gray-300 hover:text-white">Testimonianze</a>
+            <a href="contatti.html" class="block py-2 text-gray-300 hover:text-white">Contattami</a>
         </div>
     </header>
 
-    <main class="flex-grow pt-32 pb-24 relative px-6">
+    <main class="flex-grow pt-36 pb-24 relative px-6">
         <div class="max-w-7xl mx-auto">
             
             <div class="text-center mb-20 flex flex-col items-center">
                 <span class="text-premium-champagne text-xs uppercase tracking-[0.3em] font-semibold mb-4 block">B2B Coaching Solutions</span>
                 <h1 class="font-serif text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">L'Infrastruttura per il <span class="text-premium-champagne">Tuo Successo</span></h1>
                 <p class="text-gray-400 font-light text-lg max-w-3xl mx-auto leading-relaxed mb-8">
-                    La maggior parte dei coach ha grandi competenze metodologiche, ma è bloccata da una gestione artigianale della professione. 
-                    Costruisco ecosistemi digitali e fornisco strumenti avanzati (assessment, dashboard, automazioni) per trasformare il tuo metodo in un business scalabile e altospendente.
+                    La maggior parte dei coach possiede grandi competenze metodologiche, ma è rallentata da una gestione artigianale della professione. Costruisco ecosistemi digitali e fornisco strumenti interattivi per trasformare il tuo metodo in una pratica scalabile e ad alto valore percepito.
                 </p>
                 <a href="contatti.html" class="btn-gold-solid max-w-sm">Richiedi una Consulenza Tecnica</a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
-                
                 <div class="glass-panel p-10 rounded-xl relative group hover:border-premium-champagne/40 transition-colors">
                     <i data-lucide="layout-template" class="w-12 h-12 text-premium-champagne mb-6"></i>
                     <h3 class="font-serif text-2xl text-white font-bold mb-4">Siti Web per Coach (High-Ticket)</h3>
                     <p class="text-gray-400 font-light leading-relaxed mb-6">
-                        Non il classico sito vetrina WordPress lento e vulnerabile. Sviluppo piattaforme in puro codice (HTML/Tailwind), velocissime, dal design "premium", ottimizzate esclusivamente per la lead generation e la conversione di percorsi ad alto costo.
+                        Piattaforme in puro codice (HTML/Tailwind), velocissime, dal design "Luxury Dark & Gold", ottimizzate per la lead generation e la conversione di percorsi di alto profilo.
                     </p>
                     <ul class="space-y-3">
                         <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> Design Nero & Oro Premium</li>
-                        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> Integrazione Calendly invisibile</li>
-                        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> Moduli di acquisizione senza database (Zero Spam)</li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> Integrazione Calendly nativa</li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> Moduli di acquisizione diretti (Zero Manutenzione)</li>
                     </ul>
                 </div>
 
@@ -94,46 +103,30 @@
                     <i data-lucide="network" class="w-12 h-12 text-premium-champagne mb-6"></i>
                     <h3 class="font-serif text-2xl text-white font-bold mb-4">Hub Strategico & Assessment</h3>
                     <p class="text-gray-400 font-light leading-relaxed mb-6">
-                        Accedi in licenza d'uso al mio "Hub Strategico" o richiedi lo sviluppo di un hub personalizzato per i tuoi coachee. Un'infrastruttura completa per gestire le sessioni e alzare il valore percepito.
+                        Richiedi lo sviluppo di assessment digitali personalizzati per i tuoi coachee. Un'infrastruttura interattiva per qualificare i contatti prima della Discovery Call.
                     </p>
                     <ul class="space-y-3">
-                        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> Concessione <strong>Ruota della Vita & dell'Atleta</strong></li>
-                        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> <strong>Scheda Coachee</strong> e Visualizzatore Progressi</li>
-                        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> <strong>Assessment O.N.E. / T.W.O.</strong> e Gap Map Strategica</li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> <strong>Ruote Interattive</strong> (Vita, Business, Sport)</li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> <strong>Lead Gate Obbligatorio</strong> prima dei risultati</li>
+                        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 h-4 text-premium-champagne"></i> <strong>Report Automatici</strong> direttamente via email</li>
                     </ul>
                 </div>
-
-                <div class="glass-panel p-10 rounded-xl relative group hover:border-premium-champagne/40 transition-colors">
-                    <i data-lucide="cog" class="w-12 h-12 text-premium-champagne mb-6"></i>
-                    <h3 class="font-serif text-2xl text-white font-bold mb-4">Sistemi e Automazioni</h3>
-                    <p class="text-gray-400 font-light leading-relaxed">
-                        Costruzione di Funnel di acquisizione. Integrazione di moduli per raccogliere testimonianze post-sessione e sistemi per gestire l'onboarding dei clienti in modo automatizzato. Liberati dall'operatività per concentrarti sulle sessioni.
-                    </p>
-                </div>
-
-                <div class="glass-panel p-10 rounded-xl relative group hover:border-premium-champagne/40 transition-colors">
-                    <i data-lucide="book-open" class="w-12 h-12 text-premium-champagne mb-6"></i>
-                    <h3 class="font-serif text-2xl text-white font-bold mb-4">Mentoring & Strumenti PNL</h3>
-                    <p class="text-gray-400 font-light leading-relaxed">
-                        Sfrutta i simulatori e i test linguistici per affinare la tua tecnica. Ti aiuto a strutturare pacchetti di coaching solidi e a padroneggiare la linguistica di vendita in fase di "Discovery Call".
-                    </p>
-                </div>
-
             </div>
 
-            <!-- SEZIONE WHITEPAPER / LEAD MAGNET PER COACH (ORA PERFETTAMENTE STILIZZATA) -->
+            <!-- LEAD MAGNET PER COACH -->
             <div class="glass-panel p-10 md:p-14 rounded-xl max-w-3xl mx-auto border-t-2 border-t-premium-champagne mb-16 text-center shadow-2xl">
                 <span class="text-premium-champagne text-xs uppercase tracking-[0.3em] font-semibold mb-3 block">Risorsa Gratuita per Colleghi Coach</span>
                 <h3 class="font-serif text-3xl font-bold text-white mb-4">Scarica il Kit del Coach Digitale</h3>
-                <p class="text-gray-400 font-light text-sm max-w-lg mx-auto mb-8">Ottieni la guida pratica su come strutturare un ecosistema di acquisizione ad alto valore e digitalizzare i tuoi strumenti di valutazione.</p>
+                <p class="text-gray-400 font-light text-sm max-w-lg mx-auto mb-8">Compila i tuoi dati per sbloccare immediatamente il Capitolo 1 del Whitepaper su come strutturare un ecosistema digitale ad alte performance.</p>
                 
                 <form action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" class="max-w-md mx-auto text-left">
-                    <input type="hidden" name="_subject" value="📥 Richiesta Kit Coach Digitale (Whitepaper)">
+                    <input type="hidden" name="_subject" value="📥 Nuovo Lead Coach: Download Kit del Coach Digitale">
                     <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
                     <input type="hidden" name="_next" value="https://claudiocarlucciocoaching.com/guida.html">
                     
                     <label class="block text-xs uppercase tracking-widest text-premium-champagne mb-1">Nome e Cognome *</label>
-                    <input type="text" name="Nome_Coach" class="input-lead" placeholder="Inserisci il tuo nome" required>
+                    <input type="text" name="Nome_Coach" class="input-lead" placeholder="Inserisci il tuo nome e cognome" required>
                     
                     <label class="block text-xs uppercase tracking-widest text-premium-champagne mb-1">Indirizzo Email *</label>
                     <input type="email" name="Email_Coach" class="input-lead" placeholder="latua@email.com" required>
@@ -146,7 +139,7 @@
                         <span class="text-xs text-gray-400">Acconsento al trattamento dei dati personali ai sensi del GDPR per ricevere la risorsa e comunicazioni professionali. *</span>
                     </div>
 
-                    <button type="submit" class="btn-gold-solid mt-2">Ricevi la Guida Gratuita</button>
+                    <button type="submit" class="btn-gold-solid mt-2">Sblocca e Leggi la Guida Gratuita</button>
                 </form>
             </div>
 
@@ -157,10 +150,6 @@
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
             <a href="index.html" class="font-serif text-sm font-semibold text-white tracking-widest hover:text-premium-champagne transition-colors">CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span></a>
             <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
-            <div class="flex gap-6">
-                <a href="servizi-coach.html" class="hover:text-premium-champagne transition-colors">Per i Coach</a>
-                <a href="contatti.html" class="hover:text-premium-champagne transition-colors">Contattami</a>
-            </div>
         </div>
     </footer>
     <script>lucide.createIcons();</script>
