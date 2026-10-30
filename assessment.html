@@ -10,7 +10,6 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <script>
@@ -27,160 +26,21 @@
 
     <style>
         body { background-color: #050505; color: #f5f5f5; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
+        .ambient-glow { position: fixed; top: -150px; left: 50%; transform: translateX(-50%); width: 700px; height: 400px; background: radial-gradient(circle, rgba(229, 208, 161, 0.07) 0%, rgba(5, 5, 5, 0) 70%); pointer-events: none; z-index: 0; }
         .nav-link { position: relative; color: #a3a3a3; transition: color 0.3s ease; }
         .nav-link:hover, .nav-link.active { color: #ffffff; }
         .nav-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #E5D0A1; transition: width 0.3s ease; }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
         
-        .glass-panel { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.1); }
+        .glass-panel { background: rgba(20, 20, 20, 0.65); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.12); }
         .hidden-step { display: none !important; }
         
-        .meta-card { cursor: pointer; transition: all 0.4s ease; border: 1px solid rgba(255,255,255,0.05); }
-        .meta-card:hover { transform: translateY(-3px); background: rgba(255, 255, 255, 0.02); }
+        .meta-card { cursor: pointer; transition: all 0.35s ease; border: 1px solid rgba(255,255,255,0.06); }
+        .meta-card:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.03); border-color: rgba(229, 208, 161, 0.3); }
 
         .input-lead { 
-            width: 100%; padding: 16px 20px; margin: 10px 0; box-sizing: border-box; 
+            width: 100%; padding: 15px 18px; margin: 8px 0; box-sizing: border-box; 
             background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1); 
             color: white; border-radius: 4px; font-size: 15px; outline: none; transition: border-color 0.3s; 
         }
-        .input-lead:focus { border-color: #E5D0A1; }
-        .input-error { border: 1px solid #ff4d4d !important; background: rgba(255, 77, 77, 0.05); }
-        .privacy-error { border: 1px solid #ff4d4d !important; background: rgba(255, 77, 77, 0.05) !important; }
-        
-        .tasto-assessment { 
-            display: block; width: 100%; padding: 18px; margin: 12px 0; 
-            background: transparent; color: #E5D0A1; border: 1px solid rgba(229, 208, 161, 0.3); 
-            border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; 
-            transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 2px;
-        }
-        .tasto-assessment:hover { background: #E5D0A1; color: #050505; }
-        .btn-gold-solid { background: #E5D0A1 !important; color: #050505 !important; border: none !important; }
-        .btn-gold-solid:hover { background: #C5A880 !important; }
-
-        .filter-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #a3a3a3; padding: 8px 16px; border-radius: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s; }
-        .filter-btn:hover, .filter-btn.active-filter { background: #E5D0A1; color: #050505; border-color: #E5D0A1; font-weight: 600; }
-
-        .progress-container { width: 100%; background: #141414; height: 4px; border-radius: 10px; margin-bottom: 30px; overflow: hidden; border: 1px solid rgba(229, 208, 161, 0.1); }
-        #bar-fill-one, #bar-fill-burnout { height: 100%; background: #E5D0A1; width: 16.6%; transition: width 0.5s ease; }
-        #grafico-container-one, #grafico-container-burnout { position: relative; margin-top: 30px; padding: 20px; background: rgba(20,20,20,0.4); border-radius: 8px;}
-        canvas { max-width: 100%; }
-
-        .interactive-canvas-container { width: 100%; max-width: 560px; margin: 0 auto 30px; position: relative; }
-        .interactive-canvas-container canvas { width: 100%; height: auto; cursor: crosshair; user-select: none; }
-        .reset-btn { text-align: center; margin-bottom: 20px; }
-        .reset-btn button { background: rgba(255,255,255,0.05); color: #ccc; border: 1px solid rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; cursor: pointer; }
-        .reset-btn button:hover { background: rgba(229, 208, 161, 0.1); color: #E5D0A1; border-color: #E5D0A1; }
-    </style>
-</head>
-<body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950" oncontextmenu="return false;">
-
-    <header class="fixed top-0 left-0 right-0 z-[9000] py-6 px-6 md:px-12 bg-premium-950/80 backdrop-blur-2xl border-b border-white/5 transition-all duration-300">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors cursor-pointer block">
-                CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
-            </a>
-            
-            <nav class="hidden lg:flex items-center gap-6 text-sm font-light tracking-wide">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="servizi.html" class="nav-link">I Miei Percorsi</a>
-                <a href="servizi-coach.html" class="nav-link text-premium-champagne font-semibold">Per i Coach</a>
-                <a href="assessment.html" class="nav-link active">Assessment</a>
-                <a href="area-riservata.html" class="nav-link">Area Riservata</a>
-                <a href="testimonianza.html" class="nav-link">Testimonianze</a>
-                <a href="contatti.html" class="nav-link">Contattami</a>
-            </nav>
-        </div>
-    </header>
-
-    <main class="flex-grow pt-32 pb-24 relative px-6">
-        <div class="max-w-5xl mx-auto relative z-10">
-            
-            <div class="text-center mb-12" id="hub-header">
-                <span class="text-premium-champagne text-xs uppercase tracking-[0.3em] font-semibold mb-4 block">Area Assessment & Sviluppo</span>
-                <h1 class="font-serif text-4xl md:text-5xl font-bold text-white mb-6">Mappa il tuo potenziale</h1>
-                <p class="text-gray-400 font-light text-lg max-w-2xl mx-auto leading-relaxed">
-                    L'autoconsapevolezza è il primo passo verso la trasformazione. Scegli lo strumento di mappatura più adatto ai tuoi obiettivi attuali.
-                </p>
-            </div>
-
-            <div id="meta-assessment" class="mb-12">
-                <div class="flex flex-col md:flex-row items-center justify-between mb-8 pb-4 border-b border-white/5 gap-4">
-                    <h2 class="text-white font-serif text-xl flex items-center gap-3 m-0">
-                        <span class="w-8 h-px bg-premium-champagne"></span> Strumenti di Valutazione
-                    </h2>
-                    <div class="flex flex-wrap gap-2">
-                        <button class="filter-btn active-filter" onclick="filtra('tutti', this)">Tutti</button>
-                        <button class="filter-btn" onclick="filtra('life', this)">Life & Balance</button>
-                        <button class="filter-btn" onclick="filtra('business', this)">Business & Executive</button>
-                        <button class="filter-btn" onclick="filtra('sport', this)">Sport Performance</button>
-                        <button class="filter-btn" onclick="filtra('coppia', this)">Couple Coaching</button>
-                    </div>
-                </div>
-
-                <!-- GRIGLIA UNIFICATA CON ACCENTI CROMATICI DISTINTI -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12" id="cards-grid">
-                    
-                    <!-- Ruota della Vita (Life - Oro) -->
-                    <div data-cat="life" onclick="avviaTest('ruota-vita')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#E5D0A1]">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#E5D0A1] mb-6 border border-[#E5D0A1]/20"><i data-lucide="pie-chart" class="w-5 h-5"></i></div>
-                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota della Vita</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Fotografia istantanea del tuo equilibrio attuale (carriera, finanze, relazioni, salute).</p>
-                        <span class="text-xs uppercase tracking-widest text-[#E5D0A1] font-semibold">Life & Balance →</span>
-                    </div>
-
-                    <!-- Ruota del Manager (Business - Viola/Blu) -->
-                    <div data-cat="business" onclick="avviaTest('ruota-manager')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#8c7ae6]">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#8c7ae6] mb-6 border border-[#8c7ae6]/20"><i data-lucide="briefcase" class="w-5 h-5"></i></div>
-                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota del Manager</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Business & Executive. Analizza leadership, gestione team, doti negoziali e time management.</p>
-                        <span class="text-xs uppercase tracking-widest text-[#8c7ae6] font-semibold">Business & Executive →</span>
-                    </div>
-
-                    <!-- Ruota dell'Atleta (Sport - Corallo/Rosso) -->
-                    <div data-cat="sport" onclick="avviaTest('ruota-atleta')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#ff6b6b]">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#ff6b6b] mb-6 border border-[#ff6b6b]/20"><i data-lucide="swords" class="w-5 h-5"></i></div>
-                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota dell'Atleta</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Mappa la tua tenuta mentale, gestione della pressione agonistica, focus e preparazione.</p>
-                        <span class="text-xs uppercase tracking-widest text-[#ff6b6b] font-semibold">Sport Performance →</span>
-                    </div>
-
-                    <!-- ONE Profile (Life & Business - Ambra) -->
-                    <div data-cat="life business" onclick="avviaTest('one-profile')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#feca57]">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#feca57] mb-6 border border-[#feca57]/20"><i data-lucide="brain" class="w-5 h-5"></i></div>
-                        <h3 class="text-xl font-serif text-white font-semibold mb-3">ONE Profile</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Mappa i tuoi tratti neuro-comportamentali profondi per sbloccare il potenziale intrinseco.</p>
-                        <span class="text-xs uppercase tracking-widest text-[#feca57] font-semibold">Mindset & Drive →</span>
-                    </div>
-
-                    <!-- ONE Match Analysis (Coppia - Magenta/Rosa) -->
-                    <div data-cat="coppia" onclick="window.location.href='couple-matching.html'" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#ff9ff3]">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#ff9ff3] mb-6 border border-[#ff9ff3]/20"><i data-lucide="heart-handshake" class="w-5 h-5"></i></div>
-                        <h3 class="text-xl font-serif text-white font-semibold mb-3">ONE Match Analysis</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Assessment comparativo avanzato per coppie. Analizza sinergie, polarità e driver comunicativi.</p>
-                        <span class="text-xs uppercase tracking-widest text-[#ff9ff3] font-semibold">Couple Coaching →</span>
-                    </div>
-
-                    <!-- Profilo Decisionale (Business/Life - Turchese) -->
-                    <div data-cat="business life" onclick="window.location.href='profilo-decisionale.html'" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#48dbfb]">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#48dbfb] mb-6 border border-[#48dbfb]/20"><i data-lucide="compass" class="w-5 h-5"></i></div>
-                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Profilo Decisionale</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Mappa i driver psicologici e le leve persuasive che guidano le tue scelte strategiche.</p>
-                        <span class="text-xs uppercase tracking-widest text-[#48dbfb] font-semibold">Profiling Avanzato →</span>
-                    </div>
-
-                    <!-- Stress & Carico Mentale (Wellness - Verde) -->
-                    <div data-cat="life business" onclick="avviaTest('burnout')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#1dd1a1] md:col-span-2">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#1dd1a1] mb-6 border border-[#1dd1a1]/20"><i data-lucide="activity" class="w-5 h-5"></i></div>
-                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Mappatura dello Stress & Carico Mentale</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Esplora i livelli di affaticamento e le risorse energetiche professionali. Ideale per manager e professionisti.</p>
-                        <span class="text-xs uppercase tracking-widest text-[#1dd1a1] font-semibold">Analisi Energetica →</span>
-                    </div>
-
-                </div>
-
-                <!-- SEZIONE FAQ -->
-                <div class="glass-panel p-8 md:p-12 rounded-xl mt-16 border border-white/5">
-                    <h3 class="font-serif text-2xl font-bold text-white mb-8 text-center">Domande Frequenti sugli Assessment</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
-                            <h4 class="text-premium-champagne
+        .
