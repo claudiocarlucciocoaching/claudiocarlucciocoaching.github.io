@@ -133,19 +133,20 @@
     <script>
         lucide.createIcons();
 
+        // 12 Domande assegnate esplicitamente a ciascuno dei 6 principi (2 per ciascuno)
         const domande = [
             { principio: "Reciprocità", q: "Ti senti fortemente in obbligo di restituire un favore o un'attenzione ricevuta da qualcuno?" },
-            { q: "Se un professionista ti offre valore gratuito in anticipo, tendi a sentirti incline ad affidarti a lui?" },
+            { principio: "Reciprocità", q: "Se un professionista ti offre valore gratuito in anticipo, tendi a sentirti incline ad affidarti a lui?" },
             { principio: "Coerenza", q: "Una volta presa una decisione o fatto una promessa, senti una spinta irrinunciabile a portarla a termine?" },
-            { q: "Dai molta importanza alla coerenza tra ciò che dichiari pubblicamente e le tue azioni reali?" },
+            { principio: "Coerenza", q: "Dai molta importanza alla coerenza tra ciò che dichiari pubblicamente e le tue azioni reali?" },
             { principio: "Riprova Sociale", q: "Prima di decidere per un servizio importante, analizzi con attenzione recensioni e case study altrui?" },
-            { q: "Ti senti più sicuro nelle tue scelte professionali se vedi che altri leader hanno adottato lo stesso metodo?" },
+            { principio: "Riprova Sociale", q: "Ti senti più sicuro nelle tue scelte professionali se vedi che altri leader hanno adottato lo stesso metodo?" },
             { principio: "Autorità", q: "La presenza di standard rigorosi, certificazioni e metodi strutturati incide in modo assoluto sulla tua fiducia?" },
-            { q: "Tendi a seguire con maggiore rapidità le indicazioni di figure altamente specializzate nel loro settore?" },
-            { principio: "Simpatia", q: "La connessione empatica e la condivisione di valori umani sono fattori decisivi per instaurare una collaborazione?" },
-            { q: "Ti leghi con maggiore facilità a professionisti che dimostrano autentico ascolto e sintonia personale?" },
+            { principio: "Autorità", q: "Tendi a seguire con maggiore rapidità le indicazioni di figure altamente specializzate nel loro settore?" },
+            { principio: "Simpatia", q: "La connessione empatica e l'allineamento valoriale guidano le tue scelte di affidamento?" },
+            { principio: "Simpatia", q: "Ti leghi con maggiore facilità a professionisti che dimostrano autentico ascolto e sintonia personale?" },
             { principio: "Scarsità", q: "La percezione di un'opportunità a tempo limitato o di un'agenda ristretta accelera la tua decisione d'azione?" },
-            { q: "Provi un forte senso di urgenza quando un percorso esclusivo ha disponibilità limitate?" }
+            { principio: "Scarsità", q: "Provi un forte senso di urgenza quando un percorso esclusivo ha disponibilità limitate?" }
         ];
 
         let currentIdx = 0;
@@ -187,7 +188,9 @@
 
         function rispondi(valore) {
             let principioCorrente = domande[currentIdx].principio;
-            punteggi[principioCorrente] += valore;
+            if (punteggi[principioCorrente] !== undefined) {
+                punteggi[principioCorrente] += valore;
+            }
 
             currentIdx++;
             if(currentIdx < domande.length) {
