@@ -133,7 +133,6 @@
     <script>
         lucide.createIcons();
 
-        // 12 Domande assegnate esplicitamente a ciascuno dei 6 principi (2 per ciascuno)
         const domande = [
             { principio: "Reciprocità", q: "Ti senti fortemente in obbligo di restituire un favore o un'attenzione ricevuta da qualcuno?" },
             { principio: "Reciprocità", q: "Se un professionista ti offre valore gratuito in anticipo, tendi a sentirti incline ad affidarti a lui?" },
@@ -169,6 +168,7 @@
 
             leadData = { Nome: nome.value, Email: email.value, Telefono: tel.value };
 
+            // Invio immediato del lead alla tua email tramite FormSubmit
             fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -207,6 +207,7 @@
             let principeDominante = Object.keys(punteggi).reduce((a, b) => punteggi[a] > punteggi[b] ? a : b);
             document.getElementById('profilo-principale').innerText = "Driver Dominante: " + principeDominante;
 
+            // Invio dei risultati finali con i punteggi dettagliati
             fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
