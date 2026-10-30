@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Testimonianze | Claudio Carluccio Coaching</title>
-    
     <link rel="icon" type="image/png" href="logo-claudio.png">
     <link rel="apple-touch-icon" href="logo-claudio.png">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -21,49 +19,26 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-
     <style>
         body { background-color: #050505; color: #f5f5f5; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
         .nav-link { position: relative; color: #a3a3a3; transition: color 0.3s ease; }
         .nav-link:hover, .nav-link.active { color: #ffffff; }
         .nav-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #E5D0A1; transition: width 0.3s ease; }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-        
-        .glass-panel { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.1); }
-        
-        .form-group-contact { margin-bottom: 24px; }
+        .glass-panel { background: rgba(20, 20, 20, 0.65); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.12); }
+        .form-group-contact { margin-bottom: 20px; }
         .form-group-contact label { display: block; font-size: 11px; font-weight: 500; color: #E5D0A1; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 2px; }
-        .form-control-contact {
-            width: 100%; padding: 16px 20px; border-radius: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.02);
-            color: #ffffff; font-size: 15px; outline: none; transition: all 0.3s ease; box-sizing: border-box;
-        }
+        .form-control-contact { width: 100%; padding: 15px 18px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.02); color: #ffffff; font-size: 15px; outline: none; transition: all 0.3s ease; box-sizing: border-box; }
         .form-control-contact:focus { border-color: #E5D0A1; background: rgba(229, 208, 161, 0.02); }
-        textarea.form-control-contact { resize: vertical; min-height: 140px; }
-        
-        .btn-contact {
-            width: 100%; padding: 18px; background: transparent; border: 1px solid #E5D0A1;
-            color: #E5D0A1; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
-            cursor: pointer; transition: all 0.4s ease; display: flex; justify-content: center; align-items: center; gap: 10px;
-        }
-        .btn-contact:hover { background: #E5D0A1; color: #050505; }
-        
-        .btn-gold-solid { 
-            background: #E5D0A1; color: #050505; transition: all 0.4s ease; 
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 16px 32px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-radius: 2px;
-        }
-        .btn-gold-solid:hover { background: #C5A880; transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(229, 208, 161, 0.2); }
+        textarea.form-control-contact { resize: vertical; min-height: 130px; }
+        .btn-gold-solid { background: linear-gradient(135deg, #E5D0A1 0%, #C5A880 100%); color: #050505; transition: all 0.4s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 32px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-radius: 4px; cursor: pointer; }
     </style>
 </head>
 <body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950">
 
-    <header class="fixed top-0 left-0 right-0 z-[9000] py-6 px-6 md:px-12 bg-premium-950/80 backdrop-blur-2xl border-b border-white/5 transition-all duration-300">
+    <header class="fixed top-0 left-0 right-0 z-[9000] py-5 px-6 md:px-12 bg-premium-950/85 backdrop-blur-2xl border-b border-white/5">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors cursor-pointer block">
-                CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
-            </a>
-            
+            <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors block">CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span></a>
             <nav class="hidden lg:flex items-center gap-6 text-sm font-light tracking-wide">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="servizi.html" class="nav-link">I Miei Percorsi</a>
@@ -73,111 +48,71 @@
                 <a href="testimonianza.html" class="nav-link active">Testimonianze</a>
                 <a href="contatti.html" class="nav-link">Contattami</a>
             </nav>
+            <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="lg:hidden text-white hover:text-premium-champagne focus:outline-none p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-premium-900/95 backdrop-blur-xl border-b border-white/10 px-6 py-6 mt-5 space-y-4 text-center">
+            <a href="index.html" class="block py-2 text-gray-300 hover:text-white">Home</a>
+            <a href="servizi.html" class="block py-2 text-gray-300 hover:text-white">I Miei Percorsi</a>
+            <a href="servizi-coach.html" class="block py-2 text-premium-champagne font-semibold">Per i Coach</a>
+            <a href="assessment.html" class="block py-2 text-gray-300 hover:text-white">Assessment</a>
+            <a href="area-riservata.html" class="block py-2 text-gray-300 hover:text-white">Area Riservata</a>
+            <a href="testimonianza.html" class="block py-2 text-white font-medium">Testimonianze</a>
+            <a href="contatti.html" class="block py-2 text-gray-300 hover:text-white">Contattami</a>
         </div>
     </header>
 
-    <main class="flex-grow pt-32 pb-24 relative px-6">
+    <main class="flex-grow pt-36 pb-24 relative px-6">
         <div class="max-w-7xl mx-auto">
-            
             <div class="text-center mb-20 flex flex-col items-center">
-                <h1 class="font-serif text-4xl md:text-5xl font-bold text-white mb-6">Storie di Successo</h1>
-                <p class="text-gray-400 font-light text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-                    Scopri i risultati raggiunti da chi ha già iniziato il suo percorso. La trasformazione dei miei clienti è il mio più grande successo.
-                </p>
-                <a href="#modulo-testimonianza" class="btn-gold-solid">
-                    <span>Invia la tua testimonianza</span>
-                    <i data-lucide="arrow-down" class="w-4 h-4"></i>
-                </a>
+                <h1 class="font-serif text-4xl md:text-5xl font-bold text-white mb-6">Storie di Evoluzione</h1>
+                <p class="text-gray-400 font-light text-lg max-w-2xl mx-auto mb-10 leading-relaxed">Scopri i risultati raggiunti da chi ha già intrapreso il proprio percorso di coaching.</p>
+                <a href="#modulo-testimonianza" class="btn-gold-solid"><span>Lascia la tua testimonianza</span><i data-lucide="arrow-down" class="w-4 h-4"></i></a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
-                <div class="glass-panel p-8 rounded-md relative group hover:border-premium-champagne/30 transition-all duration-500">
-                    <i data-lucide="quote" class="w-10 h-10 text-premium-champagne/10 absolute top-6 right-6"></i>
-                    <p class="text-gray-300 font-light text-sm leading-relaxed mb-8 italic relative z-10">"Claudio è un professionista molto preparato, empatico, bravissimo nel tirare fuori il meglio di te."</p>
-                    <div class="relative z-10 border-t border-white/10 pt-4 mt-auto">
-                        <h4 class="text-white font-serif font-semibold text-lg">Alessandro</h4>
-                        <p class="text-premium-champagne text-xs uppercase tracking-wider mt-1">Manager</p>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-28">
+                <div class="glass-panel p-8 rounded-xl relative flex flex-col justify-between">
+                    <p class="text-gray-300 font-light text-sm leading-relaxed mb-8 italic">"Claudio è un professionista molto preparato, empatico, bravissimo nel tirare fuori il meglio di te."</p>
+                    <div class="border-t border-white/10 pt-4"><h4 class="text-white font-serif font-semibold text-lg">Alessandro</h4><p class="text-premium-champagne text-xs uppercase tracking-wider mt-1">Manager</p></div>
                 </div>
-
-                <div class="glass-panel p-8 rounded-md relative group hover:border-premium-champagne/30 transition-all duration-500">
-                    <i data-lucide="quote" class="w-10 h-10 text-premium-champagne/10 absolute top-6 right-6"></i>
-                    <p class="text-gray-300 font-light text-sm leading-relaxed mb-8 italic relative z-10">"Gestire l'ansia prima della gara era il mio più grande limite. Claudio mi ha fornito gli strumenti mentali per scendere in pista lucida e sicura di me."</p>
-                    <div class="relative z-10 border-t border-white/10 pt-4 mt-auto">
-                        <h4 class="text-white font-serif font-semibold text-lg">Martina</h4>
-                        <p class="text-premium-champagne text-xs uppercase tracking-wider mt-1">Pattinatrice</p>
-                    </div>
+                <div class="glass-panel p-8 rounded-xl relative flex flex-col justify-between">
+                    <p class="text-gray-300 font-light text-sm leading-relaxed mb-8 italic">"Gestire l'ansia prima della gara era il mio più grande limite. Claudio mi ha fornito gli strumenti mentali per scendere in pista lucida e sicura di me."</p>
+                    <div class="border-t border-white/10 pt-4"><h4 class="text-white font-serif font-semibold text-lg">Martina</h4><p class="text-premium-champagne text-xs uppercase tracking-wider mt-1">Pattinatrice Agonista</p></div>
                 </div>
-
-                <div class="glass-panel p-8 rounded-md relative group hover:border-premium-champagne/30 transition-all duration-500">
-                    <i data-lucide="quote" class="w-10 h-10 text-premium-champagne/10 absolute top-6 right-6"></i>
-                    <p class="text-gray-300 font-light text-sm leading-relaxed mb-8 italic relative z-10">"Sul ring la mente conta quanto il fisico. Grazie al coaching ho imparato a incanalare l'adrenalina e a mantenere il focus totale."</p>
-                    <div class="relative z-10 border-t border-white/10 pt-4 mt-auto">
-                        <h4 class="text-white font-serif font-semibold text-lg">Davide</h4>
-                        <p class="text-premium-champagne text-xs uppercase tracking-wider mt-1">Fighter / Atleta</p>
-                    </div>
+                <div class="glass-panel p-8 rounded-xl relative flex flex-col justify-between">
+                    <p class="text-gray-300 font-light text-sm leading-relaxed mb-8 italic">"Sul ring la mente conta quanto il fisico. Grazie al coaching ho imparato a incanalare l'adrenalina e a mantenere il focus totale."</p>
+                    <div class="border-t border-white/10 pt-4"><h4 class="text-white font-serif font-semibold text-lg">Davide</h4><p class="text-premium-champagne text-xs uppercase tracking-wider mt-1">Fighter / Atleta</p></div>
                 </div>
             </div>
 
             <div id="modulo-testimonianza" class="max-w-3xl mx-auto scroll-mt-32">
-                <div class="text-center mb-10">
-                    <h2 class="font-serif text-3xl font-bold text-white mb-3">La Tua Esperienza</h2>
-                    <p class="text-gray-400 font-light">Condividi i risultati che abbiamo raggiunto insieme.</p>
-                </div>
-
-                <div class="glass-panel p-8 md:p-12 rounded-md">
+                <div class="glass-panel p-8 md:p-12 rounded-xl">
+                    <h2 class="font-serif text-3xl font-bold text-white mb-6 text-center">Condividi la Tua Esperienza</h2>
                     <form action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST">
                         <input type="hidden" name="_subject" value="🌟 Nuova Testimonianza Ricevuta!">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_template" value="table">
                         <input type="hidden" name="_next" value="https://claudiocarlucciocoaching.com/grazie.html"> 
-                        
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="form-group-contact">
-                                <label>Nome e Cognome *</label>
-                                <input type="text" name="Nome" class="form-control-contact" placeholder="Il tuo nome" required>
-                            </div>
-                            <div class="form-group-contact">
-                                <label>Ruolo / Professione *</label>
-                                <input type="text" name="Professione" class="form-control-contact" placeholder="Es. Atleta, Manager" required>
-                            </div>
+                            <div class="form-group-contact"><label>Nome e Cognome *</label><input type="text" name="Nome" class="form-control-contact" placeholder="Il tuo nome" required></div>
+                            <div class="form-group-contact"><label>Ruolo / Sport / Professione *</label><input type="text" name="Professione" class="form-control-contact" placeholder="Es. Atleta, Manager, Coppia" required></div>
                         </div>
-
-                        <div class="form-group-contact">
-                            <label>La tua Testimonianza *</label>
-                            <textarea name="Messaggio" class="form-control-contact" placeholder="Racconta la tua esperienza..." required></textarea>
-                        </div>
-
-                        <div class="form-group-contact bg-premium-800/40 p-4 border border-white/5 rounded mt-6">
-                            <label class="flex items-start gap-3 cursor-pointer">
+                        <div class="form-group-contact"><label>La tua Testimonianza *</label><textarea name="Messaggio" class="form-control-contact" placeholder="Racconta i risultati raggiunti..." required></textarea></div>
+                        <div class="form-group-contact bg-premium-800/40 p-4 border border-white/5 rounded">
+                            <label class="flex items-start gap-3 cursor-pointer m-0">
                                 <input type="checkbox" name="Consenso_Pubblicazione" required class="mt-1 accent-[#E5D0A1]">
-                                <span class="text-xs text-gray-400">Autorizzo la pubblicazione di questa testimonianza sul sito web e sui canali di Claudio Carluccio Coaching ai sensi del GDPR. *</span>
+                                <span class="text-xs text-gray-400 normal-case tracking-normal">Autorizzo la pubblicazione di questa testimonianza sul sito web ai sensi del GDPR. *</span>
                             </label>
                         </div>
-
-                        <button type="submit" class="btn-contact mt-6">
-                            <span>Invia Testimonianza</span>
-                            <i data-lucide="send" class="w-4 h-4"></i>
-                        </button>
+                        <button type="submit" class="btn-gold-solid w-full mt-4">Invia Testimonianza</button>
                     </form>
                 </div>
             </div>
-            
         </div>
     </main>
 
     <footer class="bg-premium-950 border-t border-white/5 py-12 px-6 text-center text-xs text-gray-500 mt-auto">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-            <a href="index.html" class="font-serif text-sm font-semibold text-white tracking-widest hover:text-premium-champagne transition-colors">CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span></a>
-            <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
-            <div class="flex gap-6">
-                <a href="servizi-coach.html" class="hover:text-premium-champagne transition-colors">Per i Coach</a>
-                <a href="assessment.html" class="hover:text-premium-champagne transition-colors">Assessment</a>
-                <a href="contatti.html" class="hover:text-premium-champagne transition-colors">Contattami</a>
-            </div>
-        </div>
+        <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
     </footer>
-
     <script>lucide.createIcons();</script>
 </body>
 </html>
