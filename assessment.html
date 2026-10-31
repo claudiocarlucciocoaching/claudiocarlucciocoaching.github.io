@@ -131,7 +131,7 @@
             <div id="meta-assessment" class="mb-12">
                 <div class="flex flex-col md:flex-row items-center justify-between mb-8 pb-4 border-b border-white/5 gap-4">
                     <h2 class="text-white font-serif text-xl flex items-center gap-3 m-0">
-                        <span class="w-8 h-px bg-premium-champagne"></span> Strumenti di Valutazione
+                        <span class="w-8 h-px bg-premium-champagne"></span> Strumenti di Valutazione (8 Suite)
                     </h2>
                     <div class="flex flex-wrap gap-2 justify-center">
                         <button class="filter-btn active-filter" onclick="filtra('tutti', this)">Tutti</button>
@@ -142,44 +142,18 @@
                     </div>
                 </div>
 
-                <!-- GRIGLIA UNIFICATA -->
+                <!-- GRIGLIA SIMMETRICA A 8 STRUMENTI -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12" id="cards-grid">
                     
-                    <div data-cat="life" onclick="avviaTest('ruota-vita')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#E5D0A1]">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#E5D0A1] mb-6 border border-[#E5D0A1]/20"><i data-lucide="pie-chart" class="w-5 h-5"></i></div>
-                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota della Vita</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Fotografia istantanea del tuo equilibrio attuale (carriera, finanze, relazioni, salute, crescita).</p>
-                        <span class="text-xs uppercase tracking-widest text-[#E5D0A1] font-semibold">Life & Balance →</span>
+                    <!-- FLOW ASSESSMENT (NUOVO) -->
+                    <div data-cat="business sport life" onclick="window.location.href='diagnosi-performance.html'" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#d4af37]">
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#d4af37] mb-6 border border-[#d4af37]/30"><i data-lucide="zap" class="w-5 h-5"></i></div>
+                        <h3 class="text-xl font-serif text-white font-semibold mb-3">FLOW Assessment</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Mappa i tuoi assi di performance e individua gli attriti biologici e comunicativi che bloccano il tuo stato di Flow.</p>
+                        <span class="text-xs uppercase tracking-widest text-[#d4af37] font-semibold">Business • Sport • Genitori →</span>
                     </div>
 
-                    <div data-cat="business" onclick="avviaTest('ruota-manager')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#8c7ae6]">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#8c7ae6] mb-6 border border-[#8c7ae6]/20"><i data-lucide="briefcase" class="w-5 h-5"></i></div>
-                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota del Manager</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Business & Executive. Analizza leadership, gestione team, doti negoziali e time management.</p>
-                        <span class="text-xs uppercase tracking-widest text-[#8c7ae6] font-semibold">Business & Executive →</span>
-                    </div>
-
-                    <div data-cat="sport" onclick="avviaTest('ruota-atleta')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#ff6b6b]">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#ff6b6b] mb-6 border border-[#ff6b6b]/20"><i data-lucide="swords" class="w-5 h-5"></i></div>
-                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota dell'Atleta</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Mappa la tua tenuta mentale, gestione della pressione agonistica, focus e preparazione.</p>
-                        <span class="text-xs uppercase tracking-widest text-[#ff6b6b] font-semibold">Sport Performance →</span>
-                    </div>
-
-                    <div data-cat="life business" onclick="avviaTest('one-profile')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#feca57]">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#feca57] mb-6 border border-[#feca57]/20"><i data-lucide="brain" class="w-5 h-5"></i></div>
-                        <h3 class="text-xl font-serif text-white font-semibold mb-3">ONE Profile</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Mappa i tuoi tratti neuro-comportamentali profondi per sbloccare il potenziale intrinseco.</p>
-                        <span class="text-xs uppercase tracking-widest text-[#feca57] font-semibold">Mindset & Drive →</span>
-                    </div>
-
-                    <div data-cat="coppia" onclick="window.location.href='couple-matching.html'" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#ff9ff3]">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#ff9ff3] mb-6 border border-[#ff9ff3]/20"><i data-lucide="heart-handshake" class="w-5 h-5"></i></div>
-                        <h3 class="text-xl font-serif text-white font-semibold mb-3">ONE Match Analysis</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Assessment comparativo avanzato per coppie. Analizza sinergie, polarità e driver comunicativi.</p>
-                        <span class="text-xs uppercase tracking-widest text-[#ff9ff3] font-semibold">Couple Coaching →</span>
-                    </div>
-
+                    <!-- PROFILO DECISIONALE -->
                     <div data-cat="business life" onclick="window.location.href='profilo-decisionale.html'" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#48dbfb]">
                         <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#48dbfb] mb-6 border border-[#48dbfb]/20"><i data-lucide="compass" class="w-5 h-5"></i></div>
                         <h3 class="text-xl font-serif text-white font-semibold mb-3">Profilo Decisionale</h3>
@@ -187,9 +161,50 @@
                         <span class="text-xs uppercase tracking-widest text-[#48dbfb] font-semibold">Profiling Avanzato →</span>
                     </div>
 
-                    <div data-cat="life business" onclick="avviaTest('burnout')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#1dd1a1] md:col-span-2">
+                    <!-- RUOTA DELLA VITA -->
+                    <div data-cat="life" onclick="avviaTest('ruota-vita')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#E5D0A1]">
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#E5D0A1] mb-6 border border-[#E5D0A1]/20"><i data-lucide="pie-chart" class="w-5 h-5"></i></div>
+                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota della Vita</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Fotografia istantanea del tuo equilibrio attuale (carriera, finanze, relazioni, salute, crescita).</p>
+                        <span class="text-xs uppercase tracking-widest text-[#E5D0A1] font-semibold">Life & Balance →</span>
+                    </div>
+
+                    <!-- RUOTA DEL MANAGER -->
+                    <div data-cat="business" onclick="avviaTest('ruota-manager')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#8c7ae6]">
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#8c7ae6] mb-6 border border-[#8c7ae6]/20"><i data-lucide="briefcase" class="w-5 h-5"></i></div>
+                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota del Manager</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Business & Executive. Analizza leadership, gestione team, doti negoziali e time management.</p>
+                        <span class="text-xs uppercase tracking-widest text-[#8c7ae6] font-semibold">Business & Executive →</span>
+                    </div>
+
+                    <!-- RUOTA DELL'ATLETA -->
+                    <div data-cat="sport" onclick="avviaTest('ruota-atleta')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#ff6b6b]">
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#ff6b6b] mb-6 border border-[#ff6b6b]/20"><i data-lucide="swords" class="w-5 h-5"></i></div>
+                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Ruota dell'Atleta</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Mappa la tua tenuta mentale, gestione della pressione agonistica, focus e preparazione.</p>
+                        <span class="text-xs uppercase tracking-widest text-[#ff6b6b] font-semibold">Sport Performance →</span>
+                    </div>
+
+                    <!-- ONE PROFILE -->
+                    <div data-cat="life business" onclick="avviaTest('one-profile')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#feca57]">
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#feca57] mb-6 border border-[#feca57]/20"><i data-lucide="brain" class="w-5 h-5"></i></div>
+                        <h3 class="text-xl font-serif text-white font-semibold mb-3">ONE Profile</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Mappa i tuoi tratti neuro-comportamentali profondi per sbloccare il potenziale intrinseco.</p>
+                        <span class="text-xs uppercase tracking-widest text-[#feca57] font-semibold">Mindset & Drive →</span>
+                    </div>
+
+                    <!-- ONE MATCH ANALYSIS (COPPIA) -->
+                    <div data-cat="coppia" onclick="window.location.href='couple-matching.html'" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#ff9ff3]">
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#ff9ff3] mb-6 border border-[#ff9ff3]/20"><i data-lucide="heart-handshake" class="w-5 h-5"></i></div>
+                        <h3 class="text-xl font-serif text-white font-semibold mb-3">ONE Match Analysis</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Assessment comparativo avanzato per coppie. Analizza sinergie, polarità e driver comunicativi.</p>
+                        <span class="text-xs uppercase tracking-widest text-[#ff9ff3] font-semibold">Couple Coaching →</span>
+                    </div>
+
+                    <!-- STRESS & CARICO MENTALE -->
+                    <div data-cat="life business" onclick="avviaTest('burnout')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#1dd1a1]">
                         <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#1dd1a1] mb-6 border border-[#1dd1a1]/20"><i data-lucide="activity" class="w-5 h-5"></i></div>
-                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Mappatura dello Stress & Carico Mentale</h3>
+                        <h3 class="text-xl font-serif text-white font-semibold mb-3">Stress & Carico Mentale</h3>
                         <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 flex-grow">Esplora i livelli di affaticamento e le risorse energetiche professionali. Ideale per manager e professionisti.</p>
                         <span class="text-xs uppercase tracking-widest text-[#1dd1a1] font-semibold">Analisi Energetica →</span>
                     </div>
@@ -197,7 +212,7 @@
                 </div>
             </div>
 
-            <!-- 1. RUOTA DELLA VITA (LAYOUT AFFIANCATO: RUOTA A SINISTRA, LEGENDA + FORM A DESTRA) -->
+            <!-- 1. RUOTA DELLA VITA -->
             <div id="ruota-vita-app" class="hidden-step glass-panel p-6 md:p-10 rounded-xl shadow-2xl border-t-2 border-t-[#E5D0A1]">
                 <div class="flex flex-wrap items-center justify-between border-b border-white/5 pb-5 mb-6 gap-4">
                     <button type="button" onclick="tornaIndietro()" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-xs uppercase tracking-widest">
@@ -257,7 +272,7 @@
                 </div>
             </div>
 
-            <!-- 2. RUOTA DELL'ATLETA (LAYOUT AFFIANCATO) -->
+            <!-- 2. RUOTA DELL'ATLETA -->
             <div id="ruota-atleta-app" class="hidden-step glass-panel p-6 md:p-10 rounded-xl shadow-2xl border-t-2 border-t-[#ff6b6b]">
                 <div class="flex flex-wrap items-center justify-between border-b border-white/5 pb-5 mb-6 gap-4">
                     <button type="button" onclick="tornaIndietro()" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-xs uppercase tracking-widest">
@@ -317,7 +332,7 @@
                 </div>
             </div>
 
-            <!-- 3. RUOTA DEL MANAGER (LAYOUT AFFIANCATO) -->
+            <!-- 3. RUOTA DEL MANAGER -->
             <div id="ruota-manager-app" class="hidden-step glass-panel p-6 md:p-10 rounded-xl shadow-2xl border-t-2 border-t-[#8c7ae6]">
                 <div class="flex flex-wrap items-center justify-between border-b border-white/5 pb-5 mb-6 gap-4">
                     <button type="button" onclick="tornaIndietro()" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-xs uppercase tracking-widest">
@@ -797,7 +812,7 @@
             });
         };
 
-        // APERTURA AUTOMATICA DEL TEST TRAMITE LINK DIRETTO (?test=...) DALLA HOME O DAI SERVIZI
+        // APERTURA AUTOMATICA DEL TEST TRAMITE LINK DIRETTO (?test=...)
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             const testRichiesto = params.get('test');
