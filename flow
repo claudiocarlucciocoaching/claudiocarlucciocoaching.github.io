@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="origin">
+    <title>FLOW | Assessment Bio-Relazionale & Performance | Claudio Carluccio Coaching</title>
+    
+    <link rel="icon" type="image/png" href="logo-claudio.png">
+    <link rel="apple-touch-icon" href="logo-claudio.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { premium: { 950: '#050505', 900: '#0a0a0a', 800: '#141414', champagne: '#E5D0A1' } },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        body { background-color: #050505; color: #f5f5f5; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+        .bg-luxury-grid {
+            position: fixed; inset: 0; pointer-events: none; z-index: 0;
+            background-size: 55px 55px;
+            background-image: 
+                linear-gradient(to right, rgba(229, 208, 161, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(229, 208, 161, 0.03) 1px, transparent 1px);
+            mask-image: radial-gradient(ellipse at 50% 20%, black 25%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at 50% 20%, black 25%, transparent 80%);
+        }
+        .ambient-glow { position: fixed; top: -150px; left: 50%; transform: translateX(-50%); width: 750px; height: 420px; background: radial-gradient(circle, rgba(229, 208, 161, 0.09) 0%, rgba(5, 5, 5, 0) 70%); pointer-events: none; z-index: 0; }
+        .gold-gradient-text { background: linear-gradient(135deg, #FFF5D6 0%, #E5D0A1 50%, #B89768 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .nav-link { position: relative; color: #a3a3a3; transition: color 0.3s ease; }
+        .nav-link:hover, .nav-link.active { color: #ffffff; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #E5D0A1; transition: width 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        .glass-panel { background: rgba(18, 18, 18, 0.75); backdrop-filter: blur(22px); border: 1px solid rgba(229, 208, 161, 0.15); }
+        .hidden-step { display: none !important; }
+
+        .cat-card {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px; padding: 24px 18px; text-align: center; cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .cat-card:hover { transform: translateY(-4px); background: rgba(229, 208, 161, 0.05); border-color: #E5D0A1; box-shadow: 0 15px 30px -10px rgba(0,0,0,0.7); }
+
+        .input-lead { 
+            width: 100%; padding: 15px 18px; margin: 8px 0; box-sizing: border-box; 
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.12); 
+            color: white; border-radius: 6px; font-size: 14px; outline: none; transition: border-color 0.3s; 
+        }
+        .input-lead:focus { border-color: #E5D0A1; background: rgba(229, 208, 161, 0.03); }
+
+        .tasto-opzione { 
+            display: block; width: 100%; padding: 16px 20px; margin: 10px 0; 
+            background: rgba(255, 255, 255, 0.02); color: #e5e5e5; border: 1px solid rgba(229, 208, 161, 0.25); 
+            border-radius: 6px; font-size: 13.5px; font-weight: 400; text-align: left; line-height: 1.5;
+            cursor: pointer; transition: all 0.2s ease; outline: none !important; -webkit-tap-highlight-color: transparent;
+        }
+        @media (hover: hover) {
+            .tasto-opzione:hover { border-color: #E5D0A1; background: rgba(229, 208, 161, 0.08); color: #fff; }
+        }
+        .tasto-opzione.selezionato {
+            background: #E5D0A1 !important; color: #050505 !important; font-weight: 600 !important;
+            border-color: #E5D0A1 !important; box-shadow: 0 0 18px rgba(229, 208, 161, 0.25);
+        }
+
+        .btn-gold-solid { 
+            position: relative; overflow: hidden;
+            display: block; width: 100%; padding: 17px; margin-top: 20px;
+            background: linear-gradient(135deg, #E5D0A1 0%, #C5A880 100%); color: #050505; 
+            border: none; border-radius: 6px; font-size: 12px; font-weight: 700; 
+            text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease;
+        }
+        .btn-gold-solid:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(229, 208, 161, 0.35); }
+        .btn-gold-solid:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .progress-container { width: 100%; background: #141414; height: 4px; border-radius: 10px; margin-bottom: 24px; overflow: hidden; border: 1px solid rgba(229, 208, 161, 0.1); }
+        #progress-fill { height: 100%; background: #E5D0A1; width: 16.6%; transition: width 0.4s ease; }
+    </style>
+</head>
+<body class="antialiased selection:bg-premium-champagne selection:text-premium-950">
+
+    <div class="bg-luxury-grid"></div>
+    <div class="ambient-glow"></div>
+
+    <!-- IFRAME INVISIBILE PER POST NATIVO FORMSUBMIT -->
+    <iframe name="hidden_iframe_flow" id="hidden_iframe_flow" style="display:none;"></iframe>
+
+    <!-- HEADER UNIFICATO -->
+    <header class="fixed top-0 left-0 right-0 z-[9000] py-4 px-6 md:px-12 bg-premium-950/90 backdrop-blur-2xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors block">
+                CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
+            </a>
+            <nav class="hidden lg:flex items-center gap-6 text-sm font-light tracking-wide">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="servizi.html" class="nav-link">Percorsi</a>
+                <a href="assessment.html" class="nav-link active">Assessment</a>
+                <a href="testimonianza.html" class="nav-link">Risultati</a>
+                <a href="servizi-coach.html" class="nav-link text-premium-champagne font-medium">Per i Coach</a>
+                <a href="area-riservata.html" class="nav-link">Area Clienti</a>
+                <a href="contatti.html" class="bg-premium-champagne text-premium-950 px-4 py-2 rounded text-xs font-bold uppercase tracking-widest hover:bg-[#C5A880] transition-colors">
+                    Prenota Call →
+                </a>
+            </nav>
+            <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="lg:hidden text-white hover:text-premium-champagne focus:outline-none p-2">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-premium-900/95 backdrop-blur-xl border-b border-white/10 px-6 py-6 mt-4 space-y-4 text-center">
+            <a href="index.html" class="block py-2 text-gray-300">Home</a>
+            <a href="servizi.html" class="block py-2 text-gray-300">I Miei Percorsi</a>
+            <a href="assessment.html" class="block py-2 text-white font-medium">Tutti gli Assessment</a>
+            <a href="testimonianza.html" class="block py-2 text-gray-300">Testimonianze</a>
+            <a href="servizi-coach.html" class="block py-2 text-premium-champagne font-semibold">Per i Coach (B2B)</a>
+            <a href="area-riservata.html" class="block py-2 text-gray-300">Area Riservata</a>
+            <a href="contatti.html" class="block py-3 bg-premium-champagne text-premium-950 font-bold uppercase text-xs tracking-widest rounded">Prenota Discovery Call</a>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-32 pb-24 px-6 flex flex-col items-center justify-center relative z-10">
+        <div class="max-w-2xl w-full glass-panel p-8 md:p-12 rounded-2xl shadow-2xl border-t-2 border-t-premium-champagne relative">
+            
+            <!-- INTESTAZIONE -->
+            <div class="text-center border-b border-white/5 pb-6 mb-8 relative">
+                <a href="assessment.html" class="absolute left-0 top-1 text-gray-500 hover:text-white transition-colors" title="Torna agli Assessment"><i data-lucide="arrow-left" class="w-5 h-5"></i></a>
+                <span class="text-premium-champagne text-xs uppercase tracking-[0.3em] font-semibold block mb-1">Mappatura Bio-Relazionale & Performance</span>
+                <h1 class="font-serif text-4xl md:text-5xl font-bold tracking-[0.15em] uppercase gold-gradient-text">FLOW</h1>
+            </div>
+
+            <!-- STEP 1: SCELTA AMBITO OPERATIVO -->
+            <div id="step-category">
+                <p class="text-gray-300 text-sm font-light text-center leading-relaxed mb-8">
+                    Individua gli attriti biologici, emotivi e comunicativi che frenano il tuo sistema sotto pressione e sblocca le condizioni per entrare in stato di <strong class="text-white font-medium">Flow</strong>. Seleziona il tuo ambito principale:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="cat-card border-t-2 border-t-[#8c7ae6]" onclick="selectCategory('business')">
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#8c7ae6] mx-auto mb-4 border border-[#8c7ae6]/30">
+                            <i data-lucide="briefcase" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-white mb-2">Business & Manager</h3>
+                        <p class="text-xs text-gray-400 font-light leading-relaxed">Per imprenditori, team leader, dirigenti e professionisti.</p>
+                    </div>
+
+                    <div class="cat-card border-t-2 border-t-[#ff6b6b]" onclick="selectCategory('sport')">
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#ff6b6b] mx-auto mb-4 border border-[#ff6b6b]/30">
+                            <i data-lucide="trophy" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-white mb-2">Sport & Mister</h3>
+                        <p class="text-xs text-gray-400 font-light leading-relaxed">Per allenatori, preparatori, fighter e atleti agonisti.</p>
+                    </div>
+
+                    <div class="cat-card border-t-2 border-t-[#E5D0A1]" onclick="selectCategory('parenting')">
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#E5D0A1] mx-auto mb-4 border border-[#E5D0A1]/30">
+                            <i data-lucide="sprout" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-white mb-2">Genitorialità</h3>
+                        <p class="text-xs text-gray-400 font-light leading-relaxed">Per genitori che vogliono guidare i figli senza giudizio.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2: QUIZ CON PULSANTE PROSSIMA DOMANDA -->
+            <div id="step-quiz" class="hidden-step">
+                <div class="flex items-center justify-between text-[11px] uppercase tracking-widest text-gray-400 mb-2">
+                    <span id="cat-active-label" class="text-premium-champagne font-semibold">Ambito</span>
+                    <span id="counter-domanda">Domanda 1 di 6</span>
+                </div>
+                <div class="progress-container"><div id="progress-fill"></div></div>
+                
+                <div id="question-title" class="text-lg md:text-xl text-white font-serif font-light text-center mb-6 min-h-[75px] flex items-center justify-center leading-snug"></div>
+                
+                <div id="options-list" class="space-y-3"></div>
+
+                <button type="button" id="btn-prossima" class="btn-gold-solid" disabled onclick="confermaRisposta()">
+                    Prossima Domanda →
+                </button>
+            </div>
+
+            <!-- STEP 3: LEAD GATE OBBLIGATORIO (VERO FORM FORMSUBMIT) -->
+            <div id="step-lead" class="hidden-step text-center">
+                <div class="w-12 h-12 rounded-full bg-premium-champagne/10 text-premium-champagne flex items-center justify-center mx-auto mb-4 border border-premium-champagne/30">
+                    <i data-lucide="lock" class="w-5 h-5"></i>
+                </div>
+                <span class="inline-block text-[10px] uppercase tracking-widest px-3 py-1 rounded bg-premium-champagne/15 text-premium-champagne font-bold mb-2">Mappatura FLOW Completata</span>
+                <h2 class="font-serif text-2xl font-bold text-white mb-2">Sblocca il Tuo Report FLOW</h2>
+                <p class="text-gray-400 text-xs font-light mb-6 max-w-md mx-auto leading-relaxed">
+                    Abbiamo calcolato il tuo indice sui 3 assi (Comunicazione, Ecologia Biologica e Flow). Inserisci i tuoi recapiti per sbloccare la diagnosi e inviarla al Coach.
+                </p>
+
+                <form id="lead-form" action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" target="hidden_iframe_flow" onsubmit="return gestisciSubmitFlow()">
+                    <input type="hidden" name="_subject" id="h-subject" value="⚡ Nuovo Lead Assessment: FLOW">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    
+                    <input type="hidden" name="Ambito_FLOW" id="h-ambito" value="">
+                    <input type="hidden" name="Profilo_Emerso" id="h-profilo" value="">
+                    <input type="hidden" name="Punteggio_Totale" id="h-totale" value="">
+                    <input type="hidden" name="Asse_Comunicazione_Empatia" id="h-com" value="">
+                    <input type="hidden" name="Asse_Ecologia_Biologica" id="h-bio" value="">
+                    <input type="hidden" name="Asse_Allineamento_Flow" id="h-flow" value="">
+                    <div id="h-risposte-dettaglio"></div>
+
+                    <div class="space-y-3 mb-6 text-left">
+                        <input type="text" name="Nome_e_Cognome" id="lead-nome" class="input-lead" placeholder="Nome e Cognome *" required>
+                        <input type="email" name="Email" id="lead-email" class="input-lead" placeholder="Indirizzo Email *" required>
+                        <input type="tel" name="Telefono" id="lead-tel" class="input-lead" placeholder="Numero di Telefono *" required oninput="this.value = this.value.replace(/[^0-9+]/g, '')">
+                        
+                        <div class="flex items-start gap-3 p-4 bg-premium-900/50 rounded border border-white/5 mt-4">
+                            <input type="checkbox" name="Consenso_GDPR" id="lead-priv" required class="mt-1 accent-premium-champagne cursor-pointer">
+                            <label for="lead-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per visualizzare il report FLOW e ricevere comunicazioni di coaching. *</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="btn-sblocca" class="btn-gold-solid">Sblocca Analisi & Invia al Coach</button>
+                </form>
+            </div>
+
+            <!-- STEP 4: RISULTATI FINALI + GRAFICO 3 ASSI + CTA CALENDLY -->
+            <div id="step-result" class="hidden-step text-center">
+                <span id="result-category-badge" class="inline-block text-[10px] uppercase tracking-widest px-3 py-1 rounded bg-premium-champagne/15 text-premium-champagne font-bold mb-2">Profilo FLOW</span>
+                <h2 id="result-title" class="font-serif text-2xl md:text-3xl font-bold text-white mb-6">Analisi del Tuo Sistema</h2>
+
+                <!-- Grafico a Barre dei 3 Assi -->
+                <div class="bg-premium-900/60 p-4 rounded-xl border border-white/5 mb-6">
+                    <canvas id="grafico-flow" height="190"></canvas>
+                </div>
+
+                <!-- Box Diagnosi -->
+                <div class="bg-premium-900/80 border border-white/10 rounded-xl p-6 mb-5 text-left">
+                    <h4 id="result-profile-name" class="font-serif text-xl text-premium-champagne font-bold mb-2"></h4>
+                    <p id="result-desc" class="text-gray-300 text-xs md:text-sm font-light leading-relaxed"></p>
+                </div>
+
+                <!-- Box Strategia Raccomandata -->
+                <div class="bg-premium-champagne/5 border-l-4 border-premium-champagne p-5 rounded-r-xl mb-8 text-left">
+                    <p class="text-xs uppercase tracking-widest text-premium-champagne font-bold mb-1.5">Strategia d'Azione Raccomandata:</p>
+                    <p id="result-action" class="text-gray-200 text-xs md:text-sm font-light leading-relaxed"></p>
+                </div>
+
+                <a href="contatti.html" class="btn-gold-solid inline-block text-center">
+                    Prenota Sessione Strategica con Claudio →
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-premium-950 border-t border-white/5 py-8 text-center text-xs text-gray-500 mt-auto relative z-10">
+        <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const catNames = {
+            business: "Business & Leadership",
+            sport: "Sport & Performance Agonistica",
+            parenting: "Genitorialità & Crescita"
+        };
+
+        const questionsData = {
+            business: [
+                {
+                    axis: "com",
+                    q: "Quando un collaboratore commette un errore ripetuto sotto pressione, qual è la reazione prevalente?",
+                    options: [
+                        { text: "Si richiama duramente all'ordine per evitare che l'errore si ripeta.", score: 1 },
+                        { text: "Si corregge la procedura tecnica ignorando lo stato emotivo della persona.", score: 2 },
+                        { text: "Si disinnesca la tensione con l'ascolto attivo prima di correggere l'esecuzione.", score: 3 }
+                    ]
+                },
+                {
+                    axis: "com",
+                    q: "Durante una negoziazione o riunione ad alta tensione, come gestisci le obiezioni ostili?",
+                    options: [
+                        { text: "Rispondo subito punto su punto per difendere la mia posizione.", score: 1 },
+                        { text: "Cerco un compromesso rapido a metà strada per chiudere il conflitto.", score: 2 },
+                        { text: "Anticipo le resistenze (Accusation Audit) e uso l'empatia tattica per guidare il dialogo.", score: 3 }
+                    ]
+                },
+                {
+                    axis: "bio",
+                    q: "Come vengono gestiti i momenti di calo energetico nei progetti aziendali chiave?",
+                    options: [
+                        { text: "Si spinge a oltranza indipendentemente dalla stanchezza mentale del team.", score: 1 },
+                        { text: "Si concedono pause occasionali ma senza una strategia sui ritmi di recupero.", score: 2 },
+                        { text: "Si pianificano le decisioni critiche rispettando i picchi di lucidità biologica.", score: 3 }
+                    ]
+                },
+                {
+                    axis: "bio",
+                    q: "Qual è il tuo rapporto personale con il recupero mentale dopo giornate ad alto carico decisionale?",
+                    options: [
+                        { text: "Fatico a staccare: porto la tensione lavorativa anche a casa e nel sonno.", score: 1 },
+                        { text: "Recupero solo nel fine settimana, accumulando fatica durante i giorni feriali.", score: 2 },
+                        { text: "Applico routine di decompressione quotidiane per preservare la lucidità esecutiva.", score: 3 }
+                    ]
+                },
+                {
+                    axis: "flow",
+                    q: "Come definiresti il livello di fiducia e stato di Flow all'interno del tuo team?",
+                    options: [
+                        { text: "Frequenti blocchi, paura di sbagliare o atteggiamento difensivo.", score: 1 },
+                        { text: "Buona resa nei momenti ordinari, ma perdita di lucidità durante le urgenze.", score: 2 },
+                        { text: "Alta sintonia e responsabilità: la pressione viene trasformata in sfida consapevole.", score: 3 }
+                    ]
+                },
+                {
+                    axis: "flow",
+                    q: "Quanto sono chiari e condivisi gli obiettivi strategici tra te e i tuoi collaboratori?",
+                    options: [
+                        { text: "Spesso devo rincorrere le persone o ripetere più volte le stesse direttive.", score: 1 },
+                        { text: "Gli obiettivi sono noti, ma manca proattività autonoma nel raggiungerli.", score: 2 },
+                        { text: "C'è pieno allineamento: ciascuno conosce il proprio impatto e agisce in autonomia.", score: 3 }
+                    ]
+                }
+            ],
+            sport: [
+                {
+                    axis: "com",
+                    q: "Come reagisce lo staff o l'atleta quando si verifica un calo improvviso di rendimento in gara?",
+                    options: [
+                        { text: "Subentra frustrazione, si alza la voce o cresce il dialogo interno giudicante.", score: 1 },
+                        { text: "Ci si concentra solo su indicazioni tecniche e meccaniche a caldo.", score: 2 },
+                        { text: "Si disinnesca la percezione di minaccia per riportare la mente nel qui e ora.", score: 3 }
+                    ]
+                },
+                {
+                    axis: "com",
+                    q: "Come viene gestito il feedback subito dopo una sconfitta o una prestazione sotto le attese?",
+                    options: [
+                        { text: "A caldo, evidenziando immediatamente tutto ciò che non ha funzionato.", score: 1 },
+                        { text: "Si evita di parlarne per non creare ulteriore tensione emotiva.", score: 2 },
+                        { text: "Si accoglie lo stato emotivo a caldo e si rimanda l'analisi oggettiva a mente fredda.", score: 3 }
+                    ]
+                },
+                {
+                    axis: "bio",
+                    q: "I carichi di allenamento e l'avvicinamento alla gara rispettano i ritmi biologici e nervosi?",
+                    options: [
+                        { text: "No, si spinge sempre al limite massimo ignorando i segnali di sovraccarico.", score: 1 },
+                        { text: "Si rallenta solo quando compaiono stanchezza estrema o cali fisici evidenti.", score: 2 },
+                        { text: "Sì, il recupero neuro-biologico e la respirazione sono parte integrante del piano.", score: 3 }
+                    ]
+                },
+                {
+                    axis: "bio",
+                    q: "Come vengono gestiti sonno, attivazione nervosa e tensione nelle 24 ore precedenti la gara?",
+                    options: [
+                        { text: "Prevale l'ansia pre-gara che brucia energie nervose già prima di iniziare.", score: 1 },
+                        { text: "Si cerca di distrarsi in modo casuale senza un protocollo preciso.", score: 2 },
+                        { text: "Si utilizzano routine strutturate di respirazione e centratura per entrare in Peak State.", score: 3 }
+                    ]
+                },
+                {
+                    axis: "flow",
+                    q: "Quanto è solida la triangolazione relazionale (Atleta - Allenatore - Ambiente/Famiglia)?",
+                    options: [
+                        { text: "Frammentata: le aspettative esterne creano pressione e conflitti nell'atleta.", score: 1 },
+                        { text: "Superficiale: il dialogo ruota quasi esclusivamente attorno al risultato finale.", score: 2 },
+                        { text: "Sinergica: esiste un patto educativo e prestativo chiaro a tutela dell'atleta.", score: 3 }
+                    ]
+                },
+                {
+                    axis: "flow",
+                    q: "Durante i momenti decisivi del match o della gara, qual è lo stato mentale predominante?",
+                    options: [
+                        { text: "Paura di perdere, irrigidimento muscolare e perdita di fluidità.", score: 1 },
+                        { text: "Alternanza tra ottimi spunti e improvvisi passaggi a vuoto.", score: 2 },
+                        { text: "Stato di Flow: focus totale sul presente, istinto lucido e assenza di paura.", score: 3 }
+                    ]
+                }
+            ],
+            parenting: [
+                {
+                    axis: "com",
+                    q: "Di fronte a un momento di blocco, chiusura o rabbia di tuo figlio, come rispondi d'impeto?",
+                    options: [
+                        { text: "Con un rimprovero o giudizio immediato ('Così non va', 'Fai sempre così').", score: 1 },
+                        { text: "Cercando di dargli subito la soluzione razionale prima ancora di ascoltarlo.", score: 2 },
+                        { text: "Restando calmo, validando la sua emozione e ascoltando senza giudicare.", score: 3 }
+                    ]
+                },
+                {
+                    axis: "com",
+                    q: "Quando tuo figlio commette un errore o prende un brutto voto, qual è il messaggio che passa?",
+                    options: [
+                        { text: "L'errore viene vissuto come una colpa o una delusione da correggere subito.", score: 1 },
+                        { text: "Si minimizza l'accaduto ma resta una tensione silenziosa in casa.", score: 2 },
+                        { text: "Si separa il valore del ragazzo dal risultato, trasformando l'errore in apprendimento.", score: 3 }
+                    ]
+                },
+                {
+                    axis: "bio",
+                    q: "Quanto vengono rispettati i cali biologici ed energetici nello studio e nelle attività quotidiane?",
+                    options: [
+                        { text: "Prevale il dovere di finire tutto subito, anche quando è visibilmente saturo.", score: 1 },
+                        { text: "Si concedono pause, ma accompagnate da richiami e senso di colpa.", score: 2 },
+                        { text: "Si pianificano gli impegni rispettando i suoi tempi fisiologici di attenzione e recupero.", score: 3 }
+                    ]
+                },
+                {
+                    axis: "bio",
+                    q: "Come gestisci la tua stanchezza personale quando devi relazionarti con lui/lei a fine giornata?",
+                    options: [
+                        { text: "La mia stanchezza mi porta a perdere facilmente la pazienza e ad alzare i toni.", score: 1 },
+                        { text: "Mi sforzo di trattenere il nervosismo ma risulto distante o poco presente.", score: 2 },
+                        { text: "Riconosco il mio livello energetico e comunico con trasparenza senza scaricare lo stress.", score: 3 }
+                    ]
+                },
+                {
+                    axis: "flow",
+                    q: "Come descriveresti il clima relazionale in casa nei momenti in cui vanno prese decisioni?",
+                    options: [
+                        { text: "Teso, caratterizzato da muro contro muro, opposizioni o silenzi punitivi.", score: 1 },
+                        { text: "Altalenante: periodi tranquilli interrotti da scontri improvvisi.", score: 2 },
+                        { text: "Costruttivo: basato su regole chiare, ascolto profondo e fiducia reciproca.", score: 3 }
+                    ]
+                },
+                {
+                    axis: "flow",
+                    q: "In che modo sostieni l'autonomia e i talenti personali di tuo figlio?",
+                    options: [
+                        { text: "Tendo a decidere io per lui/lei per evitare che sbagli o perda tempo.", score: 1 },
+                        { text: "Gli lascio libertà ma intervengo appena vedo che fa fatica.", score: 2 },
+                        { text: "Lo affianco con domande potenzianti, lasciandogli la responsabilità delle sue scelte.", score: 3 }
+                    ]
+                }
+            ]
+        };
+
+        let currentCategory = '';
+        let currentQuestion = 0;
+        let selectedChoice = null;
+        let axisScores = { com: 0, bio: 0, flow: 0 };
+        let userAnswersLog = [];
+
+        function showStep(stepId) {
+            ['step-category', 'step-quiz', 'step-lead', 'step-result'].forEach(id => {
+                document.getElementById(id).classList.add('hidden-step');
+            });
+            document.getElementById(stepId).classList.remove('hidden-step');
+        }
+
+        function selectCategory(cat) {
+            currentCategory = cat;
+            currentQuestion = 0;
+            axisScores = { com: 0, bio: 0, flow: 0 };
+            userAnswersLog = [];
+            document.getElementById('cat-active-label').innerText = catNames[cat];
+            showStep('step-quiz');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            selectedChoice = null;
+            const btnNext = document.getElementById('btn-prossima');
+            btnNext.disabled = true;
+
+            const qList = questionsData[currentCategory];
+            const qData = qList[currentQuestion];
+            
+            btnNext.innerText = (currentQuestion === qList.length - 1) ? "Completa FLOW →" : "Prossima Domanda →";
+            document.getElementById('counter-domanda').innerText = `Domanda ${currentQuestion + 1} di ${qList.length}`;
+            document.getElementById('progress-fill').style.width = (((currentQuestion + 1) / qList.length) * 100) + '%';
+            document.getElementById('question-title').innerText = qData.q;
+
+            let html = '';
+            qData.options.forEach((opt) => {
+                const safeText = opt.text.replace(/'/g, "\\'");
+                html += `<button type="button" class="tasto-opzione" onclick="selezionaOpzione(${opt.score}, '${qData.axis}', '${safeText}', this)">${opt.text}</button>`;
+            });
+            document.getElementById('options-list').innerHTML = html;
+        }
+
+        function selezionaOpzione(score, axis, text, btnEl) {
+            selectedChoice = { score, axis, text };
+            document.querySelectorAll('#options-list .tasto-opzione').forEach(b => b.classList.remove('selezionato'));
+            btnEl.classList.add('selezionato');
+            document.getElementById('btn-prossima').disabled = false;
+        }
+
+        function confermaRisposta() {
+            if (!selectedChoice) return;
+            axisScores[selectedChoice.axis] += selectedChoice.score;
+            userAnswersLog.push({
+                domanda: `D${currentQuestion + 1}`,
+                risposta: `${selectedChoice.text} (${selectedChoice.score}/3)`
+            });
+
+            currentQuestion++;
+            const qList = questionsData[currentCategory];
+
+            if (currentQuestion < qList.length) {
+                renderQuestion();
+            } else {
+                preparaFormLead();
+                showStep('step-lead');
+            }
+        }
+
+        function calcolaProfiloTestuale(totale, cat) {
+            const strategie = {
+                business: {
+                    low: "Sostituire i richiami reattivi con l'Empatia Tattica e l'Accusation Audit per azzerare le difese del team, pianificando le decisioni ad alto impatto nei picchi di lucidità biologica.",
+                    mid: "Strutturare protocolli di delega e decompressione giornaliera per evitare che le urgenze operative erodano la fiducia e la lucidità strategica del team.",
+                    high: "Consolidare la leadership con strumenti avanzati di coaching esecutivo e mappatura delle leve motivazionali individuali dei collaboratori chiave."
+                },
+                sport: {
+                    low: "Intervenire subito sul dialogo interno sotto stress e riallineare la triangolazione Atleta-Mister-Famiglia, inserendo routine di respirazione e recupero neuro-biologico pre-gara.",
+                    mid: "Stabilizzare la tenuta mentale nei momenti critici del match attraverso ancoraggi PNL e una gestione scientifica dei tempi di attivazione e scarico nervoso.",
+                    high: "Perfezionare l'accesso volontario al Peak State e allo stato di Flow agonistico per massimizzare la continuità di rendimento ad alto livello."
+                },
+                parenting: {
+                    low: "Sospendere il giudizio immediato a caldo e applicare la nominazione empatica delle emozioni, rispettando i tempi fisiologici di saturazione e recupero di tuo figlio.",
+                    mid: "Trasformare i momenti di tensione quotidiana in dialogo costruttivo attraverso domande potenzianti che sviluppino responsabilità anziché opposizione.",
+                    high: "Affinare l'ascolto attivo e l'accompagnamento strategico per sostenere lo sviluppo dell'autonomia, dell'autostima e dei talenti di tuo figlio."
+                }
+            };
+
+            if (totale <= 9) {
+                return {
+                    nome: "Stato: Attrito da Pressione Reattiva",
+                    desc: "Il sistema evidenzia un sovraccarico relazionale e biologico. Le risposte date d'impeto sotto pressione rischiano di attivare una percezione di 'minaccia' nell'altra persona (o in te stesso), innescando chiusure difensive e bloccando l'accesso allo stato di Flow.",
+                    azione: strategie[cat].low
+                };
+            } else if (totale <= 14) {
+                return {
+                    nome: "Stato: Flow a Rendimento Alternato",
+                    desc: "Esiste una buona consapevolezza di base, ma nei momenti di picco, stanchezza o emergenza subentrano cali di lucidità dovuti al mancato rispetto dei cicli di recupero biologico e a una comunicazione non sempre allineata.",
+                    azione: strategie[cat].mid
+                };
+            } else {
+                return {
+                    nome: "Stato: Allineamento al Flow d'Élite",
+                    desc: "Il tuo approccio rispetta in modo solido sia l'ecologia biologica sia la qualità relazionale. Hai le basi ideali per lavorare sulle micro-leve di eccellenza e rendere lo stato di Flow stabile e replicabile sotto qualsiasi pressione.",
+                    azione: strategie[cat].high
+                };
+            }
+        }
+
+        function preparaFormLead() {
+            const totale = axisScores.com + axisScores.bio + axisScores.flow;
+            const infoProfilo = calcolaProfiloTestuale(totale, currentCategory);
+
+            document.getElementById('h-ambito').value = catNames[currentCategory];
+            document.getElementById('h-profilo').value = infoProfilo.nome;
+            document.getElementById('h-totale').value = `${totale} su 18`;
+            document.getElementById('h-com').value = `${axisScores.com} su 6`;
+            document.getElementById('h-bio').value = `${axisScores.bio} su 6`;
+            document.getElementById('h-flow').value = `${axisScores.flow} su 6`;
+
+            let dettHtml = '';
+            userAnswersLog.forEach(item => {
+                dettHtml += `<input type="hidden" name="Risposta_${item.domanda}" value="${item.risposta}">`;
+            });
+            document.getElementById('h-risposte-dettaglio').innerHTML = dettHtml;
+        }
+
+        function gestisciSubmitFlow() {
+            const nome = document.getElementById('lead-nome').value.trim();
+            document.getElementById('h-subject').value = `⚡ Nuovo Lead FLOW (${catNames[currentCategory]}): ${nome}`;
+
+            setTimeout(() => {
+                mostraRisultatiFinali(nome);
+            }, 350);
+
+            return true;
+        }
+
+        function mostraRisultatiFinali(nome) {
+            const totale = axisScores.com + axisScores.bio + axisScores.flow;
+            const infoProfilo = calcolaProfiloTestuale(totale, currentCategory);
+
+            document.getElementById('result-category-badge').innerText = "FLOW • " + catNames[currentCategory];
+            document.getElementById('result-title').innerText = `Report FLOW per ${nome}`;
+            document.getElementById('result-profile-name').innerText = infoProfilo.nome;
+            document.getElementById('result-desc').innerText = infoProfilo.desc;
+            document.getElementById('result-action').innerText = infoProfilo.azione;
+
+            showStep('step-result');
+
+            const pCom = Math.round((axisScores.com / 6) * 100);
+            const pBio = Math.round((axisScores.bio / 6) * 100);
+            const pFlow = Math.round((axisScores.flow / 6) * 100);
+
+            new Chart(document.getElementById('grafico-flow').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['Comunicazione & Empatia', 'Ecologia Biologica', 'Allineamento & Flow'],
+                    datasets: [{
+                        label: 'Indice di Allineamento (%)',
+                        data: [pCom, pBio, pFlow],
+                        backgroundColor: ['rgba(140, 122, 230, 0.65)', 'rgba(29, 209, 161, 0.65)', 'rgba(229, 208, 161, 0.75)'],
+                        borderColor: ['#8c7ae6', '#1dd1a1', '#E5D0A1'],
+                        borderWidth: 1.5,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: { grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#fff', callback: v => v + '%' }, min: 0, max: 100 },
+                        x: { grid: { display: false }, ticks: { color: '#E5D0A1', font: { size: 11, family: "'Inter', sans-serif" } } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const catParam = params.get('cat');
+            if (catParam && questionsData[catParam]) {
+                selectCategory(catParam);
+            }
+        });
+    </script>
+</body>
+</html>
