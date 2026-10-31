@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="origin">
     <title>Profilo Decisionale Strategico | Claudio Carluccio Coaching</title>
     
     <link rel="icon" type="image/png" href="logo-claudio.png">
@@ -35,22 +36,38 @@
         .hidden-step { display: none !important; }
 
         .input-lead { 
-            width: 100%; padding: 16px 20px; margin: 10px 0; box-sizing: border-box; 
+            width: 100%; padding: 15px 18px; margin: 8px 0; box-sizing: border-box; 
             background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1); 
             color: white; border-radius: 4px; font-size: 15px; outline: none; transition: border-color 0.3s; 
         }
         .input-lead:focus { border-color: #E5D0A1; background: rgba(229, 208, 161, 0.02); }
-        .input-error { border: 1px solid #ff4d4d !important; background: rgba(255, 77, 77, 0.05); }
 
-        .tasto-assessment { 
-            display: block; width: 100%; padding: 18px; margin: 12px 0; 
-            background: transparent; color: #E5D0A1; border: 1px solid rgba(229, 208, 161, 0.3); 
+        .tasto-opzione { 
+            display: block; width: 100%; padding: 16px; margin: 10px 0; 
+            background: rgba(255, 255, 255, 0.02); color: #E5D0A1; border: 1px solid rgba(229, 208, 161, 0.3); 
             border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; 
-            transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 2px;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+            text-transform: uppercase; letter-spacing: 2px; outline: none !important;
+            -webkit-tap-highlight-color: transparent;
         }
-        .tasto-assessment:hover { background: #E5D0A1; color: #050505; }
-        .btn-gold-solid { background: #E5D0A1 !important; color: #050505 !important; border: none !important; }
-        .btn-gold-solid:hover { background: #C5A880 !important; }
+        @media (hover: hover) {
+            .tasto-opzione:hover { border-color: #E5D0A1; background: rgba(229, 208, 161, 0.1); }
+        }
+        .tasto-opzione.selezionato {
+            background: #E5D0A1 !important;
+            color: #050505 !important;
+            border-color: #E5D0A1 !important;
+            box-shadow: 0 0 15px rgba(229, 208, 161, 0.3);
+        }
+
+        .btn-gold-solid { 
+            display: block; width: 100%; padding: 18px; margin-top: 20px;
+            background: linear-gradient(135deg, #E5D0A1 0%, #C5A880 100%); color: #050505; 
+            border: none; border-radius: 4px; font-size: 13px; font-weight: 700; 
+            text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease;
+        }
+        .btn-gold-solid:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(229, 208, 161, 0.3); }
+        .btn-gold-solid:disabled { opacity: 0.3; cursor: not-allowed; }
 
         .progress-container { width: 100%; background: #141414; height: 4px; border-radius: 10px; margin-bottom: 30px; overflow: hidden; border: 1px solid rgba(229, 208, 161, 0.1); }
         #bar-fill { height: 100%; background: #E5D0A1; width: 8.33%; transition: width 0.4s ease; }
@@ -59,7 +76,10 @@
 </head>
 <body class="antialiased selection:bg-premium-champagne selection:text-premium-950">
 
-    <!-- HEADER UNIFICATO CON MENU MOBILE -->
+    <!-- IFRAME INVISIBILE PER RICEVERE IL POST NATIVO DI FORMSUBMIT SENZA CAMBIARE PAGINA -->
+    <iframe name="hidden_iframe_cialdini" id="hidden_iframe_cialdini" style="display:none;"></iframe>
+
+    <!-- HEADER -->
     <header class="fixed top-0 left-0 right-0 z-[9000] py-5 px-6 md:px-12 bg-premium-950/85 backdrop-blur-2xl border-b border-white/5">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors block">
@@ -96,10 +116,10 @@
                 <a href="assessment.html" class="absolute left-0 top-1 text-gray-500 hover:text-white transition-colors" title="Torna agli Assessment"><i data-lucide="arrow-left" class="w-5 h-5"></i></a>
                 <span class="text-[#48dbfb] text-xs uppercase tracking-[0.3em] font-semibold mb-2 block">Profiling Strategico Avanzato</span>
                 <h1 class="font-serif text-2xl md:text-3xl font-bold text-white tracking-widest uppercase">Profilo Decisionale</h1>
-                <p class="text-xs text-gray-400 mt-2">Rispondi alle 12 domande per mappare i driver psicologici che guidano le tue scelte.</p>
+                <p class="text-xs text-gray-400 mt-2">Seleziona una risposta e clicca su "Prossima Domanda" per avanzare.</p>
             </div>
 
-            <!-- STEP 1: QUIZ (IMPEGNO INIZIALE DELL'UTENTE) -->
+            <!-- STEP 1: QUIZ CON PULSANTE PROSSIMA DOMANDA -->
             <div id="step-quiz">
                 <div class="flex justify-between text-[11px] uppercase tracking-widest text-gray-400 mb-2">
                     <span>Analisi in corso</span>
@@ -107,33 +127,54 @@
                 </div>
                 <div class="progress-container"><div id="bar-fill"></div></div>
                 <div id="testo-domanda" class="text-lg md:text-xl text-white font-serif font-light text-center mb-8 min-h-[85px] flex items-center justify-center leading-snug"></div>
-                <div class="space-y-3">
-                    <button type="button" class="tasto-assessment" onclick="rispondi(30)">Moltissimo / Sempre</button>
-                    <button type="button" class="tasto-assessment" onclick="rispondi(20)">Abbastanza</button>
-                    <button type="button" class="tasto-assessment" onclick="rispondi(10)">Poco</button>
-                    <button type="button" class="tasto-assessment" onclick="rispondi(0)">Per nulla / Mai</button>
+                
+                <div class="space-y-3" id="contenitore-opzioni">
+                    <button type="button" class="tasto-opzione" onclick="selezionaOpzione(30, this)">Moltissimo / Sempre</button>
+                    <button type="button" class="tasto-opzione" onclick="selezionaOpzione(20, this)">Abbastanza</button>
+                    <button type="button" class="tasto-opzione" onclick="selezionaOpzione(10, this)">Poco</button>
+                    <button type="button" class="tasto-opzione" onclick="selezionaOpzione(0, this)">Per nulla / Mai</button>
                 </div>
+
+                <button type="button" id="btn-prossima" class="btn-gold-solid" disabled onclick="vaiAllaProssima()">
+                    Prossima Domanda →
+                </button>
             </div>
 
-            <!-- STEP 2: LEAD GATE OBBLIGATORIO (SE NON DAI I CONTATTI NON VEDI I RISULTATI) -->
+            <!-- STEP 2: VERO FORM HTML FORMSUBMIT -->
             <div id="step-lead" class="hidden-step text-center">
                 <div class="w-12 h-12 rounded-full bg-premium-champagne/10 text-premium-champagne flex items-center justify-center mx-auto mb-4 border border-premium-champagne/30">
                     <i data-lucide="lock" class="w-5 h-5"></i>
                 </div>
                 <h3 class="text-2xl text-white font-serif mb-2">Il Tuo Profilo è Pronto</h3>
-                <p class="text-gray-400 text-sm mb-6 font-light">Inserisci i tuoi recapiti per sbloccare immediatamente il grafico dei tuoi driver decisionali e l'analisi strategica.</p>
+                <p class="text-gray-400 text-sm mb-6 font-light">Inserisci i tuoi recapiti per sbloccare il grafico dei tuoi driver decisionali e inviare i risultati al Coach.</p>
                 
-                <div class="space-y-3 mb-6 text-left">
-                    <input type="text" id="lead-nome" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
-                    <input type="email" id="lead-email" class="input-lead" placeholder="Indirizzo Email *" oninput="this.classList.remove('input-error')">
-                    <input type="tel" id="lead-tel" class="input-lead" placeholder="Numero di Telefono *" oninput="this.value = this.value.replace(/[^0-9+]/g, ''); this.classList.remove('input-error')">
+                <form id="form-cialdini" action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" target="hidden_iframe_cialdini" onsubmit="return gestisciSubmitCialdini()">
+                    <input type="hidden" name="_subject" id="hidden-subject" value="🧭 Nuovo Lead: Profilo Decisionale">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
                     
-                    <div class="flex items-start gap-3 p-4 bg-premium-900/50 rounded border border-white/5 mt-4" id="privacy-box">
-                        <input type="checkbox" id="lead-priv" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('privacy-box').classList.remove('input-error')">
-                        <label for="lead-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per visualizzare il report di profilazione e ricevere comunicazioni di coaching. *</label>
+                    <!-- Campi nascosti popolati automaticamente con i punteggi -->
+                    <input type="hidden" name="Driver_Dominante" id="h-dominante" value="">
+                    <input type="hidden" name="Reciprocita" id="h-reciprocita" value="0">
+                    <input type="hidden" name="Coerenza" id="h-coerenza" value="0">
+                    <input type="hidden" name="Riprova_Sociale" id="h-riprova" value="0">
+                    <input type="hidden" name="Autorita" id="h-autorita" value="0">
+                    <input type="hidden" name="Simpatia" id="h-simpatia" value="0">
+                    <input type="hidden" name="Scarsita" id="h-scarsita" value="0">
+
+                    <div class="space-y-3 mb-6 text-left">
+                        <input type="text" name="Nome_e_Cognome" id="lead-nome" class="input-lead" placeholder="Nome e Cognome *" required>
+                        <input type="email" name="Email" id="lead-email" class="input-lead" placeholder="Indirizzo Email *" required>
+                        <input type="tel" name="Telefono" id="lead-tel" class="input-lead" placeholder="Numero di Telefono *" required oninput="this.value = this.value.replace(/[^0-9+]/g, '')">
+                        
+                        <div class="flex items-start gap-3 p-4 bg-premium-900/50 rounded border border-white/5 mt-4">
+                            <input type="checkbox" name="Consenso_GDPR" id="lead-priv" required class="mt-1 accent-premium-champagne cursor-pointer">
+                            <label for="lead-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per visualizzare il report di profilazione e ricevere comunicazioni di coaching. *</label>
+                        </div>
                     </div>
-                </div>
-                <button id="btn-sblocca" class="tasto-assessment btn-gold-solid" onclick="inviaESbloccaRisultati()">Sblocca il Tuo Risultato</button>
+
+                    <button type="submit" id="btn-sblocca" class="btn-gold-solid">Sblocca Analisi & Invia al Coach</button>
+                </form>
             </div>
 
             <!-- STEP 3: RISULTATI SBLOCCATI -->
@@ -145,7 +186,7 @@
                 
                 <div id="analisi-profilo" class="text-gray-300 text-xs font-light mt-6 text-left border-t border-white/10 pt-4 leading-relaxed"></div>
                 
-                <a href="contatti.html" class="tasto-assessment btn-gold-solid mt-8 inline-block text-center">Prenota una Call Strategica</a>
+                <a href="contatti.html" class="btn-gold-solid mt-8 inline-block text-center">Prenota una Call Strategica</a>
             </div>
 
         </div>
@@ -174,72 +215,70 @@
         ];
 
         let currentIdx = 0;
+        let valoreSelezionato = null;
         let punteggi = { "Reciprocità": 0, "Coerenza": 0, "Riprova Sociale": 0, "Autorità": 0, "Simpatia": 0, "Scarsità": 0 };
 
         function caricaDomanda() {
+            valoreSelezionato = null;
+            document.querySelectorAll('#contenitore-opzioni .tasto-opzione').forEach(btn => {
+                btn.classList.remove('selezionato');
+                btn.blur();
+            });
+            const btnNext = document.getElementById('btn-prossima');
+            btnNext.disabled = true;
+            btnNext.innerText = (currentIdx === domande.length - 1) ? "Completa Test →" : "Prossima Domanda →";
+
             document.getElementById('testo-domanda').innerText = domande[currentIdx].q;
             document.getElementById('counter-domanda').innerText = `Domanda ${currentIdx + 1} di ${domande.length}`;
             document.getElementById('bar-fill').style.width = (((currentIdx + 1) / domande.length) * 100) + "%";
         }
 
-        function rispondi(valore) {
+        function selezionaOpzione(valore, btnCliccato) {
+            valoreSelezionato = valore;
+            document.querySelectorAll('#contenitore-opzioni .tasto-opzione').forEach(btn => {
+                btn.classList.remove('selezionato');
+            });
+            btnCliccato.classList.add('selezionato');
+            document.getElementById('btn-prossima').disabled = false;
+        }
+
+        function vaiAllaProssima() {
+            if (valoreSelezionato === null) return;
             let principioCorrente = domande[currentIdx].principio;
             if (punteggi[principioCorrente] !== undefined) {
-                punteggi[principioCorrente] += valore;
+                punteggi[principioCorrente] += valoreSelezionato;
             }
 
             currentIdx++;
-            if(currentIdx < domande.length) {
+            if (currentIdx < domande.length) {
                 caricaDomanda();
             } else {
-                // Finito il quiz, mostra il Lead Gate obbligatorio prima dei risultati
+                // Pre-popola i campi hidden del form prima di mostrarlo
+                let principeDominante = Object.keys(punteggi).reduce((a, b) => punteggi[a] > punteggi[b] ? a : b);
+                document.getElementById('h-dominante').value = principeDominante;
+                document.getElementById('h-reciprocita').value = punteggi["Reciprocità"];
+                document.getElementById('h-coerenza').value = punteggi["Coerenza"];
+                document.getElementById('h-riprova').value = punteggi["Riprova Sociale"];
+                document.getElementById('h-autorita').value = punteggi["Autorità"];
+                document.getElementById('h-simpatia').value = punteggi["Simpatia"];
+                document.getElementById('h-scarsita').value = punteggi["Scarsità"];
+
                 document.getElementById('step-quiz').classList.add('hidden-step');
                 document.getElementById('step-lead').classList.remove('hidden-step');
             }
         }
 
-        function inviaESbloccaRisultati() {
-            const nome = document.getElementById('lead-nome');
-            const email = document.getElementById('lead-email');
-            const tel = document.getElementById('lead-tel');
-            const priv = document.getElementById('lead-priv');
-            const btn = document.getElementById('btn-sblocca');
+        function gestisciSubmitCialdini() {
+            const nome = document.getElementById('lead-nome').value.trim();
+            document.getElementById('hidden-subject').value = "🧭 Nuovo Lead Profilo Decisionale: " + nome;
+            const principeDominante = document.getElementById('h-dominante').value;
 
-            let valid = true;
-            if(!nome.value.trim() || nome.value.trim().length < 2) { nome.classList.add('input-error'); valid = false; }
-            if(!email.value.includes('@') || email.value.trim().length < 5) { email.classList.add('input-error'); valid = false; }
-            if(tel.value.trim().length < 6) { tel.classList.add('input-error'); valid = false; }
-            if(!priv.checked) { document.getElementById('privacy-box').classList.add('input-error'); valid = false; }
-            if(!valid) return;
-
-            btn.innerText = "ELABORAZIONE IN CORSO...";
-            btn.disabled = true;
-
-            let principeDominante = Object.keys(punteggi).reduce((a, b) => punteggi[a] > punteggi[b] ? a : b);
-
-            let payload = {
-                _subject: "🧭 Nuovo Lead Profilo Decisionale: " + nome.value.trim(),
-                _captcha: "false",
-                _template: "table",
-                Nome_e_Cognome: nome.value.trim(),
-                Email: email.value.trim(),
-                Telefono: tel.value.trim(),
-                Driver_Dominante: principeDominante,
-                ...punteggi
-            };
-
-            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(payload)
-            })
-            .then(res => res.json())
-            .then(() => {
+            // Sblocca il grafico subito dopo aver lasciato partire il submit nativo del form verso FormSubmit
+            setTimeout(() => {
                 mostraGraficoFinale(principeDominante);
-            })
-            .catch(() => {
-                mostraGraficoFinale(principeDominante);
-            });
+            }, 350);
+
+            return true; // Permette al <form> di inviare i dati a FormSubmit
         }
 
         function mostraGraficoFinale(principeDominante) {
@@ -278,10 +317,9 @@
                 "Scarsità": "Reagisci con prontezza di fronte a opportunità esclusive e limitate nel tempo. La chiarezza delle priorità attiva immediatamente la tua spinta all'azione."
             };
 
-            document.getElementById('analisi-profilo').innerHTML = `<strong class="text-premium-champagne">Sintesi Strategica:</strong><br>${descrizioni[principeDominante]}<br><br><em>Questo schema evidenzia le leve chiave che muovono le tue scelte evolutive. Approfondiamole insieme in una call dedicata.</em>`;
+            document.getElementById('analisi-profilo').innerHTML = `<strong class="text-premium-champagne">Analisi Comportamentale:</strong><br>${descrizioni[principeDominante]}<br><br><em>Questo schema evidenzia le leve chiave che muovono le tue scelte evolutive. Approfondiamole insieme in una call dedicata.</em>`;
         }
 
-        // Inizializza la prima domanda al caricamento
         caricaDomanda();
     </script>
 </body>
