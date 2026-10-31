@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="origin">
     <title>Area Assessment & Sviluppo | Claudio Carluccio Coaching</title>
     
     <link rel="icon" type="image/png" href="logo-claudio.png">
@@ -39,23 +40,29 @@
         .meta-card:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.03); border-color: rgba(229, 208, 161, 0.3); }
 
         .input-lead { 
-            width: 100%; padding: 15px 18px; margin: 8px 0; box-sizing: border-box; 
+            width: 100%; padding: 13px 16px; margin: 6px 0; box-sizing: border-box; 
             background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1); 
-            color: white; border-radius: 4px; font-size: 15px; outline: none; transition: border-color 0.3s; 
+            color: white; border-radius: 4px; font-size: 14px; outline: none; transition: border-color 0.3s; 
         }
         .input-lead:focus { border-color: #E5D0A1; background: rgba(229, 208, 161, 0.02); }
-        .input-error { border: 1px solid #ff4d4d !important; background: rgba(255, 77, 77, 0.05); }
-        .privacy-error { border: 1px solid #ff4d4d !important; background: rgba(255, 77, 77, 0.05) !important; }
         
-        .tasto-assessment { 
-            display: block; width: 100%; padding: 18px; margin: 12px 0; 
-            background: transparent; color: #E5D0A1; border: 1px solid rgba(229, 208, 161, 0.3); 
+        .tasto-opzione { 
+            display: block; width: 100%; padding: 16px; margin: 10px 0; 
+            background: rgba(255,255,255,0.02); color: #E5D0A1; border: 1px solid rgba(229, 208, 161, 0.3); 
             border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; 
-            transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 2px;
+            transition: background-color 0.2s ease, color 0.2s ease; text-transform: uppercase; letter-spacing: 2px;
+            outline: none !important; -webkit-tap-highlight-color: transparent;
         }
-        .tasto-assessment:hover { background: #E5D0A1; color: #050505; }
-        .btn-gold-solid { background: linear-gradient(135deg, #E5D0A1 0%, #C5A880 100%) !important; color: #050505 !important; border: none !important; }
-        .btn-gold-solid:hover { opacity: 0.92; transform: translateY(-1px); }
+        .tasto-opzione.selezionato { background: #E5D0A1 !important; color: #050505 !important; border-color: #E5D0A1 !important; }
+
+        .btn-gold-solid { 
+            display: block; width: 100%; padding: 16px; margin-top: 12px;
+            background: linear-gradient(135deg, #E5D0A1 0%, #C5A880 100%) !important; color: #050505 !important; 
+            border: none !important; border-radius: 4px; font-size: 12px; font-weight: 700; 
+            text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease;
+        }
+        .btn-gold-solid:hover:not(:disabled) { opacity: 0.92; transform: translateY(-1px); }
+        .btn-gold-solid:disabled { opacity: 0.3; cursor: not-allowed; }
 
         .filter-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #a3a3a3; padding: 8px 16px; border-radius: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s; }
         .filter-btn:hover, .filter-btn.active-filter { background: #E5D0A1; color: #050505; border-color: #E5D0A1; font-weight: 600; }
@@ -65,18 +72,20 @@
         #grafico-container-one, #grafico-container-burnout { position: relative; margin-top: 24px; padding: 20px; background: rgba(20,20,20,0.4); border-radius: 8px; }
         canvas { max-width: 100%; }
 
-        .interactive-canvas-container { width: 100%; max-width: 580px; margin: 0 auto 24px; position: relative; }
+        .interactive-canvas-container { width: 100%; max-width: 540px; margin: 0 auto; position: relative; }
         .interactive-canvas-container canvas { width: 100%; height: auto; cursor: crosshair; user-select: none; touch-action: none; }
-        .reset-btn { text-align: center; margin-bottom: 20px; }
-        .reset-btn button { background: rgba(255,255,255,0.05); color: #ccc; border: 1px solid rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; cursor: pointer; }
-        .reset-btn button:hover { background: rgba(229, 208, 161, 0.1); color: #E5D0A1; border-color: #E5D0A1; }
+        .btn-reset-top { background: rgba(255,255,255,0.06); color: #E5D0A1; border: 1px solid rgba(229, 208, 161, 0.3); padding: 7px 14px; border-radius: 4px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-reset-top:hover { background: #E5D0A1; color: #050505; }
     </style>
 </head>
 <body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950">
 
     <div class="ambient-glow"></div>
 
-    <!-- HEADER CON MENU MOBILE -->
+    <!-- IFRAME INVISIBILE PER POST NATIVO FORMSUBMIT -->
+    <iframe name="hidden_iframe_assessment" id="hidden_iframe_assessment" style="display:none;"></iframe>
+
+    <!-- HEADER -->
     <header class="fixed top-0 left-0 right-0 z-[9000] py-5 px-6 md:px-12 bg-premium-950/85 backdrop-blur-2xl border-b border-white/5 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors cursor-pointer block">
@@ -107,7 +116,7 @@
     </header>
 
     <main class="flex-grow pt-36 pb-24 relative px-6 z-10">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-6xl mx-auto">
             
             <div class="text-center mb-12" id="hub-header">
                 <span class="text-premium-champagne text-xs uppercase tracking-[0.3em] font-semibold mb-4 block">Area Assessment & Sviluppo</span>
@@ -131,7 +140,7 @@
                     </div>
                 </div>
 
-                <!-- GRIGLIA UNIFICATA CON IDENTITÀ CROMATICHE -->
+                <!-- GRIGLIA UNIFICATA -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12" id="cards-grid">
                     
                     <div data-cat="life" onclick="avviaTest('ruota-vita')" class="glass-panel meta-card p-8 rounded-lg flex flex-col h-full relative overflow-hidden group border-l-4 border-l-[#E5D0A1]">
@@ -184,199 +193,288 @@
                     </div>
 
                 </div>
+            </div>
 
-                <!-- SEZIONE FAQ -->
-                <div class="glass-panel p-8 md:p-12 rounded-xl mt-16 border border-white/5">
-                    <h3 class="font-serif text-2xl font-bold text-white mb-8 text-center">Domande Frequenti sugli Assessment</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
-                            <h4 class="text-premium-champagne font-semibold text-sm uppercase tracking-wider mb-2">Gli assessment sono gratuiti?</h4>
-                            <p class="text-gray-400 text-xs font-light leading-relaxed">Sì, tutti i test di autovalutazione presenti in quest'area sono gratuiti e servono a generare il tuo report iniziale di consapevolezza.</p>
+            <!-- 1. RUOTA DELLA VITA (LAYOUT AFFIANCATO: RUOTA A SINISTRA, LEGENDA + FORM A DESTRA) -->
+            <div id="ruota-vita-app" class="hidden-step glass-panel p-6 md:p-10 rounded-xl shadow-2xl border-t-2 border-t-[#E5D0A1]">
+                <div class="flex flex-wrap items-center justify-between border-b border-white/5 pb-5 mb-6 gap-4">
+                    <button type="button" onclick="tornaIndietro()" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-xs uppercase tracking-widest">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Torna agli Strumenti
+                    </button>
+                    <div class="text-center">
+                        <h2 class="font-serif text-2xl md:text-3xl font-bold text-white tracking-widest uppercase">La Ruota della Vita</h2>
+                        <p class="text-[11px] text-[#E5D0A1] uppercase tracking-[0.2em] font-semibold">Fotografa il tuo Equilibrio</p>
+                    </div>
+                    <button type="button" class="btn-reset-top" onclick="wheels.vita.reset()">↺ Ricomincia da Zero</button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <!-- Colonna Sinistra: Ruota Interattiva -->
+                    <div class="lg:col-span-7 flex flex-col items-center">
+                        <div class="interactive-canvas-container"><canvas id="wheelCanvasVita" width="600" height="600"></canvas></div>
+                    </div>
+
+                    <!-- Colonna Destra: Legenda Chiarezza + Form Contatti Subito Visibile -->
+                    <div class="lg:col-span-5 space-y-5">
+                        <!-- Box Legenda e Istruzioni -->
+                        <div class="bg-premium-900/70 p-5 rounded-lg border border-white/10 text-left">
+                            <h4 class="text-xs uppercase tracking-widest text-[#E5D0A1] font-semibold mb-2">Come Compilare la Ruota (Legenda)</h4>
+                            <p class="text-xs text-gray-300 font-light leading-relaxed mb-3">
+                                Clicca o trascina dentro ogni spicchio per assegnare un punteggio da <strong>1</strong> (centro) a <strong>10</strong> (bordo esterno):
+                            </p>
+                            <ul class="text-[11px] text-gray-400 space-y-1 mb-4">
+                                <li>• <strong class="text-red-400">1 – 4 (Area Critica):</strong> Bassa soddisfazione, priorità d'intervento.</li>
+                                <li>• <strong class="text-yellow-400">5 – 7 (In Evoluzione):</strong> Discreto equilibrio, margine di crescita.</li>
+                                <li>• <strong class="text-green-400">8 – 10 (Punto di Forza):</strong> Piena soddisfazione e solidità.</li>
+                            </ul>
+                            <div id="legenda-live-vita" class="grid grid-cols-2 gap-1.5 pt-3 border-t border-white/5 text-[11px]"></div>
                         </div>
-                        <div>
-                            <h4 class="text-premium-champagne font-semibold text-sm uppercase tracking-wider mb-2">Come vengono sbloccati i risultati?</h4>
-                            <p class="text-gray-400 text-xs font-light leading-relaxed">Al termine della compilazione ti verrà richiesto di inserire i tuoi recapiti per sbloccare l'analisi dettagliata e inviarla al Coach.</p>
-                        </div>
-                        <div>
-                            <h4 class="text-premium-champagne font-semibold text-sm uppercase tracking-wider mb-2">I miei dati sono al sicuro?</h4>
-                            <p class="text-gray-400 text-xs font-light leading-relaxed">Assolutamente sì. I dati vengono trattati nel pieno rispetto del GDPR e inviati direttamente a Claudio Carluccio per l'analisi confidenziale.</p>
-                        </div>
-                        <div>
-                            <h4 class="text-premium-champagne font-semibold text-sm uppercase tracking-wider mb-2">Quale test dovrei scegliere?</h4>
-                            <p class="text-gray-400 text-xs font-light leading-relaxed">Se cerchi un bilancio generale parti dalla Ruota della Vita; se hai obiettivi specifici di leadership, sport o coppia, scegli i moduli dedicati.</p>
+
+                        <!-- Form Nativo FormSubmit -->
+                        <div class="bg-premium-900/70 p-5 rounded-lg border border-[#E5D0A1]/20 text-left">
+                            <h3 class="text-base text-white font-serif mb-1">Invia la tua Mappatura al Coach</h3>
+                            <p class="text-[11px] text-gray-400 mb-3">Compila i campi per salvare e inviare la tua Ruota della Vita.</p>
+                            
+                            <form id="form-ruota-vita" action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" target="hidden_iframe_assessment" onsubmit="return gestisciSubmitRuota('vita')">
+                                <input type="hidden" name="_subject" id="subj-vita" value="🎯 Nuovo Lead: Ruota della Vita">
+                                <input type="hidden" name="_captcha" value="false">
+                                <input type="hidden" name="_template" value="table">
+                                <div id="hidden-scores-vita"></div>
+
+                                <input type="text" name="Nome_e_Cognome" id="vita-nome" class="input-lead" placeholder="Nome e Cognome *" required>
+                                <input type="email" name="Email" id="vita-email" class="input-lead" placeholder="Indirizzo Email *" required>
+                                <input type="tel" name="Telefono" id="vita-tel" class="input-lead" placeholder="Numero di Telefono *" required oninput="this.value = this.value.replace(/[^0-9+]/g, '')">
+                                <textarea name="Note" class="input-lead h-16 resize-none" placeholder="Note facoltative..."></textarea>
+                                
+                                <div class="flex items-start gap-2 mt-2 mb-3 p-2.5 bg-premium-950/60 rounded border border-white/5">
+                                    <input type="checkbox" name="Consenso_GDPR" id="vita-priv" required class="mt-0.5 accent-premium-champagne cursor-pointer">
+                                    <label for="vita-priv" class="text-[11px] text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR. *</label>
+                                </div>
+
+                                <button type="submit" id="btn-submit-vita" class="btn-gold-solid">Sblocca Analisi & Invia al Coach</button>
+                                <p id="msg-ok-vita" class="hidden-step text-center text-xs text-green-400 font-semibold mt-3">✓ Mappatura inviata con successo a Claudio Carluccio!</p>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 1. RUOTA DELLA VITA -->
-            <div id="ruota-vita-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl border-t-2 border-t-[#E5D0A1]">
-                <div class="text-center border-b border-white/5 pb-8 mb-8 relative">
-                    <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
-                    <h2 class="font-serif text-3xl font-bold text-white tracking-widest uppercase">La Ruota della Vita</h2>
-                    <p class="text-xs text-[#E5D0A1] uppercase tracking-[0.2em] mt-2 font-semibold">Fotografa il tuo Equilibrio</p>
-                </div>
-                <div class="text-center mb-6"><p class="text-gray-300 text-sm font-light">Clicca o trascina all'interno di ogni spicchio della ruota per impostare il tuo voto da 1 a 10.</p></div>
-                <div class="interactive-canvas-container"><canvas id="wheelCanvasVita" width="600" height="600"></canvas></div>
-                <div class="reset-btn"><button onclick="wheels.vita.reset()">Ricomincia da Zero</button></div>
-                
-                <!-- LEAD GATE RUOTA VITA -->
-                <div id="lead-box-vita" class="border-t border-white/10 pt-8 max-w-lg mx-auto mt-8">
-                    <h3 class="text-center text-xl text-white font-serif mb-2">Sblocca il Report di Equilibrio</h3>
-                    <p class="text-center text-xs text-gray-400 mb-6">Inserisci i tuoi recapiti per visualizzare l'analisi delle tue aree prioritarie e inviare la ruota al Coach.</p>
-                    <input type="text" id="ruota-nome" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
-                    <input type="email" id="ruota-email" class="input-lead" placeholder="Indirizzo Email *" oninput="this.classList.remove('input-error')">
-                    <input type="tel" id="ruota-tel" class="input-lead" placeholder="Numero di Telefono *" oninput="this.value = this.value.replace(/[^0-9+]/g, ''); this.classList.remove('input-error')">
-                    <textarea id="ruota-note" class="input-lead h-20 resize-none" placeholder="Note facoltative (es. l'area su cui vorresti lavorare)..."></textarea>
-                    <div class="flex items-start gap-3 mt-4 mb-6 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="ruota-privBox">
-                        <input type="checkbox" id="ruota-priv" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('ruota-privBox').classList.remove('privacy-error')">
-                        <label for="ruota-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per ricevere il report di analisi e comunicazioni di coaching. *</label>
+            <!-- 2. RUOTA DELL'ATLETA (LAYOUT AFFIANCATO) -->
+            <div id="ruota-atleta-app" class="hidden-step glass-panel p-6 md:p-10 rounded-xl shadow-2xl border-t-2 border-t-[#ff6b6b]">
+                <div class="flex flex-wrap items-center justify-between border-b border-white/5 pb-5 mb-6 gap-4">
+                    <button type="button" onclick="tornaIndietro()" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-xs uppercase tracking-widest">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Torna agli Strumenti
+                    </button>
+                    <div class="text-center">
+                        <h2 class="font-serif text-2xl md:text-3xl font-bold text-white tracking-widest uppercase">Ruota dell'Atleta</h2>
+                        <p class="text-[11px] text-[#ff6b6b] uppercase tracking-[0.2em] font-semibold">Costruisci la tua Performance</p>
                     </div>
-                    <button id="btnInviaRuota" class="tasto-assessment btn-gold-solid w-full" onclick="inviaRuota('vita')">Sblocca Analisi & Invia al Coach</button>
+                    <button type="button" class="btn-reset-top" onclick="wheels.atleta.reset()">↺ Ricomincia da Zero</button>
                 </div>
 
-                <!-- RISULTATI SBLOCCATI RUOTA VITA -->
-                <div id="report-box-vita" class="hidden-step border-t border-white/10 pt-8 max-w-xl mx-auto mt-8 text-left"></div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div class="lg:col-span-7 flex flex-col items-center">
+                        <div class="interactive-canvas-container"><canvas id="wheelCanvasAtleta" width="600" height="600"></canvas></div>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-5">
+                        <div class="bg-premium-900/70 p-5 rounded-lg border border-white/10 text-left">
+                            <h4 class="text-xs uppercase tracking-widest text-[#ff6b6b] font-semibold mb-2">Come Compilare la Ruota (Legenda)</h4>
+                            <p class="text-xs text-gray-300 font-light leading-relaxed mb-3">
+                                Clicca dentro ogni spicchio per valutare la tua preparazione attuale da <strong>1</strong> (centro) a <strong>10</strong> (bordo esterno):
+                            </p>
+                            <ul class="text-[11px] text-gray-400 space-y-1 mb-4">
+                                <li>• <strong class="text-red-400">1 – 4 (Gap Agonistico):</strong> Area vulnerabile sotto pressione.</li>
+                                <li>• <strong class="text-yellow-400">5 – 7 (Buona Base):</strong> Performance discreta ma migliorabile.</li>
+                                <li>• <strong class="text-green-400">8 – 10 (Peak State):</strong> Massima prontezza mentale e fisica.</li>
+                            </ul>
+                            <div id="legenda-live-atleta" class="grid grid-cols-2 gap-1.5 pt-3 border-t border-white/5 text-[11px]"></div>
+                        </div>
+
+                        <div class="bg-premium-900/70 p-5 rounded-lg border border-[#ff6b6b]/20 text-left">
+                            <h3 class="text-base text-white font-serif mb-1">Invia la tua Mappatura al Coach</h3>
+                            <p class="text-[11px] text-gray-400 mb-3">Compila i campi per inviare la tua Ruota dell'Atleta.</p>
+                            
+                            <form id="form-ruota-atleta" action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" target="hidden_iframe_assessment" onsubmit="return gestisciSubmitRuota('atleta')">
+                                <input type="hidden" name="_subject" id="subj-atleta" value="🏃 Nuovo Lead: Ruota dell'Atleta">
+                                <input type="hidden" name="_captcha" value="false">
+                                <input type="hidden" name="_template" value="table">
+                                <div id="hidden-scores-atleta"></div>
+
+                                <input type="text" name="Nome_e_Cognome" id="atleta-nome" class="input-lead" placeholder="Nome e Cognome *" required>
+                                <input type="email" name="Email" id="atleta-email" class="input-lead" placeholder="Indirizzo Email *" required>
+                                <input type="tel" name="Telefono" id="atleta-tel" class="input-lead" placeholder="Numero di Telefono *" required oninput="this.value = this.value.replace(/[^0-9+]/g, '')">
+                                <textarea name="Note_Sport" class="input-lead h-16 resize-none" placeholder="Sport praticato e prossimi obiettivi..."></textarea>
+                                
+                                <div class="flex items-start gap-2 mt-2 mb-3 p-2.5 bg-premium-950/60 rounded border border-white/5">
+                                    <input type="checkbox" name="Consenso_GDPR" id="atleta-priv" required class="mt-0.5 accent-premium-champagne cursor-pointer">
+                                    <label for="atleta-priv" class="text-[11px] text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR. *</label>
+                                </div>
+
+                                <button type="submit" id="btn-submit-atleta" class="btn-gold-solid">Sblocca Analisi & Invia al Coach</button>
+                                <p id="msg-ok-atleta" class="hidden-step text-center text-xs text-green-400 font-semibold mt-3">✓ Mappatura inviata con successo a Claudio Carluccio!</p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- 2. RUOTA DELL'ATLETA -->
-            <div id="ruota-atleta-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl border-t-2 border-t-[#ff6b6b]">
-                <div class="text-center border-b border-white/5 pb-8 mb-8 relative">
-                    <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
-                    <h2 class="font-serif text-3xl font-bold text-white tracking-widest uppercase">Ruota dell'Atleta</h2>
-                    <p class="text-xs text-[#ff6b6b] uppercase tracking-[0.2em] mt-2 font-semibold">Costruisci la tua Performance</p>
-                </div>
-                <div class="text-center mb-6"><p class="text-gray-300 text-sm font-light">Clicca o trascina all'interno di ogni spicchio della ruota per impostare il tuo voto da 1 a 10.</p></div>
-                <div class="interactive-canvas-container"><canvas id="wheelCanvasAtleta" width="600" height="600"></canvas></div>
-                <div class="reset-btn"><button onclick="wheels.atleta.reset()">Ricomincia da Zero</button></div>
-                
-                <!-- LEAD GATE RUOTA ATLETA -->
-                <div id="lead-box-atleta" class="border-t border-white/10 pt-8 max-w-lg mx-auto mt-8">
-                    <h3 class="text-center text-xl text-white font-serif mb-2">Sblocca il Report di Performance</h3>
-                    <p class="text-center text-xs text-gray-400 mb-6">Inserisci i tuoi recapiti per sbloccare l'analisi tecnica/mentale e inviare la mappatura al Coach.</p>
-                    <input type="text" id="atleta-nome" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
-                    <input type="email" id="atleta-email" class="input-lead" placeholder="Indirizzo Email *" oninput="this.classList.remove('input-error')">
-                    <input type="tel" id="atleta-tel" class="input-lead" placeholder="Numero di Telefono *" oninput="this.value = this.value.replace(/[^0-9+]/g, ''); this.classList.remove('input-error')">
-                    <textarea id="atleta-note" class="input-lead h-20 resize-none" placeholder="Sport praticato e prossimi obiettivi agonistici..."></textarea>
-                    <div class="flex items-start gap-3 mt-4 mb-6 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="atleta-privBox">
-                        <input type="checkbox" id="atleta-priv" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('atleta-privBox').classList.remove('privacy-error')">
-                        <label for="atleta-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per ricevere il report di analisi e comunicazioni di coaching. *</label>
+            <!-- 3. RUOTA DEL MANAGER (LAYOUT AFFIANCATO) -->
+            <div id="ruota-manager-app" class="hidden-step glass-panel p-6 md:p-10 rounded-xl shadow-2xl border-t-2 border-t-[#8c7ae6]">
+                <div class="flex flex-wrap items-center justify-between border-b border-white/5 pb-5 mb-6 gap-4">
+                    <button type="button" onclick="tornaIndietro()" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-xs uppercase tracking-widest">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Torna agli Strumenti
+                    </button>
+                    <div class="text-center">
+                        <h2 class="font-serif text-2xl md:text-3xl font-bold text-white tracking-widest uppercase">Ruota del Manager</h2>
+                        <p class="text-[11px] text-[#8c7ae6] uppercase tracking-[0.2em] font-semibold">Leadership & Business</p>
                     </div>
-                    <button id="btnInviaAtleta" class="tasto-assessment btn-gold-solid w-full" onclick="inviaRuota('atleta')">Sblocca Analisi & Invia al Coach</button>
+                    <button type="button" class="btn-reset-top" onclick="wheels.manager.reset()">↺ Ricomincia da Zero</button>
                 </div>
 
-                <!-- RISULTATI SBLOCCATI RUOTA ATLETA -->
-                <div id="report-box-atleta" class="hidden-step border-t border-white/10 pt-8 max-w-xl mx-auto mt-8 text-left"></div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div class="lg:col-span-7 flex flex-col items-center">
+                        <div class="interactive-canvas-container"><canvas id="wheelCanvasManager" width="600" height="600"></canvas></div>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-5">
+                        <div class="bg-premium-900/70 p-5 rounded-lg border border-white/10 text-left">
+                            <h4 class="text-xs uppercase tracking-widest text-[#8c7ae6] font-semibold mb-2">Come Compilare la Ruota (Legenda)</h4>
+                            <p class="text-xs text-gray-300 font-light leading-relaxed mb-3">
+                                Clicca dentro ogni spicchio per valutare le tue competenze esecutive da <strong>1</strong> (centro) a <strong>10</strong> (bordo esterno):
+                            </p>
+                            <ul class="text-[11px] text-gray-400 space-y-1 mb-4">
+                                <li>• <strong class="text-red-400">1 – 4 (Area di Dispersione):</strong> Collo di bottiglia operativo.</li>
+                                <li>• <strong class="text-yellow-400">5 – 7 (Competenze Attive):</strong> Gestione funzionale da consolidare.</li>
+                                <li>• <strong class="text-green-400">8 – 10 (Eccellenza Esecutiva):</strong> Leadership solida e strategica.</li>
+                            </ul>
+                            <div id="legenda-live-manager" class="grid grid-cols-2 gap-1.5 pt-3 border-t border-white/5 text-[11px]"></div>
+                        </div>
+
+                        <div class="bg-premium-900/70 p-5 rounded-lg border border-[#8c7ae6]/20 text-left">
+                            <h3 class="text-base text-white font-serif mb-1">Invia la tua Mappatura al Coach</h3>
+                            <p class="text-[11px] text-gray-400 mb-3">Compila i campi per inviare la tua Ruota del Manager.</p>
+                            
+                            <form id="form-ruota-manager" action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" target="hidden_iframe_assessment" onsubmit="return gestisciSubmitRuota('manager')">
+                                <input type="hidden" name="_subject" id="subj-manager" value="👔 Nuovo Lead: Ruota del Manager">
+                                <input type="hidden" name="_captcha" value="false">
+                                <input type="hidden" name="_template" value="table">
+                                <div id="hidden-scores-manager"></div>
+
+                                <input type="text" name="Nome_e_Cognome" id="manager-nome" class="input-lead" placeholder="Nome e Cognome *" required>
+                                <input type="email" name="Email" id="manager-email" class="input-lead" placeholder="Indirizzo Email *" required>
+                                <input type="tel" name="Telefono" id="manager-tel" class="input-lead" placeholder="Numero di Telefono *" required oninput="this.value = this.value.replace(/[^0-9+]/g, '')">
+                                <textarea name="Note_Ruolo" class="input-lead h-16 resize-none" placeholder="Ruolo professionale e sfide attuali..."></textarea>
+                                
+                                <div class="flex items-start gap-2 mt-2 mb-3 p-2.5 bg-premium-950/60 rounded border border-white/5">
+                                    <input type="checkbox" name="Consenso_GDPR" id="manager-priv" required class="mt-0.5 accent-premium-champagne cursor-pointer">
+                                    <label for="manager-priv" class="text-[11px] text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR. *</label>
+                                </div>
+
+                                <button type="submit" id="btn-submit-manager" class="btn-gold-solid">Sblocca Analisi & Invia al Coach</button>
+                                <p id="msg-ok-manager" class="hidden-step text-center text-xs text-green-400 font-semibold mt-3">✓ Mappatura inviata con successo a Claudio Carluccio!</p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- 3. RUOTA DEL MANAGER -->
-            <div id="ruota-manager-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl border-t-2 border-t-[#8c7ae6]">
-                <div class="text-center border-b border-white/5 pb-8 mb-8 relative">
-                    <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
-                    <h2 class="font-serif text-3xl font-bold text-white tracking-widest uppercase">Ruota del Manager</h2>
-                    <p class="text-xs text-[#8c7ae6] uppercase tracking-[0.2em] mt-2 font-semibold">Leadership & Business</p>
-                </div>
-                <div class="text-center mb-6"><p class="text-gray-300 text-sm font-light">Clicca o trascina all'interno di ogni spicchio della ruota per impostare il tuo voto da 1 a 10.</p></div>
-                <div class="interactive-canvas-container"><canvas id="wheelCanvasManager" width="600" height="600"></canvas></div>
-                <div class="reset-btn"><button onclick="wheels.manager.reset()">Ricomincia da Zero</button></div>
-                
-                <!-- LEAD GATE RUOTA MANAGER -->
-                <div id="lead-box-manager" class="border-t border-white/10 pt-8 max-w-lg mx-auto mt-8">
-                    <h3 class="text-center text-xl text-white font-serif mb-2">Sblocca l'Executive Report</h3>
-                    <p class="text-center text-xs text-gray-400 mb-6">Inserisci i tuoi recapiti per sbloccare l'analisi delle tue leve manageriali e inviarla al Coach.</p>
-                    <input type="text" id="manager-nome" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
-                    <input type="email" id="manager-email" class="input-lead" placeholder="Indirizzo Email *" oninput="this.classList.remove('input-error')">
-                    <input type="tel" id="manager-tel" class="input-lead" placeholder="Numero di Telefono *" oninput="this.value = this.value.replace(/[^0-9+]/g, ''); this.classList.remove('input-error')">
-                    <textarea id="manager-note" class="input-lead h-20 resize-none" placeholder="Ruolo professionale e sfide attuali..."></textarea>
-                    <div class="flex items-start gap-3 mt-4 mb-6 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="manager-privBox">
-                        <input type="checkbox" id="manager-priv" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('manager-privBox').classList.remove('privacy-error')">
-                        <label for="manager-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per ricevere il report di analisi e comunicazioni di coaching. *</label>
-                    </div>
-                    <button id="btnInviaManager" class="tasto-assessment btn-gold-solid w-full" onclick="inviaRuota('manager')">Sblocca Analisi & Invia al Coach</button>
-                </div>
-
-                <!-- RISULTATI SBLOCCATI RUOTA MANAGER -->
-                <div id="report-box-manager" class="hidden-step border-t border-white/10 pt-8 max-w-xl mx-auto mt-8 text-left"></div>
-            </div>
-
-            <!-- 4. ONE PROFILE -->
+            <!-- 4. ONE PROFILE (CON PULSANTE PROSSIMA DOMANDA E FORM NATIVO) -->
             <div id="one-profile-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl max-w-2xl mx-auto border-t-2 border-t-[#feca57]">
                 <div class="text-center border-b border-white/5 pb-8 mb-8 relative">
-                    <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+                    <button type="button" onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
                     <h2 class="font-serif text-3xl font-bold text-white tracking-widest uppercase">ONE Profile</h2>
                     <p class="text-xs text-[#feca57] uppercase tracking-[0.2em] mt-2 font-semibold">Observe • Navigate • Evolve</p>
                 </div>
                 <div id="step-observe">
                     <div class="progress-container"><div id="bar-fill-one"></div></div>
-                    <div id="testo-domanda" class="text-xl md:text-2xl text-white font-serif font-light text-center mb-10 min-h-[80px] flex items-center justify-center leading-snug"></div>
-                    <div class="space-y-3">
-                        <button type="button" class="tasto-assessment" onclick="prossima(30)">Moltissimo</button>
-                        <button type="button" class="tasto-assessment" onclick="prossima(20)">Abbastanza</button>
-                        <button type="button" class="tasto-assessment" onclick="prossima(10)">Poco</button>
-                        <button type="button" class="tasto-assessment" onclick="prossima(0)">Per nulla</button>
+                    <div id="testo-domanda" class="text-xl md:text-2xl text-white font-serif font-light text-center mb-8 min-h-[80px] flex items-center justify-center leading-snug"></div>
+                    <div class="space-y-3" id="opzioni-one">
+                        <button type="button" class="tasto-opzione" onclick="selezionaOne(30, this)">Moltissimo</button>
+                        <button type="button" class="tasto-opzione" onclick="selezionaOne(20, this)">Abbastanza</button>
+                        <button type="button" class="tasto-opzione" onclick="selezionaOne(10, this)">Poco</button>
+                        <button type="button" class="tasto-opzione" onclick="selezionaOne(0, this)">Per nulla</button>
                     </div>
+                    <button type="button" id="btn-prossima-one" class="btn-gold-solid" disabled onclick="confermaOne()">Prossima Domanda →</button>
                 </div>
+
                 <div id="step-lead" class="hidden-step text-center">
                     <h3 class="text-2xl text-white font-serif mb-2">Elaborazione Dati Completata</h3>
-                    <p class="text-gray-400 text-sm mb-6">Inserisci i tuoi recapiti per sbloccare la tua Mappa delle Potenzialità.</p>
-                    <input type="text" id="nome-one" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
-                    <input type="email" id="email-one" class="input-lead" placeholder="Indirizzo Email *" oninput="this.classList.remove('input-error')">
-                    <input type="tel" id="tel-one" class="input-lead" placeholder="Numero di Telefono *" oninput="this.value = this.value.replace(/[^0-9+]/g, ''); this.classList.remove('input-error')">
-                    <div class="flex items-start gap-3 mt-6 mb-8 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="privacy-container-one">
-                        <input type="checkbox" id="privacy-one" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('privacy-container-one').classList.remove('privacy-error')"> 
-                        <label for="privacy-one" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per ricevere il report di analisi e comunicazioni di coaching. *</label>
-                    </div>
-                    <button id="btnInviaOne" type="button" class="tasto-assessment btn-gold-solid" onclick="inviaDatiOne()">Sblocca la Mia Mappa</button>
+                    <p class="text-gray-400 text-sm mb-6">Inserisci i tuoi recapiti per sbloccare la tua Mappa delle Potenzialità e inviarla al Coach.</p>
+                    
+                    <form action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" target="hidden_iframe_assessment" onsubmit="return gestisciSubmitOne()">
+                        <input type="hidden" name="_subject" id="subj-one" value="🧠 Nuovo Lead: ONE Profile">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
+                        <div id="hidden-scores-one"></div>
+
+                        <input type="text" name="Nome_e_Cognome" id="nome-one" class="input-lead" placeholder="Nome e Cognome *" required>
+                        <input type="email" name="Email" id="email-one" class="input-lead" placeholder="Indirizzo Email *" required>
+                        <input type="tel" name="Telefono" id="tel-one" class="input-lead" placeholder="Numero di Telefono *" required oninput="this.value = this.value.replace(/[^0-9+]/g, '')">
+                        <div class="flex items-start gap-3 mt-4 mb-6 text-left p-4 bg-premium-900/50 rounded border border-white/5">
+                            <input type="checkbox" name="Consenso_GDPR" id="privacy-one" required class="mt-1 accent-premium-champagne cursor-pointer"> 
+                            <label for="privacy-one" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR. *</label>
+                        </div>
+                        <button type="submit" class="btn-gold-solid">Sblocca Analisi & Invia al Coach</button>
+                    </form>
                 </div>
+
                 <div id="step-result" class="hidden-step text-center">
                     <h3 class="text-3xl text-premium-champagne font-serif mb-2">La Tua Mappa O.N.E.</h3>
-                    <p class="text-gray-400 text-sm mb-6">Mappatura neuro-comportamentale sbloccata.</p>
                     <div id="grafico-container-one"><canvas id="grafico-one"></canvas></div>
                     <div class="mt-8 pt-6 border-t border-white/10">
-                        <a href="contatti.html" class="tasto-assessment btn-gold-solid inline-block">Prenota Call di Analisi</a>
+                        <a href="contatti.html" class="btn-gold-solid inline-block">Prenota Call di Analisi</a>
                     </div>
                 </div>
             </div>
 
-            <!-- 5. STRESS & CARICO MENTALE -->
+            <!-- 5. STRESS & CARICO MENTALE (CON PULSANTE PROSSIMA DOMANDA E FORM NATIVO) -->
             <div id="burnout-app" class="hidden-step glass-panel p-8 md:p-12 rounded-xl shadow-2xl max-w-2xl mx-auto border-t-2 border-t-[#1dd1a1]">
                 <div class="text-center border-b border-white/5 pb-8 mb-8 relative">
-                    <button onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+                    <button type="button" onclick="tornaIndietro()" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
                     <h2 class="font-serif text-3xl font-bold text-white tracking-widest uppercase">Stress & Carico Mentale</h2>
                     <p class="text-xs text-[#1dd1a1] uppercase tracking-[0.2em] mt-2 font-semibold">Analisi Energetica</p>
                 </div>
 
                 <div id="burnout-observe">
                     <div class="progress-container"><div id="bar-fill-burnout"></div></div>
-                    <div id="testo-burnout" class="text-xl md:text-2xl text-white font-serif font-light text-center mb-10 min-h-[80px] flex items-center justify-center leading-snug"></div>
-                    <div class="space-y-3">
-                        <button type="button" class="tasto-assessment" onclick="rispondiBurnout(4)">Molto spesso / Sempre</button>
-                        <button type="button" class="tasto-assessment" onclick="rispondiBurnout(3)">Spesso</button>
-                        <button type="button" class="tasto-assessment" onclick="rispondiBurnout(2)">A volte</button>
-                        <button type="button" class="tasto-assessment" onclick="rispondiBurnout(1)">Raramente</button>
-                        <button type="button" class="tasto-assessment" onclick="rispondiBurnout(0)">Mai</button>
+                    <div id="testo-burnout" class="text-xl md:text-2xl text-white font-serif font-light text-center mb-8 min-h-[80px] flex items-center justify-center leading-snug"></div>
+                    <div class="space-y-3" id="opzioni-burnout">
+                        <button type="button" class="tasto-opzione" onclick="selezionaBurnout(4, this)">Molto spesso / Sempre</button>
+                        <button type="button" class="tasto-opzione" onclick="selezionaBurnout(3, this)">Spesso</button>
+                        <button type="button" class="tasto-opzione" onclick="selezionaBurnout(2, this)">A volte</button>
+                        <button type="button" class="tasto-opzione" onclick="selezionaBurnout(1, this)">Raramente</button>
+                        <button type="button" class="tasto-opzione" onclick="selezionaBurnout(0, this)">Mai</button>
                     </div>
+                    <button type="button" id="btn-prossima-burnout" class="btn-gold-solid" disabled onclick="confermaBurnout()">Prossima Domanda →</button>
                 </div>
 
                 <div id="burnout-lead" class="hidden-step text-center">
                     <h3 class="text-2xl text-white font-serif mb-2">Elaborazione Indice Energetico</h3>
-                    <p class="text-gray-400 text-sm mb-6">Inserisci i tuoi recapiti per sbloccare il report grafico e ricevere indicazioni di riequilibrio.</p>
-                    <input type="text" id="nome-burnout" class="input-lead" placeholder="Nome e Cognome *" oninput="this.classList.remove('input-error')">
-                    <input type="email" id="email-burnout" class="input-lead" placeholder="Indirizzo Email *" oninput="this.classList.remove('input-error')">
-                    <input type="tel" id="tel-burnout" class="input-lead" placeholder="Numero di Telefono *" oninput="this.value = this.value.replace(/[^0-9+]/g, ''); this.classList.remove('input-error')">
-                    <div class="flex items-start gap-3 mt-6 mb-8 text-left p-4 bg-premium-900/50 rounded border border-white/5" id="privacy-container-burnout">
-                        <input type="checkbox" id="privacy-burnout" class="mt-1 accent-premium-champagne cursor-pointer" onchange="document.getElementById('privacy-container-burnout').classList.remove('privacy-error')"> 
-                        <label for="privacy-burnout" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per ricevere il report di analisi e comunicazioni di coaching. *</label>
-                    </div>
-                    <button id="btnInviaBurnout" type="button" class="tasto-assessment btn-gold-solid" onclick="inviaDatiBurnout()">Sblocca il Report Energetico</button>
+                    <p class="text-gray-400 text-sm mb-6">Inserisci i tuoi recapiti per sbloccare il report grafico e inviarlo al Coach.</p>
+                    
+                    <form action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" target="hidden_iframe_assessment" onsubmit="return gestisciSubmitBurnout()">
+                        <input type="hidden" name="_subject" id="subj-burnout" value="🔥 Nuovo Lead: Stress & Carico Mentale">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
+                        <div id="hidden-scores-burnout"></div>
+
+                        <input type="text" name="Nome_e_Cognome" id="nome-burnout" class="input-lead" placeholder="Nome e Cognome *" required>
+                        <input type="email" name="Email" id="email-burnout" class="input-lead" placeholder="Indirizzo Email *" required>
+                        <input type="tel" name="Telefono" id="tel-burnout" class="input-lead" placeholder="Numero di Telefono *" required oninput="this.value = this.value.replace(/[^0-9+]/g, '')">
+                        <div class="flex items-start gap-3 mt-4 mb-6 text-left p-4 bg-premium-900/50 rounded border border-white/5">
+                            <input type="checkbox" name="Consenso_GDPR" id="privacy-burnout" required class="mt-1 accent-premium-champagne cursor-pointer"> 
+                            <label for="privacy-burnout" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR. *</label>
+                        </div>
+                        <button type="submit" class="btn-gold-solid">Sblocca Analisi & Invia al Coach</button>
+                    </form>
                 </div>
 
                 <div id="burnout-result" class="hidden-step text-center">
                     <h3 class="text-3xl text-premium-champagne font-serif mb-2">Il Tuo Profilo Energetico</h3>
-                    <p class="text-gray-400 text-sm mb-6">Analisi del carico mentale completata.</p>
                     <div id="grafico-container-burnout"><canvas id="grafico-burnout"></canvas></div>
                     <div class="mt-8 pt-6 border-t border-white/10">
-                        <a href="contatti.html" class="tasto-assessment btn-gold-solid inline-block">Prenota Call Strategica</a>
+                        <a href="contatti.html" class="btn-gold-solid inline-block">Prenota Call Strategica</a>
                     </div>
                 </div>
             </div>
@@ -413,19 +511,37 @@
             ctx.closePath(); ctx.fillStyle=fCol; ctx.fill();
         }
 
-        // MOTORE UNIFICATO PER LE 3 RUOTE INTERATTIVE
-        function createInteractiveWheel(canvasId, categories) {
+        // MOTORE RUOTE INTERATTIVE (PARTENZA DA ZERO + LEGENDA IN TEMPO REALE)
+        function createInteractiveWheel(key, canvasId, categories) {
             const canvas = document.getElementById(canvasId);
             const ctx = canvas.getContext('2d');
-            let scores = Array(categories.length).fill(5);
+            let scores = Array(categories.length).fill(0); // PARTE DA ZERO
             let isDragging = false;
             const maxRad = 155, inRad = 35;
+
+            function aggiornaLegendaLive() {
+                const legEl = document.getElementById('legenda-live-' + key);
+                const hidEl = document.getElementById('hidden-scores-' + key);
+                if (!legEl || !hidEl) return;
+                
+                let htmlLeg = '';
+                let htmlHid = '';
+                categories.forEach((c, i) => {
+                    htmlLeg += `<div class="flex items-center justify-between bg-premium-950/60 px-2.5 py-1.5 rounded border border-white/5">
+                        <span class="flex items-center gap-1.5 text-gray-300 font-medium truncate"><span class="w-2 h-2 rounded-full shrink-0" style="background:${c.color}"></span>${c.name}</span>
+                        <strong class="text-white ml-2">${scores[i]}/10</strong>
+                    </div>`;
+                    htmlHid += `<input type="hidden" name="${c.name}" value="${scores[i]}">`;
+                });
+                legEl.innerHTML = htmlLeg;
+                hidEl.innerHTML = htmlHid;
+            }
 
             function draw() {
                 const w = canvas.width, h = canvas.height, cX = w/2, cY = h/2;
                 const step = (2 * Math.PI) / categories.length, startOffset = -Math.PI / 2;
                 ctx.clearRect(0, 0, w, h);
-                ctx.strokeStyle = 'rgba(255,255,255,0.06)'; ctx.lineWidth = 1;
+                ctx.strokeStyle = 'rgba(255,255,255,0.07)'; ctx.lineWidth = 1;
                 for (let i = 1; i <= 10; i++) {
                     ctx.beginPath(); ctx.arc(cX, cY, inRad + (maxRad - inRad) * (i / 10), 0, 2 * Math.PI); ctx.stroke();
                 }
@@ -462,6 +578,7 @@
                     ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
                     ctx.fillText(cat.name, lx, ly);
                 }
+                aggiornaLegendaLive();
             }
 
             const handleInter = (e) => {
@@ -476,7 +593,7 @@
                     let angle = Math.atan2(y, x) - (-Math.PI / 2);
                     if (angle < 0) angle += 2 * Math.PI;
                     const sIdx = Math.floor(angle / ((2 * Math.PI) / categories.length)) % categories.length;
-                    scores[sIdx] = Math.max(1, Math.min(10, Math.round(((dist - inRad) / (maxRad - inRad)) * 10)));
+                    scores[sIdx] = Math.max(0, Math.min(10, Math.round(((dist - inRad) / (maxRad - inRad)) * 10)));
                     draw();
                 }
             };
@@ -491,7 +608,6 @@
             draw();
             return {
                 getScores: () => scores,
-                categories: categories,
                 reset: () => { scores = Array(categories.length).fill(0); draw(); }
             };
         }
@@ -501,7 +617,6 @@
             vita: {
                 canvasId: 'wheelCanvasVita',
                 subject: '🎯 Nuovo Lead: Ruota della Vita',
-                prefix: 'ruota',
                 cats: [
                     { name: "AMBIENTE", color: "#c5a059", rgb: "197, 160, 89" }, { name: "CRESCITA", color: "#34a853", rgb: "52, 168, 83" },
                     { name: "EMOZIONI", color: "#fbbc04", rgb: "251, 188, 4" }, { name: "FAMIGLIA", color: "#ea4335", rgb: "234, 67, 53" },
@@ -513,7 +628,6 @@
             atleta: {
                 canvasId: 'wheelCanvasAtleta',
                 subject: '🏃 Nuovo Lead: Ruota dell\'Atleta',
-                prefix: 'atleta',
                 cats: [
                     { name: "TECNICA", color: "#e53935", rgb: "229, 57, 53" }, { name: "TATTICA", color: "#3949ab", rgb: "57, 73, 171" },
                     { name: "PREP. FISICA", color: "#00897b", rgb: "0, 137, 123" }, { name: "RECUPERO", color: "#8e24aa", rgb: "142, 36, 170" },
@@ -524,7 +638,6 @@
             manager: {
                 canvasId: 'wheelCanvasManager',
                 subject: '👔 Nuovo Lead: Ruota del Manager',
-                prefix: 'manager',
                 cats: [
                     { name: "LEADERSHIP", color: "#e53935", rgb: "229, 57, 53" }, { name: "STRATEGIA", color: "#3949ab", rgb: "57, 73, 171" },
                     { name: "TEAM", color: "#00897b", rgb: "0, 137, 123" }, { name: "PROBLEM SOLVING", color: "#8e24aa", rgb: "142, 36, 170" },
@@ -537,11 +650,11 @@
         function avviaTest(id) {
             document.getElementById('meta-assessment').classList.add('hidden-step');
             document.getElementById('hub-header').classList.add('hidden-step');
-            if (id === 'ruota-vita') { document.getElementById('ruota-vita-app').classList.remove('hidden-step'); if(!wheels.vita) wheels.vita = createInteractiveWheel(wheelConfigs.vita.canvasId, wheelConfigs.vita.cats); }
-            else if (id === 'ruota-atleta') { document.getElementById('ruota-atleta-app').classList.remove('hidden-step'); if(!wheels.atleta) wheels.atleta = createInteractiveWheel(wheelConfigs.atleta.canvasId, wheelConfigs.atleta.cats); }
-            else if (id === 'ruota-manager') { document.getElementById('ruota-manager-app').classList.remove('hidden-step'); if(!wheels.manager) wheels.manager = createInteractiveWheel(wheelConfigs.manager.canvasId, wheelConfigs.manager.cats); }
-            else if (id === 'one-profile') { document.getElementById('one-profile-app').classList.remove('hidden-step'); if(step_one === 0) document.getElementById("testo-domanda").innerText = domande_one[0].q; }
-            else if (id === 'burnout') { document.getElementById('burnout-app').classList.remove('hidden-step'); if(step_burnout === 0) document.getElementById("testo-burnout").innerText = domande_burnout[0].q; }
+            if (id === 'ruota-vita') { document.getElementById('ruota-vita-app').classList.remove('hidden-step'); if(!wheels.vita) wheels.vita = createInteractiveWheel('vita', wheelConfigs.vita.canvasId, wheelConfigs.vita.cats); }
+            else if (id === 'ruota-atleta') { document.getElementById('ruota-atleta-app').classList.remove('hidden-step'); if(!wheels.atleta) wheels.atleta = createInteractiveWheel('atleta', wheelConfigs.atleta.canvasId, wheelConfigs.atleta.cats); }
+            else if (id === 'ruota-manager') { document.getElementById('ruota-manager-app').classList.remove('hidden-step'); if(!wheels.manager) wheels.manager = createInteractiveWheel('manager', wheelConfigs.manager.canvasId, wheelConfigs.manager.cats); }
+            else if (id === 'one-profile') { document.getElementById('one-profile-app').classList.remove('hidden-step'); caricaDomandaOne(); }
+            else if (id === 'burnout') { document.getElementById('burnout-app').classList.remove('hidden-step'); caricaDomandaBurnout(); }
         }
 
         function tornaIndietro() {
@@ -550,70 +663,77 @@
             document.getElementById('hub-header').classList.remove('hidden-step');
         }
 
-        function inviaRuota(key) {
-            const cfg = wheelConfigs[key];
-            const pfx = cfg.prefix;
-            const n = document.getElementById(pfx + '-nome'), e = document.getElementById(pfx + '-email'), t = document.getElementById(pfx + '-tel'), p = document.getElementById(pfx + '-priv'), note = document.getElementById(pfx + '-note');
-            const btn = document.getElementById(key === 'vita' ? 'btnInviaRuota' : key === 'atleta' ? 'btnInviaAtleta' : 'btnInviaManager');
-
-            let valid = true;
-            if(!n.value.trim() || n.value.trim().length < 2){ n.classList.add('input-error'); valid = false; }
-            if(!e.value.includes('@') || e.value.trim().length < 5){ e.classList.add('input-error'); valid = false; }
-            if(t.value.trim().length < 6){ t.classList.add('input-error'); valid = false; }
-            if(!p.checked){ document.getElementById(pfx + '-privBox').classList.add('privacy-error'); valid = false; }
-            if(!valid) return;
-
-            btn.innerText = "ELABORAZIONE REPORT..."; btn.disabled = true;
-
-            const scores = wheels[key].getScores();
-            let payload = {
-                _subject: cfg.subject + " (" + n.value.trim() + ")",
-                _captcha: "false",
-                _template: "table",
-                Nome: n.value.trim(), Email: e.value.trim(), Telefono: t.value.trim(), Note: note.value.trim()
-            };
-            cfg.cats.forEach((c, i) => { payload[c.name] = scores[i]; });
-
-            const mostraReportRuota = () => {
-                document.getElementById('lead-box-' + key).classList.add('hidden-step');
-                const repBox = document.getElementById('report-box-' + key);
-                repBox.classList.remove('hidden-step');
-
-                const media = (scores.reduce((a,b) => a+b, 0) / scores.length).toFixed(1);
-                const critiche = cfg.cats.filter((c, i) => scores[i] <= 5).map(c => c.name);
-                const forti = cfg.cats.filter((c, i) => scores[i] >= 8).map(c => c.name);
-
-                repBox.innerHTML = `
-                    <div class="bg-premium-900/60 p-6 rounded-lg border border-premium-champagne/30">
-                        <h4 class="font-serif text-2xl text-premium-champagne mb-2">Sintesi Strategica Sbloccata</h4>
-                        <p class="text-sm text-gray-300 mb-4">Indice Medio di Allineamento: <strong class="text-white text-lg">${media} / 10</strong></p>
-                        <p class="text-xs text-gray-300 leading-relaxed mb-3"><strong class="text-white">Punti di Forza attuali:</strong> ${forti.length ? forti.join(', ') : 'Nessuna area sopra l\'8 rilevata.'}</p>
-                        <p class="text-xs text-gray-300 leading-relaxed mb-6"><strong class="text-white">Aree ad Alta Priorità di Intervento:</strong> ${critiche.length ? critiche.join(', ') : 'Buon bilanciamento complessivo, lavoriamo sull\'eccellenza.'}</p>
-                        <a href="contatti.html" class="tasto-assessment btn-gold-solid text-center block">Prenota una Sessione Strategica</a>
-                    </div>
-                `;
-            };
-
-            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", {
-                method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(payload)
-            }).then(() => mostraReportRuota()).catch(() => mostraReportRuota());
+        function gestisciSubmitRuota(key) {
+            const nome = document.getElementById(key + '-nome').value.trim();
+            document.getElementById('subj-' + key).value = wheelConfigs[key].subject + " (" + nome + ")";
+            const btn = document.getElementById('btn-submit-' + key);
+            btn.innerText = "INVIATO AL COACH ✓";
+            btn.disabled = true;
+            document.getElementById('msg-ok-' + key).classList.remove('hidden-step');
+            return true; // Invia nativamente il <form> a FormSubmit
         }
 
-        // --- ONE PROFILE ---
-        const domande_one = [{cat:"Drive", q:"Quanto senti forte la spinta verso l'ambizione e il successo?"},{cat:"Logica", q:"Preferisci decidere basandoti su dati e fatti oggettivi?"},{cat:"Empatia", q:"Quanto sei influenzato dallo stato d'animo di chi ti circonda?"},{cat:"Visione", q:"Quanto sei proiettato verso il futuro e progetti innovativi?"},{cat:"Stabilita", q:"Cerchi attivamente sicurezza e routine nel tuo quotidiano?"},{cat:"Social", q:"Quanto è vitale per te il contatto costante con le persone?"}];
-        let step_one = 0, punteggi_one = { Drive:0, Logica:0, Empatia:0, Visione:0, Stabilita:0, Social:0 };
-        window.prossima = function(v) { punteggi_one[domande_one[step_one].cat] = v; step_one++; if(step_one < domande_one.length) { document.getElementById("testo-domanda").innerText = domande_one[step_one].q; document.getElementById("bar-fill-one").style.width = ((step_one + 1) / domande_one.length * 100) + "%"; } else { document.getElementById("step-observe").classList.add("hidden-step"); document.getElementById("step-lead").classList.remove("hidden-step"); } };
-        window.inviaDatiOne = function() {
-            let n = document.getElementById("nome-one"), e = document.getElementById("email-one"), t = document.getElementById("tel-one"), p = document.getElementById("privacy-one");
-            let valid = true; if(n.value.length < 2) { n.classList.add("input-error"); valid = false; } if(!e.value.includes("@") || e.value.length < 5) { e.classList.add("input-error"); valid = false; } if(t.value.length < 6) { t.classList.add("input-error"); valid = false; } if(!p.checked) { document.getElementById("privacy-container-one").classList.add("privacy-error"); valid = false; } if(!valid) return;
-            let btn = document.getElementById('btnInviaOne'); btn.innerText = "ELABORAZIONE..."; btn.disabled = true;
-            let payload = { _subject: "🧠 Nuovo Lead: ONE Profile (" + n.value.trim() + ")", _captcha: "false", _template: "table", Nome: n.value, Email: e.value, Telefono: t.value, ...punteggi_one };
-            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(() => { document.getElementById("step-lead").classList.add("hidden-step"); document.getElementById("step-result").classList.remove("hidden-step"); window.creaGraficoOne(); }).catch(() => { document.getElementById("step-lead").classList.add("hidden-step"); document.getElementById("step-result").classList.remove("hidden-step"); window.creaGraficoOne(); });
-        };
-        window.creaGraficoOne = function() { new Chart(document.getElementById("grafico-one").getContext("2d"), { type: "radar", data: { labels: ["Drive", "Logica", "Empatia", "Visione", "Stabilità", "Social"], datasets: [{ data: [punteggi_one.Drive, punteggi_one.Logica, punteggi_one.Empatia, punteggi_one.Visione, punteggi_one.Stabilita, punteggi_one.Social], backgroundColor: "rgba(229, 208, 161, 0.3)", borderColor: '#E5D0A1', borderWidth: 2, pointBackgroundColor: "#fff" }] }, options: { scales: { r: { grid: { color: "rgba(255,255,255,0.1)" }, pointLabels: { color: "#E5D0A1", font: { size: 12, family: "'Inter', sans-serif" } }, ticks: { display: false }, min: 0, max: 30 } }, plugins: { legend: { display: false } } } }); };
+        // --- ONE PROFILE CON PULSANTE PROSSIMA DOMANDA ---
+        const domande_one = [
+            {cat:"Drive", q:"Quanto senti forte la spinta verso l'ambizione e il successo?"},
+            {cat:"Logica", q:"Preferisci decidere basandoti su dati e fatti oggettivi?"},
+            {cat:"Empatia", q:"Quanto sei influenzato dallo stato d'animo di chi ti circonda?"},
+            {cat:"Visione", q:"Quanto sei proiettato verso il futuro e progetti innovativi?"},
+            {cat:"Stabilita", q:"Cerchi attivamente sicurezza e routine nel tuo quotidiano?"},
+            {cat:"Social", q:"Quanto è vitale per te il contatto costante con le persone?"}
+        ];
+        let step_one = 0, scelta_one = null, punteggi_one = { Drive:0, Logica:0, Empatia:0, Visione:0, Stabilita:0, Social:0 };
 
-        // --- STRESS & CARICO MENTALE ---
+        function caricaDomandaOne() {
+            scelta_one = null;
+            document.querySelectorAll('#opzioni-one .tasto-opzione').forEach(b => { b.classList.remove('selezionato'); b.blur(); });
+            document.getElementById('btn-prossima-one').disabled = true;
+            document.getElementById("testo-domanda").innerText = domande_one[step_one].q;
+            document.getElementById("bar-fill-one").style.width = ((step_one + 1) / domande_one.length * 100) + "%";
+        }
+
+        function selezionaOne(v, btn) {
+            scelta_one = v;
+            document.querySelectorAll('#opzioni-one .tasto-opzione').forEach(b => b.classList.remove('selezionato'));
+            btn.classList.add('selezionato');
+            document.getElementById('btn-prossima-one').disabled = false;
+        }
+
+        function confermaOne() {
+            if (scelta_one === null) return;
+            punteggi_one[domande_one[step_one].cat] = scelta_one;
+            step_one++;
+            if(step_one < domande_one.length) {
+                caricaDomandaOne();
+            } else {
+                let hHtml = '';
+                Object.keys(punteggi_one).forEach(k => { hHtml += `<input type="hidden" name="${k}" value="${punteggi_one[k]}">`; });
+                document.getElementById('hidden-scores-one').innerHTML = hHtml;
+                document.getElementById("step-observe").classList.add("hidden-step");
+                document.getElementById("step-lead").classList.remove("hidden-step");
+            }
+        }
+
+        function gestisciSubmitOne() {
+            const nome = document.getElementById('nome-one').value.trim();
+            document.getElementById('subj-one').value = "🧠 Nuovo Lead ONE Profile: " + nome;
+            setTimeout(() => {
+                document.getElementById("step-lead").classList.add("hidden-step");
+                document.getElementById("step-result").classList.remove("hidden-step");
+                window.creaGraficoOne();
+            }, 350);
+            return true;
+        }
+
+        window.creaGraficoOne = function() {
+            new Chart(document.getElementById("grafico-one").getContext("2d"), {
+                type: "radar",
+                data: { labels: ["Drive", "Logica", "Empatia", "Visione", "Stabilità", "Social"], datasets: [{ data: [punteggi_one.Drive, punteggi_one.Logica, punteggi_one.Empatia, punteggi_one.Visione, punteggi_one.Stabilita, punteggi_one.Social], backgroundColor: "rgba(229, 208, 161, 0.3)", borderColor: '#E5D0A1', borderWidth: 2, pointBackgroundColor: "#fff" }] },
+                options: { scales: { r: { grid: { color: "rgba(255,255,255,0.1)" }, pointLabels: { color: "#E5D0A1", font: { size: 12, family: "'Inter', sans-serif" } }, ticks: { display: false }, min: 0, max: 30 } }, plugins: { legend: { display: false } } }
+            });
+        };
+
+        // --- STRESS & CARICO MENTALE CON PULSANTE PROSSIMA DOMANDA ---
         const domande_burnout = [
             { cat: "Esaurimento", q: "Ti senti emotivamente svuotato e stanco a causa del tuo lavoro o della tua routine?" },
             { cat: "Esaurimento", q: "Ti senti esausto già al mattino quando devi affrontare la giornata?" },
@@ -622,24 +742,49 @@
             { cat: "Realizzazione", q: "Ti senti efficiente e capace di portare a termine cose di valore nel tuo quotidiano?" },
             { cat: "Realizzazione", q: "Ti senti gratificato e stimolato dai traguardi che raggiungi?" }
         ];
-        let step_burnout = 0, punteggi_burnout = { Esaurimento: 0, Distacco: 0, Realizzazione: 0 };
-        window.rispondiBurnout = function(valore) {
-            punteggi_burnout[domande_burnout[step_burnout].cat] += valore; step_burnout++;
+        let step_burnout = 0, scelta_burnout = null, punteggi_burnout = { Esaurimento: 0, Distacco: 0, Realizzazione: 0 };
+
+        function caricaDomandaBurnout() {
+            scelta_burnout = null;
+            document.querySelectorAll('#opzioni-burnout .tasto-opzione').forEach(b => { b.classList.remove('selezionato'); b.blur(); });
+            document.getElementById('btn-prossima-burnout').disabled = true;
+            document.getElementById("testo-burnout").innerText = domande_burnout[step_burnout].q;
+            document.getElementById("bar-fill-burnout").style.width = ((step_burnout + 1) / domande_burnout.length * 100) + "%";
+        }
+
+        function selezionaBurnout(v, btn) {
+            scelta_burnout = v;
+            document.querySelectorAll('#opzioni-burnout .tasto-opzione').forEach(b => b.classList.remove('selezionato'));
+            btn.classList.add('selezionato');
+            document.getElementById('btn-prossima-burnout').disabled = false;
+        }
+
+        function confermaBurnout() {
+            if (scelta_burnout === null) return;
+            punteggi_burnout[domande_burnout[step_burnout].cat] += scelta_burnout;
+            step_burnout++;
             if(step_burnout < domande_burnout.length) {
-                document.getElementById("testo-burnout").innerText = domande_burnout[step_burnout].q;
-                document.getElementById("bar-fill-burnout").style.width = ((step_burnout + 1) / domande_burnout.length * 100) + "%";
+                caricaDomandaBurnout();
             } else {
+                let hHtml = '';
+                Object.keys(punteggi_burnout).forEach(k => { hHtml += `<input type="hidden" name="${k}" value="${punteggi_burnout[k]}">`; });
+                document.getElementById('hidden-scores-burnout').innerHTML = hHtml;
                 document.getElementById("burnout-observe").classList.add("hidden-step");
                 document.getElementById("burnout-lead").classList.remove("hidden-step");
             }
-        };
-        window.inviaDatiBurnout = function() {
-            let n = document.getElementById("nome-burnout"), e = document.getElementById("email-burnout"), t = document.getElementById("tel-burnout"), p = document.getElementById("privacy-burnout");
-            let valid = true; if(n.value.length < 2) { n.classList.add("input-error"); valid = false; } if(!e.value.includes("@") || e.value.length < 5) { e.classList.add("input-error"); valid = false; } if(t.value.length < 6) { t.classList.add("input-error"); valid = false; } if(!p.checked) { document.getElementById("privacy-container-burnout").classList.add("privacy-error"); valid = false; } if(!valid) return;
-            let btn = document.getElementById('btnInviaBurnout'); btn.innerText = "ELABORAZIONE..."; btn.disabled = true;
-            let payload = { _subject: "🔥 Nuovo Lead: Stress & Carico Mentale (" + n.value.trim() + ")", _captcha: "false", _template: "table", Nome: n.value, Email: e.value, Telefono: t.value, ...punteggi_burnout };
-            fetch("https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).then(() => { document.getElementById("burnout-lead").classList.add("hidden-step"); document.getElementById("burnout-result").classList.remove("hidden-step"); window.creaGraficoBurnout(); }).catch(() => { document.getElementById("burnout-lead").classList.add("hidden-step"); document.getElementById("burnout-result").classList.remove("hidden-step"); window.creaGraficoBurnout(); });
-        };
+        }
+
+        function gestisciSubmitBurnout() {
+            const nome = document.getElementById('nome-burnout').value.trim();
+            document.getElementById('subj-burnout').value = "🔥 Nuovo Lead Stress & Carico Mentale: " + nome;
+            setTimeout(() => {
+                document.getElementById("burnout-lead").classList.add("hidden-step");
+                document.getElementById("burnout-result").classList.remove("hidden-step");
+                window.creaGraficoBurnout();
+            }, 350);
+            return true;
+        }
+
         window.creaGraficoBurnout = function() {
             new Chart(document.getElementById("grafico-burnout").getContext("2d"), {
                 type: "bar",
