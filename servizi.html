@@ -24,54 +24,66 @@
 
     <style>
         body { background-color: #050505; color: #f5f5f5; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
+        .ambient-glow { position: fixed; top: -150px; left: 50%; transform: translateX(-50%); width: 700px; height: 400px; background: radial-gradient(circle, rgba(229, 208, 161, 0.08) 0%, rgba(5, 5, 5, 0) 70%); pointer-events: none; z-index: 0; }
         .nav-link { position: relative; color: #a3a3a3; transition: color 0.3s ease; }
         .nav-link:hover, .nav-link.active { color: #ffffff; }
         .nav-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #E5D0A1; transition: width 0.3s ease; }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
         
-        .glass-panel { background: rgba(20, 20, 20, 0.65); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.12); }
-        .btn-gold-solid { background: linear-gradient(135deg, #E5D0A1 0%, #C5A880 100%); color: #050505; transition: all 0.4s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 32px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-radius: 4px; }
+        .glass-panel { background: rgba(20, 20, 20, 0.65); backdrop-filter: blur(20px); border: 1px solid rgba(229, 208, 161, 0.12); transition: all 0.35s ease; }
+        .glass-panel:hover { border-color: rgba(229, 208, 161, 0.28); }
+        .btn-gold-solid { background: linear-gradient(135deg, #E5D0A1 0%, #C5A880 100%); color: #050505; transition: all 0.4s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 32px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; border-radius: 4px; }
         .btn-gold-solid:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(229, 208, 161, 0.25); }
     </style>
 </head>
 <body class="antialiased font-sans selection:bg-premium-champagne selection:text-premium-950">
 
-    <header class="fixed top-0 left-0 right-0 z-[9000] py-5 px-6 md:px-12 bg-premium-950/85 backdrop-blur-2xl border-b border-white/5 transition-all duration-300">
+    <div class="ambient-glow"></div>
+
+    <!-- HEADER ORIENTATO AL FUNNEL -->
+    <header class="fixed top-0 left-0 right-0 z-[9000] py-4 px-6 md:px-12 bg-premium-950/90 backdrop-blur-2xl border-b border-white/5">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors cursor-pointer block">
+            <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors block">
                 CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
             </a>
+            
             <nav class="hidden lg:flex items-center gap-6 text-sm font-light tracking-wide">
                 <a href="index.html" class="nav-link">Home</a>
-                <a href="servizi.html" class="nav-link active">I Miei Percorsi</a>
-                <a href="servizi-coach.html" class="nav-link text-premium-champagne font-semibold">Per i Coach</a>
+                <a href="servizi.html" class="nav-link active">Percorsi</a>
                 <a href="assessment.html" class="nav-link">Assessment</a>
-                <a href="area-riservata.html" class="nav-link">Area Riservata</a>
-                <a href="testimonianza.html" class="nav-link">Testimonianze</a>
-                <a href="contatti.html" class="nav-link">Contattami</a>
+                <a href="testimonianza.html" class="nav-link">Risultati</a>
+                <a href="servizi-coach.html" class="nav-link text-premium-champagne font-medium">Per i Coach</a>
+                <a href="area-riservata.html" class="nav-link">Area Clienti</a>
+                <a href="assessment.html" class="bg-premium-champagne text-premium-950 px-4 py-2 rounded text-xs font-bold uppercase tracking-widest hover:bg-[#C5A880] transition-colors">
+                    Inizia dal Test →
+                </a>
             </nav>
+
             <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="lg:hidden text-white hover:text-premium-champagne focus:outline-none p-2">
                 <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
         </div>
-        <div id="mobile-menu" class="hidden lg:hidden bg-premium-900/95 backdrop-blur-xl border-b border-white/10 px-6 py-6 mt-5 space-y-4 text-center">
-            <a href="index.html" class="block py-2 text-gray-300 hover:text-white">Home</a>
+
+        <div id="mobile-menu" class="hidden lg:hidden bg-premium-900/95 backdrop-blur-xl border-b border-white/10 px-6 py-6 mt-4 space-y-4 text-center">
+            <a href="index.html" class="block py-2 text-gray-300">Home</a>
             <a href="servizi.html" class="block py-2 text-white font-medium">I Miei Percorsi</a>
-            <a href="servizi-coach.html" class="block py-2 text-premium-champagne font-semibold">Per i Coach</a>
-            <a href="assessment.html" class="block py-2 text-gray-300 hover:text-white">Assessment</a>
-            <a href="area-riservata.html" class="block py-2 text-gray-300 hover:text-white">Area Riservata</a>
-            <a href="testimonianza.html" class="block py-2 text-gray-300 hover:text-white">Testimonianze</a>
-            <a href="contatti.html" class="block py-2 text-gray-300 hover:text-white">Contattami</a>
+            <a href="assessment.html" class="block py-2 text-gray-300">Tutti gli Assessment</a>
+            <a href="testimonianza.html" class="block py-2 text-gray-300">Testimonianze</a>
+            <a href="servizi-coach.html" class="block py-2 text-premium-champagne font-semibold">Per i Coach (B2B)</a>
+            <a href="area-riservata.html" class="block py-2 text-gray-300">Area Riservata</a>
+            <a href="contatti.html" class="block py-3 bg-premium-champagne text-premium-950 font-bold uppercase text-xs tracking-widest rounded">Prenota Discovery Call</a>
         </div>
     </header>
 
-    <main class="flex-grow pt-36 pb-24 relative px-6">
+    <main class="flex-grow pt-36 pb-24 relative px-6 z-10">
         <div class="max-w-7xl mx-auto">
             
             <div class="text-center mb-16">
                 <span class="text-premium-champagne text-xs uppercase tracking-[0.3em] font-semibold mb-3 block">Soluzioni di Trasformazione</span>
                 <h1 class="font-serif text-4xl md:text-5xl font-bold text-white mb-6">I Miei Percorsi di Coaching</h1>
-                <p class="text-gray-400 font-light text-lg max-w-2xl mx-auto">Percorsi strutturati secondo i più alti standard etici per massimizzare la performance individuale, sportiva, aziendale e di coppia.</p>
+                <p class="text-gray-400 font-light text-lg max-w-2xl mx-auto">
+                    Ogni percorso inizia con una mappatura oggettiva del tuo punto di partenza. Scegli la tua area e avvia direttamente l'assessment dedicato.
+                </p>
             </div>
 
             <!-- COUPLE COACHING -->
@@ -87,57 +99,99 @@
                             Un'area di intervento altamente specializzata che affianca i partner nel superamento dei blocchi comunicativi, nell'allineamento dei progetti di vita e nella gestione delle polarità decisionali. Utilizziamo il framework <strong class="text-white font-medium">ONE Match</strong> per tradurre le differenze individuali in una forza sinergica comune.
                         </p>
                         <div class="flex flex-wrap gap-4">
-                            <a href="couple-matching.html" class="btn-gold-solid">Fai l'Assessment di Coppia</a>
-                            <a href="contatti.html" class="border border-white/20 text-white hover:border-premium-champagne hover:text-premium-champagne transition-all py-4 px-8 text-xs font-semibold uppercase tracking-widest rounded inline-flex items-center">Richiedi Info</a>
+                            <a href="couple-matching.html" class="btn-gold-solid">Avvia Test di Coppia (ONE Match) →</a>
+                            <a href="contatti.html" class="border border-white/20 text-white hover:border-premium-champagne hover:text-premium-champagne transition-all py-4 px-8 text-xs font-semibold uppercase tracking-widest rounded inline-flex items-center">Prenota Call di Coppia</a>
                         </div>
                     </div>
                     <div class="lg:col-span-4 bg-premium-900/50 p-6 rounded-lg border border-white/5 text-left">
                         <h4 class="text-premium-champagne font-serif font-semibold mb-3">A chi è rivolto:</h4>
-                        <ul class="space-y-2 text-xs text-gray-300">
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-premium-champagne"></i> Coppie che affrontano transizioni importanti</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-premium-champagne"></i> Partner con obiettivi imprenditoriali comuni</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-premium-champagne"></i> Chi vuole sbloccare la sincronia decisionale</li>
+                        <ul class="space-y-2.5 text-xs text-gray-300">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#ff9ff3]"></i> Coppie che affrontano scelte o transizioni importanti</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#ff9ff3]"></i> Partner con progetti familiari o imprenditoriali comuni</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#ff9ff3]"></i> Chi vuole sbloccare la sincronia decisionale</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- ALTRI PERCORSI -->
+            <!-- I 3 PERCORSI INDIVIDUALI CON LINK DIRETTI AI TEST -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-                <div class="glass-panel p-8 rounded-lg text-center border-t-2 border-t-[#E5D0A1] flex flex-col justify-between">
+                <!-- LIFE COACHING -->
+                <div class="glass-panel p-8 rounded-xl border-t-4 border-t-[#E5D0A1] flex flex-col justify-between">
                     <div>
-                        <i data-lucide="user" class="w-10 h-10 text-[#E5D0A1] mx-auto mb-6"></i>
-                        <h3 class="text-xl font-serif text-white mb-4">Life Coaching</h3>
-                        <p class="text-gray-400 text-sm font-light mb-6">Sblocca il tuo potenziale inespresso e ritrova chiarezza decisionale per raggiungere i tuoi obiettivi personali.</p>
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#E5D0A1] mb-6 border border-[#E5D0A1]/20">
+                            <i data-lucide="user" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif text-white font-bold mb-3">Life Coaching</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6">
+                            Sblocca il tuo potenziale inespresso, supera fasi di stallo e ritrova chiarezza decisionale per raggiungere i tuoi obiettivi personali ed energetici.
+                        </p>
                     </div>
-                    <a href="assessment.html" class="text-xs uppercase tracking-widest text-[#E5D0A1] hover:underline font-semibold mt-auto">Fai l'Assessment →</a>
+                    <div class="space-y-2.5 pt-6 border-t border-white/5">
+                        <a href="assessment.html?test=ruota-vita" class="block w-full text-center py-3.5 px-4 rounded bg-[#E5D0A1] text-premium-950 font-bold text-xs uppercase tracking-wider hover:opacity-90 transition-opacity">
+                            1. Fai la Ruota della Vita →
+                        </a>
+                        <a href="assessment.html?test=one-profile" class="block w-full text-center py-2.5 px-4 rounded border border-white/10 text-gray-300 hover:border-[#feca57] hover:text-[#feca57] text-[11px] uppercase tracking-wider transition-colors">
+                            Oppure: Fai il ONE Profile →
+                        </a>
+                    </div>
                 </div>
 
-                <div class="glass-panel p-8 rounded-lg text-center border-t-2 border-t-[#8c7ae6] flex flex-col justify-between">
+                <!-- BUSINESS & EXECUTIVE -->
+                <div class="glass-panel p-8 rounded-xl border-t-4 border-t-[#8c7ae6] flex flex-col justify-between">
                     <div>
-                        <i data-lucide="briefcase" class="w-10 h-10 text-[#8c7ae6] mx-auto mb-6"></i>
-                        <h3 class="text-xl font-serif text-white mb-4">Business & Executive</h3>
-                        <p class="text-gray-400 text-sm font-light mb-6">Leadership esecutiva, negoziazione strategica, gestione del team e allineamento delle performance aziendali.</p>
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#8c7ae6] mb-6 border border-[#8c7ae6]/20">
+                            <i data-lucide="briefcase" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif text-white font-bold mb-3">Business & Executive</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6">
+                            Leadership esecutiva, negoziazione strategica, gestione del team, time management e prevenzione del sovraccarico mentale per manager e professionisti.
+                        </p>
                     </div>
-                    <a href="assessment.html" class="text-xs uppercase tracking-widest text-[#8c7ae6] hover:underline font-semibold mt-auto">Fai l'Assessment →</a>
+                    <div class="space-y-2.5 pt-6 border-t border-white/5">
+                        <a href="assessment.html?test=ruota-manager" class="block w-full text-center py-3.5 px-4 rounded bg-[#8c7ae6] text-white font-bold text-xs uppercase tracking-wider hover:opacity-90 transition-opacity">
+                            1. Fai la Ruota del Manager →
+                        </a>
+                        <a href="profilo-decisionale.html" class="block w-full text-center py-2.5 px-4 rounded border border-white/10 text-gray-300 hover:border-[#48dbfb] hover:text-[#48dbfb] text-[11px] uppercase tracking-wider transition-colors">
+                            Oppure: Profilo Decisionale →
+                        </a>
+                    </div>
                 </div>
 
-                <div class="glass-panel p-8 rounded-lg text-center border-t-2 border-t-[#ff6b6b] flex flex-col justify-between">
+                <!-- SPORT COACHING -->
+                <div class="glass-panel p-8 rounded-xl border-t-4 border-t-[#ff6b6b] flex flex-col justify-between">
                     <div>
-                        <i data-lucide="swords" class="w-10 h-10 text-[#ff6b6b] mx-auto mb-6"></i>
-                        <h3 class="text-xl font-serif text-white mb-4">Sport Coaching</h3>
-                        <p class="text-gray-400 text-sm font-light mb-6">Gestione della pressione agonistica, focus assoluto, stato di flow e tenuta mentale per atleti competitivi.</p>
+                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#ff6b6b] mb-6 border border-[#ff6b6b]/20">
+                            <i data-lucide="swords" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif text-white font-bold mb-3">Sport Mental Coaching</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-6">
+                            Gestione della pressione agonistica, routine pre-gara, stato di flow, recupero mentale e focus assoluto per fighter e atleti competitivi.
+                        </p>
                     </div>
-                    <a href="assessment.html" class="text-xs uppercase tracking-widest text-[#ff6b6b] hover:underline font-semibold mt-auto">Fai l'Assessment →</a>
+                    <div class="space-y-2.5 pt-6 border-t border-white/5">
+                        <a href="assessment.html?test=ruota-atleta" class="block w-full text-center py-3.5 px-4 rounded bg-[#ff6b6b] text-premium-950 font-bold text-xs uppercase tracking-wider hover:opacity-90 transition-opacity">
+                            1. Fai la Ruota dell'Atleta →
+                        </a>
+                        <a href="assessment.html?test=burnout" class="block w-full text-center py-2.5 px-4 rounded border border-white/10 text-gray-300 hover:border-[#1dd1a1] hover:text-[#1dd1a1] text-[11px] uppercase tracking-wider transition-colors">
+                            Oppure: Test Carico & Stress →
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <div class="glass-panel p-12 text-center rounded-xl border-t-2 border-t-premium-champagne max-w-4xl mx-auto">
-                <h3 class="text-3xl font-serif text-white font-bold mb-4">Qual è il tuo punto di partenza?</h3>
-                <p class="text-gray-400 mb-8 text-lg">Mappa le tue priorità individuali o di coppia prima di iniziare un percorso guidato.</p>
-                <a href="assessment.html" class="btn-gold-solid">
-                    Esplora l'Area Assessment <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
-                </a>
+            <!-- CTA FINALE -->
+            <div class="glass-panel p-10 md:p-12 text-center rounded-xl border-t-2 border-t-premium-champagne max-w-4xl mx-auto">
+                <h3 class="text-2xl md:text-3xl font-serif text-white font-bold mb-4">Vuoi confrontarti direttamente sui tuoi obiettivi?</h3>
+                <p class="text-gray-400 mb-8 text-base font-light">Prenota subito una sessione conoscitiva gratuita di 30 minuti su Calendly per definire il percorso più adatto a te.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="contatti.html" class="btn-gold-solid">
+                        Prenota Discovery Call su Calendly <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </a>
+                    <a href="assessment.html" class="border border-white/20 text-white hover:border-premium-champagne hover:text-premium-champagne transition-all py-4 px-8 text-xs font-semibold uppercase tracking-widest rounded">
+                        Vedi Tutti i 7 Assessment
+                    </a>
+                </div>
             </div>
 
         </div>
