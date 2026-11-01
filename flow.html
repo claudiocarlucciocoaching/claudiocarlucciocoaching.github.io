@@ -17,7 +17,7 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { premium: { 950: '#050505', 900: '#0a0a0a', 800: '#141414', champagne: '#E5D0A1' } },
+                    colors: { premium: { 950: '#040404', 900: '#0a0a0a', 800: '#141414', champagne: '#E5D0A1' } },
                     fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
                 }
             }
@@ -26,22 +26,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
     <style>
-        body { background-color: #050505; color: #f5f5f5; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+        body { background-color: #040404; color: #f5f5f5; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
         
-        /* GRIGLIA ARCHITETTONICA E AURA DINAMICA */
         .bg-luxury-grid {
             position: fixed; inset: 0; pointer-events: none; z-index: 0;
-            background-size: 50px 50px;
+            background-size: 48px 48px;
             background-image: 
-                linear-gradient(to right, rgba(229, 208, 161, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(229, 208, 161, 0.03) 1px, transparent 1px);
-            mask-image: radial-gradient(ellipse at 50% 25%, black 25%, transparent 80%);
-            -webkit-mask-image: radial-gradient(ellipse at 50% 25%, black 25%, transparent 80%);
+                linear-gradient(to right, rgba(229, 208, 161, 0.035) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(229, 208, 161, 0.035) 1px, transparent 1px);
+            mask-image: radial-gradient(ellipse at 50% 25%, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at 50% 25%, black 30%, transparent 80%);
         }
         #dynamic-aura {
             position: fixed; top: -160px; left: 50%; transform: translateX(-50%);
-            width: 850px; height: 500px;
-            background: radial-gradient(circle, rgba(229, 208, 161, 0.13) 0%, rgba(5, 5, 5, 0) 70%);
+            width: 900px; height: 520px;
+            background: radial-gradient(circle, rgba(229, 208, 161, 0.13) 0%, rgba(4, 4, 4, 0) 70%);
             pointer-events: none; z-index: 0; transition: background 0.8s ease;
         }
         .gold-gradient-text { background: linear-gradient(135deg, #FFF7DF 0%, #E5D0A1 45%, #B89768 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -52,6 +51,7 @@
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
         .glass-panel {
+            position: relative;
             background: linear-gradient(160deg, rgba(22, 22, 22, 0.85) 0%, rgba(10, 10, 10, 0.92) 100%);
             backdrop-filter: blur(24px);
             border: 1px solid rgba(229, 208, 161, 0.16);
@@ -65,18 +65,23 @@
         }
         .animate-question { animation: fadeSlideUp 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-        /* CARD CATEGORIE CON EFFETTO SPOTLIGHT */
+        /* CARD CATEGORIE CON SPOTLIGHT */
         .cat-card {
             position: relative; overflow: hidden;
-            background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(229, 208, 161, 0.11), rgba(255, 255, 255, 0.02) 60%);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 14px; padding: 28px 20px; text-align: center; cursor: pointer;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        .cat-card::before {
+            content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.3s;
+            background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(229, 208, 161, 0.14), transparent 60%);
+        }
+        .cat-card:hover::before { opacity: 1; }
         .cat-card:hover {
             transform: translateY(-6px);
-            border-color: rgba(229, 208, 161, 0.55);
-            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.85), 0 0 25px -5px rgba(229, 208, 161, 0.15);
+            border-color: rgba(229, 208, 161, 0.5);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.85), 0 0 25px -5px rgba(229, 208, 161, 0.14);
         }
 
         /* OPZIONI CON BADGE A/B/C */
@@ -197,7 +202,6 @@
                 </p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
-                    <!-- BUSINESS -->
                     <div class="cat-card border-t-2 border-t-[#8c7ae6] group" onclick="selectCategory('business')">
                         <span class="inline-block text-[9px] uppercase tracking-widest px-2.5 py-0.5 rounded bg-[#8c7ae6]/15 text-[#8c7ae6] font-bold mb-4">Executive & Team</span>
                         <div class="w-14 h-14 rounded-2xl bg-premium-900 flex items-center justify-center text-[#8c7ae6] mx-auto mb-4 border border-[#8c7ae6]/30 group-hover:scale-110 transition-transform">
@@ -210,7 +214,6 @@
                         </span>
                     </div>
 
-                    <!-- SPORT -->
                     <div class="cat-card border-t-2 border-t-[#ff6b6b] group" onclick="selectCategory('sport')">
                         <span class="inline-block text-[9px] uppercase tracking-widest px-2.5 py-0.5 rounded bg-[#ff6b6b]/15 text-[#ff6b6b] font-bold mb-4">Agonismo & Staff</span>
                         <div class="w-14 h-14 rounded-2xl bg-premium-900 flex items-center justify-center text-[#ff6b6b] mx-auto mb-4 border border-[#ff6b6b]/30 group-hover:scale-110 transition-transform">
@@ -223,7 +226,6 @@
                         </span>
                     </div>
 
-                    <!-- GENITORIALITÀ -->
                     <div class="cat-card border-t-2 border-t-[#E5D0A1] group" onclick="selectCategory('parenting')">
                         <span class="inline-block text-[9px] uppercase tracking-widest px-2.5 py-0.5 rounded bg-[#E5D0A1]/15 text-[#E5D0A1] font-bold mb-4">Relazione & Guida</span>
                         <div class="w-14 h-14 rounded-2xl bg-premium-900 flex items-center justify-center text-[#E5D0A1] mx-auto mb-4 border border-[#E5D0A1]/30 group-hover:scale-110 transition-transform">
@@ -263,7 +265,7 @@
                 </div>
             </div>
 
-            <!-- STEP 2: QUIZ CON STEPPER SEGMENTATO E BADGE ASSE -->
+            <!-- STEP 2: QUIZ CON STEPPER SEGMENTATO -->
             <div id="step-quiz" class="hidden-step">
                 <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
                     <div class="flex items-center gap-2">
@@ -273,7 +275,6 @@
                     <span id="counter-domanda" class="text-[11px] uppercase tracking-widest text-gray-400 font-semibold">Domanda 1 di 6</span>
                 </div>
 
-                <!-- Stepper a 6 tacche -->
                 <div class="flex gap-2 mb-6" id="segmented-stepper">
                     <div class="step-seg"></div>
                     <div class="step-seg"></div>
@@ -285,7 +286,7 @@
 
                 <div id="question-box" class="animate-question">
                     <div class="text-center mb-3">
-                        <span id="axis-pill" class="inline-block text-[10px] uppercase tracking-[0.2em] px-3.5 py-1 rounded-full bg-white/5 text-premium-champagne border border-premium-champagne/30 font-semibold">
+                        <span id="axis-pill" class="inline-block text-[10px] uppercase tracking-[0.2em] px-3.5 py-1 rounded-full bg-white/5 text-gray-300 border border-white/10">
                             Asse 01 • Comunicazione & Empatia
                         </span>
                     </div>
@@ -300,7 +301,7 @@
                 </button>
             </div>
 
-            <!-- STEP 3: LEAD GATE OBBLIGATORIO (VERO FORM FORMSUBMIT) -->
+            <!-- STEP 3: LEAD GATE OBBLIGATORIO -->
             <div id="step-lead" class="hidden-step text-center animate-question">
                 <div class="w-14 h-14 rounded-full bg-premium-champagne/10 text-premium-champagne flex items-center justify-center mx-auto mb-4 border border-premium-champagne/30 shadow-[0_0_25px_rgba(229,208,161,0.2)]">
                     <i data-lucide="lock" class="w-6 h-6"></i>
@@ -308,7 +309,7 @@
                 <span class="inline-block text-[10px] uppercase tracking-widest px-3 py-1 rounded bg-premium-champagne/15 text-premium-champagne font-bold mb-2">Elaborazione Completata al 100%</span>
                 <h2 class="font-serif text-2xl md:text-3xl font-bold text-white mb-2">Sblocca la Tua Dashboard FLOW</h2>
                 <p class="text-gray-400 text-xs md:text-sm font-light mb-6 max-w-md mx-auto leading-relaxed">
-                    Abbiamo calcolato il tuo Flow Index complessivo e il punteggio sui 3 assi. Inserisci i tuoi recapiti per sbloccare la diagnosi interattiva e inviarla al Coach.
+                    Abbiamo calcolato il tuo Indice di Flow complessivo e il punteggio sui 3 assi. Inserisci i tuoi recapiti per visualizzare la diagnosi interattiva e inviarla al Coach.
                 </p>
 
                 <form id="lead-form" action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" target="hidden_iframe_flow" onsubmit="return gestisciSubmitFlow()" class="max-w-md mx-auto">
@@ -318,7 +319,7 @@
                     
                     <input type="hidden" name="Ambito_FLOW" id="h-ambito" value="">
                     <input type="hidden" name="Profilo_Emerso" id="h-profilo" value="">
-                    <input type="hidden" name="Flow_Index_Percentuale" id="h-perc" value="">
+                    <input type="hidden" name="Indice_Flow_Percentuale" id="h-perc" value="">
                     <input type="hidden" name="Punteggio_Totale" id="h-totale" value="">
                     <input type="hidden" name="Asse_Comunicazione_Empatia" id="h-com" value="">
                     <input type="hidden" name="Asse_Ecologia_Biologica" id="h-bio" value="">
@@ -342,32 +343,62 @@
                 </form>
             </div>
 
-            <!-- STEP 4: DASHBOARD RISULTATI CON ANELLO FLOW INDEX + GRAFICO 3 ASSI -->
+            <!-- STEP 4: DASHBOARD RISULTATI CON ANELLO SVG + BARRE + CHART.JS -->
             <div id="step-result" class="hidden-step text-center animate-question">
-                <span id="result-category-badge" class="inline-block text-[10px] uppercase tracking-widest px-3 py-1 rounded bg-premium-champagne/15 text-premium-champagne font-bold mb-2">Profilo FLOW</span>
-                <h2 id="result-title" class="font-serif text-2xl md:text-3xl font-bold text-white mb-6">Dashboard del Tuo Sistema</h2>
+                <span id="result-category-badge" class="inline-block text-[10px] uppercase tracking-widest px-3.5 py-1 rounded-full bg-premium-champagne/15 text-premium-champagne font-bold mb-2">Profilo FLOW</span>
+                <h2 id="result-title" class="font-serif text-2xl md:text-3xl font-bold text-white mb-8">Analisi del Tuo Sistema</h2>
 
-                <!-- RIGA SUPERIORE: ANELLO FLOW INDEX + GRAFICO CHART.JS -->
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-premium-900/60 p-6 rounded-xl border border-white/10 mb-6">
+                <!-- TOP DASHBOARD: ANELLO FLOW INDEX + 3 BARRE ASSI -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-premium-900/70 p-6 rounded-2xl border border-white/10 mb-6">
                     <!-- Anello Circolare SVG -->
-                    <div class="md:col-span-5 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-white/10 pb-6 md:pb-0 md:pr-4">
+                    <div class="md:col-span-5 flex flex-col items-center justify-center">
                         <div class="relative w-36 h-36 flex items-center justify-center">
                             <svg class="w-full h-full -rotate-90" viewBox="0 0 120 120">
-                                <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="9"></circle>
-                                <circle id="flow-ring-circle" cx="60" cy="60" r="50" fill="none" stroke="#E5D0A1" stroke-width="9" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314" style="transition: stroke-dashoffset 1.2s cubic-bezier(0.16, 1, 0.3, 1);"></circle>
+                                <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="8"></circle>
+                                <circle id="flow-ring-circle" cx="60" cy="60" r="50" fill="none" stroke="#E5D0A1" stroke-width="8" stroke-linecap="round" stroke-dasharray="314.16" stroke-dashoffset="314.16" style="transition: stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1);"></circle>
                             </svg>
                             <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                <span id="flow-index-number" class="font-serif text-3xl font-bold text-white">0%</span>
-                                <span class="text-[9px] uppercase tracking-widest text-premium-champagne font-semibold mt-0.5">Flow Index</span>
+                                <span id="flow-score-perc" class="font-serif text-3xl font-bold text-white">0%</span>
+                                <span class="text-[9px] uppercase tracking-widest text-premium-champagne font-semibold">Flow Index</span>
                             </div>
                         </div>
-                        <p class="text-[11px] text-gray-400 mt-3 font-light">Indice globale di allineamento</p>
                     </div>
 
-                    <!-- Grafico a Barre dei 3 Assi -->
-                    <div class="md:col-span-7">
-                        <canvas id="grafico-flow" height="175"></canvas>
+                    <!-- Barre Orizzontali dei 3 Assi -->
+                    <div class="md:col-span-7 space-y-4 text-left">
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="text-gray-300 font-medium">1. Comunicazione & Empatia Tattica</span>
+                                <strong id="lbl-com" class="text-[#8c7ae6]">0%</strong>
+                            </div>
+                            <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                                <div id="bar-com" class="h-full bg-[#8c7ae6] rounded-full transition-all duration-1000" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="text-gray-300 font-medium">2. Ecologia Biologica & Ritmi</span>
+                                <strong id="lbl-bio" class="text-[#1dd1a1]">0%</strong>
+                            </div>
+                            <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                                <div id="bar-bio" class="h-full bg-[#1dd1a1] rounded-full transition-all duration-1000" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="text-gray-300 font-medium">3. Allineamento & Stato di Flow</span>
+                                <strong id="lbl-flow" class="text-[#E5D0A1]">0%</strong>
+                            </div>
+                            <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                                <div id="bar-flow" class="h-full bg-[#E5D0A1] rounded-full transition-all duration-1000" style="width: 0%"></div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                <!-- Grafico Chart.js -->
+                <div class="bg-premium-900/50 p-4 rounded-xl border border-white/5 mb-6">
+                    <canvas id="grafico-flow" height="170"></canvas>
                 </div>
 
                 <!-- Box Diagnosi -->
@@ -378,7 +409,9 @@
 
                 <!-- Box Strategia Raccomandata -->
                 <div class="bg-premium-champagne/10 border-l-4 border-premium-champagne p-5 rounded-r-xl mb-8 text-left">
-                    <p class="text-xs uppercase tracking-widest text-premium-champagne font-bold mb-1.5">Strategia d'Azione Raccomandata:</p>
+                    <p class="text-xs uppercase tracking-widest text-premium-champagne font-bold mb-1.5 flex items-center gap-2">
+                        <i data-lucide="compass" class="w-4 h-4"></i> Strategia d'Azione Raccomandata:
+                    </p>
                     <p id="result-action" class="text-gray-100 text-xs md:text-sm font-light leading-relaxed"></p>
                 </div>
 
@@ -397,7 +430,7 @@
     <script>
         lucide.createIcons();
 
-        // Effetto Spotlight sulle Card
+        // Effetto Spotlight sulle card
         document.querySelectorAll('.cat-card').forEach(card => {
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
@@ -412,15 +445,15 @@
             parenting: "Genitorialità & Crescita"
         };
 
-        const auraColors = {
-            business: "radial-gradient(circle, rgba(140, 122, 230, 0.16) 0%, rgba(5, 5, 5, 0) 70%)",
-            sport: "radial-gradient(circle, rgba(255, 107, 107, 0.16) 0%, rgba(5, 5, 5, 0) 70%)",
-            parenting: "radial-gradient(circle, rgba(229, 208, 161, 0.16) 0%, rgba(5, 5, 5, 0) 70%)"
+        const catThemes = {
+            business: { border: "#8c7ae6", aura: "radial-gradient(circle, rgba(140, 122, 230, 0.16) 0%, rgba(4, 4, 4, 0) 70%)" },
+            sport: { border: "#ff6b6b", aura: "radial-gradient(circle, rgba(255, 107, 107, 0.16) 0%, rgba(4, 4, 4, 0) 70%)" },
+            parenting: { border: "#E5D0A1", aura: "radial-gradient(circle, rgba(229, 208, 161, 0.16) 0%, rgba(4, 4, 4, 0) 70%)" }
         };
 
         const axisLabels = {
             com: "Asse 01 • Comunicazione & Empatia Tattica",
-            bio: "Asse 02 • Ecologia Biologica & Ritmi",
+            bio: "Asse 02 • Ecologia Biologica & Recupero",
             flow: "Asse 03 • Allineamento & Stato di Flow"
         };
 
@@ -600,7 +633,6 @@
         let selectedChoice = null;
         let axisScores = { com: 0, bio: 0, flow: 0 };
         let userAnswersLog = [];
-        let chartInstance = null;
 
         function showStep(stepId) {
             ['step-category', 'step-quiz', 'step-lead', 'step-result'].forEach(id => {
@@ -610,7 +642,8 @@
         }
 
         function resetToCategories() {
-            document.getElementById('dynamic-aura').style.background = auraColors.parenting;
+            document.getElementById('main-card').style.borderTopColor = '#E5D0A1';
+            document.getElementById('dynamic-aura').style.background = "radial-gradient(circle, rgba(229, 208, 161, 0.13) 0%, rgba(4, 4, 4, 0) 70%)";
             showStep('step-category');
         }
 
@@ -620,7 +653,8 @@
             axisScores = { com: 0, bio: 0, flow: 0 };
             userAnswersLog = [];
             document.getElementById('cat-active-label').innerText = catNames[cat];
-            document.getElementById('dynamic-aura').style.background = auraColors[cat];
+            document.getElementById('main-card').style.borderTopColor = catThemes[cat].border;
+            document.getElementById('dynamic-aura').style.background = catThemes[cat].aura;
             showStep('step-quiz');
             renderQuestion();
         }
@@ -633,19 +667,19 @@
             const qList = questionsData[currentCategory];
             const qData = qList[currentQuestion];
             
-            document.getElementById('btn-prossima-text').innerText = (currentQuestion === qList.length - 1) ? "Completa Diagnosi FLOW" : "Prossima Domanda";
+            document.getElementById('btn-prossima-text').innerText = (currentQuestion === qList.length - 1) ? "Completa Mappatura FLOW" : "Prossima Domanda";
             document.getElementById('counter-domanda').innerText = `Domanda ${currentQuestion + 1} di ${qList.length}`;
             document.getElementById('axis-pill').innerText = axisLabels[qData.axis];
 
-            // Aggiorna Stepper a 6 tacche
+            // Aggiorna le 6 tacche dello stepper
             const segs = document.querySelectorAll('#segmented-stepper .step-seg');
             segs.forEach((s, idx) => {
-                s.className = 'step-seg';
+                s.classList.remove('done', 'current');
                 if (idx < currentQuestion) s.classList.add('done');
                 else if (idx === currentQuestion) s.classList.add('current');
             });
 
-            // Ri-anima il box domanda
+            // Animazione cambio domanda
             const qBox = document.getElementById('question-box');
             qBox.classList.remove('animate-question');
             void qBox.offsetWidth;
@@ -734,12 +768,12 @@
 
         function preparaFormLead() {
             const totale = axisScores.com + axisScores.bio + axisScores.flow;
-            const percGlobale = Math.round((totale / 18) * 100);
+            const percTot = Math.round((totale / 18) * 100);
             const infoProfilo = calcolaProfiloTestuale(totale, currentCategory);
 
             document.getElementById('h-ambito').value = catNames[currentCategory];
             document.getElementById('h-profilo').value = infoProfilo.nome;
-            document.getElementById('h-perc').value = `${percGlobale}%`;
+            document.getElementById('h-perc').value = `${percTot}%`;
             document.getElementById('h-totale').value = `${totale} su 18`;
             document.getElementById('h-com').value = `${axisScores.com} su 6`;
             document.getElementById('h-bio').value = `${axisScores.bio} su 6`;
@@ -765,38 +799,46 @@
 
         function mostraRisultatiFinali(nome) {
             const totale = axisScores.com + axisScores.bio + axisScores.flow;
-            const percGlobale = Math.round((totale / 18) * 100);
+            const percTot = Math.round((totale / 18) * 100);
             const infoProfilo = calcolaProfiloTestuale(totale, currentCategory);
 
             document.getElementById('result-category-badge').innerText = "FLOW • " + catNames[currentCategory];
-            document.getElementById('result-title').innerText = `Dashboard FLOW per ${nome}`;
+            document.getElementById('result-title').innerText = `Dashboard FLOW di ${nome}`;
             document.getElementById('result-profile-name').innerText = infoProfilo.nome;
             document.getElementById('result-desc').innerText = infoProfilo.desc;
             document.getElementById('result-action').innerText = infoProfilo.azione;
 
             showStep('step-result');
 
-            // Anima l'anello circolare Flow Index
-            setTimeout(() => {
-                const circumference = 314;
-                const offset = circumference - (percGlobale / 100) * circumference;
-                document.getElementById('flow-ring-circle').style.strokeDashoffset = offset;
-                document.getElementById('flow-index-number').innerText = percGlobale + '%';
-            }, 150);
-
             const pCom = Math.round((axisScores.com / 6) * 100);
             const pBio = Math.round((axisScores.bio / 6) * 100);
             const pFlow = Math.round((axisScores.flow / 6) * 100);
 
-            if (chartInstance) chartInstance.destroy();
-            chartInstance = new Chart(document.getElementById('grafico-flow').getContext('2d'), {
+            // Anima Anello Circolare SVG e Barre Orizzontali
+            setTimeout(() => {
+                const circumference = 314.16;
+                const offset = circumference - (percTot / 100) * circumference;
+                document.getElementById('flow-ring-circle').style.strokeDashoffset = offset;
+                document.getElementById('flow-score-perc').innerText = percTot + '%';
+
+                document.getElementById('lbl-com').innerText = pCom + '%';
+                document.getElementById('bar-com').style.width = pCom + '%';
+
+                document.getElementById('lbl-bio').innerText = pBio + '%';
+                document.getElementById('bar-bio').style.width = pBio + '%';
+
+                document.getElementById('lbl-flow').innerText = pFlow + '%';
+                document.getElementById('bar-flow').style.width = pFlow + '%';
+            }, 120);
+
+            new Chart(document.getElementById('grafico-flow').getContext('2d'), {
                 type: 'bar',
                 data: {
-                    labels: ['Empatia Tattica', 'Ecologia Biologica', 'Stato di Flow'],
+                    labels: ['Empatia Tattica', 'Ecologia Biologica', 'Allineamento Flow'],
                     datasets: [{
-                        label: 'Allineamento (%)',
+                        label: 'Indice di Allineamento (%)',
                         data: [pCom, pBio, pFlow],
-                        backgroundColor: ['rgba(140, 122, 230, 0.7)', 'rgba(29, 209, 161, 0.7)', 'rgba(229, 208, 161, 0.8)'],
+                        backgroundColor: ['rgba(140, 122, 230, 0.65)', 'rgba(29, 209, 161, 0.65)', 'rgba(229, 208, 161, 0.75)'],
                         borderColor: ['#8c7ae6', '#1dd1a1', '#E5D0A1'],
                         borderWidth: 1.5,
                         borderRadius: 6
@@ -804,7 +846,7 @@
                 },
                 options: {
                     scales: {
-                        y: { grid: { color: 'rgba(255,255,255,0.07)' }, ticks: { color: '#fff', callback: v => v + '%' }, min: 0, max: 100 },
+                        y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#fff', callback: v => v + '%' }, min: 0, max: 100 },
                         x: { grid: { display: false }, ticks: { color: '#E5D0A1', font: { size: 11, family: "'Inter', sans-serif" } } }
                     },
                     plugins: { legend: { display: false } }
