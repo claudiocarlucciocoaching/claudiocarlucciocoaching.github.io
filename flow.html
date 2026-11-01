@@ -27,72 +27,118 @@
 
     <style>
         body { background-color: #050505; color: #f5f5f5; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+        
+        /* GRIGLIA ARCHITETTONICA E AURA DINAMICA */
         .bg-luxury-grid {
             position: fixed; inset: 0; pointer-events: none; z-index: 0;
-            background-size: 55px 55px;
+            background-size: 50px 50px;
             background-image: 
                 linear-gradient(to right, rgba(229, 208, 161, 0.03) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(229, 208, 161, 0.03) 1px, transparent 1px);
-            mask-image: radial-gradient(ellipse at 50% 20%, black 25%, transparent 80%);
-            -webkit-mask-image: radial-gradient(ellipse at 50% 20%, black 25%, transparent 80%);
+            mask-image: radial-gradient(ellipse at 50% 25%, black 25%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at 50% 25%, black 25%, transparent 80%);
         }
-        .ambient-glow { position: fixed; top: -150px; left: 50%; transform: translateX(-50%); width: 750px; height: 420px; background: radial-gradient(circle, rgba(229, 208, 161, 0.09) 0%, rgba(5, 5, 5, 0) 70%); pointer-events: none; z-index: 0; }
-        .gold-gradient-text { background: linear-gradient(135deg, #FFF5D6 0%, #E5D0A1 50%, #B89768 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        #dynamic-aura {
+            position: fixed; top: -160px; left: 50%; transform: translateX(-50%);
+            width: 850px; height: 500px;
+            background: radial-gradient(circle, rgba(229, 208, 161, 0.13) 0%, rgba(5, 5, 5, 0) 70%);
+            pointer-events: none; z-index: 0; transition: background 0.8s ease;
+        }
+        .gold-gradient-text { background: linear-gradient(135deg, #FFF7DF 0%, #E5D0A1 45%, #B89768 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
         .nav-link { position: relative; color: #a3a3a3; transition: color 0.3s ease; }
         .nav-link:hover, .nav-link.active { color: #ffffff; }
         .nav-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #E5D0A1; transition: width 0.3s ease; }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-        .glass-panel { background: rgba(18, 18, 18, 0.75); backdrop-filter: blur(22px); border: 1px solid rgba(229, 208, 161, 0.15); }
+        .glass-panel {
+            background: linear-gradient(160deg, rgba(22, 22, 22, 0.85) 0%, rgba(10, 10, 10, 0.92) 100%);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(229, 208, 161, 0.16);
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85), 0 0 35px -10px rgba(229, 208, 161, 0.08);
+        }
         .hidden-step { display: none !important; }
 
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-question { animation: fadeSlideUp 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        /* CARD CATEGORIE CON EFFETTO SPOTLIGHT */
         .cat-card {
-            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 10px; padding: 24px 18px; text-align: center; cursor: pointer;
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative; overflow: hidden;
+            background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(229, 208, 161, 0.11), rgba(255, 255, 255, 0.02) 60%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px; padding: 28px 20px; text-align: center; cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .cat-card:hover { transform: translateY(-4px); background: rgba(229, 208, 161, 0.05); border-color: #E5D0A1; box-shadow: 0 15px 30px -10px rgba(0,0,0,0.7); }
-
-        .input-lead { 
-            width: 100%; padding: 15px 18px; margin: 8px 0; box-sizing: border-box; 
-            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.12); 
-            color: white; border-radius: 6px; font-size: 14px; outline: none; transition: border-color 0.3s; 
+        .cat-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(229, 208, 161, 0.55);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.85), 0 0 25px -5px rgba(229, 208, 161, 0.15);
         }
-        .input-lead:focus { border-color: #E5D0A1; background: rgba(229, 208, 161, 0.03); }
 
+        /* OPZIONI CON BADGE A/B/C */
         .tasto-opzione { 
-            display: block; width: 100%; padding: 16px 20px; margin: 10px 0; 
-            background: rgba(255, 255, 255, 0.02); color: #e5e5e5; border: 1px solid rgba(229, 208, 161, 0.25); 
-            border-radius: 6px; font-size: 13.5px; font-weight: 400; text-align: left; line-height: 1.5;
-            cursor: pointer; transition: all 0.2s ease; outline: none !important; -webkit-tap-highlight-color: transparent;
+            display: flex; align-items: center; gap: 16px; width: 100%; padding: 16px 20px; margin: 10px 0; 
+            background: rgba(255, 255, 255, 0.02); color: #e5e5e5; border: 1px solid rgba(229, 208, 161, 0.2); 
+            border-radius: 10px; font-size: 13.5px; font-weight: 400; text-align: left; line-height: 1.5;
+            cursor: pointer; transition: all 0.25s ease; outline: none !important; -webkit-tap-highlight-color: transparent;
+        }
+        .letter-badge {
+            width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; font-weight: 700;
+            background: rgba(229, 208, 161, 0.08); color: #E5D0A1;
+            border: 1px solid rgba(229, 208, 161, 0.3); transition: all 0.25s ease;
         }
         @media (hover: hover) {
-            .tasto-opzione:hover { border-color: #E5D0A1; background: rgba(229, 208, 161, 0.08); color: #fff; }
+            .tasto-opzione:hover { border-color: rgba(229, 208, 161, 0.6); background: rgba(229, 208, 161, 0.06); color: #fff; transform: translateX(4px); }
         }
         .tasto-opzione.selezionato {
-            background: #E5D0A1 !important; color: #050505 !important; font-weight: 600 !important;
-            border-color: #E5D0A1 !important; box-shadow: 0 0 18px rgba(229, 208, 161, 0.25);
+            background: linear-gradient(135deg, rgba(229, 208, 161, 0.2) 0%, rgba(197, 168, 128, 0.08) 100%) !important;
+            color: #ffffff !important; font-weight: 500 !important;
+            border-color: #E5D0A1 !important; box-shadow: 0 0 22px rgba(229, 208, 161, 0.22);
         }
+        .tasto-opzione.selezionato .letter-badge {
+            background: #E5D0A1 !important; color: #050505 !important; border-color: #E5D0A1 !important;
+            box-shadow: 0 0 12px rgba(229, 208, 161, 0.6);
+        }
+
+        .input-lead { 
+            width: 100%; padding: 15px 18px; margin: 6px 0; box-sizing: border-box; 
+            background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.12); 
+            color: white; border-radius: 8px; font-size: 14px; outline: none; transition: border-color 0.3s; 
+        }
+        .input-lead:focus { border-color: #E5D0A1; background: rgba(229, 208, 161, 0.04); }
 
         .btn-gold-solid { 
             position: relative; overflow: hidden;
-            display: block; width: 100%; padding: 17px; margin-top: 20px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; padding: 17px; margin-top: 22px;
             background: linear-gradient(135deg, #E5D0A1 0%, #C5A880 100%); color: #050505; 
-            border: none; border-radius: 6px; font-size: 12px; font-weight: 700; 
+            border: none; border-radius: 8px; font-size: 12px; font-weight: 700; 
             text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease;
         }
-        .btn-gold-solid:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(229, 208, 161, 0.35); }
-        .btn-gold-solid:disabled { opacity: 0.3; cursor: not-allowed; }
+        .btn-gold-solid::after {
+            content: ''; position: absolute; top: -50%; left: -60%; width: 40%; height: 200%;
+            background: rgba(255, 255, 255, 0.35); transform: rotate(30deg);
+            transition: all 0.65s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .btn-gold-solid:hover:not(:disabled)::after { left: 130%; }
+        .btn-gold-solid:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 28px -6px rgba(229, 208, 161, 0.4); }
+        .btn-gold-solid:disabled { opacity: 0.25; cursor: not-allowed; }
 
-        .progress-container { width: 100%; background: #141414; height: 4px; border-radius: 10px; margin-bottom: 24px; overflow: hidden; border: 1px solid rgba(229, 208, 161, 0.1); }
-        #progress-fill { height: 100%; background: #E5D0A1; width: 16.6%; transition: width 0.4s ease; }
+        .step-seg { height: 5px; border-radius: 99px; background: rgba(255,255,255,0.08); transition: all 0.35s ease; flex: 1; }
+        .step-seg.done { background: rgba(229, 208, 161, 0.45); }
+        .step-seg.current { background: #E5D0A1; box-shadow: 0 0 10px rgba(229, 208, 161, 0.6); }
     </style>
 </head>
 <body class="antialiased selection:bg-premium-champagne selection:text-premium-950">
 
     <div class="bg-luxury-grid"></div>
-    <div class="ambient-glow"></div>
+    <div id="dynamic-aura"></div>
 
     <!-- IFRAME INVISIBILE PER POST NATIVO FORMSUBMIT -->
     <iframe name="hidden_iframe_flow" id="hidden_iframe_flow" style="display:none;"></iframe>
@@ -130,83 +176,149 @@
     </header>
 
     <main class="flex-grow pt-32 pb-24 px-6 flex flex-col items-center justify-center relative z-10">
-        <div class="max-w-2xl w-full glass-panel p-8 md:p-12 rounded-2xl shadow-2xl border-t-2 border-t-premium-champagne relative">
+        <div id="main-card" class="max-w-3xl w-full glass-panel p-8 md:p-12 rounded-2xl border-t-2 border-t-premium-champagne relative transition-colors duration-500">
             
-            <!-- INTESTAZIONE -->
-            <div class="text-center border-b border-white/5 pb-6 mb-8 relative">
-                <a href="assessment.html" class="absolute left-0 top-1 text-gray-500 hover:text-white transition-colors" title="Torna agli Assessment"><i data-lucide="arrow-left" class="w-5 h-5"></i></a>
-                <span class="text-premium-champagne text-xs uppercase tracking-[0.3em] font-semibold block mb-1">Mappatura Bio-Relazionale & Performance</span>
-                <h1 class="font-serif text-4xl md:text-5xl font-bold tracking-[0.15em] uppercase gold-gradient-text">FLOW</h1>
+            <!-- INTESTAZIONE LUXURY -->
+            <div class="text-center border-b border-white/10 pb-7 mb-8 relative">
+                <a href="assessment.html" class="absolute left-0 top-1 text-gray-400 hover:text-white transition-colors inline-flex items-center gap-1.5 text-xs uppercase tracking-widest" title="Torna agli Assessment">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> <span class="hidden sm:inline">Hub</span>
+                </a>
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-premium-champagne/10 border border-premium-champagne/25 text-premium-champagne text-[10px] uppercase tracking-[0.25em] font-semibold mb-3">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Protocollo Diagnostico Bio-Relazionale
+                </div>
+                <h1 class="font-serif text-4xl md:text-6xl font-bold tracking-[0.18em] uppercase gold-gradient-text">FLOW</h1>
+                <p class="text-xs text-gray-400 font-light tracking-widest uppercase mt-2">Comunicazione • Ecologia Biologica • Peak State</p>
             </div>
 
             <!-- STEP 1: SCELTA AMBITO OPERATIVO -->
-            <div id="step-category">
-                <p class="text-gray-300 text-sm font-light text-center leading-relaxed mb-8">
-                    Individua gli attriti biologici, emotivi e comunicativi che frenano il tuo sistema sotto pressione e sblocca le condizioni per entrare in stato di <strong class="text-white font-medium">Flow</strong>. Seleziona il tuo ambito principale:
+            <div id="step-category" class="animate-question">
+                <p class="text-gray-300 text-sm md:text-base font-light text-center max-w-xl mx-auto leading-relaxed mb-8">
+                    Individua gli attriti invisibili che frenano il tuo sistema sotto pressione e sblocca le condizioni per entrare in stato di <strong class="text-white font-medium">Flow</strong>. Seleziona il tuo ambito operativo:
                 </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="cat-card border-t-2 border-t-[#8c7ae6]" onclick="selectCategory('business')">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#8c7ae6] mx-auto mb-4 border border-[#8c7ae6]/30">
-                            <i data-lucide="briefcase" class="w-5 h-5"></i>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+                    <!-- BUSINESS -->
+                    <div class="cat-card border-t-2 border-t-[#8c7ae6] group" onclick="selectCategory('business')">
+                        <span class="inline-block text-[9px] uppercase tracking-widest px-2.5 py-0.5 rounded bg-[#8c7ae6]/15 text-[#8c7ae6] font-bold mb-4">Executive & Team</span>
+                        <div class="w-14 h-14 rounded-2xl bg-premium-900 flex items-center justify-center text-[#8c7ae6] mx-auto mb-4 border border-[#8c7ae6]/30 group-hover:scale-110 transition-transform">
+                            <i data-lucide="briefcase" class="w-6 h-6"></i>
                         </div>
-                        <h3 class="font-serif text-lg font-bold text-white mb-2">Business & Manager</h3>
-                        <p class="text-xs text-gray-400 font-light leading-relaxed">Per imprenditori, team leader, dirigenti e professionisti.</p>
+                        <h3 class="font-serif text-xl font-bold text-white mb-2">Business & Manager</h3>
+                        <p class="text-xs text-gray-400 font-light leading-relaxed mb-5">Per imprenditori, dirigenti, team leader e professionisti ad alto carico decisionale.</p>
+                        <span class="text-[11px] uppercase tracking-widest text-[#8c7ae6] font-bold inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Avvia Diagnosi <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </span>
                     </div>
 
-                    <div class="cat-card border-t-2 border-t-[#ff6b6b]" onclick="selectCategory('sport')">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#ff6b6b] mx-auto mb-4 border border-[#ff6b6b]/30">
-                            <i data-lucide="trophy" class="w-5 h-5"></i>
+                    <!-- SPORT -->
+                    <div class="cat-card border-t-2 border-t-[#ff6b6b] group" onclick="selectCategory('sport')">
+                        <span class="inline-block text-[9px] uppercase tracking-widest px-2.5 py-0.5 rounded bg-[#ff6b6b]/15 text-[#ff6b6b] font-bold mb-4">Agonismo & Staff</span>
+                        <div class="w-14 h-14 rounded-2xl bg-premium-900 flex items-center justify-center text-[#ff6b6b] mx-auto mb-4 border border-[#ff6b6b]/30 group-hover:scale-110 transition-transform">
+                            <i data-lucide="trophy" class="w-6 h-6"></i>
                         </div>
-                        <h3 class="font-serif text-lg font-bold text-white mb-2">Sport & Mister</h3>
-                        <p class="text-xs text-gray-400 font-light leading-relaxed">Per allenatori, preparatori, fighter e atleti agonisti.</p>
+                        <h3 class="font-serif text-xl font-bold text-white mb-2">Sport & Mister</h3>
+                        <p class="text-xs text-gray-400 font-light leading-relaxed mb-5">Per allenatori, preparatori, fighter e atleti agonisti orientati alla massima prestazione.</p>
+                        <span class="text-[11px] uppercase tracking-widest text-[#ff6b6b] font-bold inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Avvia Diagnosi <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </span>
                     </div>
 
-                    <div class="cat-card border-t-2 border-t-[#E5D0A1]" onclick="selectCategory('parenting')">
-                        <div class="w-12 h-12 rounded-full bg-premium-800 flex items-center justify-center text-[#E5D0A1] mx-auto mb-4 border border-[#E5D0A1]/30">
-                            <i data-lucide="sprout" class="w-5 h-5"></i>
+                    <!-- GENITORIALITÀ -->
+                    <div class="cat-card border-t-2 border-t-[#E5D0A1] group" onclick="selectCategory('parenting')">
+                        <span class="inline-block text-[9px] uppercase tracking-widest px-2.5 py-0.5 rounded bg-[#E5D0A1]/15 text-[#E5D0A1] font-bold mb-4">Relazione & Guida</span>
+                        <div class="w-14 h-14 rounded-2xl bg-premium-900 flex items-center justify-center text-[#E5D0A1] mx-auto mb-4 border border-[#E5D0A1]/30 group-hover:scale-110 transition-transform">
+                            <i data-lucide="sprout" class="w-6 h-6"></i>
                         </div>
-                        <h3 class="font-serif text-lg font-bold text-white mb-2">Genitorialità</h3>
-                        <p class="text-xs text-gray-400 font-light leading-relaxed">Per genitori che vogliono guidare i figli senza giudizio.</p>
+                        <h3 class="font-serif text-xl font-bold text-white mb-2">Genitorialità</h3>
+                        <p class="text-xs text-gray-400 font-light leading-relaxed mb-5">Per genitori che desiderano guidare e potenziare i figli senza giudizio e attriti.</p>
+                        <span class="text-[11px] uppercase tracking-widest text-[#E5D0A1] font-bold inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Avvia Diagnosi <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- LEGENDA DEI 3 ASSI ANALIZZATI -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-6 border-t border-white/5 text-left">
+                    <div class="flex items-center gap-3 bg-white/[0.02] p-3 rounded-lg border border-white/5">
+                        <i data-lucide="message-square-heart" class="w-4 h-4 text-[#8c7ae6] shrink-0"></i>
+                        <div>
+                            <p class="text-[11px] text-white font-semibold">1. Empatia Tattica</p>
+                            <p class="text-[10px] text-gray-400">Impatto comunicativo sotto stress</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 bg-white/[0.02] p-3 rounded-lg border border-white/5">
+                        <i data-lucide="activity" class="w-4 h-4 text-[#1dd1a1] shrink-0"></i>
+                        <div>
+                            <p class="text-[11px] text-white font-semibold">2. Ecologia Biologica</p>
+                            <p class="text-[10px] text-gray-400">Rispetto dei ritmi e recupero</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 bg-white/[0.02] p-3 rounded-lg border border-white/5">
+                        <i data-lucide="zap" class="w-4 h-4 text-[#E5D0A1] shrink-0"></i>
+                        <div>
+                            <p class="text-[11px] text-white font-semibold">3. Stato di Flow</p>
+                            <p class="text-[10px] text-gray-400">Fiducia, focus e allineamento</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- STEP 2: QUIZ CON PULSANTE PROSSIMA DOMANDA -->
+            <!-- STEP 2: QUIZ CON STEPPER SEGMENTATO E BADGE ASSE -->
             <div id="step-quiz" class="hidden-step">
-                <div class="flex items-center justify-between text-[11px] uppercase tracking-widest text-gray-400 mb-2">
-                    <span id="cat-active-label" class="text-premium-champagne font-semibold">Ambito</span>
-                    <span id="counter-domanda">Domanda 1 di 6</span>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="resetToCategories()" class="text-xs text-gray-400 hover:text-white underline mr-1">← Cambia ambito</button>
+                        <span id="cat-active-label" class="text-[11px] uppercase tracking-widest text-premium-champagne font-bold px-2.5 py-0.5 rounded bg-premium-champagne/10">Ambito</span>
+                    </div>
+                    <span id="counter-domanda" class="text-[11px] uppercase tracking-widest text-gray-400 font-semibold">Domanda 1 di 6</span>
                 </div>
-                <div class="progress-container"><div id="progress-fill"></div></div>
-                
-                <div id="question-title" class="text-lg md:text-xl text-white font-serif font-light text-center mb-6 min-h-[75px] flex items-center justify-center leading-snug"></div>
-                
-                <div id="options-list" class="space-y-3"></div>
+
+                <!-- Stepper a 6 tacche -->
+                <div class="flex gap-2 mb-6" id="segmented-stepper">
+                    <div class="step-seg"></div>
+                    <div class="step-seg"></div>
+                    <div class="step-seg"></div>
+                    <div class="step-seg"></div>
+                    <div class="step-seg"></div>
+                    <div class="step-seg"></div>
+                </div>
+
+                <div id="question-box" class="animate-question">
+                    <div class="text-center mb-3">
+                        <span id="axis-pill" class="inline-block text-[10px] uppercase tracking-[0.2em] px-3.5 py-1 rounded-full bg-white/5 text-premium-champagne border border-premium-champagne/30 font-semibold">
+                            Asse 01 • Comunicazione & Empatia
+                        </span>
+                    </div>
+
+                    <div id="question-title" class="text-lg md:text-2xl text-white font-serif font-normal text-center mb-8 min-h-[75px] flex items-center justify-center leading-snug px-2"></div>
+                    
+                    <div id="options-list" class="space-y-3"></div>
+                </div>
 
                 <button type="button" id="btn-prossima" class="btn-gold-solid" disabled onclick="confermaRisposta()">
-                    Prossima Domanda →
+                    <span id="btn-prossima-text">Prossima Domanda</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
                 </button>
             </div>
 
             <!-- STEP 3: LEAD GATE OBBLIGATORIO (VERO FORM FORMSUBMIT) -->
-            <div id="step-lead" class="hidden-step text-center">
-                <div class="w-12 h-12 rounded-full bg-premium-champagne/10 text-premium-champagne flex items-center justify-center mx-auto mb-4 border border-premium-champagne/30">
-                    <i data-lucide="lock" class="w-5 h-5"></i>
+            <div id="step-lead" class="hidden-step text-center animate-question">
+                <div class="w-14 h-14 rounded-full bg-premium-champagne/10 text-premium-champagne flex items-center justify-center mx-auto mb-4 border border-premium-champagne/30 shadow-[0_0_25px_rgba(229,208,161,0.2)]">
+                    <i data-lucide="lock" class="w-6 h-6"></i>
                 </div>
-                <span class="inline-block text-[10px] uppercase tracking-widest px-3 py-1 rounded bg-premium-champagne/15 text-premium-champagne font-bold mb-2">Mappatura FLOW Completata</span>
-                <h2 class="font-serif text-2xl font-bold text-white mb-2">Sblocca il Tuo Report FLOW</h2>
-                <p class="text-gray-400 text-xs font-light mb-6 max-w-md mx-auto leading-relaxed">
-                    Abbiamo calcolato il tuo indice sui 3 assi (Comunicazione, Ecologia Biologica e Flow). Inserisci i tuoi recapiti per sbloccare la diagnosi e inviarla al Coach.
+                <span class="inline-block text-[10px] uppercase tracking-widest px-3 py-1 rounded bg-premium-champagne/15 text-premium-champagne font-bold mb-2">Elaborazione Completata al 100%</span>
+                <h2 class="font-serif text-2xl md:text-3xl font-bold text-white mb-2">Sblocca la Tua Dashboard FLOW</h2>
+                <p class="text-gray-400 text-xs md:text-sm font-light mb-6 max-w-md mx-auto leading-relaxed">
+                    Abbiamo calcolato il tuo Flow Index complessivo e il punteggio sui 3 assi. Inserisci i tuoi recapiti per sbloccare la diagnosi interattiva e inviarla al Coach.
                 </p>
 
-                <form id="lead-form" action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" target="hidden_iframe_flow" onsubmit="return gestisciSubmitFlow()">
+                <form id="lead-form" action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" target="hidden_iframe_flow" onsubmit="return gestisciSubmitFlow()" class="max-w-md mx-auto">
                     <input type="hidden" name="_subject" id="h-subject" value="⚡ Nuovo Lead Assessment: FLOW">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
                     
                     <input type="hidden" name="Ambito_FLOW" id="h-ambito" value="">
                     <input type="hidden" name="Profilo_Emerso" id="h-profilo" value="">
+                    <input type="hidden" name="Flow_Index_Percentuale" id="h-perc" value="">
                     <input type="hidden" name="Punteggio_Totale" id="h-totale" value="">
                     <input type="hidden" name="Asse_Comunicazione_Empatia" id="h-com" value="">
                     <input type="hidden" name="Asse_Ecologia_Biologica" id="h-bio" value="">
@@ -218,24 +330,44 @@
                         <input type="email" name="Email" id="lead-email" class="input-lead" placeholder="Indirizzo Email *" required>
                         <input type="tel" name="Telefono" id="lead-tel" class="input-lead" placeholder="Numero di Telefono *" required oninput="this.value = this.value.replace(/[^0-9+]/g, '')">
                         
-                        <div class="flex items-start gap-3 p-4 bg-premium-900/50 rounded border border-white/5 mt-4">
+                        <div class="flex items-start gap-3 p-4 bg-premium-900/60 rounded-lg border border-white/5 mt-4">
                             <input type="checkbox" name="Consenso_GDPR" id="lead-priv" required class="mt-1 accent-premium-champagne cursor-pointer">
                             <label for="lead-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per visualizzare il report FLOW e ricevere comunicazioni di coaching. *</label>
                         </div>
                     </div>
 
-                    <button type="submit" id="btn-sblocca" class="btn-gold-solid">Sblocca Analisi & Invia al Coach</button>
+                    <button type="submit" id="btn-sblocca" class="btn-gold-solid">
+                        <span>Sblocca Analisi & Invia al Coach</span> <i data-lucide="unlock" class="w-4 h-4"></i>
+                    </button>
                 </form>
             </div>
 
-            <!-- STEP 4: RISULTATI FINALI + GRAFICO 3 ASSI + CTA CALENDLY -->
-            <div id="step-result" class="hidden-step text-center">
+            <!-- STEP 4: DASHBOARD RISULTATI CON ANELLO FLOW INDEX + GRAFICO 3 ASSI -->
+            <div id="step-result" class="hidden-step text-center animate-question">
                 <span id="result-category-badge" class="inline-block text-[10px] uppercase tracking-widest px-3 py-1 rounded bg-premium-champagne/15 text-premium-champagne font-bold mb-2">Profilo FLOW</span>
-                <h2 id="result-title" class="font-serif text-2xl md:text-3xl font-bold text-white mb-6">Analisi del Tuo Sistema</h2>
+                <h2 id="result-title" class="font-serif text-2xl md:text-3xl font-bold text-white mb-6">Dashboard del Tuo Sistema</h2>
 
-                <!-- Grafico a Barre dei 3 Assi -->
-                <div class="bg-premium-900/60 p-4 rounded-xl border border-white/5 mb-6">
-                    <canvas id="grafico-flow" height="190"></canvas>
+                <!-- RIGA SUPERIORE: ANELLO FLOW INDEX + GRAFICO CHART.JS -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-premium-900/60 p-6 rounded-xl border border-white/10 mb-6">
+                    <!-- Anello Circolare SVG -->
+                    <div class="md:col-span-5 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-white/10 pb-6 md:pb-0 md:pr-4">
+                        <div class="relative w-36 h-36 flex items-center justify-center">
+                            <svg class="w-full h-full -rotate-90" viewBox="0 0 120 120">
+                                <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="9"></circle>
+                                <circle id="flow-ring-circle" cx="60" cy="60" r="50" fill="none" stroke="#E5D0A1" stroke-width="9" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314" style="transition: stroke-dashoffset 1.2s cubic-bezier(0.16, 1, 0.3, 1);"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span id="flow-index-number" class="font-serif text-3xl font-bold text-white">0%</span>
+                                <span class="text-[9px] uppercase tracking-widest text-premium-champagne font-semibold mt-0.5">Flow Index</span>
+                            </div>
+                        </div>
+                        <p class="text-[11px] text-gray-400 mt-3 font-light">Indice globale di allineamento</p>
+                    </div>
+
+                    <!-- Grafico a Barre dei 3 Assi -->
+                    <div class="md:col-span-7">
+                        <canvas id="grafico-flow" height="175"></canvas>
+                    </div>
                 </div>
 
                 <!-- Box Diagnosi -->
@@ -245,13 +377,13 @@
                 </div>
 
                 <!-- Box Strategia Raccomandata -->
-                <div class="bg-premium-champagne/5 border-l-4 border-premium-champagne p-5 rounded-r-xl mb-8 text-left">
+                <div class="bg-premium-champagne/10 border-l-4 border-premium-champagne p-5 rounded-r-xl mb-8 text-left">
                     <p class="text-xs uppercase tracking-widest text-premium-champagne font-bold mb-1.5">Strategia d'Azione Raccomandata:</p>
-                    <p id="result-action" class="text-gray-200 text-xs md:text-sm font-light leading-relaxed"></p>
+                    <p id="result-action" class="text-gray-100 text-xs md:text-sm font-light leading-relaxed"></p>
                 </div>
 
-                <a href="contatti.html" class="btn-gold-solid inline-block text-center">
-                    Prenota Sessione Strategica con Claudio →
+                <a href="contatti.html" class="btn-gold-solid">
+                    <span>Prenota Sessione Strategica con Claudio</span> <i data-lucide="calendar" class="w-4 h-4"></i>
                 </a>
             </div>
 
@@ -265,10 +397,31 @@
     <script>
         lucide.createIcons();
 
+        // Effetto Spotlight sulle Card
+        document.querySelectorAll('.cat-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+            });
+        });
+
         const catNames = {
             business: "Business & Leadership",
             sport: "Sport & Performance Agonistica",
             parenting: "Genitorialità & Crescita"
+        };
+
+        const auraColors = {
+            business: "radial-gradient(circle, rgba(140, 122, 230, 0.16) 0%, rgba(5, 5, 5, 0) 70%)",
+            sport: "radial-gradient(circle, rgba(255, 107, 107, 0.16) 0%, rgba(5, 5, 5, 0) 70%)",
+            parenting: "radial-gradient(circle, rgba(229, 208, 161, 0.16) 0%, rgba(5, 5, 5, 0) 70%)"
+        };
+
+        const axisLabels = {
+            com: "Asse 01 • Comunicazione & Empatia Tattica",
+            bio: "Asse 02 • Ecologia Biologica & Ritmi",
+            flow: "Asse 03 • Allineamento & Stato di Flow"
         };
 
         const questionsData = {
@@ -447,6 +600,7 @@
         let selectedChoice = null;
         let axisScores = { com: 0, bio: 0, flow: 0 };
         let userAnswersLog = [];
+        let chartInstance = null;
 
         function showStep(stepId) {
             ['step-category', 'step-quiz', 'step-lead', 'step-result'].forEach(id => {
@@ -455,12 +609,18 @@
             document.getElementById(stepId).classList.remove('hidden-step');
         }
 
+        function resetToCategories() {
+            document.getElementById('dynamic-aura').style.background = auraColors.parenting;
+            showStep('step-category');
+        }
+
         function selectCategory(cat) {
             currentCategory = cat;
             currentQuestion = 0;
             axisScores = { com: 0, bio: 0, flow: 0 };
             userAnswersLog = [];
             document.getElementById('cat-active-label').innerText = catNames[cat];
+            document.getElementById('dynamic-aura').style.background = auraColors[cat];
             showStep('step-quiz');
             renderQuestion();
         }
@@ -473,15 +633,35 @@
             const qList = questionsData[currentCategory];
             const qData = qList[currentQuestion];
             
-            btnNext.innerText = (currentQuestion === qList.length - 1) ? "Completa FLOW →" : "Prossima Domanda →";
+            document.getElementById('btn-prossima-text').innerText = (currentQuestion === qList.length - 1) ? "Completa Diagnosi FLOW" : "Prossima Domanda";
             document.getElementById('counter-domanda').innerText = `Domanda ${currentQuestion + 1} di ${qList.length}`;
-            document.getElementById('progress-fill').style.width = (((currentQuestion + 1) / qList.length) * 100) + '%';
+            document.getElementById('axis-pill').innerText = axisLabels[qData.axis];
+
+            // Aggiorna Stepper a 6 tacche
+            const segs = document.querySelectorAll('#segmented-stepper .step-seg');
+            segs.forEach((s, idx) => {
+                s.className = 'step-seg';
+                if (idx < currentQuestion) s.classList.add('done');
+                else if (idx === currentQuestion) s.classList.add('current');
+            });
+
+            // Ri-anima il box domanda
+            const qBox = document.getElementById('question-box');
+            qBox.classList.remove('animate-question');
+            void qBox.offsetWidth;
+            qBox.classList.add('animate-question');
+
             document.getElementById('question-title').innerText = qData.q;
 
+            const letters = ['A', 'B', 'C'];
             let html = '';
-            qData.options.forEach((opt) => {
+            qData.options.forEach((opt, idx) => {
                 const safeText = opt.text.replace(/'/g, "\\'");
-                html += `<button type="button" class="tasto-opzione" onclick="selezionaOpzione(${opt.score}, '${qData.axis}', '${safeText}', this)">${opt.text}</button>`;
+                html += `
+                <button type="button" class="tasto-opzione" onclick="selezionaOpzione(${opt.score}, '${qData.axis}', '${safeText}', this)">
+                    <span class="letter-badge">${letters[idx]}</span>
+                    <span>${opt.text}</span>
+                </button>`;
             });
             document.getElementById('options-list').innerHTML = html;
         }
@@ -554,10 +734,12 @@
 
         function preparaFormLead() {
             const totale = axisScores.com + axisScores.bio + axisScores.flow;
+            const percGlobale = Math.round((totale / 18) * 100);
             const infoProfilo = calcolaProfiloTestuale(totale, currentCategory);
 
             document.getElementById('h-ambito').value = catNames[currentCategory];
             document.getElementById('h-profilo').value = infoProfilo.nome;
+            document.getElementById('h-perc').value = `${percGlobale}%`;
             document.getElementById('h-totale').value = `${totale} su 18`;
             document.getElementById('h-com').value = `${axisScores.com} su 6`;
             document.getElementById('h-bio').value = `${axisScores.bio} su 6`;
@@ -583,36 +765,46 @@
 
         function mostraRisultatiFinali(nome) {
             const totale = axisScores.com + axisScores.bio + axisScores.flow;
+            const percGlobale = Math.round((totale / 18) * 100);
             const infoProfilo = calcolaProfiloTestuale(totale, currentCategory);
 
             document.getElementById('result-category-badge').innerText = "FLOW • " + catNames[currentCategory];
-            document.getElementById('result-title').innerText = `Report FLOW per ${nome}`;
+            document.getElementById('result-title').innerText = `Dashboard FLOW per ${nome}`;
             document.getElementById('result-profile-name').innerText = infoProfilo.nome;
             document.getElementById('result-desc').innerText = infoProfilo.desc;
             document.getElementById('result-action').innerText = infoProfilo.azione;
 
             showStep('step-result');
 
+            // Anima l'anello circolare Flow Index
+            setTimeout(() => {
+                const circumference = 314;
+                const offset = circumference - (percGlobale / 100) * circumference;
+                document.getElementById('flow-ring-circle').style.strokeDashoffset = offset;
+                document.getElementById('flow-index-number').innerText = percGlobale + '%';
+            }, 150);
+
             const pCom = Math.round((axisScores.com / 6) * 100);
             const pBio = Math.round((axisScores.bio / 6) * 100);
             const pFlow = Math.round((axisScores.flow / 6) * 100);
 
-            new Chart(document.getElementById('grafico-flow').getContext('2d'), {
+            if (chartInstance) chartInstance.destroy();
+            chartInstance = new Chart(document.getElementById('grafico-flow').getContext('2d'), {
                 type: 'bar',
                 data: {
-                    labels: ['Comunicazione & Empatia', 'Ecologia Biologica', 'Allineamento & Flow'],
+                    labels: ['Empatia Tattica', 'Ecologia Biologica', 'Stato di Flow'],
                     datasets: [{
-                        label: 'Indice di Allineamento (%)',
+                        label: 'Allineamento (%)',
                         data: [pCom, pBio, pFlow],
-                        backgroundColor: ['rgba(140, 122, 230, 0.65)', 'rgba(29, 209, 161, 0.65)', 'rgba(229, 208, 161, 0.75)'],
+                        backgroundColor: ['rgba(140, 122, 230, 0.7)', 'rgba(29, 209, 161, 0.7)', 'rgba(229, 208, 161, 0.8)'],
                         borderColor: ['#8c7ae6', '#1dd1a1', '#E5D0A1'],
                         borderWidth: 1.5,
-                        borderRadius: 4
+                        borderRadius: 6
                     }]
                 },
                 options: {
                     scales: {
-                        y: { grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#fff', callback: v => v + '%' }, min: 0, max: 100 },
+                        y: { grid: { color: 'rgba(255,255,255,0.07)' }, ticks: { color: '#fff', callback: v => v + '%' }, min: 0, max: 100 },
                         x: { grid: { display: false }, ticks: { color: '#E5D0A1', font: { size: 11, family: "'Inter', sans-serif" } } }
                     },
                     plugins: { legend: { display: false } }
