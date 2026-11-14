@@ -3,864 +3,644 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="origin">
-    <title>FLOW | Assessment Bio-Relazionale & Performance | Claudio Carluccio Coaching</title>
-    
+    <title>FLOW Assessment | Mappatura Bio-Relazionale & Performance | Claudio Carluccio</title>
+    <meta name="description" content="Misura in 2 minuti i tuoi 3 assi di performance: Comunicazione sotto stress, Ecologia Biologica e Stato di Flow per Business, Sport e Genitorialità.">
     <link rel="icon" type="image/png" href="logo-claudio.png">
     <link rel="apple-touch-icon" href="logo-claudio.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { premium: { 950: '#040404', 900: '#0a0a0a', 800: '#141414', champagne: '#E5D0A1' } },
-                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
+                    colors: {
+                        premium: { 950: '#040406', 900: '#0a0a0f', 800: '#12121a', champagne: '#E5D0A1', gold: '#D4AF37' }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        body { background-color: #040404; color: #f5f5f5; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
-        
-        .bg-luxury-grid {
-            position: fixed; inset: 0; pointer-events: none; z-index: 0;
-            background-size: 48px 48px;
-            background-image: 
-                linear-gradient(to right, rgba(229, 208, 161, 0.035) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(229, 208, 161, 0.035) 1px, transparent 1px);
-            mask-image: radial-gradient(ellipse at 50% 25%, black 30%, transparent 80%);
-            -webkit-mask-image: radial-gradient(ellipse at 50% 25%, black 30%, transparent 80%);
+        body {
+            background-color: #040406; color: #f5f5f7; font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh;
+            transition: background-color 0.9s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        #dynamic-aura {
-            position: fixed; top: -160px; left: 50%; transform: translateX(-50%);
-            width: 900px; height: 520px;
-            background: radial-gradient(circle, rgba(229, 208, 161, 0.13) 0%, rgba(4, 4, 4, 0) 70%);
-            pointer-events: none; z-index: 0; transition: background 0.8s ease;
+        #ambient-bg-glow {
+            position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.85;
+            transition: background 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+            background: radial-gradient(circle at 50% 15%, rgba(212, 175, 55, 0.14) 0%, transparent 65%);
         }
-        .gold-gradient-text { background: linear-gradient(135deg, #FFF7DF 0%, #E5D0A1 45%, #B89768 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        .nav-link { position: relative; color: #a3a3a3; transition: color 0.3s ease; }
-        .nav-link:hover, .nav-link.active { color: #ffffff; }
-        .nav-link::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #E5D0A1; transition: width 0.3s ease; }
+        .bg-grid {
+            position: fixed; inset: 0; pointer-events: none; z-index: 1; background-size: 50px 50px;
+            background-image: linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, black 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, black 40%, transparent 100%);
+        }
+        .gold-text {
+            background: linear-gradient(135deg, #FFF9EA 0%, #E5D0A1 50%, #B89358 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .lux-card {
+            background: rgba(18, 18, 24, 0.7); backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .lux-card:hover {
+            border-color: rgba(229, 208, 161, 0.35);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8);
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #F3E5AB 0%, #E5D0A1 50%, #C5A059 100%);
+            color: #050505; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 2px;
+            padding: 15px 28px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            box-shadow: 0 10px 25px -8px rgba(229,208,161,0.45); transition: all 0.3s ease; cursor: pointer;
+        }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -6px rgba(229,208,161,0.6); }
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(229, 208, 161, 0.35); color: #E5D0A1;
+            font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 2px;
+            padding: 14px 24px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease; cursor: pointer;
+        }
+        .btn-glass:hover { background: rgba(229, 208, 161, 0.12); border-color: #E5D0A1; color: #fff; }
+        .nav-link { color: #a1a1aa; font-size: 13px; font-weight: 500; transition: color 0.3s; position: relative; }
+        .nav-link:hover, .nav-link.active { color: #fff; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 1.5px; bottom: -4px; left: 0; background-color: #E5D0A1; transition: width 0.3s; }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-        .glass-panel {
-            position: relative;
-            background: linear-gradient(160deg, rgba(22, 22, 22, 0.85) 0%, rgba(10, 10, 10, 0.92) 100%);
-            backdrop-filter: blur(24px);
-            border: 1px solid rgba(229, 208, 161, 0.16);
-            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85), 0 0 35px -10px rgba(229, 208, 161, 0.08);
-        }
-        .hidden-step { display: none !important; }
-
-        @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(14px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-question { animation: fadeSlideUp 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
-        /* CARD CATEGORIE CON SPOTLIGHT */
-        .cat-card {
-            position: relative; overflow: hidden;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 14px; padding: 28px 20px; text-align: center; cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .cat-card::before {
-            content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.3s;
-            background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(229, 208, 161, 0.14), transparent 60%);
-        }
-        .cat-card:hover::before { opacity: 1; }
-        .cat-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(229, 208, 161, 0.5);
-            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.85), 0 0 25px -5px rgba(229, 208, 161, 0.14);
+        .highlighter-badge {
+            position: relative; display: inline-block; padding: 3px 10px; border-radius: 4px;
+            font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; font-size: 10.5px;
+            background: linear-gradient(90deg, var(--hl-bg, rgba(229, 208, 161, 0.25)) 0%, transparent 100%);
+            color: var(--hl-text, #E5D0A1); border-left: 3px solid var(--hl-text, #E5D0A1);
         }
 
-        /* OPZIONI CON BADGE A/B/C */
-        .tasto-opzione { 
-            display: flex; align-items: center; gap: 16px; width: 100%; padding: 16px 20px; margin: 10px 0; 
-            background: rgba(255, 255, 255, 0.02); color: #e5e5e5; border: 1px solid rgba(229, 208, 161, 0.2); 
-            border-radius: 10px; font-size: 13.5px; font-weight: 400; text-align: left; line-height: 1.5;
-            cursor: pointer; transition: all 0.25s ease; outline: none !important; -webkit-tap-highlight-color: transparent;
+        /* LINGUETTE SEGNAPAGINA LATERALI DESTRE */
+        #chapter-tabs {
+            position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+            z-index: 8000; display: flex; flex-direction: column; gap: 8px;
         }
-        .letter-badge {
-            width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 11px; font-weight: 700;
-            background: rgba(229, 208, 161, 0.08); color: #E5D0A1;
-            border: 1px solid rgba(229, 208, 161, 0.3); transition: all 0.25s ease;
+        .chapter-tab {
+            display: flex; align-items: center; justify-content: flex-end;
+            padding: 7px 12px 7px 16px; border-radius: 8px 0 0 8px;
+            background: rgba(14, 14, 20, 0.75); backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-right: none;
+            color: #71717a; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateX(calc(100% - 24px));
         }
-        @media (hover: hover) {
-            .tasto-opzione:hover { border-color: rgba(229, 208, 161, 0.6); background: rgba(229, 208, 161, 0.06); color: #fff; transform: translateX(4px); }
+        .chapter-tab .tab-pip {
+            width: 8px; height: 8px; border-radius: 50%; background: #3f3f46;
+            margin-left: 10px; flex-shrink: 0; transition: background 0.3s;
         }
-        .tasto-opzione.selezionato {
-            background: linear-gradient(135deg, rgba(229, 208, 161, 0.2) 0%, rgba(197, 168, 128, 0.08) 100%) !important;
-            color: #ffffff !important; font-weight: 500 !important;
-            border-color: #E5D0A1 !important; box-shadow: 0 0 22px rgba(229, 208, 161, 0.22);
+        .chapter-tab.active-tab {
+            transform: translateX(0); color: #040406; background: var(--tab-color, #E5D0A1);
+            border-color: var(--tab-color, #E5D0A1);
+            box-shadow: -8px 0 24px -4px var(--tab-shadow, rgba(229, 208, 161, 0.45)); font-weight: 700;
         }
-        .tasto-opzione.selezionato .letter-badge {
-            background: #E5D0A1 !important; color: #050505 !important; border-color: #E5D0A1 !important;
-            box-shadow: 0 0 12px rgba(229, 208, 161, 0.6);
+        .chapter-tab.active-tab .tab-pip { background: #040406; }
+        @media (max-width: 1024px) { #chapter-tabs { display: none; } }
+
+        /* BOTTONI SCALA 1-5 */
+        .score-btn {
+            flex: 1; padding: 12px 8px; border-radius: 8px;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+            color: #a1a1aa; font-size: 13px; font-weight: 600; transition: all 0.2s ease; cursor: pointer;
+        }
+        .score-btn:hover { background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(229,208,161,0.4); }
+        .score-btn.selected {
+            background: linear-gradient(135deg, #F3E5AB 0%, #E5D0A1 60%, #C5A059 100%);
+            color: #040406; border-color: #E5D0A1; font-weight: 700;
+            box-shadow: 0 6px 20px -5px rgba(229,208,161,0.45);
         }
 
-        .input-lead { 
-            width: 100%; padding: 15px 18px; margin: 6px 0; box-sizing: border-box; 
-            background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.12); 
-            color: white; border-radius: 8px; font-size: 14px; outline: none; transition: border-color 0.3s; 
-        }
-        .input-lead:focus { border-color: #E5D0A1; background: rgba(229, 208, 161, 0.04); }
-
-        .btn-gold-solid { 
-            position: relative; overflow: hidden;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            width: 100%; padding: 17px; margin-top: 22px;
-            background: linear-gradient(135deg, #E5D0A1 0%, #C5A880 100%); color: #050505; 
-            border: none; border-radius: 8px; font-size: 12px; font-weight: 700; 
-            text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease;
-        }
-        .btn-gold-solid::after {
-            content: ''; position: absolute; top: -50%; left: -60%; width: 40%; height: 200%;
-            background: rgba(255, 255, 255, 0.35); transform: rotate(30deg);
-            transition: all 0.65s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        .btn-gold-solid:hover:not(:disabled)::after { left: 130%; }
-        .btn-gold-solid:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 28px -6px rgba(229, 208, 161, 0.4); }
-        .btn-gold-solid:disabled { opacity: 0.25; cursor: not-allowed; }
-
-        .step-seg { height: 5px; border-radius: 99px; background: rgba(255,255,255,0.08); transition: all 0.35s ease; flex: 1; }
-        .step-seg.done { background: rgba(229, 208, 161, 0.45); }
-        .step-seg.current { background: #E5D0A1; box-shadow: 0 0 10px rgba(229, 208, 161, 0.6); }
+        /* TEMI DINAMICI DI SFONDO */
+        body.theme-start { background-color: #040406; }
+        body.theme-business { background-color: #0b0716; }
+        body.theme-sport { background-color: #140608; }
+        body.theme-parent { background-color: #050d14; }
+        body.theme-report { background-color: #050f0d; }
     </style>
 </head>
-<body class="antialiased selection:bg-premium-champagne selection:text-premium-950">
+<body class="antialiased selection:bg-premium-champagne selection:text-premium-950 theme-start">
 
-    <div class="bg-luxury-grid"></div>
-    <div id="dynamic-aura"></div>
+    <!-- LINGUETTE SEGNAPAGINA LATERALI DESTRE -->
+    <aside id="chapter-tabs" aria-label="Fasi del Protocollo FLOW">
+        <div id="tab-step-1" class="chapter-tab active-tab" style="--tab-color: #E5D0A1; --tab-shadow: rgba(229, 208, 161, 0.5);">
+            <span>Fase 01 • Contesto</span><span class="tab-pip"></span>
+        </div>
+        <div id="tab-step-2" class="chapter-tab" style="--tab-color: #48dbfb; --tab-shadow: rgba(72, 219, 251, 0.45);">
+            <span>Fase 02 • Diagnosi</span><span class="tab-pip"></span>
+        </div>
+        <div id="tab-step-3" class="chapter-tab" style="--tab-color: #1dd1a1; --tab-shadow: rgba(29, 209, 161, 0.45);">
+            <span>Fase 03 • Mappa FLOW</span><span class="tab-pip"></span>
+        </div>
+    </aside>
 
-    <!-- IFRAME INVISIBILE PER POST NATIVO FORMSUBMIT -->
-    <iframe name="hidden_iframe_flow" id="hidden_iframe_flow" style="display:none;"></iframe>
+    <div id="ambient-bg-glow"></div>
+    <div class="bg-grid"></div>
 
-    <!-- HEADER UNIFICATO -->
-    <header class="fixed top-0 left-0 right-0 z-[9000] py-4 px-6 md:px-12 bg-premium-950/90 backdrop-blur-2xl border-b border-white/5">
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 right-0 z-[9000] py-4 px-6 md:px-12 bg-premium-950/80 backdrop-blur-2xl border-b border-white/[0.06]">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <a href="index.html" class="font-serif text-xl md:text-2xl font-semibold tracking-wider text-white hover:text-premium-champagne transition-colors block">
-                CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span>
+            <a href="index.html" class="font-serif text-xl md:text-2xl font-bold tracking-wider text-white flex items-center gap-1.5">
+                CLAUDIO<span class="gold-text">CARLUCCIO</span>
             </a>
-            <nav class="hidden lg:flex items-center gap-6 text-sm font-light tracking-wide">
+            <nav class="hidden lg:flex items-center gap-7">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="servizi.html" class="nav-link">Percorsi</a>
-                <a href="assessment.html" class="nav-link active">Assessment</a>
+                <a href="assessment.html" class="nav-link">Assessment</a>
+                <a href="flow.html" class="nav-link active text-premium-champagne font-semibold flex items-center gap-1"><i data-lucide="zap" class="w-3.5 h-3.5"></i> FLOW</a>
                 <a href="testimonianza.html" class="nav-link">Risultati</a>
-                <a href="servizi-coach.html" class="nav-link text-premium-champagne font-medium">Per i Coach</a>
+                <a href="servizi-coach.html" class="nav-link">Per i Coach</a>
                 <a href="area-riservata.html" class="nav-link">Area Clienti</a>
-                <a href="contatti.html" class="bg-premium-champagne text-premium-950 px-4 py-2 rounded text-xs font-bold uppercase tracking-widest hover:bg-[#C5A880] transition-colors">
-                    Prenota Call →
-                </a>
+                <a href="contatti.html" class="btn-gold !py-2 !px-4 !text-[11px] !rounded-md">Prenota Call →</a>
             </nav>
-            <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="lg:hidden text-white hover:text-premium-champagne focus:outline-none p-2">
+            <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="lg:hidden text-white p-2">
                 <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
         </div>
-        <div id="mobile-menu" class="hidden lg:hidden bg-premium-900/95 backdrop-blur-xl border-b border-white/10 px-6 py-6 mt-4 space-y-4 text-center">
+        <div id="mobile-menu" class="hidden lg:hidden bg-premium-900/95 backdrop-blur-2xl border-b border-white/10 px-6 py-6 mt-4 space-y-3 text-center rounded-b-2xl">
             <a href="index.html" class="block py-2 text-gray-300">Home</a>
+            <a href="flow.html" class="block py-2 text-premium-champagne font-bold">⚡ FLOW Assessment</a>
+            <a href="assessment.html" class="block py-2 text-gray-300">Tutti gli Assessment</a>
             <a href="servizi.html" class="block py-2 text-gray-300">I Miei Percorsi</a>
-            <a href="assessment.html" class="block py-2 text-white font-medium">Tutti gli Assessment</a>
             <a href="testimonianza.html" class="block py-2 text-gray-300">Testimonianze</a>
-            <a href="servizi-coach.html" class="block py-2 text-premium-champagne font-semibold">Per i Coach (B2B)</a>
+            <a href="servizi-coach.html" class="block py-2 text-premium-champagne">Per i Coach</a>
             <a href="area-riservata.html" class="block py-2 text-gray-300">Area Riservata</a>
-            <a href="contatti.html" class="block py-3 bg-premium-champagne text-premium-950 font-bold uppercase text-xs tracking-widest rounded">Prenota Discovery Call</a>
+            <a href="contatti.html" class="block py-3 bg-premium-champagne text-premium-950 font-bold uppercase text-xs tracking-widest rounded-lg">Prenota Call</a>
         </div>
     </header>
 
-    <main class="flex-grow pt-32 pb-24 px-6 flex flex-col items-center justify-center relative z-10">
-        <div id="main-card" class="max-w-3xl w-full glass-panel p-8 md:p-12 rounded-2xl border-t-2 border-t-premium-champagne relative transition-colors duration-500">
-            
-            <!-- INTESTAZIONE LUXURY -->
-            <div class="text-center border-b border-white/10 pb-7 mb-8 relative">
-                <a href="assessment.html" class="absolute left-0 top-1 text-gray-400 hover:text-white transition-colors inline-flex items-center gap-1.5 text-xs uppercase tracking-widest" title="Torna agli Assessment">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i> <span class="hidden sm:inline">Hub</span>
-                </a>
-                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-premium-champagne/10 border border-premium-champagne/25 text-premium-champagne text-[10px] uppercase tracking-[0.25em] font-semibold mb-3">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Protocollo Diagnostico Bio-Relazionale
-                </div>
-                <h1 class="font-serif text-4xl md:text-6xl font-bold tracking-[0.18em] uppercase gold-gradient-text">FLOW</h1>
-                <p class="text-xs text-gray-400 font-light tracking-widest uppercase mt-2">Comunicazione • Ecologia Biologica • Peak State</p>
-            </div>
+    <main class="flex-grow pt-32 pb-24 px-6 relative z-10">
+        <div class="max-w-5xl mx-auto">
 
-            <!-- STEP 1: SCELTA AMBITO OPERATIVO -->
-            <div id="step-category" class="animate-question">
-                <p class="text-gray-300 text-sm md:text-base font-light text-center max-w-xl mx-auto leading-relaxed mb-8">
-                    Individua gli attriti invisibili che frenano il tuo sistema sotto pressione e sblocca le condizioni per entrare in stato di <strong class="text-white font-medium">Flow</strong>. Seleziona il tuo ambito operativo:
-                </p>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
-                    <div class="cat-card border-t-2 border-t-[#8c7ae6] group" onclick="selectCategory('business')">
-                        <span class="inline-block text-[9px] uppercase tracking-widest px-2.5 py-0.5 rounded bg-[#8c7ae6]/15 text-[#8c7ae6] font-bold mb-4">Executive & Team</span>
-                        <div class="w-14 h-14 rounded-2xl bg-premium-900 flex items-center justify-center text-[#8c7ae6] mx-auto mb-4 border border-[#8c7ae6]/30 group-hover:scale-110 transition-transform">
-                            <i data-lucide="briefcase" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="font-serif text-xl font-bold text-white mb-2">Business & Manager</h3>
-                        <p class="text-xs text-gray-400 font-light leading-relaxed mb-5">Per imprenditori, dirigenti, team leader e professionisti ad alto carico decisionale.</p>
-                        <span class="text-[11px] uppercase tracking-widest text-[#8c7ae6] font-bold inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                            Avvia Diagnosi <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                        </span>
-                    </div>
-
-                    <div class="cat-card border-t-2 border-t-[#ff6b6b] group" onclick="selectCategory('sport')">
-                        <span class="inline-block text-[9px] uppercase tracking-widest px-2.5 py-0.5 rounded bg-[#ff6b6b]/15 text-[#ff6b6b] font-bold mb-4">Agonismo & Staff</span>
-                        <div class="w-14 h-14 rounded-2xl bg-premium-900 flex items-center justify-center text-[#ff6b6b] mx-auto mb-4 border border-[#ff6b6b]/30 group-hover:scale-110 transition-transform">
-                            <i data-lucide="trophy" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="font-serif text-xl font-bold text-white mb-2">Sport & Mister</h3>
-                        <p class="text-xs text-gray-400 font-light leading-relaxed mb-5">Per allenatori, preparatori, fighter e atleti agonisti orientati alla massima prestazione.</p>
-                        <span class="text-[11px] uppercase tracking-widest text-[#ff6b6b] font-bold inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                            Avvia Diagnosi <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                        </span>
-                    </div>
-
-                    <div class="cat-card border-t-2 border-t-[#E5D0A1] group" onclick="selectCategory('parenting')">
-                        <span class="inline-block text-[9px] uppercase tracking-widest px-2.5 py-0.5 rounded bg-[#E5D0A1]/15 text-[#E5D0A1] font-bold mb-4">Relazione & Guida</span>
-                        <div class="w-14 h-14 rounded-2xl bg-premium-900 flex items-center justify-center text-[#E5D0A1] mx-auto mb-4 border border-[#E5D0A1]/30 group-hover:scale-110 transition-transform">
-                            <i data-lucide="sprout" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="font-serif text-xl font-bold text-white mb-2">Genitorialità</h3>
-                        <p class="text-xs text-gray-400 font-light leading-relaxed mb-5">Per genitori che desiderano guidare e potenziare i figli senza giudizio e attriti.</p>
-                        <span class="text-[11px] uppercase tracking-widest text-[#E5D0A1] font-bold inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                            Avvia Diagnosi <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                        </span>
-                    </div>
-                </div>
-
-                <!-- LEGENDA DEI 3 ASSI ANALIZZATI -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-6 border-t border-white/5 text-left">
-                    <div class="flex items-center gap-3 bg-white/[0.02] p-3 rounded-lg border border-white/5">
-                        <i data-lucide="message-square-heart" class="w-4 h-4 text-[#8c7ae6] shrink-0"></i>
-                        <div>
-                            <p class="text-[11px] text-white font-semibold">1. Empatia Tattica</p>
-                            <p class="text-[10px] text-gray-400">Impatto comunicativo sotto stress</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 bg-white/[0.02] p-3 rounded-lg border border-white/5">
-                        <i data-lucide="activity" class="w-4 h-4 text-[#1dd1a1] shrink-0"></i>
-                        <div>
-                            <p class="text-[11px] text-white font-semibold">2. Ecologia Biologica</p>
-                            <p class="text-[10px] text-gray-400">Rispetto dei ritmi e recupero</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 bg-white/[0.02] p-3 rounded-lg border border-white/5">
-                        <i data-lucide="zap" class="w-4 h-4 text-[#E5D0A1] shrink-0"></i>
-                        <div>
-                            <p class="text-[11px] text-white font-semibold">3. Stato di Flow</p>
-                            <p class="text-[10px] text-gray-400">Fiducia, focus e allineamento</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- STEP 2: QUIZ CON STEPPER SEGMENTATO -->
-            <div id="step-quiz" class="hidden-step">
-                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                    <div class="flex items-center gap-2">
-                        <button type="button" onclick="resetToCategories()" class="text-xs text-gray-400 hover:text-white underline mr-1">← Cambia ambito</button>
-                        <span id="cat-active-label" class="text-[11px] uppercase tracking-widest text-premium-champagne font-bold px-2.5 py-0.5 rounded bg-premium-champagne/10">Ambito</span>
-                    </div>
-                    <span id="counter-domanda" class="text-[11px] uppercase tracking-widest text-gray-400 font-semibold">Domanda 1 di 6</span>
-                </div>
-
-                <div class="flex gap-2 mb-6" id="segmented-stepper">
-                    <div class="step-seg"></div>
-                    <div class="step-seg"></div>
-                    <div class="step-seg"></div>
-                    <div class="step-seg"></div>
-                    <div class="step-seg"></div>
-                    <div class="step-seg"></div>
-                </div>
-
-                <div id="question-box" class="animate-question">
-                    <div class="text-center mb-3">
-                        <span id="axis-pill" class="inline-block text-[10px] uppercase tracking-[0.2em] px-3.5 py-1 rounded-full bg-white/5 text-gray-300 border border-white/10">
-                            Asse 01 • Comunicazione & Empatia
-                        </span>
-                    </div>
-
-                    <div id="question-title" class="text-lg md:text-2xl text-white font-serif font-normal text-center mb-8 min-h-[75px] flex items-center justify-center leading-snug px-2"></div>
-                    
-                    <div id="options-list" class="space-y-3"></div>
-                </div>
-
-                <button type="button" id="btn-prossima" class="btn-gold-solid" disabled onclick="confermaRisposta()">
-                    <span id="btn-prossima-text">Prossima Domanda</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </button>
-            </div>
-
-            <!-- STEP 3: LEAD GATE OBBLIGATORIO -->
-            <div id="step-lead" class="hidden-step text-center animate-question">
-                <div class="w-14 h-14 rounded-full bg-premium-champagne/10 text-premium-champagne flex items-center justify-center mx-auto mb-4 border border-premium-champagne/30 shadow-[0_0_25px_rgba(229,208,161,0.2)]">
-                    <i data-lucide="lock" class="w-6 h-6"></i>
-                </div>
-                <span class="inline-block text-[10px] uppercase tracking-widest px-3 py-1 rounded bg-premium-champagne/15 text-premium-champagne font-bold mb-2">Elaborazione Completata al 100%</span>
-                <h2 class="font-serif text-2xl md:text-3xl font-bold text-white mb-2">Sblocca la Tua Dashboard FLOW</h2>
-                <p class="text-gray-400 text-xs md:text-sm font-light mb-6 max-w-md mx-auto leading-relaxed">
-                    Abbiamo calcolato il tuo Indice di Flow complessivo e il punteggio sui 3 assi. Inserisci i tuoi recapiti per visualizzare la diagnosi interattiva e inviarla al Coach.
-                </p>
-
-                <form id="lead-form" action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" target="hidden_iframe_flow" onsubmit="return gestisciSubmitFlow()" class="max-w-md mx-auto">
-                    <input type="hidden" name="_subject" id="h-subject" value="⚡ Nuovo Lead Assessment: FLOW">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
-                    
-                    <input type="hidden" name="Ambito_FLOW" id="h-ambito" value="">
-                    <input type="hidden" name="Profilo_Emerso" id="h-profilo" value="">
-                    <input type="hidden" name="Indice_Flow_Percentuale" id="h-perc" value="">
-                    <input type="hidden" name="Punteggio_Totale" id="h-totale" value="">
-                    <input type="hidden" name="Asse_Comunicazione_Empatia" id="h-com" value="">
-                    <input type="hidden" name="Asse_Ecologia_Biologica" id="h-bio" value="">
-                    <input type="hidden" name="Asse_Allineamento_Flow" id="h-flow" value="">
-                    <div id="h-risposte-dettaglio"></div>
-
-                    <div class="space-y-3 mb-6 text-left">
-                        <input type="text" name="Nome_e_Cognome" id="lead-nome" class="input-lead" placeholder="Nome e Cognome *" required>
-                        <input type="email" name="Email" id="lead-email" class="input-lead" placeholder="Indirizzo Email *" required>
-                        <input type="tel" name="Telefono" id="lead-tel" class="input-lead" placeholder="Numero di Telefono *" required oninput="this.value = this.value.replace(/[^0-9+]/g, '')">
-                        
-                        <div class="flex items-start gap-3 p-4 bg-premium-900/60 rounded-lg border border-white/5 mt-4">
-                            <input type="checkbox" name="Consenso_GDPR" id="lead-priv" required class="mt-1 accent-premium-champagne cursor-pointer">
-                            <label for="lead-priv" class="text-xs text-gray-400 cursor-pointer">Acconsento al trattamento dei dati personali ai sensi del GDPR per visualizzare il report FLOW e ricevere comunicazioni di coaching. *</label>
-                        </div>
-                    </div>
-
-                    <button type="submit" id="btn-sblocca" class="btn-gold-solid">
-                        <span>Sblocca Analisi & Invia al Coach</span> <i data-lucide="unlock" class="w-4 h-4"></i>
-                    </button>
-                </form>
-            </div>
-
-            <!-- STEP 4: DASHBOARD RISULTATI CON ANELLO SVG + BARRE + CHART.JS -->
-            <div id="step-result" class="hidden-step text-center animate-question">
-                <span id="result-category-badge" class="inline-block text-[10px] uppercase tracking-widest px-3.5 py-1 rounded-full bg-premium-champagne/15 text-premium-champagne font-bold mb-2">Profilo FLOW</span>
-                <h2 id="result-title" class="font-serif text-2xl md:text-3xl font-bold text-white mb-8">Analisi del Tuo Sistema</h2>
-
-                <!-- TOP DASHBOARD: ANELLO FLOW INDEX + 3 BARRE ASSI -->
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-premium-900/70 p-6 rounded-2xl border border-white/10 mb-6">
-                    <!-- Anello Circolare SVG -->
-                    <div class="md:col-span-5 flex flex-col items-center justify-center">
-                        <div class="relative w-36 h-36 flex items-center justify-center">
-                            <svg class="w-full h-full -rotate-90" viewBox="0 0 120 120">
-                                <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="8"></circle>
-                                <circle id="flow-ring-circle" cx="60" cy="60" r="50" fill="none" stroke="#E5D0A1" stroke-width="8" stroke-linecap="round" stroke-dasharray="314.16" stroke-dashoffset="314.16" style="transition: stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1);"></circle>
-                            </svg>
-                            <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                <span id="flow-score-perc" class="font-serif text-3xl font-bold text-white">0%</span>
-                                <span class="text-[9px] uppercase tracking-widest text-premium-champagne font-semibold">Flow Index</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Barre Orizzontali dei 3 Assi -->
-                    <div class="md:col-span-7 space-y-4 text-left">
-                        <div>
-                            <div class="flex justify-between text-xs mb-1">
-                                <span class="text-gray-300 font-medium">1. Comunicazione & Empatia Tattica</span>
-                                <strong id="lbl-com" class="text-[#8c7ae6]">0%</strong>
-                            </div>
-                            <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                                <div id="bar-com" class="h-full bg-[#8c7ae6] rounded-full transition-all duration-1000" style="width: 0%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-xs mb-1">
-                                <span class="text-gray-300 font-medium">2. Ecologia Biologica & Ritmi</span>
-                                <strong id="lbl-bio" class="text-[#1dd1a1]">0%</strong>
-                            </div>
-                            <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                                <div id="bar-bio" class="h-full bg-[#1dd1a1] rounded-full transition-all duration-1000" style="width: 0%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-xs mb-1">
-                                <span class="text-gray-300 font-medium">3. Allineamento & Stato di Flow</span>
-                                <strong id="lbl-flow" class="text-[#E5D0A1]">0%</strong>
-                            </div>
-                            <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                                <div id="bar-flow" class="h-full bg-[#E5D0A1] rounded-full transition-all duration-1000" style="width: 0%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Grafico Chart.js -->
-                <div class="bg-premium-900/50 p-4 rounded-xl border border-white/5 mb-6">
-                    <canvas id="grafico-flow" height="170"></canvas>
-                </div>
-
-                <!-- Box Diagnosi -->
-                <div class="bg-premium-900/80 border border-white/10 rounded-xl p-6 mb-5 text-left">
-                    <h4 id="result-profile-name" class="font-serif text-xl text-premium-champagne font-bold mb-2"></h4>
-                    <p id="result-desc" class="text-gray-300 text-xs md:text-sm font-light leading-relaxed"></p>
-                </div>
-
-                <!-- Box Strategia Raccomandata -->
-                <div class="bg-premium-champagne/10 border-l-4 border-premium-champagne p-5 rounded-r-xl mb-8 text-left">
-                    <p class="text-xs uppercase tracking-widest text-premium-champagne font-bold mb-1.5 flex items-center gap-2">
-                        <i data-lucide="compass" class="w-4 h-4"></i> Strategia d'Azione Raccomandata:
+            <!-- STEP 1: SELEZIONE DELL'AMBITO -->
+            <section id="step-1-domain" class="transition-all duration-500">
+                <div class="text-center max-w-3xl mx-auto mb-14">
+                    <span class="highlighter-badge mb-3" style="--hl-bg: rgba(212, 175, 55, 0.22); --hl-text: #d4af37;">Fase 01 • Mappatura Oggettiva</span>
+                    <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
+                        Protocollo <span class="gold-text">FLOW</span>
+                    </h1>
+                    <p class="text-gray-300 text-sm md:text-base font-light leading-relaxed">
+                        Le performance non crollano per mancanza di impegno, ma per attriti invisibili su tre assi: <strong class="text-white">Impatto Comunicativo sotto Stress</strong>, <strong class="text-white">Ecologia Biologica</strong> e <strong class="text-white">Accesso al Flow</strong>. Scegli il tuo ambito per avviare l'analisi in 9 domande.
                     </p>
-                    <p id="result-action" class="text-gray-100 text-xs md:text-sm font-light leading-relaxed"></p>
                 </div>
 
-                <a href="contatti.html" class="btn-gold-solid">
-                    <span>Prenota Sessione Strategica con Claudio</span> <i data-lucide="calendar" class="w-4 h-4"></i>
-                </a>
-            </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card Business -->
+                    <div onclick="startFlowTest('business')" class="lux-card p-8 rounded-2xl border-t-4 border-t-[#8c7ae6] cursor-pointer flex flex-col justify-between group">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-[#8c7ae6]/15 text-[#8c7ae6] flex items-center justify-center mb-6">
+                                <i data-lucide="briefcase" class="w-6 h-6"></i>
+                            </div>
+                            <span class="text-[10px] uppercase tracking-widest text-[#8c7ae6] font-bold block mb-1">Executive, Manager & Professionisti</span>
+                            <h2 class="font-serif text-2xl font-bold text-white mb-3 group-hover:text-[#8c7ae6] transition-colors">Business & Leadership</h2>
+                            <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
+                                Mappa la tua tenuta decisionale sotto pressione, la gestione dei conflitti nel team e il recupero energetico tra le scadenze.
+                            </p>
+                        </div>
+                        <span class="text-xs uppercase tracking-widest text-[#8c7ae6] font-bold flex items-center gap-1.5">
+                            Avvia Diagnosi Business <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
+                    </div>
+
+                    <!-- Card Sport -->
+                    <div onclick="startFlowTest('sport')" class="lux-card p-8 rounded-2xl border-t-4 border-t-[#ff6b6b] cursor-pointer flex flex-col justify-between group">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-[#ff6b6b]/15 text-[#ff6b6b] flex items-center justify-center mb-6">
+                                <i data-lucide="swords" class="w-6 h-6"></i>
+                            </div>
+                            <span class="text-[10px] uppercase tracking-widest text-[#ff6b6b] font-bold block mb-1">Atleti, Fighter & Allenatori</span>
+                            <h2 class="font-serif text-2xl font-bold text-white mb-3 group-hover:text-[#ff6b6b] transition-colors">Sport & Agonismo</h2>
+                            <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
+                                Analizza il dialogo interno pre-gara, la risposta biologica all'adrenalina e la capacità di restare centrati dopo un errore.
+                            </p>
+                        </div>
+                        <span class="text-xs uppercase tracking-widest text-[#ff6b6b] font-bold flex items-center gap-1.5">
+                            Avvia Diagnosi Sport <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
+                    </div>
+
+                    <!-- Card Genitorialità & Relazioni -->
+                    <div onclick="startFlowTest('parent')" class="lux-card p-8 rounded-2xl border-t-4 border-t-[#48dbfb] cursor-pointer flex flex-col justify-between group">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-[#48dbfb]/15 text-[#48dbfb] flex items-center justify-center mb-6">
+                                <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+                            </div>
+                            <span class="text-[10px] uppercase tracking-widest text-[#48dbfb] font-bold block mb-1">Genitori, Coppie & Sfera Privata</span>
+                            <h2 class="font-serif text-2xl font-bold text-white mb-3 group-hover:text-[#48dbfb] transition-colors">Vita & Relazioni</h2>
+                            <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
+                                Valuta la qualità dell'ascolto in famiglia nei momenti di stanchezza, il rispetto dei tuoi spazi vitali e la presenza mentale.
+                            </p>
+                        </div>
+                        <span class="text-xs uppercase tracking-widest text-[#48dbfb] font-bold flex items-center gap-1.5">
+                            Avvia Diagnosi Relazionale <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 2: QUESTIONARIO INTERATTIVO (9 DOMANDE) -->
+            <section id="step-2-questions" class="hidden transition-all duration-500">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                    <div>
+                        <span id="domain-badge" class="highlighter-badge mb-2">Fase 02 • Analisi in Corso</span>
+                        <h2 id="domain-title" class="font-serif text-2xl md:text-3xl font-bold text-white">Valuta da 1 (Mai) a 5 (Sempre)</h2>
+                    </div>
+                    <button onclick="resetToStep1()" class="btn-glass !py-2 !px-4 !text-[11px] self-start">
+                        ← Cambia Ambito
+                    </button>
+                </div>
+
+                <!-- Barra di Progresso -->
+                <div class="lux-card p-4 rounded-xl mb-8 flex items-center justify-between gap-4">
+                    <span class="text-xs text-gray-400 font-medium">Stato Compilazione:</span>
+                    <div class="flex-grow h-2 bg-white/5 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-gradient-to-r from-[#E5D0A1] to-[#d4af37] w-0 transition-all duration-300"></div>
+                    </div>
+                    <span id="progress-text" class="text-xs font-bold text-premium-champagne">0 / 9</span>
+                </div>
+
+                <!-- Contenitore Domande -->
+                <div id="questions-container" class="space-y-5 mb-10"></div>
+
+                <div class="text-center">
+                    <p id="error-msg" class="text-rose-400 text-xs mb-4 hidden">Rispondi a tutte le 9 domande per elaborare la tua mappa oggettiva.</p>
+                    <button onclick="calculateFlowResults()" class="btn-gold w-full sm:w-auto !px-10 !py-4">
+                        <span>Elabora Mappa & Diagnosi FLOW</span>
+                        <i data-lucide="cpu" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- STEP 3: REPORT DIAGNOSTICO & INVIO -->
+            <section id="step-3-report" class="hidden transition-all duration-500">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="highlighter-badge mb-3" style="--hl-bg: rgba(29, 209, 161, 0.22); --hl-text: #1dd1a1;">Fase 03 • Risultato Diagnostico</span>
+                    <h2 class="font-serif text-3xl md:text-5xl font-bold text-white mb-3">La Tua Mappa <span class="gold-text">FLOW</span></h2>
+                    <p id="report-subtitle" class="text-gray-400 text-sm font-light"></p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-12">
+                    <!-- Radar Triangolare SVG -->
+                    <div class="lg:col-span-5 lux-card p-8 rounded-2xl text-center">
+                        <span class="text-[10px] uppercase tracking-widest text-premium-champagne font-bold block mb-2">Geometria di Allineamento</span>
+                        <div class="relative w-64 h-64 mx-auto my-2 flex items-center justify-center">
+                            <svg viewBox="0 0 220 220" class="w-full h-full overflow-visible">
+                                <!-- Griglia Triangolare -->
+                                <polygon points="110,20 195,170 25,170" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3 3"/>
+                                <polygon points="110,55 162,150 58,150" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                                <polygon points="110,90 132,130 88,130" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                                <!-- Assi dal centro (110,115) -->
+                                <line x1="110" y1="115" x2="110" y2="20" stroke="rgba(255,255,255,0.08)"/>
+                                <line x1="110" y1="115" x2="195" y2="170" stroke="rgba(255,255,255,0.08)"/>
+                                <line x1="110" y1="115" x2="25" y2="170" stroke="rgba(255,255,255,0.08)"/>
+                                <!-- Poligono Dinamico Utente -->
+                                <polygon id="radar-polygon" points="110,90 132,130 88,130" fill="rgba(229,208,161,0.28)" stroke="#E5D0A1" stroke-width="2.5"/>
+                                <!-- Etichette Vertici -->
+                                <text x="110" y="10" text-anchor="middle" fill="#48dbfb" font-size="9" font-weight="bold">COMUNICAZIONE</text>
+                                <text x="205" y="185" text-anchor="end" fill="#1dd1a1" font-size="9" font-weight="bold">BIOLOGIA</text>
+                                <text x="15" y="185" text-anchor="start" fill="#d4af37" font-size="9" font-weight="bold">STATO FLOW</text>
+                            </svg>
+                        </div>
+                        <div class="pt-4 border-t border-white/10 flex items-center justify-between text-xs">
+                            <span class="text-gray-400">Indice Globale di Allineamento:</span>
+                            <strong id="global-score-badge" class="text-lg font-serif text-premium-champagne">0%</strong>
+                        </div>
+                    </div>
+
+                    <!-- Barre dei 3 Assi & Diagnosi -->
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="lux-card p-6 rounded-xl space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1.5">
+                                    <span class="text-[#48dbfb]">1. Comunicazione & Tenuta Sotto Stress</span>
+                                    <span id="score-comm-text" class="text-white">0%</span>
+                                </div>
+                                <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                                    <div id="bar-comm" class="h-full bg-[#48dbfb] w-0 transition-all duration-700"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1.5">
+                                    <span class="text-[#1dd1a1]">2. Ecologia Biologica & Recupero Energetico</span>
+                                    <span id="score-bio-text" class="text-white">0%</span>
+                                </div>
+                                <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                                    <div id="bar-bio" class="h-full bg-[#1dd1a1] w-0 transition-all duration-700"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1.5">
+                                    <span class="text-[#d4af37]">3. Presenza & Accesso allo Stato di Flow</span>
+                                    <span id="score-flow-text" class="text-white">0%</span>
+                                </div>
+                                <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                                    <div id="bar-flow" class="h-full bg-[#d4af37] w-0 transition-all duration-700"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Box Lettura Oggettiva dell'Attrito -->
+                        <div class="lux-card p-6 rounded-xl border-l-4 border-l-premium-champagne">
+                            <span class="text-[10px] uppercase tracking-widest text-premium-champagne font-bold block mb-1">Lettura Oggettiva • Collo di Bottiglia Primario</span>
+                            <h3 id="bottleneck-title" class="font-serif text-xl font-bold text-white mb-2"></h3>
+                            <p id="bottleneck-desc" class="text-gray-300 text-xs md:text-sm font-light leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORM INVIO DATI & RICHIESTA SESSIONE -->
+                <div class="lux-card p-8 md:p-10 rounded-2xl border border-premium-champagne/35 max-w-3xl mx-auto">
+                    <div class="text-center mb-6">
+                        <span class="text-premium-champagne text-[10px] uppercase tracking-[0.25em] font-bold block mb-1">Passo Successivo • Analisi Gratuita</span>
+                        <h3 class="font-serif text-2xl font-bold text-white mb-2">Ricevi il Report e Sblocca la Tua Leva</h3>
+                        <p class="text-gray-400 text-xs font-light">
+                            Invia i punteggi della tua mappa per analizzarli insieme in una Discovery Call gratuita di 30 minuti (nessun consiglio preconfezionato, solo lavoro oggettivo sui tuoi dati).
+                        </p>
+                    </div>
+
+                    <form action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" class="space-y-4">
+                        <input type="hidden" name="_subject" value="Nuovo Report FLOW Assessment dal Sito">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="Ambito_Scelto" id="input-domain" value="">
+                        <input type="hidden" name="Punteggio_Comunicazione" id="input-comm" value="">
+                        <input type="hidden" name="Punteggio_Biologia" id="input-bio" value="">
+                        <input type="hidden" name="Punteggio_Flow" id="input-flow" value="">
+                        <input type="hidden" name="Attrito_Principale" id="input-bottleneck" value="">
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-gray-300 mb-1.5 font-semibold">Nome e Cognome *</label>
+                                <input type="text" name="Nome" required placeholder="Il tuo nome" class="w-full px-4 py-3 rounded-lg bg-white/[0.04] border border-white/10 text-white text-sm focus:outline-none focus:border-premium-champagne">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-gray-300 mb-1.5 font-semibold">Email o Telefono *</label>
+                                <input type="text" name="Contatto" required placeholder="La tua email o WhatsApp" class="w-full px-4 py-3 rounded-lg bg-white/[0.04] border border-white/10 text-white text-sm focus:outline-none focus:border-premium-champagne">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-gray-300 mb-1.5 font-semibold">Qual è l'ostacolo principale che vorresti sbloccare? (Opzionale)</label>
+                            <textarea name="Obiettivo_Utente" rows="2" placeholder="Scrivi in 2 righe la sfida su cui vorresti maggiore lucidità..." class="w-full px-4 py-3 rounded-lg bg-white/[0.04] border border-white/10 text-white text-sm focus:outline-none focus:border-premium-champagne"></textarea>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                            <button type="submit" class="btn-gold flex-1">
+                                <span>Invia Mappa & Richiedi Analisi</span>
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                            </button>
+                            <button type="button" onclick="resetToStep1()" class="btn-glass">
+                                Ripeti il Test
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
 
         </div>
     </main>
 
-    <footer class="bg-premium-950 border-t border-white/5 py-8 text-center text-xs text-gray-500 mt-auto relative z-10">
-        <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
+    <footer class="bg-premium-950 border-t border-white/5 py-10 px-6 text-center text-xs text-gray-500 mt-auto relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <a href="index.html" class="font-serif text-sm font-bold text-white tracking-widest">CLAUDIO<span class="text-premium-champagne">CARLUCCIO</span></a>
+            <p>© 2026 Claudio Carluccio Coaching. Tutti i diritti riservati.</p>
+            <div class="flex gap-6">
+                <a href="flow.html" class="hover:text-premium-champagne">FLOW</a>
+                <a href="assessment.html" class="hover:text-premium-champagne">Assessment</a>
+                <a href="servizi-coach.html" class="hover:text-premium-champagne">Per i Coach</a>
+                <a href="contatti.html" class="hover:text-premium-champagne">Contattami</a>
+            </div>
+        </div>
     </footer>
 
     <script>
         lucide.createIcons();
 
-        // Effetto Spotlight sulle card
-        document.querySelectorAll('.cat-card').forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-            });
-        });
+        const glowEl = document.getElementById('ambient-bg-glow');
+        let currentDomain = '';
+        let userAnswers = {};
 
-        const catNames = {
-            business: "Business & Leadership",
-            sport: "Sport & Performance Agonistica",
-            parenting: "Genitorialità & Crescita"
-        };
-
-        const catThemes = {
-            business: { border: "#8c7ae6", aura: "radial-gradient(circle, rgba(140, 122, 230, 0.16) 0%, rgba(4, 4, 4, 0) 70%)" },
-            sport: { border: "#ff6b6b", aura: "radial-gradient(circle, rgba(255, 107, 107, 0.16) 0%, rgba(4, 4, 4, 0) 70%)" },
-            parenting: { border: "#E5D0A1", aura: "radial-gradient(circle, rgba(229, 208, 161, 0.16) 0%, rgba(4, 4, 4, 0) 70%)" }
-        };
-
-        const axisLabels = {
-            com: "Asse 01 • Comunicazione & Empatia Tattica",
-            bio: "Asse 02 • Ecologia Biologica & Recupero",
-            flow: "Asse 03 • Allineamento & Stato di Flow"
-        };
-
-        const questionsData = {
-            business: [
-                {
-                    axis: "com",
-                    q: "Quando un collaboratore commette un errore ripetuto sotto pressione, qual è la reazione prevalente?",
-                    options: [
-                        { text: "Si richiama duramente all'ordine per evitare che l'errore si ripeta.", score: 1 },
-                        { text: "Si corregge la procedura tecnica ignorando lo stato emotivo della persona.", score: 2 },
-                        { text: "Si disinnesca la tensione con l'ascolto attivo prima di correggere l'esecuzione.", score: 3 }
-                    ]
-                },
-                {
-                    axis: "com",
-                    q: "Durante una negoziazione o riunione ad alta tensione, come gestisci le obiezioni ostili?",
-                    options: [
-                        { text: "Rispondo subito punto su punto per difendere la mia posizione.", score: 1 },
-                        { text: "Cerco un compromesso rapido a metà strada per chiudere il conflitto.", score: 2 },
-                        { text: "Anticipo le resistenze (Accusation Audit) e uso l'empatia tattica per guidare il dialogo.", score: 3 }
-                    ]
-                },
-                {
-                    axis: "bio",
-                    q: "Come vengono gestiti i momenti di calo energetico nei progetti aziendali chiave?",
-                    options: [
-                        { text: "Si spinge a oltranza indipendentemente dalla stanchezza mentale del team.", score: 1 },
-                        { text: "Si concedono pause occasionali ma senza una strategia sui ritmi di recupero.", score: 2 },
-                        { text: "Si pianificano le decisioni critiche rispettando i picchi di lucidità biologica.", score: 3 }
-                    ]
-                },
-                {
-                    axis: "bio",
-                    q: "Qual è il tuo rapporto personale con il recupero mentale dopo giornate ad alto carico decisionale?",
-                    options: [
-                        { text: "Fatico a staccare: porto la tensione lavorativa anche a casa e nel sonno.", score: 1 },
-                        { text: "Recupero solo nel fine settimana, accumulando fatica durante i giorni feriali.", score: 2 },
-                        { text: "Applico routine di decompressione quotidiane per preservare la lucidità esecutiva.", score: 3 }
-                    ]
-                },
-                {
-                    axis: "flow",
-                    q: "Come definiresti il livello di fiducia e stato di Flow all'interno del tuo team?",
-                    options: [
-                        { text: "Frequenti blocchi, paura di sbagliare o atteggiamento difensivo.", score: 1 },
-                        { text: "Buona resa nei momenti ordinari, ma perdita di lucidità durante le urgenze.", score: 2 },
-                        { text: "Alta sintonia e responsabilità: la pressione viene trasformata in sfida consapevole.", score: 3 }
-                    ]
-                },
-                {
-                    axis: "flow",
-                    q: "Quanto sono chiari e condivisi gli obiettivi strategici tra te e i tuoi collaboratori?",
-                    options: [
-                        { text: "Spesso devo rincorrere le persone o ripetere più volte le stesse direttive.", score: 1 },
-                        { text: "Gli obiettivi sono noti, ma manca proattività autonoma nel raggiungerli.", score: 2 },
-                        { text: "C'è pieno allineamento: ciascuno conosce il proprio impatto e agisce in autonomia.", score: 3 }
-                    ]
-                }
-            ],
-            sport: [
-                {
-                    axis: "com",
-                    q: "Come reagisce lo staff o l'atleta quando si verifica un calo improvviso di rendimento in gara?",
-                    options: [
-                        { text: "Subentra frustrazione, si alza la voce o cresce il dialogo interno giudicante.", score: 1 },
-                        { text: "Ci si concentra solo su indicazioni tecniche e meccaniche a caldo.", score: 2 },
-                        { text: "Si disinnesca la percezione di minaccia per riportare la mente nel qui e ora.", score: 3 }
-                    ]
-                },
-                {
-                    axis: "com",
-                    q: "Come viene gestito il feedback subito dopo una sconfitta o una prestazione sotto le attese?",
-                    options: [
-                        { text: "A caldo, evidenziando immediatamente tutto ciò che non ha funzionato.", score: 1 },
-                        { text: "Si evita di parlarne per non creare ulteriore tensione emotiva.", score: 2 },
-                        { text: "Si accoglie lo stato emotivo a caldo e si rimanda l'analisi oggettiva a mente fredda.", score: 3 }
-                    ]
-                },
-                {
-                    axis: "bio",
-                    q: "I carichi di allenamento e l'avvicinamento alla gara rispettano i ritmi biologici e nervosi?",
-                    options: [
-                        { text: "No, si spinge sempre al limite massimo ignorando i segnali di sovraccarico.", score: 1 },
-                        { text: "Si rallenta solo quando compaiono stanchezza estrema o cali fisici evidenti.", score: 2 },
-                        { text: "Sì, il recupero neuro-biologico e la respirazione sono parte integrante del piano.", score: 3 }
-                    ]
-                },
-                {
-                    axis: "bio",
-                    q: "Come vengono gestiti sonno, attivazione nervosa e tensione nelle 24 ore precedenti la gara?",
-                    options: [
-                        { text: "Prevale l'ansia pre-gara che brucia energie nervose già prima di iniziare.", score: 1 },
-                        { text: "Si cerca di distrarsi in modo casuale senza un protocollo preciso.", score: 2 },
-                        { text: "Si utilizzano routine strutturate di respirazione e centratura per entrare in Peak State.", score: 3 }
-                    ]
-                },
-                {
-                    axis: "flow",
-                    q: "Quanto è solida la triangolazione relazionale (Atleta - Allenatore - Ambiente/Famiglia)?",
-                    options: [
-                        { text: "Frammentata: le aspettative esterne creano pressione e conflitti nell'atleta.", score: 1 },
-                        { text: "Superficiale: il dialogo ruota quasi esclusivamente attorno al risultato finale.", score: 2 },
-                        { text: "Sinergica: esiste un patto educativo e prestativo chiaro a tutela dell'atleta.", score: 3 }
-                    ]
-                },
-                {
-                    axis: "flow",
-                    q: "Durante i momenti decisivi del match o della gara, qual è lo stato mentale predominante?",
-                    options: [
-                        { text: "Paura di perdere, irrigidimento muscolare e perdita di fluidità.", score: 1 },
-                        { text: "Alternanza tra ottimi spunti e improvvisi passaggi a vuoto.", score: 2 },
-                        { text: "Stato di Flow: focus totale sul presente, istinto lucido e assenza di paura.", score: 3 }
-                    ]
-                }
-            ],
-            parenting: [
-                {
-                    axis: "com",
-                    q: "Di fronte a un momento di blocco, chiusura o rabbia di tuo figlio, come rispondi d'impeto?",
-                    options: [
-                        { text: "Con un rimprovero o giudizio immediato ('Così non va', 'Fai sempre così').", score: 1 },
-                        { text: "Cercando di dargli subito la soluzione razionale prima ancora di ascoltarlo.", score: 2 },
-                        { text: "Restando calmo, validando la sua emozione e ascoltando senza giudicare.", score: 3 }
-                    ]
-                },
-                {
-                    axis: "com",
-                    q: "Quando tuo figlio commette un errore o prende un brutto voto, qual è il messaggio che passa?",
-                    options: [
-                        { text: "L'errore viene vissuto come una colpa o una delusione da correggere subito.", score: 1 },
-                        { text: "Si minimizza l'accaduto ma resta una tensione silenziosa in casa.", score: 2 },
-                        { text: "Si separa il valore del ragazzo dal risultato, trasformando l'errore in apprendimento.", score: 3 }
-                    ]
-                },
-                {
-                    axis: "bio",
-                    q: "Quanto vengono rispettati i cali biologici ed energetici nello studio e nelle attività quotidiane?",
-                    options: [
-                        { text: "Prevale il dovere di finire tutto subito, anche quando è visibilmente saturo.", score: 1 },
-                        { text: "Si concedono pause, ma accompagnate da richiami e senso di colpa.", score: 2 },
-                        { text: "Si pianificano gli impegni rispettando i suoi tempi fisiologici di attenzione e recupero.", score: 3 }
-                    ]
-                },
-                {
-                    axis: "bio",
-                    q: "Come gestisci la tua stanchezza personale quando devi relazionarti con lui/lei a fine giornata?",
-                    options: [
-                        { text: "La mia stanchezza mi porta a perdere facilmente la pazienza e ad alzare i toni.", score: 1 },
-                        { text: "Mi sforzo di trattenere il nervosismo ma risulto distante o poco presente.", score: 2 },
-                        { text: "Riconosco il mio livello energetico e comunico con trasparenza senza scaricare lo stress.", score: 3 }
-                    ]
-                },
-                {
-                    axis: "flow",
-                    q: "Come descriveresti il clima relazionale in casa nei momenti in cui vanno prese decisioni?",
-                    options: [
-                        { text: "Teso, caratterizzato da muro contro muro, opposizioni o silenzi punitivi.", score: 1 },
-                        { text: "Altalenante: periodi tranquilli interrotti da scontri improvvisi.", score: 2 },
-                        { text: "Costruttivo: basato su regole chiare, ascolto profondo e fiducia reciproca.", score: 3 }
-                    ]
-                },
-                {
-                    axis: "flow",
-                    q: "In che modo sostieni l'autonomia e i talenti personali di tuo figlio?",
-                    options: [
-                        { text: "Tendo a decidere io per lui/lei per evitare che sbagli o perda tempo.", score: 1 },
-                        { text: "Gli lascio libertà ma intervengo appena vedo che fa fatica.", score: 2 },
-                        { text: "Lo affianco con domande potenzianti, lasciandogli la responsabilità delle sue scelte.", score: 3 }
-                    ]
-                }
-            ]
-        };
-
-        let currentCategory = '';
-        let currentQuestion = 0;
-        let selectedChoice = null;
-        let axisScores = { com: 0, bio: 0, flow: 0 };
-        let userAnswersLog = [];
-
-        function showStep(stepId) {
-            ['step-category', 'step-quiz', 'step-lead', 'step-result'].forEach(id => {
-                document.getElementById(id).classList.add('hidden-step');
-            });
-            document.getElementById(stepId).classList.remove('hidden-step');
-        }
-
-        function resetToCategories() {
-            document.getElementById('main-card').style.borderTopColor = '#E5D0A1';
-            document.getElementById('dynamic-aura').style.background = "radial-gradient(circle, rgba(229, 208, 161, 0.13) 0%, rgba(4, 4, 4, 0) 70%)";
-            showStep('step-category');
-        }
-
-        function selectCategory(cat) {
-            currentCategory = cat;
-            currentQuestion = 0;
-            axisScores = { com: 0, bio: 0, flow: 0 };
-            userAnswersLog = [];
-            document.getElementById('cat-active-label').innerText = catNames[cat];
-            document.getElementById('main-card').style.borderTopColor = catThemes[cat].border;
-            document.getElementById('dynamic-aura').style.background = catThemes[cat].aura;
-            showStep('step-quiz');
-            renderQuestion();
-        }
-
-        function renderQuestion() {
-            selectedChoice = null;
-            const btnNext = document.getElementById('btn-prossima');
-            btnNext.disabled = true;
-
-            const qList = questionsData[currentCategory];
-            const qData = qList[currentQuestion];
-            
-            document.getElementById('btn-prossima-text').innerText = (currentQuestion === qList.length - 1) ? "Completa Mappatura FLOW" : "Prossima Domanda";
-            document.getElementById('counter-domanda').innerText = `Domanda ${currentQuestion + 1} di ${qList.length}`;
-            document.getElementById('axis-pill').innerText = axisLabels[qData.axis];
-
-            // Aggiorna le 6 tacche dello stepper
-            const segs = document.querySelectorAll('#segmented-stepper .step-seg');
-            segs.forEach((s, idx) => {
-                s.classList.remove('done', 'current');
-                if (idx < currentQuestion) s.classList.add('done');
-                else if (idx === currentQuestion) s.classList.add('current');
-            });
-
-            // Animazione cambio domanda
-            const qBox = document.getElementById('question-box');
-            qBox.classList.remove('animate-question');
-            void qBox.offsetWidth;
-            qBox.classList.add('animate-question');
-
-            document.getElementById('question-title').innerText = qData.q;
-
-            const letters = ['A', 'B', 'C'];
-            let html = '';
-            qData.options.forEach((opt, idx) => {
-                const safeText = opt.text.replace(/'/g, "\\'");
-                html += `
-                <button type="button" class="tasto-opzione" onclick="selezionaOpzione(${opt.score}, '${qData.axis}', '${safeText}', this)">
-                    <span class="letter-badge">${letters[idx]}</span>
-                    <span>${opt.text}</span>
-                </button>`;
-            });
-            document.getElementById('options-list').innerHTML = html;
-        }
-
-        function selezionaOpzione(score, axis, text, btnEl) {
-            selectedChoice = { score, axis, text };
-            document.querySelectorAll('#options-list .tasto-opzione').forEach(b => b.classList.remove('selezionato'));
-            btnEl.classList.add('selezionato');
-            document.getElementById('btn-prossima').disabled = false;
-        }
-
-        function confermaRisposta() {
-            if (!selectedChoice) return;
-            axisScores[selectedChoice.axis] += selectedChoice.score;
-            userAnswersLog.push({
-                domanda: `D${currentQuestion + 1}`,
-                risposta: `${selectedChoice.text} (${selectedChoice.score}/3)`
-            });
-
-            currentQuestion++;
-            const qList = questionsData[currentCategory];
-
-            if (currentQuestion < qList.length) {
-                renderQuestion();
-            } else {
-                preparaFormLead();
-                showStep('step-lead');
+        const flowQuestionsData = {
+            business: {
+                name: "Business & Leadership",
+                theme: "business",
+                glow: "radial-gradient(circle at 50% 30%, rgba(140, 122, 230, 0.16) 0%, transparent 65%)",
+                color: "#8c7ae6",
+                questions: [
+                    { id: 1, axis: "comm", text: "Quando emerge un imprevisto o un errore nel lavoro, riesco a fare domande chiarificatrici invece di reagire d'impulso o irrigidirmi." },
+                    { id: 2, axis: "comm", text: "Nelle conversazioni difficili con colleghi, clienti o collaboratori, riesco a far sentire l'altro compreso senza cedere sui miei obiettivi." },
+                    { id: 3, axis: "comm", text: "I feedback che trasmetto sotto pressione generano allineamento operativo anziché difensiva o silenzio." },
+                    { id: 4, axis: "bio", text: "Riesco a staccare mentalmente dal lavoro a fine giornata senza portarmi tensioni nel sonno." },
+                    { id: 5, axis: "bio", text: "Rispetto pause di recupero energetico durante la giornata invece di andare avanti ad oltranza con caffeina o adrenalina." },
+                    { id: 6, axis: "bio", text: "Prendo le decisioni più importanti nei momenti di picco di lucidità biologica, evitando di decidere quando sono esausto." },
+                    { id: 7, axis: "flow", text: "Riesco a lavorare su blocchi di alta concentrazione profonda senza farmi frammentare da notifiche e urgenze altrui." },
+                    { id: 8, axis: "flow", text: "Sento che la complessità delle mie sfide professionali attuali è ben bilanciata rispetto alle competenze che metto in campo." },
+                    { id: 9, axis: "flow", text: "Anche nelle giornate più intense, mantengo chiara la priorità numero uno senza disperdere energie in dettagli secondari." }
+                ]
+            },
+            sport: {
+                name: "Sport & Agonismo",
+                theme: "sport",
+                glow: "radial-gradient(circle at 50% 30%, rgba(255, 107, 107, 0.15) 0%, transparent 65%)",
+                color: "#ff6b6b",
+                questions: [
+                    { id: 1, axis: "comm", text: "Dopo un errore tecnico o uno svantaggio in gara, il mio dialogo interno resta lucido e costruttivo anziché giudicante." },
+                    { id: 2, axis: "comm", text: "Nei momenti di massima pressione agonistica riesco a recepire o trasmettere indicazioni tecniche in modo rapido ed efficace." },
+                    { id: 3, axis: "comm", text: "Gestisco il confronto con allenatore, compagni o avversari senza lasciarmi destabilizzare emotivamente." },
+                    { id: 4, axis: "bio", text: "La qualità del mio sonno e del mio recupero nelle 48 ore precedenti alla prestazione è costante e rigenerante." },
+                    { id: 5, axis: "bio", text: "Riconosco i segnali fisici dell'ansia pre-gara e so trasformarli in attivazione utile anziché in rigidità muscolare." },
+                    { id: 6, axis: "bio", text: "Dopo allenamenti o gare ad alta intensità, rispetto i tempi di decompressione nervosa oltre che fisica." },
+                    { id: 7, axis: "flow", text: "In gara riesco ad affidarmi agli automatismi allenati senza bloccare il gesto con un eccesso di controllo razionale." },
+                    { id: 8, axis: "flow", text: "Resto totalmente ancorato al singolo scambio/azione presente senza proiettarmi con paura sul risultato finale." },
+                    { id: 9, axis: "flow", text: "Percepisco spesso quella sensazione di fluidità in cui tempo, fatica e distrazioni esterne sembrano scomparire." }
+                ]
+            },
+            parent: {
+                name: "Vita & Relazioni",
+                theme: "parent",
+                glow: "radial-gradient(circle at 50% 30%, rgba(72, 219, 251, 0.15) 0%, transparent 65%)",
+                color: "#48dbfb",
+                questions: [
+                    { id: 1, axis: "comm", text: "Quando in casa o nella coppia sale la tensione, riesco ad ascoltare lo stato emotivo dell'altro prima di alzare i toni." },
+                    { id: 2, axis: "comm", text: "Esprimo i miei bisogni e i miei confini in modo chiaro e calmo, senza accumulare frustrazione silenziosa." },
+                    { id: 3, axis: "comm", text: "Davanti a capricci, opposizioni o imprevisti familiari, mantengo autorevolezza ed empatia senza perdere la centratura." },
+                    { id: 4, axis: "bio", text: "Riesco a ritagliarmi spazi di ricarica personale senza provare senso di colpa verso la famiglia o il lavoro." },
+                    { id: 5, axis: "bio", text: "Accorgo subito quando la mia irritabilità dipende da stanchezza fisica o fame e intervengo prima di scaricarla sugli altri." },
+                    { id: 6, axis: "bio", text: "I nostri ritmi quotidiani e serali favoriscono il decomprimere anziché tenerci in stato di allerta continuo." },
+                    { id: 7, axis: "flow", text: "Quando dedico tempo a chi amo o a me stesso, sono mentalmente presente al 100% senza pensare ad altro." },
+                    { id: 8, axis: "flow", text: "Sento che le mie giornate seguono una direzione scelta da me e non solo una rincorsa continua alle emergenze." },
+                    { id: 9, axis: "flow", text: "Riesco a vivere i cambiamenti e le fasi di crescita familiare con curiosità e flessibilità anziché con rigidità." }
+                ]
             }
+        };
+
+        function setStepTabs(stepNum) {
+            document.getElementById('tab-step-1').classList.toggle('active-tab', stepNum === 1);
+            document.getElementById('tab-step-2').classList.toggle('active-tab', stepNum === 2);
+            document.getElementById('tab-step-3').classList.toggle('active-tab', stepNum === 3);
         }
 
-        function calcolaProfiloTestuale(totale, cat) {
-            const strategie = {
-                business: {
-                    low: "Sostituire i richiami reattivi con l'Empatia Tattica e l'Accusation Audit per azzerare le difese del team, pianificando le decisioni ad alto impatto nei picchi di lucidità biologica.",
-                    mid: "Strutturare protocolli di delega e decompressione giornaliera per evitare che le urgenze operative erodano la fiducia e la lucidità strategica del team.",
-                    high: "Consolidare la leadership con strumenti avanzati di coaching esecutivo e mappatura delle leve motivazionali individuali dei collaboratori chiave."
-                },
-                sport: {
-                    low: "Intervenire subito sul dialogo interno sotto stress e riallineare la triangolazione Atleta-Mister-Famiglia, inserendo routine di respirazione e recupero neuro-biologico pre-gara.",
-                    mid: "Stabilizzare la tenuta mentale nei momenti critici del match attraverso ancoraggi PNL e una gestione scientifica dei tempi di attivazione e scarico nervoso.",
-                    high: "Perfezionare l'accesso volontario al Peak State e allo stato di Flow agonistico per massimizzare la continuità di rendimento ad alto livello."
-                },
-                parenting: {
-                    low: "Sospendere il giudizio immediato a caldo e applicare la nominazione empatica delle emozioni, rispettando i tempi fisiologici di saturazione e recupero di tuo figlio.",
-                    mid: "Trasformare i momenti di tensione quotidiana in dialogo costruttivo attraverso domande potenzianti che sviluppino responsabilità anziché opposizione.",
-                    high: "Affinare l'ascolto attivo e l'accompagnamento strategico per sostenere lo sviluppo dell'autonomia, dell'autostima e dei talenti di tuo figlio."
-                }
-            };
+        function startFlowTest(domainKey) {
+            currentDomain = domainKey;
+            userAnswers = {};
+            const d = flowQuestionsData[domainKey];
 
-            if (totale <= 9) {
-                return {
-                    nome: "Stato: Attrito da Pressione Reattiva",
-                    desc: "Il sistema evidenzia un sovraccarico relazionale e biologico. Le risposte date d'impeto sotto pressione rischiano di attivare una percezione di 'minaccia' nell'altra persona (o in te stesso), innescando chiusure difensive e bloccando l'accesso allo stato di Flow.",
-                    azione: strategie[cat].low
-                };
-            } else if (totale <= 14) {
-                return {
-                    nome: "Stato: Flow a Rendimento Alternato",
-                    desc: "Esiste una buona consapevolezza di base, ma nei momenti di picco, stanchezza o emergenza subentrano cali di lucidità dovuti al mancato rispetto dei cicli di recupero biologico e a una comunicazione non sempre allineata.",
-                    azione: strategie[cat].mid
-                };
-            } else {
-                return {
-                    nome: "Stato: Allineamento al Flow d'Élite",
-                    desc: "Il tuo approccio rispetta in modo solido sia l'ecologia biologica sia la qualità relazionale. Hai le basi ideali per lavorare sulle micro-leve di eccellenza e rendere lo stato di Flow stabile e replicabile sotto qualsiasi pressione.",
-                    azione: strategie[cat].high
-                };
-            }
-        }
+            document.body.className = `antialiased selection:bg-premium-champagne selection:text-premium-950 theme-${d.theme}`;
+            glowEl.style.background = d.glow;
+            setStepTabs(2);
 
-        function preparaFormLead() {
-            const totale = axisScores.com + axisScores.bio + axisScores.flow;
-            const percTot = Math.round((totale / 18) * 100);
-            const infoProfilo = calcolaProfiloTestuale(totale, currentCategory);
+            const badge = document.getElementById('domain-badge');
+            badge.innerText = `Fase 02 • ${d.name}`;
+            badge.style.setProperty('--hl-text', d.color);
+            badge.style.setProperty('--hl-bg', d.color + '33');
 
-            document.getElementById('h-ambito').value = catNames[currentCategory];
-            document.getElementById('h-profilo').value = infoProfilo.nome;
-            document.getElementById('h-perc').value = `${percTot}%`;
-            document.getElementById('h-totale').value = `${totale} su 18`;
-            document.getElementById('h-com').value = `${axisScores.com} su 6`;
-            document.getElementById('h-bio').value = `${axisScores.bio} su 6`;
-            document.getElementById('h-flow').value = `${axisScores.flow} su 6`;
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
 
-            let dettHtml = '';
-            userAnswersLog.forEach(item => {
-                dettHtml += `<input type="hidden" name="Risposta_${item.domanda}" value="${item.risposta}">`;
+            d.questions.forEach((q, idx) => {
+                const axisLabel = q.axis === 'comm' ? 'Asse Comunicazione' : (q.axis === 'bio' ? 'Asse Ecologia Biologica' : 'Asse Stato di Flow');
+                const card = document.createElement('div');
+                card.className = 'lux-card p-6 rounded-xl';
+                card.innerHTML = `
+                    <div class="flex items-center justify-between text-[10px] uppercase tracking-widest text-gray-400 mb-2">
+                        <span>Domanda 0${idx + 1}</span>
+                        <span style="color: ${d.color}" class="font-bold">${axisLabel}</span>
+                    </div>
+                    <p class="text-white text-sm md:text-base font-medium mb-4 leading-relaxed">${q.text}</p>
+                    <div class="flex gap-2" id="q-group-${q.id}">
+                        ${[1, 2, 3, 4, 5].map(val => `
+                            <button type="button" onclick="selectScore(${q.id}, ${val}, this)" class="score-btn">
+                                ${val} <span class="block text-[9px] font-normal opacity-70">${val === 1 ? 'Mai' : (val === 3 ? 'A volte' : (val === 5 ? 'Sempre' : '&nbsp;'))}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(card);
             });
-            document.getElementById('h-risposte-dettaglio').innerHTML = dettHtml;
+
+            updateProgress();
+            document.getElementById('step-1-domain').classList.add('hidden');
+            document.getElementById('step-3-report').classList.add('hidden');
+            document.getElementById('step-2-questions').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function gestisciSubmitFlow() {
-            const nome = document.getElementById('lead-nome').value.trim();
-            document.getElementById('h-subject').value = `⚡ Nuovo Lead FLOW (${catNames[currentCategory]}): ${nome}`;
+        function selectScore(qId, val, btn) {
+            userAnswers[qId] = val;
+            const parent = document.getElementById(`q-group-${qId}`);
+            parent.querySelectorAll('.score-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            document.getElementById('error-msg').classList.add('hidden');
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const count = Object.keys(userAnswers).length;
+            const pct = Math.round((count / 9) * 100);
+            document.getElementById('progress-bar').style.width = `${pct}%`;
+            document.getElementById('progress-text').innerText = `${count} / 9`;
+        }
+
+        function resetToStep1() {
+            document.body.className = 'antialiased selection:bg-premium-champagne selection:text-premium-950 theme-start';
+            glowEl.style.background = 'radial-gradient(circle at 50% 15%, rgba(212, 175, 55, 0.14) 0%, transparent 65%)';
+            setStepTabs(1);
+            document.getElementById('step-2-questions').classList.add('hidden');
+            document.getElementById('step-3-report').classList.add('hidden');
+            document.getElementById('step-1-domain').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function calculateFlowResults() {
+            if (Object.keys(userAnswers).length < 9) {
+                document.getElementById('error-msg').classList.remove('hidden');
+                return;
+            }
+
+            const d = flowQuestionsData[currentDomain];
+            let commSum = 0, bioSum = 0, flowSum = 0;
+
+            d.questions.forEach(q => {
+                const v = userAnswers[q.id] || 0;
+                if (q.axis === 'comm') commSum += v;
+                if (q.axis === 'bio') bioSum += v;
+                if (q.axis === 'flow') flowSum += v;
+            });
+
+            const commPct = Math.round((commSum / 15) * 100);
+            const bioPct = Math.round((bioSum / 15) * 100);
+            const flowPct = Math.round((flowSum / 15) * 100);
+            const globalPct = Math.round((commPct + bioPct + flowPct) / 3);
+
+            document.body.className = 'antialiased selection:bg-premium-champagne selection:text-premium-950 theme-report';
+            glowEl.style.background = 'radial-gradient(circle at 50% 30%, rgba(29, 209, 161, 0.14) 0%, transparent 65%)';
+            setStepTabs(3);
+
+            document.getElementById('report-subtitle').innerText = `Ambito analizzato: ${d.name} • Punteggio complessivo di allineamento: ${globalPct}%`;
+            document.getElementById('global-score-badge').innerText = `${globalPct}%`;
+
+            document.getElementById('score-comm-text').innerText = `${commPct}%`;
+            document.getElementById('score-bio-text').innerText = `${bioPct}%`;
+            document.getElementById('score-flow-text').innerText = `${flowPct}%`;
 
             setTimeout(() => {
-                mostraRisultatiFinali(nome);
-            }, 350);
+                document.getElementById('bar-comm').style.width = `${commPct}%`;
+                document.getElementById('bar-bio').style.width = `${bioPct}%`;
+                document.getElementById('bar-flow').style.width = `${flowPct}%`;
+            }, 150);
 
-            return true;
-        }
+            // Calcolo coordinate Radar Triangolare (Centro: 110, 115)
+            const cRatio = commPct / 100;
+            const bRatio = bioPct / 100;
+            const fRatio = flowPct / 100;
 
-        function mostraRisultatiFinali(nome) {
-            const totale = axisScores.com + axisScores.bio + axisScores.flow;
-            const percTot = Math.round((totale / 18) * 100);
-            const infoProfilo = calcolaProfiloTestuale(totale, currentCategory);
+            const p1x = 110;
+            const p1y = Math.round(115 - (95 * cRatio));
+            const p2x = Math.round(110 + (85 * bRatio));
+            const p2y = Math.round(115 + (55 * bRatio));
+            const p3x = Math.round(110 - (85 * fRatio));
+            const p3y = Math.round(115 + (55 * fRatio));
 
-            document.getElementById('result-category-badge').innerText = "FLOW • " + catNames[currentCategory];
-            document.getElementById('result-title').innerText = `Dashboard FLOW di ${nome}`;
-            document.getElementById('result-profile-name').innerText = infoProfilo.nome;
-            document.getElementById('result-desc').innerText = infoProfilo.desc;
-            document.getElementById('result-action').innerText = infoProfilo.azione;
+            document.getElementById('radar-polygon').setAttribute('points', `${p1x},${p1y} ${p2x},${p2y} ${p3x},${p3y}`);
 
-            showStep('step-result');
-
-            const pCom = Math.round((axisScores.com / 6) * 100);
-            const pBio = Math.round((axisScores.bio / 6) * 100);
-            const pFlow = Math.round((axisScores.flow / 6) * 100);
-
-            // Anima Anello Circolare SVG e Barre Orizzontali
-            setTimeout(() => {
-                const circumference = 314.16;
-                const offset = circumference - (percTot / 100) * circumference;
-                document.getElementById('flow-ring-circle').style.strokeDashoffset = offset;
-                document.getElementById('flow-score-perc').innerText = percTot + '%';
-
-                document.getElementById('lbl-com').innerText = pCom + '%';
-                document.getElementById('bar-com').style.width = pCom + '%';
-
-                document.getElementById('lbl-bio').innerText = pBio + '%';
-                document.getElementById('bar-bio').style.width = pBio + '%';
-
-                document.getElementById('lbl-flow').innerText = pFlow + '%';
-                document.getElementById('bar-flow').style.width = pFlow + '%';
-            }, 120);
-
-            new Chart(document.getElementById('grafico-flow').getContext('2d'), {
-                type: 'bar',
-                data: {
-                    labels: ['Empatia Tattica', 'Ecologia Biologica', 'Allineamento Flow'],
-                    datasets: [{
-                        label: 'Indice di Allineamento (%)',
-                        data: [pCom, pBio, pFlow],
-                        backgroundColor: ['rgba(140, 122, 230, 0.65)', 'rgba(29, 209, 161, 0.65)', 'rgba(229, 208, 161, 0.75)'],
-                        borderColor: ['#8c7ae6', '#1dd1a1', '#E5D0A1'],
-                        borderWidth: 1.5,
-                        borderRadius: 6
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#fff', callback: v => v + '%' }, min: 0, max: 100 },
-                        x: { grid: { display: false }, ticks: { color: '#E5D0A1', font: { size: 11, family: "'Inter', sans-serif" } } }
-                    },
-                    plugins: { legend: { display: false } }
-                }
-            });
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const catParam = params.get('cat');
-            if (catParam && questionsData[catParam]) {
-                selectCategory(catParam);
+            // Diagnosi del collo di bottiglia (l'asse più basso)
+            let bTitle = '', bDesc = '';
+            if (bioPct <= commPct && bioPct <= flowPct) {
+                bTitle = "Attrito Primario: Ecologia Biologica & Recupero";
+                bDesc = "I tuoi dati indicano che stai sostenendo le tue responsabilità attingendo alle riserve nervose. Quando il recupero biologico scende sotto soglia, anche la lucidità decisionale e la pazienza relazionale iniziano a erodersi. Nella sessione gratuita isoleremo il protocollo minimo per restituirti margine energetico.";
+            } else if (commPct <= bioPct && commPct <= flowPct) {
+                bTitle = "Attrito Primario: Comunicazione & Impatto Sotto Pressione";
+                bDesc = "La tua dispersione principale avviene nella gestione dell'attrito relazionale o del dialogo interno nei momenti critici. Lavorare su domande calibrate e gestione emotiva sotto stress ti permetterà di ottenere molto di più con metà dello sforzo.";
+            } else {
+                bTitle = "Attrito Primario: Frammentazione del Focus & Flow";
+                bDesc = "Hai buone basi energetiche e relazionali, ma il tuo potenziale viene frenato da iper-controllo o distrazioni operative che ti impediscono di entrare in stato di Flow profondo. Nella Discovery Call metteremo a fuoco come proteggere la tua concentrazione nei momenti chiave.";
             }
-        });
+
+            document.getElementById('bottleneck-title').innerText = bTitle;
+            document.getElementById('bottleneck-desc').innerText = bDesc;
+
+            // Popola campi nascosti FormSubmit
+            document.getElementById('input-domain').value = d.name;
+            document.getElementById('input-comm').value = `${commPct}%`;
+            document.getElementById('input-bio').value = `${bioPct}%`;
+            document.getElementById('input-flow').value = `${flowPct}%`;
+            document.getElementById('input-bottleneck').value = bTitle;
+
+            document.getElementById('step-2-questions').classList.add('hidden');
+            document.getElementById('step-3-report').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
