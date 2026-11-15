@@ -74,11 +74,47 @@
             background: linear-gradient(90deg, var(--hl-bg, rgba(229, 208, 161, 0.25)) 0%, transparent 100%);
             color: var(--hl-text, #E5D0A1); border-left: 3px solid var(--hl-text, #E5D0A1);
         }
+        #chapter-tabs {
+            position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+            z-index: 8000; display: flex; flex-direction: column; gap: 8px;
+        }
+        .chapter-tab {
+            display: flex; align-items: center; justify-content: flex-end;
+            padding: 7px 12px 7px 16px; border-radius: 8px 0 0 8px;
+            background: rgba(14, 14, 20, 0.75); backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-right: none;
+            color: #71717a; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateX(calc(100% - 24px)); cursor: pointer;
+        }
+        .chapter-tab .tab-pip {
+            width: 8px; height: 8px; border-radius: 50%; background: #3f3f46;
+            margin-left: 10px; flex-shrink: 0; transition: background 0.3s;
+        }
+        .chapter-tab:hover { transform: translateX(0); color: #ffffff; background: rgba(22, 22, 30, 0.95); }
+        .chapter-tab.active-tab {
+            transform: translateX(0); color: #040406; background: var(--tab-color, #E5D0A1);
+            border-color: var(--tab-color, #E5D0A1);
+            box-shadow: -8px 0 24px -4px var(--tab-shadow, rgba(229, 208, 161, 0.45)); font-weight: 700;
+        }
+        .chapter-tab.active-tab .tab-pip { background: #040406; }
+        @media (max-width: 1024px) { #chapter-tabs { display: none; } }
+
         body.theme-reviews { background-color: #040406; }
         body.theme-form { background-color: #050814; }
     </style>
 </head>
 <body class="antialiased selection:bg-premium-champagne selection:text-premium-950 theme-reviews">
+
+    <!-- LINGUETTE SEGNAPAGINA LATERALI DESTRE -->
+    <aside id="chapter-tabs" aria-label="Indice pagina testimonianze">
+        <a href="#reviews-section" class="chapter-tab active-tab" data-target="reviews-section" style="--tab-color: #E5D0A1; --tab-shadow: rgba(229, 208, 161, 0.5);">
+            <span>Fase 01 • 5 Riscontri</span><span class="tab-pip"></span>
+        </a>
+        <a href="#form-section" class="chapter-tab" data-target="form-section" style="--tab-color: #48dbfb; --tab-shadow: rgba(72, 219, 251, 0.45);">
+            <span>Fase 02 • Lascia Feedback</span><span class="tab-pip"></span>
+        </a>
+    </aside>
 
     <div id="ambient-bg-glow"></div>
     <div class="bg-grid"></div>
@@ -119,9 +155,9 @@
         <div class="max-w-6xl mx-auto">
 
             <!-- SEZIONE 1: LE 5 TESTIMONIANZE VERIFICATE -->
-            <section class="scroll-section mb-24" data-theme="reviews" data-glow="radial-gradient(circle at 50% 15%, rgba(229, 208, 161, 0.14) 0%, transparent 65%)">
+            <section id="reviews-section" class="scroll-section mb-24" data-theme="reviews" data-glow="radial-gradient(circle at 50% 15%, rgba(229, 208, 161, 0.14) 0%, transparent 65%)">
                 <div class="text-center max-w-3xl mx-auto mb-16">
-                    <span class="highlighter-badge mb-3" style="--hl-bg: rgba(229, 208, 161, 0.22); --hl-text: #E5D0A1;">Impatto Reale & Partnership ICF</span>
+                    <span class="highlighter-badge mb-3" style="--hl-bg: rgba(229, 208, 161, 0.22); --hl-text: #E5D0A1;">Fase 01 • Impatto Reale & Partnership ICF</span>
                     <h1 class="font-serif text-4xl md:text-5xl font-bold text-white mb-4">Le Voci del Cambiamento</h1>
                     <p class="text-gray-400 text-sm md:text-base font-light">
                         Riscontri autentici di atleti, coach e manager che hanno sperimentato il metodo basato su osservazione oggettiva, domande mirate e strategie d'azione concrete.
@@ -130,7 +166,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     
-                    <!-- 1. MARCO DE GENNARO (NUOVA IN EVIDENZA) -->
+                    <!-- 1. MARCO DE GENNARO -->
                     <div class="lux-card p-8 rounded-2xl border-t-4 border-t-[#ff6b6b] flex flex-col justify-between">
                         <div>
                             <div class="flex items-center justify-between mb-4">
@@ -229,10 +265,10 @@
             </section>
 
             <!-- SEZIONE 2: MODULO LASCIA LA TUA TESTIMONIANZA -->
-            <section class="scroll-section pt-8" data-theme="form" data-glow="radial-gradient(circle at 50% 50%, rgba(72, 219, 251, 0.12) 0%, transparent 65%)">
+            <section id="form-section" class="scroll-section pt-8" data-theme="form" data-glow="radial-gradient(circle at 50% 50%, rgba(72, 219, 251, 0.12) 0%, transparent 65%)">
                 <div class="lux-card p-8 md:p-12 rounded-2xl border border-premium-champagne/30 max-w-3xl mx-auto">
                     <div class="text-center mb-8">
-                        <span class="highlighter-badge mb-2" style="--hl-bg: rgba(72, 219, 251, 0.22); --hl-text: #48dbfb;">Condividi la Tua Esperienza</span>
+                        <span class="highlighter-badge mb-2" style="--hl-bg: rgba(72, 219, 251, 0.22); --hl-text: #48dbfb;">Fase 02 • Condividi la Tua Esperienza</span>
                         <h2 class="font-serif text-2xl md:text-3xl font-bold text-white mb-2">Hai fatto una sessione o un percorso con me?</h2>
                         <p class="text-gray-400 text-xs md:text-sm font-light">Il tuo riscontro aiuta altri professionisti e atleti a comprendere il valore del coaching etico.</p>
                     </div>
@@ -244,7 +280,7 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>
                                 <label class="block text-xs uppercase tracking-wider text-gray-300 mb-2 font-semibold">Il Tuo Nome e Cognome *</label>
-                                <input type="text" name="Nome" required placeholder="Scrivi qui il tuo nome" class="w-full px-4 py-3 rounded-lg bg-white/[0.04] border border-white/10 text-white text-sm focus:outline-none focus:border-premium-champagne">
+                                <input type="text" name="Nome" required placeholder="Scrivi qui il tuo nome e cognome" class="w-full px-4 py-3 rounded-lg bg-white/[0.04] border border-white/10 text-white text-sm focus:outline-none focus:border-premium-champagne">
                             </div>
                             <div>
                                 <label class="block text-xs uppercase tracking-wider text-gray-300 mb-2 font-semibold">La Tua Professione o Sport *</label>
@@ -293,19 +329,34 @@
 
         const sections = document.querySelectorAll('.scroll-section');
         const glowElement = document.getElementById('ambient-bg-glow');
+        const tabs = document.querySelectorAll('.chapter-tab');
 
         const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const theme = entry.target.getAttribute('data-theme');
                     const glow = entry.target.getAttribute('data-glow');
+                    const currentId = entry.target.getAttribute('id');
+
                     document.body.className = `antialiased selection:bg-premium-champagne selection:text-premium-950 theme-${theme}`;
                     if (glow && glowElement) glowElement.style.background = glow;
+
+                    tabs.forEach(tab => {
+                        tab.classList.toggle('active-tab', tab.getAttribute('data-target') === currentId);
+                    });
                 }
             });
         }, { threshold: 0.25 });
 
         sections.forEach(sec => sectionObserver.observe(sec));
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetEl = document.getElementById(tab.getAttribute('data-target'));
+                if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
     </script>
 </body>
 </html>
