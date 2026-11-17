@@ -1,14 +1,3 @@
-Il motivo per cui non è partita è che l'indirizzo `/ajax/` di FormSubmit viene spesso bloccato dai filtri anti-tracciamento del browser (o richiede un'attivazione separata rispetto ai moduli normali).
-
-Per renderlo infallibile al 100%, ho sostituito la chiamata `/ajax/` con **lo stesso identico modulo HTML standard** che ti ha appena recapitato le mail di Samantha e Marco, indirizzato però dentro un **`iframe` invisibile** nella pagina: in questo modo per FormSubmit è un invio classico garantito, ma l'utente non vede alcun caricamento e passa subito alla prima domanda.
-
-In più, ho aggiunto l'invio automatico dell'accesso anche al tuo **Google Sheet** (tramite lo `scriptURL` già presente nel file), così oltre alla mail ti trovi anche una riga nel foglio Excel con scritto `LOGIN EFFETTUATO: Luca` (o `claudio`) e l'orario esatto.
-
-(Nota: fai sempre il test aprendo il link online `[https://claudiocarlucciocoaching.com/mta.html](https://claudiocarlucciocoaching.com/mta.html)` e non dal file salvato sul PC, altrimenti FormSubmit ignora l'invio).
-
-Ecco il codice completo e pulito da incollare in **`mta.html`**:
-
-```html
 <!DOCTYPE html>
 <html lang="it">
 <head>
