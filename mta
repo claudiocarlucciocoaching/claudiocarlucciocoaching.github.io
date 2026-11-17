@@ -1,0 +1,265 @@
+È assolutamente fattibile: siccome FormSubmit è già attivo e verificato sul tuo dominio `[https://claudiocarlucciocoaching.com/](https://claudiocarlucciocoaching.com/)`, possiamo inviare una chiamata silenziosa in background (`fetch` AJAX) nel preciso istante in cui l'utente inserisce le credenziali corrette.
+
+Chi entra vede aprirsi subito la prima domanda del test senza accorgersi di nulla, mentre a te arriva in automatico una mail su **`claudiocarlucciocoaching@gmail.com`** con scritto **chi è entrato** (`claudio` o `Luca`) e **a che ora**.
+
+Ecco il codice completo con le due credenziali impostate (`claudio` / `cla9090!` e `Luca` / `provamta`, dove il nome utente funziona sia con la maiuscola che con la minuscola):
+
+```html
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>M.T.A. Audit 50 | Mental Toughness Architecture</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root { --sport-red: #e74c3c; --dark-bg: #0c0c0c; --gray-panel: #1a1a1a; --text-light: #f4f4f4; }
+        body { background-color: var(--dark-bg); color: var(--text-light); font-family: 'Helvetica Neue', Arial, sans-serif; text-align: center; padding: 10px; margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
+        .wrapper { max-width: 550px; margin: 20px auto; background: var(--gray-panel); padding: 35px; border-radius: 20px; border: 1px solid #333; box-shadow: 0 15px 50px rgba(0,0,0,0.9); flex-grow: 1; width: 100%; box-sizing: border-box; }
+        .brand-header h1 { font-size: 22px; text-transform: uppercase; letter-spacing: 5px; margin: 0; color: var(--sport-red); font-weight: 700; }
+        .brand-header p { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #777; margin-top: 8px; margin-bottom: 25px; }
+        .progress-container { width: 100%; background: #222; height: 6px; border-radius: 10px; margin-bottom: 35px; overflow: hidden; }
+        #bar-fill { height: 100%; background: var(--sport-red); width: 0%; transition: width 0.3s ease; box-shadow: 0 0 10px var(--sport-red); }
+        .domanda { font-size: 18px; color: white; margin-bottom: 30px; font-weight: 400; min-height: 85px; display: flex; align-items: center; justify-content: center; line-height: 1.4; }
+        .tasto { display: block; width: 100%; padding: 16px; margin: 10px 0; background: transparent; color: white; border: 1px solid #444; border-radius: 12px; font-size: 13px; font-weight: 600; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
+        .tasto:hover { background: var(--sport-red) !important; border-color: var(--sport-red) !important; transform: translateY(-2px); }
+        .input-lead { width: 100%; padding: 15px; margin: 10px 0; box-sizing: border-box; background: #222; border: 1px solid #333; color: white; border-radius: 10px; font-size: 16px; outline: none; }
+        .input-lead:focus { border-color: var(--sport-red); }
+        .nascosto { display: none !important; }
+        .cta-red { background: var(--sport-red) !important; color: white !important; border: none !important; font-weight: 800; padding: 20px; width: 100%; border-radius: 12px; text-transform: uppercase; cursor: pointer; font-size: 15px; margin-top: 10px; transition: opacity 0.2s; }
+        .cta-red:hover { opacity: 0.9; }
+        .errore-login { color: var(--sport-red); font-size: 12px; margin-top: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        canvas { max-width: 100%; margin-top: 20px; filter: drop-shadow(0 0 10px rgba(231, 76, 60, 0.1)); }
+        footer { padding: 20px; font-size: 10px; color: #444; letter-spacing: 1px; text-transform: uppercase; }
+        .fade-in { animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="brand-header">
+        <h1>M.T.A. AUDIT 50</h1>
+        <p>Mental Toughness Architecture • Elite Performance</p>
+    </div>
+
+    <!-- SCHERMATA DI ACCESSO RISERVATO -->
+    <div id="step-login" class="fade-in">
+        <p style="color:#aaa; font-size:13px; margin-bottom: 20px; line-height: 1.5;">
+            Protocollo diagnostico riservato. Inserisci le credenziali fornite dal Coach per avviare l'assessment.
+        </p>
+        <input type="text" id="login-user" class="input-lead" placeholder="Utente" autocomplete="off">
+        <input type="password" id="login-pass" class="input-lead" placeholder="Password" onkeydown="if(event.key==='Enter') verificaAccesso()">
+        <button type="button" class="cta-red" onclick="verificaAccesso()">ACCEDI AL PROTOCOLLO</button>
+        <div id="login-error" class="errore-login nascosto">Credenziali non valide. Riprova.</div>
+    </div>
+
+    <!-- STEP 1: DOMANDE -->
+    <div id="step-assessment" class="nascosto">
+        <div class="progress-container"><div id="bar-fill"></div></div>
+        <div id="testo-domanda" class="domanda fade-in"></div>
+        <div id="opzioni">
+            <button type="button" class="tasto" onclick="prossima(30)">Sempre / Eccellente</button>
+            <button type="button" class="tasto" onclick="prossima(20)">Spesso / Buono</button>
+            <button type="button" class="tasto" onclick="prossima(10)">Raramente / Scarso</button>
+            <button type="button" class="tasto" onclick="prossima(0)">Mai / Critico</button>
+        </div>
+    </div>
+
+    <!-- STEP 2: DATI ATLETA -->
+    <div id="step-lead" class="nascosto">
+        <h2 style="color:white; font-weight: 300; letter-spacing: 2px;">ELABORAZIONE REPORT</h2>
+        <input type="text" id="nome" class="input-lead" placeholder="Nome Completo">
+        <input type="email" id="email" class="input-lead" placeholder="Email Atleta">
+        <button type="button" class="cta-red" onclick="inviaDati()">GENERA REPORT TECNICO</button>
+    </div>
+
+    <!-- STEP 3: RISULTATO E RADAR -->
+    <div id="step-result" class="nascosto">
+        <h2 style="color:white; font-weight: 300; letter-spacing: 2px;">M.T.A. PROFILE</h2>
+        <canvas id="graficoMTA"></canvas>
+        <p style="color:#888; font-size:13px; margin: 25px 0; font-style: italic;">Mappatura completa. Contatta il Coach per l'analisi dei dati.</p>
+        <button type="button" class="cta-red" onclick="prenotaCoach()">RICHIEDI DEBRIEFING</button>
+    </div>
+</div>
+
+<footer>
+    © 2026 Claudio Carluccio Coaching | M.T.A. Audit 50 | Proprietà Intellettuale Protetta.
+</footer>
+
+<script>
+    // ==========================================
+    // CREDENZIALI DI ACCESSO (Utente : Password)
+    // ==========================================
+    const utentiAutorizzati = {
+        "claudio": "cla9090!",
+        "luca": "provamta"
+    };
+
+    function verificaAccesso() {
+        const rawUser = document.getElementById('login-user').value.trim();
+        const u = rawUser.toLowerCase();
+        const p = document.getElementById('login-pass').value.trim();
+        const err = document.getElementById('login-error');
+
+        if (utentiAutorizzati[u] && utentiAutorizzati[u] === p) {
+            err.classList.add('nascosto');
+            document.getElementById('step-login').classList.add('nascosto');
+            document.getElementById('step-assessment').classList.remove('nascosto');
+            aggiornaDomanda();
+
+            // Notifica email silenziosa in background
+            const dataOra = new Date().toLocaleString('it-IT');
+            fetch('https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    _subject: `Accesso M.T.A. Audit 50 effettuato da: ${rawUser}`,
+                    Utente: rawUser,
+                    Data_e_Ora_Accesso: dataOra,
+                    Evento: "Ha appena effettuato l'accesso al test riservato M.T.A. Audit 50",
+                    _captcha: "false"
+                })
+            }).catch(() => {});
+        } else {
+            err.classList.remove('nascosto');
+        }
+    }
+
+    // URL AGGIORNATO E TESTATO
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbx-Waba80I03wTdO63uo7sq_Ren9U4mB7U_SEem93YWQ4cR1CWsADWjwJ2AEoAKrkUaDg/exec';
+    
+    const database = [
+        { cat: "Resilienza", q: "Riesci a dimenticare un errore tecnico immediatamente dopo averlo commesso?" },
+        { cat: "Resilienza", q: "Mantieni alta l'intensità anche quando il punteggio è fortemente a tuo svantaggio?" },
+        { cat: "Resilienza", q: "Vedi le sconfitte come dati su cui lavorare invece che come fallimenti personali?" },
+        { cat: "Resilienza", q: "In caso di infortunio, ti focalizzi subito su ciò che PUOI fare?" },
+        { cat: "Resilienza", q: "Riesci a sopportare critiche dure dal coach senza perdere fiducia?" },
+        { cat: "Concentrazione", q: "Riesci a isolarti completamente dai rumori o dalle provocazioni?" },
+        { cat: "Concentrazione", q: "Il tuo focus resta costante dall'inizio alla fine della sessione?" },
+        { cat: "Concentrazione", q: "Riesci a rientrare nel 'presente' se la mente inizia a vagare?" },
+        { cat: "Concentrazione", q: "Mantieni la precisione tecnica anche quando sopraggiunge la stanchezza?" },
+        { cat: "Concentrazione", q: "Ti senti in grado di ignorare distrazioni personali prima di entrare in campo?" },
+        { cat: "Stress", q: "Il tuo respiro rimane calmo e controllato nei momenti di massima pressione?" },
+        { cat: "Stress", q: "Senti una tensione muscolare positiva invece di una rigida?" },
+        { cat: "Stress", q: "Nei momenti decisivi, la tua visione di gioco rimane ampia?" },
+        { cat: "Stress", q: "Dormi profondamente la notte prima di una competizione importante?" },
+        { cat: "Stress", q: "Riesci a trasformare l'ansia pre-gara in energia agonistica?" },
+        { cat: "Motivazione", q: "Ti alleni con la stessa intensità anche quando non sei controllato?" },
+        { cat: "Motivazione", q: "Hai obiettivi chiari e scritti per la tua stagione agonistica?" },
+        { cat: "Motivazione", q: "Sei disposto a rinunciare a svaghi per favorire il tuo recupero?" },
+        { cat: "Motivazione", q: "Cerchi attivamente il confronto con avversari più forti?" },
+        { cat: "Motivazione", q: "La tua voglia di vincere è superiore alla tua paura di perdere?" },
+        { cat: "Fiducia", q: "Entri in campo convinto di avere una soluzione tattica?" },
+        { cat: "Fiducia", q: "Accetti le sfide più difficili con entusiasmo?" },
+        { cat: "Fiducia", q: "Riesci a mantenere una postura sicura anche quando la gara si mette male?" },
+        { cat: "Fiducia", q: "Senti di avere il controllo totale sulle tue abilità tecniche?" },
+        { cat: "Fiducia", q: "Credi fermamente che il tuo impegno superi quello degli avversari?" },
+        { cat: "Emozioni", q: "Riesci a controllare la rabbia dopo una decisione ingiusta?" },
+        { cat: "Emozioni", q: "Eviti di lamentarti con i compagni o con te stesso durante la gara?" },
+        { cat: "Emozioni", q: "Gestisci la frustrazione se un gesto tecnico non ti riesce?" },
+        { cat: "Emozioni", q: "Riesci a mantenere un'espressione neutra davanti all'avversario?" },
+        { cat: "Emozioni", q: "Senti di avere il controllo dei tuoi pensieri nei momenti di pausa?" },
+        { cat: "Preparazione", q: "Utilizzi tecniche di visualizzazione prima di un gesto importante?" },
+        { cat: "Preparazione", q: "Hai una routine fissa (gesti/parole) prima dell'inizio della gara?" },
+        { cat: "Preparazione", q: "Analizzi i video delle tue performance per individuare aree di miglioramento?" },
+        { cat: "Preparazione", q: "Prepari mentalmente diversi scenari di gara prima di iniziare?" },
+        { cat: "Preparazione", q: "Ti assicuri che il tuo setup sia perfetto molto prima del via?" },
+        { cat: "Leadership", q: "Ti senti a tuo agio nel dare indicazioni ai tuoi compagni?" },
+        { cat: "Leadership", q: "Ti assumi la responsabilità dei tuoi errori senza scuse?" },
+        { cat: "Leadership", q: "Senti di essere un punto di riferimento nei momenti difficili?" },
+        { cat: "Leadership", q: "Rispetti rigorosamente le regole del team anche se non ti piacciono?" },
+        { cat: "Leadership", q: "Ti senti in grado di comunicare in modo costruttivo con lo staff?" },
+        { cat: "Decisione", q: "Sotto pressione, scegli la giocata più efficace invece della facile?" },
+        { cat: "Decisione", q: "Riesci a cambiare strategia in corsa se quella iniziale non funziona?" },
+        { cat: "Decisione", q: "La tua esecuzione tecnica segue immediatamente la tua decisione?" },
+        { cat: "Decisione", q: "Ti senti lucido nel leggere le debolezze tattiche del tuo avversario?" },
+        { cat: "Decisione", q: "Ti fidi del tuo istinto quando non c'è tempo per pensare?" },
+        { cat: "Recupero", q: "Riesci a smettere di pensare alla gara una volta uscito dal campo?" },
+        { cat: "Recupero", q: "Dedichi tempo consapevole al relax mentale fuori dallo sport?" },
+        { cat: "Recupero", q: "Riconosci i segnali di sovrallenamento mentale?" },
+        { cat: "Recupero", q: "Senti di avere un'identità forte anche fuori dai risultati sportivi?" },
+        { cat: "Recupero", q: "Ti senti rigenerato e affamato di sport dopo un giorno di riposo?" }
+    ];
+
+    let step = 0;
+    let scores = { Resilienza:0, Concentrazione:0, Stress:0, Motivazione:0, Fiducia:0, Emozioni:0, Preparazione:0, Leadership:0, Decisione:0, Recupero:0 };
+
+    function aggiornaDomanda() {
+        const el = document.getElementById('testo-domanda');
+        el.classList.remove('fade-in');
+        setTimeout(() => {
+            el.innerText = database[step].q;
+            el.classList.add('fade-in');
+            document.getElementById('bar-fill').style.width = ((step / database.length) * 100) + "%";
+        }, 50);
+    }
+
+    function prossima(val) {
+        let cat = database[step].cat;
+        scores[cat] += val;
+        step++;
+        if (step < database.length) aggiornaDomanda();
+        else {
+            document.getElementById('step-assessment').classList.add('nascosto');
+            document.getElementById('step-lead').classList.remove('nascosto');
+        }
+    }
+
+    function inviaDati() {
+        const n = document.getElementById('nome').value;
+        const e = document.getElementById('email').value;
+        if(!n || !e.includes('@')) { alert("Dati non validi."); return; }
+        
+        document.getElementById('step-lead').classList.add('nascosto');
+        document.getElementById('step-result').classList.remove('nascosto');
+        creaGrafico();
+        
+        // Formattiamo il payload come stringa JSON
+        const payload = JSON.stringify({ nome: n, email: e, ...scores });
+
+        // Invio ottimizzato per bypassare CORS
+        fetch(scriptURL, { 
+            method: 'POST', 
+            mode: 'no-cors', 
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: payload
+        });
+    }
+
+    function creaGrafico() {
+        const ctx = document.getElementById('graficoMTA').getContext('2d');
+        const labels = Object.keys(scores);
+        const dataValues = labels.map(key => scores[key] / 5);
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: dataValues,
+                    backgroundColor: 'rgba(231, 76, 60, 0.3)',
+                    borderColor: '#e74c3c',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#fff'
+                }]
+            },
+            options: {
+                scales: { r: { grid: { color: '#333' }, ticks: { display: false }, min: 0, max: 30, pointLabels: { color: '#888', font: { size: 9, weight: 'bold' } } } },
+                plugins: { legend: { display: false } }
+            }
+        });
+    }
+
+    function prenotaCoach() {
+        const n = document.getElementById('nome').value;
+        window.open(`mailto:info@claudiocarlucciocoaching.com?subject=Debrief M.T.A. Audit - ${n}&body=Ciao Claudio, ho completato l'audit. Attendo un tuo riscontro per l'analisi dei dati.`, "_blank");
+    }
+</script>
+</body>
+</html>
+
+```
