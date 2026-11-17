@@ -1,10 +1,3 @@
-È assolutamente fattibile: siccome FormSubmit è già attivo e verificato sul tuo dominio `[https://claudiocarlucciocoaching.com/](https://claudiocarlucciocoaching.com/)`, possiamo inviare una chiamata silenziosa in background (`fetch` AJAX) nel preciso istante in cui l'utente inserisce le credenziali corrette.
-
-Chi entra vede aprirsi subito la prima domanda del test senza accorgersi di nulla, mentre a te arriva in automatico una mail su **`claudiocarlucciocoaching@gmail.com`** con scritto **chi è entrato** (`claudio` o `Luca`) e **a che ora**.
-
-Ecco il codice completo con le due credenziali impostate (`claudio` / `cla9090!` e `Luca` / `provamta`, dove il nome utente funziona sia con la maiuscola che con la minuscola):
-
-```html
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -44,7 +37,6 @@ Ecco il codice completo con le due credenziali impostate (`claudio` / `cla9090!`
         <p>Mental Toughness Architecture • Elite Performance</p>
     </div>
 
-    <!-- SCHERMATA DI ACCESSO RISERVATO -->
     <div id="step-login" class="fade-in">
         <p style="color:#aaa; font-size:13px; margin-bottom: 20px; line-height: 1.5;">
             Protocollo diagnostico riservato. Inserisci le credenziali fornite dal Coach per avviare l'assessment.
@@ -55,7 +47,6 @@ Ecco il codice completo con le due credenziali impostate (`claudio` / `cla9090!`
         <div id="login-error" class="errore-login nascosto">Credenziali non valide. Riprova.</div>
     </div>
 
-    <!-- STEP 1: DOMANDE -->
     <div id="step-assessment" class="nascosto">
         <div class="progress-container"><div id="bar-fill"></div></div>
         <div id="testo-domanda" class="domanda fade-in"></div>
@@ -67,7 +58,6 @@ Ecco il codice completo con le due credenziali impostate (`claudio` / `cla9090!`
         </div>
     </div>
 
-    <!-- STEP 2: DATI ATLETA -->
     <div id="step-lead" class="nascosto">
         <h2 style="color:white; font-weight: 300; letter-spacing: 2px;">ELABORAZIONE REPORT</h2>
         <input type="text" id="nome" class="input-lead" placeholder="Nome Completo">
@@ -75,7 +65,6 @@ Ecco il codice completo con le due credenziali impostate (`claudio` / `cla9090!`
         <button type="button" class="cta-red" onclick="inviaDati()">GENERA REPORT TECNICO</button>
     </div>
 
-    <!-- STEP 3: RISULTATO E RADAR -->
     <div id="step-result" class="nascosto">
         <h2 style="color:white; font-weight: 300; letter-spacing: 2px;">M.T.A. PROFILE</h2>
         <canvas id="graficoMTA"></canvas>
@@ -89,9 +78,6 @@ Ecco il codice completo con le due credenziali impostate (`claudio` / `cla9090!`
 </footer>
 
 <script>
-    // ==========================================
-    // CREDENZIALI DI ACCESSO (Utente : Password)
-    // ==========================================
     const utentiAutorizzati = {
         "claudio": "cla9090!",
         "luca": "provamta"
@@ -109,7 +95,6 @@ Ecco il codice completo con le due credenziali impostate (`claudio` / `cla9090!`
             document.getElementById('step-assessment').classList.remove('nascosto');
             aggiornaDomanda();
 
-            // Notifica email silenziosa in background
             const dataOra = new Date().toLocaleString('it-IT');
             fetch('https://formsubmit.co/ajax/claudiocarlucciocoaching@gmail.com', {
                 method: 'POST',
@@ -130,7 +115,6 @@ Ecco il codice completo con le due credenziali impostate (`claudio` / `cla9090!`
         }
     }
 
-    // URL AGGIORNATO E TESTATO
     const scriptURL = 'https://script.google.com/macros/s/AKfycbx-Waba80I03wTdO63uo7sq_Ren9U4mB7U_SEem93YWQ4cR1CWsADWjwJ2AEoAKrkUaDg/exec';
     
     const database = [
@@ -219,10 +203,8 @@ Ecco il codice completo con le due credenziali impostate (`claudio` / `cla9090!`
         document.getElementById('step-result').classList.remove('nascosto');
         creaGrafico();
         
-        // Formattiamo il payload come stringa JSON
         const payload = JSON.stringify({ nome: n, email: e, ...scores });
 
-        // Invio ottimizzato per bypassare CORS
         fetch(scriptURL, { 
             method: 'POST', 
             mode: 'no-cors', 
