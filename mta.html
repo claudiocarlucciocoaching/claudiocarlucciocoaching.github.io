@@ -5,26 +5,227 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
     <title>M.T.A. Audit 50 | Mental Toughness Architecture</title>
+    <link rel="icon" type="image/png" href="logo-claudio.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root { --sport-red: #e74c3c; --dark-bg: #0c0c0c; --gray-panel: #1a1a1a; --text-light: #f4f4f4; }
-        body { background-color: var(--dark-bg); color: var(--text-light); font-family: 'Helvetica Neue', Arial, sans-serif; text-align: center; padding: 10px; margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
-        .wrapper { max-width: 550px; margin: 20px auto; background: var(--gray-panel); padding: 35px; border-radius: 20px; border: 1px solid #333; box-shadow: 0 15px 50px rgba(0,0,0,0.9); flex-grow: 1; width: 100%; box-sizing: border-box; }
-        .brand-header h1 { font-size: 22px; text-transform: uppercase; letter-spacing: 5px; margin: 0; color: var(--sport-red); font-weight: 700; }
-        .brand-header p { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #777; margin-top: 8px; margin-bottom: 25px; }
+        :root { 
+            --sport-red: #e74c3c; 
+            --gold: #E5D0A1;
+            --dark-bg: #09090c; 
+            --gray-panel: #141419; 
+            --text-light: #f4f4f4; 
+        }
+        body { 
+            background-color: var(--dark-bg); 
+            background-image: radial-gradient(circle at 50% 0%, rgba(231, 76, 60, 0.14) 0%, transparent 60%);
+            color: var(--text-light); 
+            font-family: 'Helvetica Neue', Arial, sans-serif; 
+            text-align: center; 
+            padding: 15px 10px; 
+            margin: 0; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .wrapper { 
+            max-width: 600px; 
+            margin: 20px auto; 
+            background: var(--gray-panel); 
+            padding: 35px 28px; 
+            border-radius: 22px; 
+            border: 1px solid rgba(255,255,255,0.08); 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9); 
+            flex-grow: 1; 
+            width: 100%; 
+            box-sizing: border-box; 
+        }
+        .scarcity-badge {
+            display: inline-block;
+            background: rgba(231, 76, 60, 0.12);
+            border: 1px solid rgba(231, 76, 60, 0.35);
+            color: var(--sport-red);
+            font-size: 9.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            margin-bottom: 14px;
+        }
+        .logo-top {
+            width: 74px;
+            height: 74px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 22px rgba(229, 208, 161, 0.22);
+            margin: 0 auto 14px auto;
+            display: block;
+        }
+        .brand-header h1 { 
+            font-size: 25px; 
+            text-transform: uppercase; 
+            letter-spacing: 5px; 
+            margin: 0; 
+            color: #ffffff; 
+            font-weight: 800; 
+        }
+        .brand-header h1 span {
+            color: var(--sport-red);
+        }
+        .brand-header p { 
+            font-size: 10px; 
+            text-transform: uppercase; 
+            letter-spacing: 2.5px; 
+            color: var(--gold); 
+            margin-top: 6px; 
+            margin-bottom: 22px; 
+            font-weight: 600;
+        }
+        .info-box {
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .voss-hook {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin: 0 0 12px 0;
+            border-left: 3px solid var(--gold);
+            padding-left: 12px;
+        }
+        .info-box p {
+            color: #c8c8d0;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 0 0 14px 0;
+        }
+        .voss-question {
+            background: rgba(229, 208, 161, 0.07);
+            border: 1px dashed rgba(229, 208, 161, 0.35);
+            color: var(--gold);
+            font-size: 12.5px;
+            font-style: italic;
+            padding: 11px 14px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            line-height: 1.45;
+        }
+        .steps-title {
+            font-size: 10.5px;
+            text-transform: uppercase;
+            letter-spacing: 1.8px;
+            color: #999;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 11px 13px;
+            border-radius: 10px;
+            border-left: 3px solid var(--sport-red);
+        }
+        .step-num {
+            background: var(--sport-red);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 800;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .step-text {
+            font-size: 12.5px;
+            color: #ddd;
+            line-height: 1.45;
+        }
+        .step-text strong {
+            color: #fff;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .coach-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(229, 208, 161, 0.05);
+            border: 1px solid rgba(229, 208, 161, 0.22);
+            border-radius: 14px;
+            padding: 13px 16px;
+            margin-bottom: 22px;
+            text-align: left;
+        }
+        .coach-photo {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+            flex-shrink: 0;
+        }
+        .coach-info strong {
+            display: block;
+            color: #fff;
+            font-size: 14.5px;
+            letter-spacing: 0.4px;
+        }
+        .coach-info span {
+            display: block;
+            color: var(--gold);
+            font-size: 10.5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+            font-weight: 700;
+        }
+        .coach-info small {
+            display: block;
+            color: #aaa;
+            font-size: 11px;
+            margin-top: 3px;
+            line-height: 1.35;
+        }
+        .login-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--gold);
+            margin-bottom: 8px;
+            display: block;
+            font-weight: 700;
+        }
         .progress-container { width: 100%; background: #222; height: 6px; border-radius: 10px; margin-bottom: 35px; overflow: hidden; }
         #bar-fill { height: 100%; background: var(--sport-red); width: 0%; transition: width 0.3s ease; box-shadow: 0 0 10px var(--sport-red); }
         .domanda { font-size: 18px; color: white; margin-bottom: 30px; font-weight: 400; min-height: 85px; display: flex; align-items: center; justify-content: center; line-height: 1.4; }
         .tasto { display: block; width: 100%; padding: 16px; margin: 10px 0; background: transparent; color: white; border: 1px solid #444; border-radius: 12px; font-size: 13px; font-weight: 600; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
         .tasto:hover { background: var(--sport-red) !important; border-color: var(--sport-red) !important; transform: translateY(-2px); }
-        .input-lead { width: 100%; padding: 15px; margin: 10px 0; box-sizing: border-box; background: #222; border: 1px solid #333; color: white; border-radius: 10px; font-size: 16px; outline: none; }
+        .input-lead { width: 100%; padding: 14px 15px; margin: 8px 0; box-sizing: border-box; background: #1f1f27; border: 1px solid #333; color: white; border-radius: 10px; font-size: 15px; outline: none; transition: border-color 0.2s; }
         .input-lead:focus { border-color: var(--sport-red); }
         .nascosto { display: none !important; }
-        .cta-red { background: var(--sport-red) !important; color: white !important; border: none !important; font-weight: 800; padding: 20px; width: 100%; border-radius: 12px; text-transform: uppercase; cursor: pointer; font-size: 15px; margin-top: 10px; transition: opacity 0.2s; }
-        .cta-red:hover { opacity: 0.9; }
+        .cta-red { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important; color: white !important; border: none !important; font-weight: 800; padding: 18px; width: 100%; border-radius: 12px; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; font-size: 14px; margin-top: 10px; box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3); transition: transform 0.2s, opacity 0.2s; }
+        .cta-red:hover { opacity: 0.95; transform: translateY(-1px); }
         .errore-login { color: var(--sport-red); font-size: 12px; margin-top: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
         canvas { max-width: 100%; margin-top: 20px; filter: drop-shadow(0 0 10px rgba(231, 76, 60, 0.1)); }
-        footer { padding: 20px; font-size: 10px; color: #444; letter-spacing: 1px; text-transform: uppercase; }
+        footer { padding: 20px; font-size: 10px; color: #555; letter-spacing: 1px; text-transform: uppercase; }
         .fade-in { animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -33,20 +234,72 @@
 
 <div class="wrapper">
     <div class="brand-header">
-        <h1>M.T.A. AUDIT 50</h1>
-        <p>Mental Toughness Architecture • Elite Performance</p>
+        <span class="scarcity-badge">🔒 Protocollo Riservato su Invito</span>
+        <img src="logo-claudio.png" alt="Claudio Carluccio Coaching Logo" class="logo-top">
+        <h1>M.T.A. <span>AUDIT 50</span></h1>
+        <p>Mental Toughness Architecture • Telemetria Mentale Agonistica</p>
     </div>
 
+    <!-- SCHERMATA DI ACCESSO PERSUASIVA (VOSS & CIALDINI) -->
     <div id="step-login" class="fade-in">
-        <p style="color:#aaa; font-size:13px; margin-bottom: 20px; line-height: 1.5;">
-            Protocollo diagnostico riservato. Inserisci le credenziali fornite dal Coach per avviare l'assessment.
-        </p>
+        
+        <div class="info-box">
+            <div class="voss-hook">
+                Nello sport agonistico si misura tutto al millimetro — carichi atletici, tattica, video-analisi — ma si lascia ancora al caso l'unico fattore che decide cosa accade nei momenti decisivi sotto pressione: la tenuta mentale.
+            </div>
+            <p>
+                Probabilmente avrai già visto questionari teorici o approcci motivazionali che lasciano il tempo che trovano. Il protocollo <strong>M.T.A. Audit 50</strong> nasce per fare l'esatto opposto: <strong>non dà consigli e non motiva. Misura.</strong>
+            </p>
+            <p>
+                Attraverso <strong>50 indicatori specifici da gara</strong>, questo sistema diagnostico traduce l'invisibile in dati oggettivi (scala 0-30), mappando i <strong>10 assi dell'architettura mentale</strong>: <em>Resilienza immediata all'errore, Concentrazione, Gestione dello Stress, Motivazione, Fiducia, Controllo Emotivo, Preparazione, Leadership, Decision Making sotto fatica e Recupero</em>.
+            </p>
+            <div class="voss-question">
+                "Saresti contrario a individuare con esattezza matematica dove si disperde oggi il potenziale in gara, prima ancora di scendere in campo?"
+            </div>
+
+            <span class="steps-title">Come funziona il protocollo in 3 fasi:</span>
+            <div class="steps-list">
+                <div class="step-item">
+                    <span class="step-num">1</span>
+                    <div class="step-text">
+                        <strong>Rispondi alle 50 Domande (5 minuti)</strong>
+                        Non esistono risposte "giuste" per fare bella figura: rispondi pensando esclusivamente a come reagisci davvero nei momenti critici di gara e allenamento.
+                    </div>
+                </div>
+                <div class="step-item">
+                    <span class="step-num">2</span>
+                    <div class="step-text">
+                        <strong>Genera il Tuo Radar Tecnico a 10 Assi</strong>
+                        Al termine del test inserisci il tuo nome e la tua email per sbloccare all'istante la geometria visiva dei tuoi punti di forza e dei colli di bottiglia.
+                    </div>
+                </div>
+                <div class="step-item">
+                    <span class="step-num">3</span>
+                    <div class="step-text">
+                        <strong>Sessione Riservata di Restituzione</strong>
+                        La tua mappatura viene acquisita dal sistema e <strong>verrai ricontattato personalmente da Claudio Carluccio</strong> per il debriefing tecnico e l'analisi strategica dei risultati.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="coach-card">
+            <img src="claudio-coach.png" alt="Claudio Carluccio" class="coach-photo">
+            <div class="coach-info">
+                <strong>Claudio Carluccio</strong>
+                <span>Sport, Business & Performance Coach</span>
+                <small>Formazione accreditata ICF Level 2 (Adamas / Aurum) & PNL Practitioner</small>
+            </div>
+        </div>
+
+        <span class="login-label">Inserisci le credenziali riservate fornite dal Coach</span>
         <input type="text" id="login-user" class="input-lead" placeholder="Utente" autocomplete="off">
         <input type="password" id="login-pass" class="input-lead" placeholder="Password" onkeydown="if(event.key==='Enter') verificaAccesso()">
-        <button type="button" class="cta-red" onclick="verificaAccesso()">ACCEDI AL PROTOCOLLO</button>
-        <div id="login-error" class="errore-login nascosto">Credenziali non valide. Riprova.</div>
+        <button type="button" class="cta-red" onclick="verificaAccesso()">SBLOCCA E AVVIA L'AUDIT →</button>
+        <div id="login-error" class="errore-login nascosto">Credenziali non valide. Verifica Utente e Password.</div>
     </div>
 
+    <!-- STEP 1: DOMANDE -->
     <div id="step-assessment" class="nascosto">
         <div class="progress-container"><div id="bar-fill"></div></div>
         <div id="testo-domanda" class="domanda fade-in"></div>
@@ -58,18 +311,23 @@
         </div>
     </div>
 
+    <!-- STEP 2: DATI ATLETA -->
     <div id="step-lead" class="nascosto">
         <h2 style="color:white; font-weight: 300; letter-spacing: 2px;">ELABORAZIONE REPORT</h2>
-        <input type="text" id="nome" class="input-lead" placeholder="Nome Completo">
-        <input type="email" id="email" class="input-lead" placeholder="Email Atleta">
+        <p style="color:#aaa; font-size:13px; margin-bottom:15px;">Inserisci il tuo nome e la tua email per sbloccare il grafico Radar e inviare i dati al Coach per la sessione di restituzione.</p>
+        <input type="text" id="nome" class="input-lead" placeholder="Nome e Cognome">
+        <input type="email" id="email" class="input-lead" placeholder="La tua Email">
         <button type="button" class="cta-red" onclick="inviaDati()">GENERA REPORT TECNICO</button>
     </div>
 
+    <!-- STEP 3: RISULTATO E RADAR -->
     <div id="step-result" class="nascosto">
         <h2 style="color:white; font-weight: 300; letter-spacing: 2px;">M.T.A. PROFILE</h2>
         <canvas id="graficoMTA"></canvas>
-        <p style="color:#888; font-size:13px; margin: 25px 0; font-style: italic;">Mappatura completa. Contatta il Coach per l'analisi dei dati.</p>
-        <button type="button" class="cta-red" onclick="prenotaCoach()">RICHIEDI DEBRIEFING</button>
+        <p style="color:#aaa; font-size:13px; margin: 25px 0; line-height: 1.5;">
+            Mappatura completata e registrata con successo.<br>Verrai contattato da <strong>Claudio Carluccio</strong> per la sessione riservata di restituzione e l'analisi dei tuoi dati.
+        </p>
+        <button type="button" class="cta-red" onclick="prenotaCoach()">RICHIEDI DEBRIEFING IMMEDIATO</button>
     </div>
 </div>
 
@@ -109,13 +367,11 @@
 
             const dataOra = new Date().toLocaleString('it-IT');
 
-            // 1. Invio Mail tramite FormSubmit standard su iframe nascosto
             document.getElementById('notify-subject').value = "Accesso M.T.A. Audit 50 effettuato da: " + rawUser;
             document.getElementById('notify-user').value = rawUser;
             document.getElementById('notify-time').value = dataOra;
             document.getElementById('hidden-login-form').submit();
 
-            // 2. Registrazione immediata anche sul tuo Google Sheet
             const loginPayload = JSON.stringify({
                 nome: "LOGIN EFFETTUATO: " + rawUser,
                 email: "Accesso il " + dataOra
@@ -257,5 +513,3 @@
 </script>
 </body>
 </html>
-
-```
