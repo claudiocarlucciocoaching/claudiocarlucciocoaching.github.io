@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Cassetta Digitale per Coach | Anagrafica Contratto | Claudio Carluccio</title>
+    <link rel="icon" type="image/png" href="logo-claudio.png">
+    <style>
+        :root {
+            --bg-dark: #09090c;
+            --panel-dark: #141419;
+            --gold: #E5D0A1;
+            --gold-strong: #D4AF37;
+            --accent-blue: #2563eb;
+            --primary-contract: #2c3e50;
+            --text-light: #f4f4f6;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px 12px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at 50% 0%, rgba(229, 208, 161, 0.12) 0%, transparent 60%);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nascosto {
+            display: none !important;
+        }
+
+        /* =========================================
+           LANDING PAGE & GATE DI ACCESSO COACH
+        ========================================= */
+        .gate-wrapper {
+            max-width: 820px;
+            width: 100%;
+            margin: 15px auto;
+            background: var(--panel-dark);
+            border: 1px solid rgba(229, 208, 161, 0.22);
+            border-radius: 22px;
+            padding: 40px 30px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9);
+        }
+
+        .gate-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .badge-exclusive {
+            display: inline-block;
+            background: rgba(229, 208, 161, 0.12);
+            border: 1px solid rgba(229, 208, 161, 0.35);
+            color: var(--gold);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 5px 14px;
+            border-radius: 999px;
+            margin-bottom: 16px;
+        }
+
+        .logo-brand {
+            width: 74px;
+            height: 74px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 20px rgba(229, 208, 161, 0.2);
+            display: block;
+            margin: 0 auto 14px auto;
+        }
+
+        .gate-header h1 {
+            font-size: 26px;
+            margin: 0;
+            color: #ffffff;
+            letter-spacing: 1px;
+            font-weight: 800;
+        }
+
+        .gate-header h1 span {
+            color: var(--gold);
+        }
+
+        .gate-header p {
+            color: #a1a1aa;
+            font-size: 14px;
+            max-width: 620px;
+            margin: 10px auto 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Box Strumento Attivo + Login */
+        .login-spotlight {
+            background: linear-gradient(145deg, rgba(229, 208, 161, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+            border: 1px solid rgba(229, 208, 161, 0.35);
+            border-radius: 16px;
+            padding: 26px;
+            margin-bottom: 32px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .tool-desc h2 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            color: var(--gold);
+        }
+
+        .tool-desc p {
+            margin: 0 0 12px 0;
+            font-size: 13px;
+            color: #d4d4d8;
+            line-height: 1.55;
+        }
+
+        .tool-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 12px;
+            color: #a1a1aa;
+        }
+
+        .tool-features li {
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tool-features li span {
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .login-box {
+            background: rgba(9, 9, 12, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .login-box label {
+            display: block;
+            font-size: 10.5px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            background: #1c1c24;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .login-input:focus {
+            border-color: var(--gold);
+        }
+
+        .btn-unlock {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #F3E5AB 0%, #E5D0A1 50%, #C5A059 100%);
+            color: #050505;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-unlock:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(229, 208, 161, 0.35);
+        }
+
+        .login-err {
+            color: #f87171;
+            font-size: 11.5px;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        /* Vetrina Cassetta Digitale per Coach */
+        .services-title {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .services-title span {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .services-title h3 {
+            margin: 0;
+            font-size: 19px;
+            color: #fff;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .service-card h4 {
+            margin: 0 0 6px 0;
+            font-size: 14px;
+            color: var(--gold);
+        }
+
+        .service-card p {
+            margin: 0;
+            font-size: 12px;
+            color: #b4b4be;
+            line-height: 1.5;
+        }
+
+        /* Footer Coach Card */
+        .coach-footer-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 14px 18px;
+            flex-wrap: wrap;
+        }
+
+        .coach-mini {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .coach-mini img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+        }
+
+        .coach-mini strong {
+            display: block;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .coach-mini span {
+            font-size: 11px;
+            color: #a1a1aa;
+        }
+
+        .btn-contact-coach {
+            padding: 10px 18px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .btn-contact-coach:hover {
+            background: var(--gold);
+            color: #050505;
+        }
+
+        @media (max-width: 720px) {
+            .login-spotlight, .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .gate-wrapper {
+                padding: 25px 18px;
+            }
+        }
+
+        /* =========================================
+           AREA CONTRATTO SBLOCCATA (FOGLIO BIANCO)
+        ========================================= */
+        .contract-toolbar {
+            max-width: 850px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-back-gate {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--gold);
+            border: 1px solid rgba(229, 208, 161, 0.3);
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .toolbar-hint {
+            font-size: 12px;
+            color: #a1a1aa;
+        }
+
+        .contract-container {
+            background: #ffffff;
+            color: #334155;
+            max-width: 850px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+            line-height: 1.6;
+        }
+
+        .contract-container h1 {
+            text-align: center;
+            font-size: 22px;
+            color: var(--primary-contract);
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--primary-contract);
+            padding-bottom: 10px;
+        }
+
+        .contract-container h2 {
+            font-size: 16px;
+            color: var(--primary-contract);
+            margin-top: 25px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 4px;
+        }
+
+        .contract-container p, .contract-container li {
+            font-size: 13px;
+            text-align: justify;
+        }
+
+        .contract-container ul {
+            padding-left: 20px;
+        }
+
+        .editable-field {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 13px;
+            color: #0f172a;
+            font-weight: bold;
+            outline: none;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .editable-field:focus {
+            border-color: var(--accent-blue);
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(37, 99, 235, 0.3);
+        }
+
+        .inline-field {
+            display: inline-block;
+            width: auto;
+            min-width: 180px;
+        }
+
+        .grid-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #64748b;
+            margin-bottom: 3px;
+        }
+
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #cbd5e1;
+        }
+
+        .signature-box {
+            width: 45%;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .signature-line {
+            margin-top: 50px;
+            border-bottom: 1px solid #000;
+        }
+
+        .btn-print {
+            display: block;
+            width: 100%;
+            max-width: 240px;
+            margin: 30px auto 0 auto;
+            padding: 13px;
+            background-color: var(--accent-blue);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .btn-print:hover {
+            background-color: #1d4ed8;
+        }
+
+        @media print {
+            body {
+                background: #ffffff !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .gate-wrapper, .contract-toolbar, .btn-print {
+                display: none !important;
+            }
+            .contract-container {
+                box-shadow: none !important;
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+            .editable-field {
+                border: none !important;
+                background: transparent !important;
+                padding: 0 !important;
+            }
+            .grid-form {
+                border: none !important;
+                background: transparent !important;
+                padding: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================
+         1. LANDING PAGE CASSETTA DIGITALE PER COACH + LOGIN GATE
+    ========================================================== -->
+    <div id="coach-gate" class="gate-wrapper">
+        <div class="gate-header">
+            <span class="badge-exclusive">Area Riservata Professionisti • Cassetta Digitale per Coach</span>
+            <img src="logo-claudio.png" alt="Claudio Carluccio Coaching" class="logo-brand">
+            <h1>Strumenti Digitali <span>per Coach</span></h1>
+            <p>
+                Benvenuto nell'ecosistema operativo progettato per supportare i Coach nella gestione professionale della propria attività: dalla contrattualistica alla profilazione interattiva, fino al posizionamento online.
+            </p>
+        </div>
+
+        <!-- Strumento in Primo Piano + Modulo Credenziali -->
+        <div class="login-spotlight">
+            <div class="tool-desc">
+                <h2>📄 Strumento #01: Anagrafica & Contratto ICF</h2>
+                <p>
+                    Accedi subito al generatore di <strong>Accordo per Servizi di Coaching ex art. 2230 c.c.</strong> completo di <strong>Informativa Privacy (GDPR)</strong>.
+                </p>
+                <ul class="tool-features">
+                    <li><span>✓</span> Campi anagrafici ed economici modificabili direttamente online</li>
+                    <li><span>✓</span> Conformità agli standard etici e professionali ICF</li>
+                    <li><span>✓</span> Impaginazione pulita pronta per stampa o salvataggio in PDF</li>
+                </ul>
+            </div>
+
+            <div class="login-box">
+                <label>Inserisci Credenziali Ospite</label>
+                <input type="text" id="gate-user" class="login-input" placeholder="Utente" autocomplete="off">
+                <input type="password" id="gate-pass" class="login-input" placeholder="Password" onkeydown="if(event.key==='Enter') sbloccaContratto()">
+                <button type="button" class="btn-unlock" onclick="sbloccaContratto()">Apri Generatore Contratto →</button>
+                <div id="gate-error" class="login-err nascosto">Credenziali non valide. Verifica Utente e Password.</div>
+            </div>
+        </div>
+
+        <!-- Panoramica degli Altri Servizi su Misura per Coach -->
+        <div class="services-title">
+            <span>Cosa Possiamo Realizzare per la Tua Attività</span>
+            <h3>La Tua Cassetta degli Attrezzi su Misura</h3>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <h4>🧭 Assessment & Test Interattivi</h4>
+                <p>
+                    Creazione di Ruote (Vita, Manager, Atleta), test di profilazione e questionari diagnostici personalizzati con grafici radar dinamici e invio automatico dei report via email o Google Sheet.
+                </p>
+            </div>
+            <div class="service-card">
+                <h4>🎨 Loghi, Branding & Grafica</h4>
+                <p>
+                    Progettazione della tua identità visiva completa: logo professionale, palette colori, locandine promozionali per percorsi sportivi/executive e template per social media.
+                </p>
+            </div>
+            <div class="service-card">
+                <h4>🌐 Siti Web & Landing Page</h4>
+                <p>
+                    Siti web veloci, moderni e ottimizzati per smartphone per presentare il tuo metodo, raccogliere testimonianze verificate e convertire i visitatori in sessioni esplorative.
+                </p>
+            </div>
+            <div class="service-card">
+                <h4>⚙️ Portali Riservati & Automazioni</h4>
+                <p>
+                    Aree clienti protette da password, moduli anagrafici intelligenti, schede di lavoro digitali e flussi automatizzati per ridurre al minimo la burocrazia tra una sessione e l'altra.
+                </p>
+            </div>
+        </div>
+
+        <!-- Barra Contatto Claudio -->
+        <div class="coach-footer-bar">
+            <div class="coach-mini">
+                <img src="claudio-coach.png" alt="Claudio Carluccio">
+                <div>
+                    <strong>Claudio Carluccio</strong>
+                    <span>Coach Professionista & Sviluppatore Strumenti Digitali per Coach</span>
+                </div>
+            </div>
+            <a href="contatti.html" class="btn-contact-coach">Richiedi uno Strumento su Misura →</a>
+        </div>
+    </div>
+
+    <!-- ==========================================================
+         2. AREA PROTETTA: ANAGRAFICA CONTRATTO EDITABILE
+    ========================================================== -->
+    <div id="contract-wrapper" class="nascosto" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+        <div class="contract-toolbar">
+            <button type="button" class="btn-back-gate" onclick="tornaAllaLanding()">← Torna alla Cassetta Digitale</button>
+            <span class="toolbar-hint">Compila i campi grigi direttamente nel documento, poi clicca su <strong>Stampa / Salva PDF</strong> in fondo.</span>
+        </div>
+
+        <div class="contract-container" id="printableArea">
+
+            <h1>Accordo per Servizi di Coaching ex art. 2230 c.c.</h1>
+
+            <!-- Dati Anagrafici Cliente -->
+            <div class="grid-form">
+                <div class="form-group">
+                    <label>Nome e Cognome Cliente</label>
+                    <input type="text" class="editable-field" placeholder="Es. Nome Cognome">
+                </div>
+                <div class="form-group">
+                    <label>Codice Fiscale</label>
+                    <input type="text" class="editable-field" placeholder="Es. ABCXYZ80A01H501Z">
+                </div>
+                <div class="form-group">
+                    <label>Indirizzo</label>
+                    <input type="text" class="editable-field" placeholder="Es. Via Esempio 10">
+                </div>
+                <div class="form-group">
+                    <label>Città e Provincia</label>
+                    <input type="text" class="editable-field" placeholder="Es. Roma (RM)">
+                </div>
+                <div class="form-group">
+                    <label>CAP</label>
+                    <input type="text" class="editable-field" placeholder="Es. 00100">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="editable-field" placeholder="cliente@esempio.it">
+                </div>
+                <div class="form-group" style="grid-column: span 2;">
+                    <label>Cellulare</label>
+                    <input type="tel" class="editable-field" placeholder="+39 333 0000000">
+                </div>
+            </div>
+
+            <p>
+                Il sottoscritto (di seguito il <strong>Cliente</strong>) manifesta la volontà di affidarsi ai servizi di coaching di 
+                <input type="text" class="editable-field inline-field" value="Mario Rossi"> 
+                (di seguito il/la Professionista o il Coach), al fine di essere sostenuto/a nella realizzazione dei propri obiettivi, secondo le modalità conformi agli standard di ICF - International Coaching Federation e manifestando il suo accordo sui seguenti punti:
+            </p>
+
+            <h2>Premesse</h2>
+            <p>Il Professionista opera in qualità di Coach per supportare le persone nel far fiorire i propri talenti ed accrescere la propria efficacia ed efficienza in ambito personale e professionale, stimolando un processo di apprendimento continuo funzionale al raggiungimento dei propri obiettivi.</p>
+            <p>Il Professionista, adottando i valori dell’etica, dell’integrità e dell’eccellenza, mette a disposizione del/della Cliente la propria prestazione d’opera intellettuale e le proprie competenze nell’ambito del Coaching.</p>
+            <p>Le premesse costituiscono a tutti gli effetti parte integrante del presente contratto.</p>
+
+            <h2>Oggetto dell’Incarico</h2>
+            <p>Il Professionista si impegna a fornire la propria prestazione professionale, consistente in incontri individuali e personalizzati di Coaching al Cliente.</p>
+
+            <h2>Natura del Servizio di Coaching</h2>
+            <p>Il servizio di Coaching, fornito dal Coach al Cliente, si configura come processo di co-creazione da cui emergono e si rafforzano le potenzialità professionali e personali del Cliente, con lo scopo di aiutarlo ad ottenere risultati ottimali sia in ambito lavorativo che personale. La relazione di coaching non è e non deve essere considerata in alcun modo come un intervento di counseling o di alcun tipo di terapia psicologica.</p>
+            <p>Il servizio di Coaching è una prestazione d’opera intellettuale e pertanto il Cliente prende atto e riconosce che il Professionista non potrà essere ritenuto in alcun modo responsabile per l’eventuale mancato raggiungimento degli obiettivi che il Cliente stesso si prefigge. Il Cliente è, altresì, consapevole che i risultati di coaching non possono essere garantiti e che lui stesso è unico responsabile del conseguimento dei propri risultati. Inoltre, il Cliente è d’accordo nel sollevare da ogni responsabilità il Coach per conseguenze di qualunque natura e specie (azioni o risultati non desiderati) derivanti, direttamente o indirettamente, da decisioni o elaborazioni sviluppate durante il percorso di Coaching.</p>
+
+            <h2>Modalità di Svolgimento dell’Incarico</h2>
+            <ul>
+                <li>
+                    L’attività di Coaching verrà svolta dal Professionista attraverso colloqui individuali (sessioni) in 
+                    <input type="text" class="editable-field inline-field" value="Modalità Remota Telematica">, 
+                    secondo appuntamenti concordati direttamente con il Cliente; tali colloqui avverranno, per entrambe le parti, in un luogo privato, riservato e in assenza di terzi non dichiarati.
+                </li>
+                <li>I colloqui non saranno registrati né in audio né in video. In caso contrario è necessario un consenso specifico da parte del Professionista e del Cliente.</li>
+                <li>Cliente e Professionista sono tenuti alla scrupolosa osservanza delle date e degli orari degli appuntamenti e, in caso di sopravvenuta impossibilità di rispettare l’appuntamento fissato, la parte impossibilitata è tenuta a darne notizia all’altra almeno 24 h prima dell’appuntamento fissato. In caso contrario le parti potranno chiedere di rivedere i compensi concordati per tener conto delle ore aggiuntive o mancanti.</li>
+                <li>Il Professionista si impegna ad osservare, sia durante che al termine dell’incarico, la massima riservatezza in ordine alle informazioni ricevute dal Cliente, così come meglio disciplinato successivamente.</li>
+                <li>Il professionista è strettamente tenuto/a ad attenersi al Decreto Legislativo 196 del 30 giugno 2003 (“Codice della privacy”), modificato dal Decreto Legislativo 101 del 10 agosto 2018.</li>
+            </ul>
+
+            <h2>Compensi e Pagamenti</h2>
+            <p>
+                A fronte del servizio di Coaching come precedentemente delineato, il Cliente si impegna a corrispondere al/alla Professionista un corrispettivo orario pari a € 
+                <input type="text" class="editable-field inline-field" style="width: 80px;" placeholder="0,00"> 
+                (<input type="text" class="editable-field inline-field" style="width: 150px;" placeholder="importo in lettere">/00) IVA e oneri esclusi, per un minimo di 
+                <input type="text" class="editable-field inline-field" style="width: 50px;" placeholder="N°"> sessioni, al fine di avviare un processo coerente e strutturato.
+            </p>
+            <p>Il pagamento del corrispettivo dovrà essere corrisposto a 15 giorni data fattura per le prestazioni già erogate, tramite bonifico bancario sul c/c indicato nella stessa fattura.</p>
+            <p>Si precisa che il compenso non può essere condizionato all’esito o ai risultati dell’intervento professionale. Il corrispettivo suindicato è formulato in relazione alle circostanze prevedibili e alle informazioni fornite e disponibili all’atto della redazione del presente atto.</p>
+
+            <h2>Recesso e Responsabilità Risarcitoria</h2>
+            <p>Ai sensi dell’art. 2237 cod. civ., le parti potranno recedere in ogni momento dal presente accordo, previo preavviso. Qualora il recesso sia esercitato dal Cliente, lo stesso sarà tenuto a tenere indenne il Professionista delle spese sostenute e/o del compenso per le prestazioni effettuate alla data del recesso. Nel caso in cui, invece, il recesso venga esercitato dal Professionista, il Cliente non avrà alcun diritto a pretendere alcuna somma a titolo risarcitorio dal Professionista.</p>
+            <p>Le comunicazioni di recesso, per entrambi i contraenti, dovranno essere comunicate a mezzo raccomandata A/R mediante i recapiti indicati in epigrafe oppure ai seguenti indirizzi di posta elettronica certificata:</p>
+            <p>
+                <strong>Professionista:</strong> <input type="text" class="editable-field inline-field" value="mario.rossi@pec.esempio.it"><br>
+                <strong>Cliente:</strong> <input type="text" class="editable-field inline-field" value="cliente@pec.esempio.it">
+            </p>
+
+            <h2>Riservatezza</h2>
+            <p>Il Professionista riconosce che nello svolgimento dell’attività in oggetto, potrebbero essere comunicate dal/la cliente informazioni confidenziali e riservate. Pertanto, il Professionista si impegna a non utilizzare tali informazioni né direttamente né indirettamente, per propri benefici personali. Inoltre, non potrà rivelare ad altri informazioni confidenziali a meno che il/la Cliente non la autorizzi per iscritto, e comunque nei limiti e secondo le disposizioni stabilite dalla legge.</p>
+            <p>Si acconsente al trattamento dei dati personali ai sensi della legge 675/96 e del regolamento Europeo UE 2016/679.</p>
+
+            <h2>Controversie e Foro Competente</h2>
+            <p>
+                Le parti riconoscono che per qualunque controversia inerente il presente contratto sarà esclusivamente ed inderogabilmente competente il Foro di 
+                <input type="text" class="editable-field inline-field" value="Roma"> 
+                provincia di residenza del Professionista.
+            </p>
+
+            <h2>Disposizioni Finali</h2>
+            <p>Per quanto non previsto nel presente accordo si rinvia alle norme di cui agli artt. 2229-2238 c.c.</p>
+            <p>Questo contratto annulla qualsiasi altro accordo scritto o verbale tra le parti rispetto al contratto di coaching tra il Professionista e il/la Cliente, e contiene tutti i termini dell’accordo tra le parti.</p>
+
+            <h2>Trattamento dei Dati</h2>
+            <p>L’informativa in materia di privacy è riportata in calce e fa parte integrante del presente contratto.</p>
+            <p>Accettando il presente accordo, il/la Cliente accetta che i suoi dati siano trattati per la finalità di erogazione del servizio di Coaching.</p>
+
+            <div class="signatures">
+                <div class="signature-box">
+                    Firma del/la Cliente
+                    <div class="signature-line"></div>
+                </div>
+                <div class="signature-box">
+                    Firma del/della Professionista
+                    <div class="signature-line"></div>
+                </div>
+            </div>
+
+            <hr style="margin: 40px 0; border: none; border-top: 1px dashed #aaa;">
+
+            <!-- INFORMATIVA PRIVACY -->
+            <h1>Informativa sul Trattamento dei Dati Personali</h1>
+
+            <h2>Finalità del Trattamento</h2>
+            <p>I dati raccolti sono finalizzati all’espletamento dei seguenti servizi per esigenze contrattuali ed ai conseguenti adempimenti degli obblighi legali e contrattuali dalle stesse derivanti, nonché per conseguire una efficace gestione dei rapporti commerciali.</p>
+
+            <h2>Modalità di Trattamento</h2>
+            <p>I dati del/la Cliente sopra condivisi sono sottoposti a trattamento sia cartaceo che elettronico e/o automatizzato. Il Titolare tratterà i dati personali per il tempo necessario per adempiere alle finalità di cui sopra e comunque per non oltre 10 anni dalla cessazione del rapporto per le Finalità di Servizio e per non oltre 2 anni dalla raccolta dei dati per Finalità di Marketing.</p>
+
+            <h2>Diritti dell’Interessato</h2>
+            <p>
+                Il/la Cliente potrà in qualsiasi momento esercitare i diritti inoltrandone richiesta all’indirizzo di posta certificata: 
+                <input type="text" class="editable-field inline-field" value="mario.rossi@pec.esempio.it">
+            </p>
+
+            <div style="margin-top: 30px;">
+                Luogo e Data: <input type="text" class="editable-field inline-field" placeholder="Es. Roma, 24/07/2026">
+            </div>
+
+            <div class="signatures">
+                <div class="signature-box">
+                    Firma del/la Cliente
+                    <div class="signature-line"></div>
+                </div>
+                <div class="signature-box">
+                    Firma del/della Professionista
+                    <div class="signature-line"></div>
+                </div>
+            </div>
+
+            <button id="btnPrint" class="btn-print" type="button">🖨️ Stampa / Salva PDF</button>
+
+        </div>
+    </div>
+
+    <!-- NOTIFICA EMAIL SILENZIOSA ALL'ACCESSO -->
+    <iframe name="hidden_coach_notify" style="display:none;"></iframe>
+    <form id="hidden-coach-form" action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" target="hidden_coach_notify" style="display:none;">
+        <input type="hidden" name="_subject" id="coach-notify-subject" value="Accesso Cassetta Digitale Coach">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="Utente" id="coach-notify-user" value="">
+        <input type="hidden" name="Data_e_Ora" id="coach-notify-time" value="">
+        <input type="hidden" name="Strumento_Aperto" value="Anagrafica Contratto Coaching (contratto-coach.html)">
+    </form>
+
+    <script>
+        const accessiCoach = {
+            "ospitecoachaxe": "allenatiAXE",
+            "claudio": "cla9090!"
+        };
+
+        function sbloccaContratto() {
+            const rawUser = document.getElementById('gate-user').value.trim();
+            const u = rawUser.toLowerCase();
+            const p = document.getElementById('gate-pass').value.trim();
+            const err = document.getElementById('gate-error');
+
+            if (accessiCoach[u] && accessiCoach[u] === p) {
+                err.classList.add('nascosto');
+                document.getElementById('coach-gate').classList.add('nascosto');
+                document.getElementById('contract-wrapper').classList.remove('nascosto');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                const dataOra = new Date().toLocaleString('it-IT');
+                document.getElementById('coach-notify-subject').value = "Accesso Anagrafica Contratto da: " + rawUser;
+                document.getElementById('coach-notify-user').value = rawUser;
+                document.getElementById('coach-notify-time').value = dataOra;
+                document.getElementById('hidden-coach-form').submit();
+            } else {
+                err.classList.remove('nascosto');
+            }
+        }
+
+        function tornaAllaLanding() {
+            document.getElementById('contract-wrapper').classList.add('nascosto');
+            document.getElementById('coach-gate').classList.remove('nascosto');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('btnPrint').addEventListener('click', function() {
+            var inputs = document.querySelectorAll('#printableArea input');
+            inputs.forEach(function(input) {
+                input.setAttribute('value', input.value);
+            });
+
+            var printContent = document.getElementById('printableArea').outerHTML;
+            var styleContent = document.querySelector('style').innerHTML;
+
+            var printWindow = window.open('', '_blank');
+            if (printWindow) {
+                printWindow.document.write('<html><head><title>Accordo Servizi di Coaching</title>');
+                printWindow.document.write('<style>' + styleContent + ' body { background: #fff !important; padding: 0 !important; } .contract-container { box-shadow: none !important; padding: 0 !important; } .btn-print { display: none !important; } .editable-field { border: none !important; background: transparent !important; padding: 0 !important; } .grid-form { border: none !important; background: transparent !important; padding: 0 !important; }</style>');
+                printWindow.document.write('</head><body>');
+                printWindow.document.write(printContent);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                printWindow.focus();
+
+                setTimeout(function() {
+                    printWindow.print();
+                    printWindow.close();
+                }, 300);
+            } else {
+                window.print();
+            }
+        });
+    </script>
+
+</body>
+</html>
