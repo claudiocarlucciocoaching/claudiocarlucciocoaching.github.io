@@ -1142,6 +1142,35 @@
             }
         });
     </script>
+} else {
+                window.print();
+            }
+        });
+
+        // --- ACCESSO UNICO (SSO) CON HUB AREA RISERVATA ---
+        window.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('cc_hub_user')) {
+                document.getElementById('coach-gate').classList.add('nascosto');
+                document.getElementById('contract-wrapper').classList.remove('nascosto');
+            }
+        });
+
+        const _origSbloccaContratto = sbloccaContratto;
+        sbloccaContratto = function() {
+            const rawUser = document.getElementById('gate-user').value.trim();
+            const u = rawUser.toLowerCase();
+            const p = document.getElementById('gate-pass').value.trim();
+            if (accessiCoach[u] && accessiCoach[u] === p) {
+                sessionStorage.setItem('cc_hub_user', rawUser);
+            }
+            _origSbloccaContratto();
+        };
+
+        tornaAllaLanding = function() {
+            window.location.href = 'area-riservata.html';
+        };
+    </script>
 
 </body>
 </html>
+
