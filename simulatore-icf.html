@@ -1,0 +1,2590 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Cassetta Digitale per Coach | Simulatore Esame ICF ACC/PCC | Claudio Carluccio</title>
+    <link rel="icon" type="image/png" href="logo-claudio.png">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --navy-deep: #0b1524;
+            --navy-mid: #13243b;
+            --navy-card: rgba(19, 36, 59, 0.84);
+            --navy-solid: #112035;
+            --gold: #DFC383;
+            --gold-bright: #F2DFAC;
+            --gold-dark: #B5924C;
+            --text-light: #f1f5f9;
+            --text-muted: #94a3b8;
+            --green: #10b981;
+            --green-bg: rgba(16, 185, 129, 0.14);
+            --red: #ef4444;
+            --red-bg: rgba(239, 68, 68, 0.14);
+            --amber: #f59e0b;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 20px 14px 44px 14px;
+            font-family: 'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--navy-deep);
+            background-image:
+                radial-gradient(circle at 12% 10%, rgba(223, 195, 131, 0.14) 0%, transparent 45%),
+                radial-gradient(circle at 88% 88%, rgba(30, 58, 95, 0.45) 0%, transparent 55%),
+                linear-gradient(135deg, #091220 0%, #13243b 50%, #0b1524 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nascosto { display: none !important; }
+
+        /* =========================================
+           1. GATE DI ACCESSO & LANDING STRUMENTO #02
+        ========================================= */
+        .gate-wrapper {
+            max-width: 920px;
+            width: 100%;
+            margin: 10px auto;
+            background: var(--navy-card);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(223, 195, 131, 0.28);
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.75);
+        }
+
+        .brand-hero-banner {
+            position: relative;
+            background-color: #13243b;
+            background-image: linear-gradient(90deg, rgba(11, 21, 36, 0.78) 0%, rgba(19, 36, 59, 0.68) 100%), url('sfondo-brand.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 36px 34px 32px 34px;
+            border-bottom: 1px solid rgba(223, 195, 131, 0.35);
+            text-align: center;
+        }
+
+        .badge-exclusive {
+            display: inline-block;
+            background: rgba(11, 21, 36, 0.82);
+            border: 1px solid rgba(223, 195, 131, 0.55);
+            color: var(--gold-bright);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2.2px;
+            padding: 6px 16px;
+            border-radius: 999px;
+            margin-bottom: 16px;
+        }
+
+        .logo-brand {
+            width: 82px;
+            height: 82px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 25px rgba(223, 195, 131, 0.3);
+            display: block;
+            margin: 0 auto 14px auto;
+            background: #fff;
+        }
+
+        .brand-hero-banner h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 31px;
+            margin: 0;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+
+        .brand-hero-banner h1 span { color: var(--gold); }
+
+        .hero-payoff {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 700;
+            margin-top: 8px;
+        }
+
+        .brand-hero-banner p {
+            color: #e2e8f0;
+            font-size: 14px;
+            max-width: 670px;
+            margin: 12px auto 0 auto;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .gate-body { padding: 32px 34px 36px 34px; }
+
+        .login-spotlight {
+            background: linear-gradient(145deg, rgba(223, 195, 131, 0.09) 0%, rgba(11, 21, 36, 0.58) 100%);
+            border: 1px solid rgba(223, 195, 131, 0.38);
+            border-radius: 16px;
+            padding: 26px;
+            margin-bottom: 32px;
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 26px;
+            align-items: center;
+        }
+
+        .tool-desc h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            color: var(--gold-bright);
+        }
+
+        .tool-desc p {
+            margin: 0 0 14px 0;
+            font-size: 13px;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .tool-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 12.5px;
+            color: #e2e8f0;
+        }
+
+        .tool-features li {
+            margin-bottom: 7px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.45;
+        }
+
+        .tool-features li span { color: var(--gold); font-weight: 700; }
+
+        .login-box {
+            background: rgba(9, 18, 32, 0.88);
+            border: 1px solid rgba(223, 195, 131, 0.28);
+            border-radius: 14px;
+            padding: 22px;
+            text-align: center;
+        }
+
+        .login-box label {
+            display: block;
+            font-size: 10.5px;
+            text-transform: uppercase;
+            letter-spacing: 1.6px;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .login-input:focus {
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.09);
+        }
+
+        .btn-gold {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 22px;
+            background: linear-gradient(135deg, #F3E5AB 0%, #DFC383 50%, #B5924C 100%);
+            color: #0b1524;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(223, 195, 131, 0.35);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 18px;
+            background: rgba(223, 195, 131, 0.08);
+            border: 1px solid rgba(223, 195, 131, 0.45);
+            color: var(--gold-bright);
+            border-radius: 8px;
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-outline:hover {
+            background: var(--gold);
+            color: #0b1524;
+        }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: #e2e8f0;
+            border-radius: 8px;
+            font-size: 11.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--gold);
+            color: var(--gold-bright);
+        }
+
+        .login-err {
+            color: #fca5a5;
+            font-size: 11.5px;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .services-title { text-align: center; margin-bottom: 18px; }
+        .services-title span {
+            font-size: 10px; text-transform: uppercase; letter-spacing: 2.2px;
+            color: var(--gold); font-weight: 700; display: block; margin-bottom: 4px;
+        }
+        .services-title h3 {
+            font-family: 'Playfair Display', Georgia, serif; margin: 0; font-size: 21px; color: #fff;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .service-card {
+            background: rgba(11, 21, 36, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 2px solid rgba(223, 195, 131, 0.5);
+            border-radius: 12px;
+            padding: 16px 18px;
+        }
+
+        .service-card h4 { margin: 0 0 6px 0; font-size: 14px; color: var(--gold-bright); }
+        .service-card p { margin: 0; font-size: 12.5px; color: #cbd5e1; line-height: 1.55; font-weight: 300; }
+
+        .coach-footer-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            background: rgba(11, 21, 36, 0.72);
+            border: 1px solid rgba(223, 195, 131, 0.25);
+            border-radius: 14px;
+            padding: 16px 20px;
+            flex-wrap: wrap;
+        }
+
+        .coach-mini { display: flex; align-items: center; gap: 14px; }
+        .coach-mini img {
+            width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold);
+        }
+        .coach-mini strong { display: block; font-size: 15px; color: #fff; }
+        .coach-mini span { font-size: 11.5px; color: var(--gold); display: block; margin-top: 2px; }
+        .coach-mini small { font-size: 11px; color: var(--text-muted); }
+
+        /* =========================================
+           2. SIMULATORE ICF - SHELL & SETUP
+        ========================================= */
+        .app-shell {
+            max-width: 1020px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            background: var(--navy-card);
+            border: 1px solid rgba(223, 195, 131, 0.25);
+            border-radius: 14px;
+            padding: 14px 20px;
+            margin-bottom: 18px;
+            backdrop-filter: blur(16px);
+        }
+
+        .top-brand { display: flex; align-items: center; gap: 12px; }
+        .top-brand img {
+            width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--gold); background: #fff;
+        }
+        .top-brand strong {
+            font-family: 'Playfair Display', Georgia, serif; font-size: 17px; color: #fff; display: block;
+        }
+        .top-brand span {
+            font-size: 10px; text-transform: uppercase; letter-spacing: 1.8px; color: var(--gold); font-weight: 700;
+        }
+
+        .panel-card {
+            background: var(--navy-card);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(223, 195, 131, 0.24);
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 24px 65px rgba(0, 0, 0, 0.65);
+        }
+
+        .kpi-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 26px;
+        }
+
+        .kpi-box {
+            background: rgba(11, 21, 36, 0.62);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 14px 16px;
+            text-align: center;
+        }
+
+        .kpi-box strong {
+            display: block; font-size: 20px; color: var(--gold-bright); font-weight: 800;
+        }
+
+        .kpi-box span {
+            font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted);
+        }
+
+        .setup-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+
+        .config-group {
+            background: rgba(11, 21, 36, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .config-label {
+            display: block;
+            font-size: 10.5px;
+            text-transform: uppercase;
+            letter-spacing: 1.6px;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .choice-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        .choice-pill {
+            flex: 1;
+            min-width: 110px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #cbd5e1;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .choice-pill strong { display: block; font-size: 13.5px; color: #fff; margin-bottom: 2px; }
+        .choice-pill small { display: block; font-size: 11px; color: #94a3b8; line-height: 1.35; }
+
+        .choice-pill.active {
+            background: rgba(223, 195, 131, 0.14);
+            border-color: var(--gold);
+            box-shadow: 0 0 0 1px rgba(223, 195, 131, 0.35);
+        }
+
+        .choice-pill.active strong { color: var(--gold-bright); }
+
+        .select-styled {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: #0d1a2c;
+            border: 1px solid rgba(223, 195, 131, 0.3);
+            color: #fff;
+            font-size: 13.5px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .protocol-note {
+            background: rgba(223, 195, 131, 0.07);
+            border-left: 3px solid var(--gold);
+            border-radius: 8px;
+            padding: 13px 16px;
+            font-size: 12.5px;
+            color: #cbd5e1;
+            line-height: 1.55;
+            margin-bottom: 24px;
+        }
+
+        /* =========================================
+           3. AREA ESAME ATTIVO (PEARSON VUE STYLE)
+        ========================================= */
+        .exam-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding-bottom: 16px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .exam-badges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+        .pill-tag {
+            font-size: 10.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            padding: 5px 11px;
+            border-radius: 999px;
+            background: rgba(223, 195, 131, 0.14);
+            border: 1px solid rgba(223, 195, 131, 0.38);
+            color: var(--gold-bright);
+        }
+
+        .pill-domain {
+            background: rgba(56, 189, 248, 0.12);
+            border-color: rgba(56, 189, 248, 0.35);
+            color: #7dd3fc;
+        }
+
+        .timer-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(9, 18, 32, 0.85);
+            border: 1px solid rgba(223, 195, 131, 0.35);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gold-bright);
+        }
+
+        .timer-box.warning {
+            border-color: var(--red);
+            color: #fca5a5;
+            background: rgba(127, 29, 29, 0.4);
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-bright));
+            width: 0%;
+            transition: width 0.35s ease;
+        }
+
+        /* Mappa Numerica Scenari (Modalità Esame) */
+        .nav-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 18px;
+            padding: 12px;
+            background: rgba(9, 18, 32, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 12px;
+            max-height: 112px;
+            overflow-y: auto;
+        }
+
+        .nav-dot {
+            width: 30px;
+            height: 28px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.03);
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.15s;
+            position: relative;
+        }
+
+        .nav-dot.answered {
+            background: rgba(223, 195, 131, 0.22);
+            border-color: rgba(223, 195, 131, 0.55);
+            color: #fff;
+        }
+
+        .nav-dot.current {
+            border: 2px solid #fff;
+            background: var(--gold);
+            color: #0b1524;
+        }
+
+        .nav-dot.flagged::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--amber);
+        }
+
+        .scenario-box {
+            background: rgba(9, 18, 32, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 4px solid var(--gold);
+            border-radius: 14px;
+            padding: 22px 24px;
+            margin-bottom: 22px;
+        }
+
+        .scenario-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 11px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            font-weight: 700;
+        }
+
+        .scenario-text {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #f8fafc;
+            margin: 0;
+            font-weight: 400;
+        }
+
+        .instruction-hint {
+            font-size: 12px;
+            color: #94a3b8;
+            margin: 0 0 12px 0;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .options-list { display: flex; flex-direction: column; gap: 11px; }
+
+        .option-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 15px 18px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s;
+        }
+
+        .option-row.is-best {
+            border-color: var(--green);
+            background: var(--green-bg);
+        }
+
+        .option-row.is-worst {
+            border-color: var(--red);
+            background: var(--red-bg);
+        }
+
+        .option-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #f1f5f9;
+            margin: 0;
+        }
+
+        .option-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: rgba(223, 195, 131, 0.15);
+            color: var(--gold-bright);
+            font-weight: 800;
+            font-size: 12px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .bw-buttons { display: flex; gap: 8px; flex-shrink: 0; }
+
+        .bw-btn {
+            padding: 8px 13px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: rgba(9, 18, 32, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            color: #94a3b8;
+            transition: all 0.18s;
+            min-width: 74px;
+        }
+
+        .bw-btn.btn-b:hover { border-color: var(--green); color: #6ee7b7; }
+        .bw-btn.btn-w:hover { border-color: var(--red); color: #fca5a5; }
+        .bw-btn.btn-b.selected { background: #059669; border-color: #34d399; color: #fff; }
+        .bw-btn.btn-w.selected { background: #dc2626; border-color: #f87171; color: #fff; }
+        .bw-btn:disabled { opacity: 0.65; cursor: default; }
+
+        .exam-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .flag-btn {
+            padding: 9px 14px;
+            border-radius: 8px;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            color: #fcd34d;
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .flag-btn.flagged {
+            background: var(--amber);
+            color: #0b1524;
+        }
+
+        /* Feedback Box (Modalità Allenamento) */
+        .feedback-card {
+            margin-top: 22px;
+            padding: 20px 22px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            animation: fadeUp 0.25s ease;
+        }
+
+        .feedback-card.fb-perfect { background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.5); }
+        .feedback-card.fb-partial { background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.5); }
+        .feedback-card.fb-wrong   { background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.5); }
+
+        .fb-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .fb-head h4 { margin: 0; font-size: 15px; letter-spacing: 0.6px; }
+        .fb-comp {
+            font-size: 11px; color: var(--gold-bright); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        .fb-answers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .fb-ans-pill {
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: rgba(9, 18, 32, 0.65);
+            font-size: 12px;
+            line-height: 1.45;
+        }
+
+        .fb-rationale {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #e2e8f0;
+            margin: 0;
+        }
+
+        .fb-rationale strong { color: var(--gold-bright); }
+
+        /* =========================================
+           4. REPORT DIAGNOSTICO FINALE
+        ========================================= */
+        .report-header {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 24px;
+            align-items: center;
+            margin-bottom: 28px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(223, 195, 131, 0.25);
+        }
+
+        .score-hero {
+            background: rgba(9, 18, 32, 0.72);
+            border: 1px solid rgba(223, 195, 131, 0.35);
+            border-radius: 16px;
+            padding: 26px;
+            text-align: center;
+        }
+
+        .verdict-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .verdict-pass { background: rgba(16, 185, 129, 0.18); border: 1px solid #34d399; color: #6ee7b7; }
+        .verdict-fail { background: rgba(239, 68, 68, 0.18); border: 1px solid #f87171; color: #fca5a5; }
+
+        .scaled-number {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--gold-bright);
+            margin: 4px 0;
+        }
+
+        .scaled-sub { font-size: 12px; color: #94a3b8; margin-bottom: 16px; }
+
+        .scale-bar-wrap {
+            position: relative;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+            margin: 14px 0 8px 0;
+        }
+
+        .scale-bar-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #ef4444 0%, #f59e0b 55%, #10b981 70%, #DFC383 100%);
+        }
+
+        .pass-marker {
+            position: absolute;
+            top: -5px;
+            left: 65%;
+            width: 2px;
+            height: 20px;
+            background: #fff;
+        }
+
+        .pass-marker-label {
+            font-size: 10px;
+            color: #cbd5e1;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .mini-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .mini-metric {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 10px;
+            padding: 10px 8px;
+        }
+
+        .mini-metric strong { display: block; font-size: 17px; color: #fff; }
+        .mini-metric span { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; }
+
+        .radar-box {
+            background: rgba(9, 18, 32, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .radar-box h4 {
+            margin: 0 0 8px 0;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.6px;
+            color: var(--gold);
+        }
+
+        .domains-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .domain-card {
+            background: rgba(11, 21, 36, 0.62);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 15px 18px;
+        }
+
+        .domain-head {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12.5px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .domain-bar {
+            height: 7px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .domain-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-bright));
+        }
+
+        .review-list { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
+
+        .review-item {
+            background: rgba(9, 18, 32, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-left: 4px solid var(--red);
+            border-radius: 12px;
+            padding: 16px 18px;
+        }
+
+        .review-item.rev-ok { border-left-color: var(--green); }
+        .review-item.rev-part { border-left-color: var(--amber); }
+
+        .review-item h5 { margin: 0 0 8px 0; font-size: 13px; color: var(--gold-bright); }
+        .review-item p { margin: 0 0 8px 0; font-size: 13px; line-height: 1.55; color: #e2e8f0; }
+
+        .upsell-strip {
+            width: 100%;
+            margin-top: 22px;
+            background: rgba(19, 36, 59, 0.88);
+            border: 1px solid rgba(223, 195, 131, 0.32);
+            border-radius: 14px;
+            padding: 16px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .upsell-strip p { margin: 0; font-size: 12.5px; color: #e2e8f0; }
+        .upsell-strip p strong { color: var(--gold-bright); }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 780px) {
+            .login-spotlight, .services-grid, .setup-grid, .kpi-strip, .report-header, .domains-grid, .fb-answers {
+                grid-template-columns: 1fr;
+            }
+            .option-row { flex-direction: column; align-items: stretch; }
+            .bw-buttons { justify-content: flex-end; }
+            .gate-body, .brand-hero-banner, .panel-card { padding: 22px 16px; }
+        }
+
+        @media print {
+            body { background: #fff !important; color: #0f172a !important; padding: 0 !important; }
+            .gate-wrapper, .top-bar, #setup-view, #exam-view, .no-print, .upsell-strip { display: none !important; }
+            .panel-card, .score-hero, .radar-box, .domain-card, .review-item {
+                background: #fff !important;
+                color: #0f172a !important;
+                border: 1px solid #cbd5e1 !important;
+                box-shadow: none !important;
+            }
+            .scaled-number, h2, h3, h4, h5, strong { color: #13243b !important; }
+            .review-item p, .scaled-sub { color: #334155 !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================
+         1. LANDING PAGE STRUMENTO #02 + GATE DI ACCESSO RISERVATO
+    ========================================================== -->
+    <div id="coach-gate" class="gate-wrapper">
+        <div class="brand-hero-banner">
+            <span class="badge-exclusive">Area Riservata Professionisti • Cassetta Digitale per Coach</span>
+            <img src="logo-claudio.png" alt="Claudio Carluccio Coaching" class="logo-brand">
+            <h1>Simulatore Esame <span>ICF Credentialing</span></h1>
+            <div class="hero-payoff">Observe. › Navigate. › Evolve.</div>
+            <p>
+                Allena il tuo giudizio situazionale sulle 8 Core Competencies e sul Codice Etico ICF con lo stesso formato Best/Worst e lo stesso sistema di punteggio scalato (200–600) dell'esame di certificazione internazionale.
+            </p>
+        </div>
+
+        <div class="gate-body">
+            <div class="login-spotlight">
+                <div class="tool-desc">
+                    <h2>🎯 Strumento #02: ICF Exam Simulator (ACC / PCC)</h2>
+                    <p>
+                        Una piattaforma diagnostica completa costruita per preparare Coach e candidati alla certificazione ICF attraverso <strong>50 scenari reali di sessione</strong> e un report finale sulle 8 competenze.
+                    </p>
+                    <ul class="tool-features">
+                        <li><span>✓</span> <strong>50 Scenari Best & Worst</strong> distribuiti sui 4 Domini e sulle 8 Core Competencies ICF</li>
+                        <li><span>✓</span> <strong>Modalità Esame Ufficiale:</strong> timer reale, flag di revisione e soglia scalata 460/600</li>
+                        <li><span>✓</span> <strong>Analisi Radar + Drill Errori:</strong> debrief tecnico differenziato ACC/PCC e PDF stampabile</li>
+                    </ul>
+                </div>
+
+                <div class="login-box">
+                    <label>Inserisci Credenziali Ospite</label>
+                    <input type="text" id="gate-user" class="login-input" placeholder="Utente" autocomplete="off">
+                    <input type="password" id="gate-pass" class="login-input" placeholder="Password" onkeydown="if(event.key==='Enter') sbloccaSimulatore()">
+                    <button type="button" class="btn-gold" style="width:100%;" onclick="sbloccaSimulatore()">Accedi al Simulatore →</button>
+                    <div id="gate-error" class="login-err nascosto">Credenziali non valide. Verifica Utente e Password.</div>
+                </div>
+            </div>
+
+            <div class="services-title">
+                <span>Ecosistema Digitale per Coach & Scuole di Formazione</span>
+                <h3>La Tua Cassetta degli Attrezzi su Misura</h3>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <h4>📄 Strumento #01: Generatore Contratti ICF</h4>
+                    <p>Accordo di Coaching ex art. 2230 c.c. + Privacy GDPR con caricamento del tuo logo, auto-compilazione dati di studio e stampa PDF pulita.</p>
+                </div>
+                <div class="service-card">
+                    <h4>🧭 Assessment & Test Interattivi</h4>
+                    <p>Ruote (Vita, Manager, Atleta), profilazioni decisionali e audit diagnostici su misura con grafici radar e notifiche automatiche.</p>
+                </div>
+                <div class="service-card">
+                    <h4>🎨 Loghi, Branding & Sfondi Call</h4>
+                    <p>Identità visiva coordinata per distinguerti subito: logo professionale, sfondi per le sessioni online, locandine e kit social.</p>
+                </div>
+                <div class="service-card">
+                    <h4>🌐 Siti Web & Piattaforme Riservate</h4>
+                    <p>Siti vetrina, portali protetti da password per coachee o allievi di scuole di coaching, e web-app personalizzate sul tuo dominio.</p>
+                </div>
+            </div>
+
+            <div class="coach-footer-bar">
+                <div class="coach-mini">
+                    <img src="claudio-coach.png" alt="Claudio Carluccio">
+                    <div>
+                        <strong>Claudio Carluccio</strong>
+                        <span>Mental, Business & Sport Coach</span>
+                        <small>Formazione ICF Level 2 (Adamas) • Sviluppo Strumenti Digitali per Coach</small>
+                    </div>
+                </div>
+                <a href="contatti.html" class="btn-outline">Richiedi uno Strumento su Misura →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================
+         2. WORKSPACE SIMULATORE ICF (PROTETTO)
+    ========================================================== -->
+    <div id="simulator-workspace" class="app-shell nascosto">
+
+        <div class="top-bar">
+            <div class="top-brand">
+                <img src="logo-claudio.png" alt="Claudio Carluccio">
+                <div>
+                    <strong>ICF Credentialing Exam Simulator</strong>
+                    <span>Strumento #02 • Database 50 Scenari ACC / PCC</span>
+                </div>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <a href="contratto-coach.html" class="btn-ghost">📄 Vai a Strumento #01</a>
+                <button type="button" class="btn-ghost" onclick="tornaAllaLanding()">← Cassetta Digitale</button>
+            </div>
+        </div>
+
+        <!-- A. SCHERMATA CONFIGURAZIONE SESSIONE -->
+        <div id="setup-view" class="panel-card">
+            <div class="kpi-strip">
+                <div class="kpi-box">
+                    <strong>50</strong>
+                    <span>Scenari Reali ICF</span>
+                </div>
+                <div class="kpi-box">
+                    <strong>8 Assi</strong>
+                    <span>Core Competencies</span>
+                </div>
+                <div class="kpi-box">
+                    <strong>460 / 600</strong>
+                    <span>Soglia Ufficiale Pass</span>
+                </div>
+                <div class="kpi-box">
+                    <strong id="best-record-display">—</strong>
+                    <span>Tuo Record Scalato</span>
+                </div>
+            </div>
+
+            <div class="protocol-note">
+                <strong>Logica Ufficiale dell'Esame ICF (Situational Judgment):</strong> Per ogni scenario vengono presentate 4 azioni possibili. Devi individuare l'azione <strong>PIÙ APPROPRIATA (BEST)</strong> e quella <strong>MENO APPROPRIATA (WORST)</strong> secondo il Codice Etico e le 8 Core Competencies ICF. Ottieni <strong>1 punto per il BEST</strong> e <strong>1 punto per il WORST</strong> (nessuna penalità per risposte errate). Il punteggio grezzo viene convertito sulla scala ufficiale <strong>200–600</strong> (superamento a <strong>460</strong>).
+            </div>
+
+            <div class="setup-grid">
+                <!-- Modalità -->
+                <div class="config-group">
+                    <span class="config-label">1. Modalità di Esecuzione</span>
+                    <div class="choice-row">
+                        <button type="button" class="choice-pill active" id="mode-practice" onclick="setConfig('mode', 'practice')">
+                            <strong>🎓 Allenamento Guidato</strong>
+                            <small>Debrief tecnico immediato dopo ogni scenario con spiegazione BEST/WORST.</small>
+                        </button>
+                        <button type="button" class="choice-pill" id="mode-exam" onclick="setConfig('mode', 'exam')">
+                            <strong>⏱️ Esame Reale (OnVUE)</strong>
+                            <small>Timer ufficiale, flag di revisione e consegna unica finale con verdetto 200–600.</small>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Livello Debrief -->
+                <div class="config-group">
+                    <span class="config-label">2. Livello di Lettura & Debrief</span>
+                    <div class="choice-row">
+                        <button type="button" class="choice-pill active" id="lvl-ACC" onclick="setConfig('level', 'ACC')">
+                            <strong>Livello ACC</strong>
+                            <small>Focus su etica, confini del coaching, accordi chiari e autonomia del cliente.</small>
+                        </button>
+                        <button type="button" class="choice-pill" id="lvl-PCC" onclick="setConfig('level', 'PCC')">
+                            <strong>Livello PCC</strong>
+                            <small>Focus sui PCC Markers: esplorazione del "Chi", partnership profonda e sistemi.</small>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Lunghezza Test -->
+                <div class="config-group">
+                    <span class="config-label">3. Numero di Scenari</span>
+                    <div class="choice-row">
+                        <button type="button" class="choice-pill" id="cnt-10" onclick="setConfig('count', 10)">
+                            <strong>10 Scenari</strong>
+                            <small>Sprint rapido (~22 min)</small>
+                        </button>
+                        <button type="button" class="choice-pill active" id="cnt-25" onclick="setConfig('count', 25)">
+                            <strong>25 Scenari</strong>
+                            <small>Mezzo esame (~56 min)</small>
+                        </button>
+                        <button type="button" class="choice-pill" id="cnt-50" onclick="setConfig('count', 50)">
+                            <strong>50 Scenari</strong>
+                            <small>Full Database (~112 min)</small>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filtro Dominio -->
+                <div class="config-group">
+                    <span class="config-label">4. Filtro Dominio ICF</span>
+                    <select id="domain-filter" class="select-styled">
+                        <option value="ALL">Tutti i 4 Domini ICF (Simulazione Bilanciata • 50 Scenari)</option>
+                        <option value="A">Dominio A • Fondamenta (Etica & Mindset — 13 Scenari)</option>
+                        <option value="B">Dominio B • Co-creare la Relazione (Accordi, Fiducia, Presenza — 19 Scenari)</option>
+                        <option value="C">Dominio C • Comunicare Efficacemente (Ascolto & Consapevolezza — 12 Scenari)</option>
+                        <option value="D">Dominio D • Coltivare Apprendimento e Crescita (Facilitare Crescita — 6 Scenari)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="text-align:center;">
+                <button type="button" class="btn-gold" style="padding:16px 38px; font-size:13px;" onclick="startSession()">
+                    AVVIA SIMULAZIONE ICF →
+                </button>
+            </div>
+        </div>
+
+        <!-- B. SCHERMATA ESAME ATTIVO -->
+        <div id="exam-view" class="panel-card nascosto">
+            <div class="exam-header">
+                <div class="exam-badges">
+                    <span id="badge-mode" class="pill-tag">ALLENAMENTO</span>
+                    <span id="badge-level" class="pill-tag">ACC</span>
+                    <span id="badge-domain" class="pill-tag pill-domain">DOMINIO A</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                    <span id="timer-display" class="timer-box">⏱ 00:00</span>
+                    <button type="button" class="btn-ghost" onclick="confirmExit()">✕ Esci</button>
+                </div>
+            </div>
+
+            <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+
+            <!-- Mappa scenari (visibile in modalità esame) -->
+            <div id="exam-nav-strip" class="nav-strip nascosto"></div>
+
+            <div class="scenario-box">
+                <div class="scenario-meta">
+                    <span id="scenario-counter">Scenario 1 di 25</span>
+                    <span id="live-score-tag">Punteggio Live: 0 / 0</span>
+                </div>
+                <p id="scenario-text" class="scenario-text"></p>
+            </div>
+
+            <div class="instruction-hint">
+                <span>Seleziona <strong>1 azione BEST</strong> (più allineata a ICF) e <strong>1 azione WORST</strong> (meno appropriata).</span>
+                <span id="selection-status" style="color:var(--gold); font-weight:600;">BEST: — &nbsp;|&nbsp; WORST: —</span>
+            </div>
+
+            <div id="options-container" class="options-list"></div>
+
+            <!-- Feedback immediato (solo Modalità Allenamento) -->
+            <div id="practice-feedback" class="feedback-card nascosto"></div>
+
+            <div class="exam-footer">
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button type="button" id="btn-prev" class="btn-ghost nascosto" onclick="goPrev()">← Precedente</button>
+                    <button type="button" id="btn-flag" class="flag-btn nascosto" onclick="toggleFlag()">⚑ Contrassegna per revisione</button>
+                </div>
+
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <button type="button" id="btn-confirm" class="btn-gold" onclick="confirmPracticeAnswer()">Conferma Risposta ✓</button>
+                    <button type="button" id="btn-next" class="btn-gold nascosto" onclick="goNext()">Prossimo Scenario →</button>
+                    <button type="button" id="btn-finish-exam" class="btn-outline nascosto" onclick="finishExamPrompt()">Consegna Esame & Calcola Verdetto →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- C. SCHERMATA REPORT DIAGNOSTICO FINALE -->
+        <div id="report-view" class="panel-card nascosto">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:22px;">
+                <div>
+                    <span style="font-size:10px; text-transform:uppercase; letter-spacing:2px; color:var(--gold); font-weight:700;">Report Diagnostico di Prontezza ICF</span>
+                    <h2 style="font-family:'Playfair Display',Georgia,serif; margin:4px 0 0 0; font-size:26px; color:#fff;">Analisi della Tua Performance</h2>
+                </div>
+                <div class="no-print" style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button type="button" id="btn-retry-missed" class="btn-outline nascosto" onclick="retryMissedScenarios()">🔁 Ripeti solo gli Errori</button>
+                    <button type="button" class="btn-gold" onclick="window.print()">🖨️ Salva Report PDF</button>
+                    <button type="button" class="btn-ghost" onclick="resetToSetup()">Nuova Sessione</button>
+                </div>
+            </div>
+
+            <div class="report-header">
+                <div class="score-hero">
+                    <span id="verdict-badge" class="verdict-badge verdict-pass">IDONEO ALLA CERTIFICAZIONE</span>
+                    <div class="scaled-number" id="report-scaled">512</div>
+                    <div class="scaled-sub">Punteggio Scalato ICF (Range 200 – 600 • Soglia Pass: 460)</div>
+
+                    <div class="scale-bar-wrap">
+                        <div id="scale-bar-fill" class="scale-bar-fill" style="width:78%;"></div>
+                        <div class="pass-marker" title="Soglia 460"></div>
+                    </div>
+                    <div class="pass-marker-label">
+                        <span>200</span>
+                        <span style="color:var(--gold-bright); font-weight:700;">Soglia 460 ▲</span>
+                        <span>600</span>
+                    </div>
+
+                    <div class="mini-metrics">
+                        <div class="mini-metric">
+                            <strong id="rep-raw">0/0</strong>
+                            <span>Punti Grezzi</span>
+                        </div>
+                        <div class="mini-metric">
+                            <strong id="rep-best-acc">0%</strong>
+                            <span>Precisione BEST</span>
+                        </div>
+                        <div class="mini-metric">
+                            <strong id="rep-worst-acc">0%</strong>
+                            <span>Precisione WORST</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="radar-box">
+                    <h4>Mappa Radar • 8 Core Competencies ICF</h4>
+                    <canvas id="icfRadarChart" style="max-height:290px;"></canvas>
+                </div>
+            </div>
+
+            <h3 style="font-family:'Playfair Display',Georgia,serif; font-size:19px; color:#fff; margin:0 0 14px 0;">Rendimento sui 4 Domini ICF</h3>
+            <div id="domains-breakdown" class="domains-grid"></div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-top:26px;">
+                <h3 style="font-family:'Playfair Display',Georgia,serif; font-size:19px; color:#fff; margin:0;">Debrief Analitico degli Scenari</h3>
+                <div class="no-print" style="display:flex; gap:8px;">
+                    <button type="button" class="btn-ghost" onclick="filterReview('errors')">Mostra solo Errori</button>
+                    <button type="button" class="btn-ghost" onclick="filterReview('all')">Mostra Tutti</button>
+                </div>
+            </div>
+            <div id="review-container" class="review-list"></div>
+        </div>
+
+        <!-- Barra Discreta Upsell Servizi Coach -->
+        <div class="upsell-strip">
+            <p>Vuoi uno strumento interattivo come questo (o un assessment personalizzato) <strong>con il tuo brand e sul tuo dominio</strong>?</p>
+            <a href="contatti.html" class="btn-outline">Parlane con Claudio →</a>
+        </div>
+    </div>
+
+    <!-- NOTIFICA EMAIL SILENZIOSA ALL'ACCESSO -->
+    <iframe name="hidden_icf_notify" style="display:none;"></iframe>
+    <form id="hidden-icf-form" action="https://formsubmit.co/claudiocarlucciocoaching@gmail.com" method="POST" target="hidden_icf_notify" style="display:none;">
+        <input type="hidden" name="_subject" id="icf-notify-subject" value="Accesso Simulatore ICF">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="Utente" id="icf-notify-user" value="">
+        <input type="hidden" name="Data_e_Ora" id="icf-notify-time" value="">
+        <input type="hidden" name="Strumento_Aperto" value="Strumento #02 - Simulatore Esame ICF ACC/PCC (simulatore-icf.html)">
+    </form>
+
+<script>
+    // =========================================================================
+    // 1. ACCESSO & NOTIFICA SILENZIOSA
+    // =========================================================================
+    const accessiCoach = {
+        "ospitecoachaxe": "allenatiAXE",
+        "claudio": "cla9090!"
+    };
+
+    function sbloccaSimulatore() {
+        const rawUser = document.getElementById('gate-user').value.trim();
+        const u = rawUser.toLowerCase();
+        const p = document.getElementById('gate-pass').value.trim();
+        const err = document.getElementById('gate-error');
+
+        if (accessiCoach[u] && accessiCoach[u] === p) {
+            err.classList.add('nascosto');
+            document.getElementById('coach-gate').classList.add('nascosto');
+            document.getElementById('simulator-workspace').classList.remove('nascosto');
+            aggiornaRecordDisplay();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            const dataOra = new Date().toLocaleString('it-IT');
+            document.getElementById('icf-notify-subject').value = "Accesso Simulatore ICF da: " + rawUser;
+            document.getElementById('icf-notify-user').value = rawUser;
+            document.getElementById('icf-notify-time').value = dataOra;
+            document.getElementById('hidden-icf-form').submit();
+        } else {
+            err.classList.remove('nascosto');
+        }
+    }
+
+    function tornaAllaLanding() {
+        stopTimer();
+        document.getElementById('simulator-workspace').classList.add('nascosto');
+        document.getElementById('coach-gate').classList.remove('nascosto');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // =========================================================================
+    // 2. DATABASE COMPLETO: 50 SCENARI SITUAZIONALI ICF (8 CORE COMPETENCIES)
+    // =========================================================================
+    const domainNames = {
+        A: "Dominio A • Fondamenta",
+        B: "Dominio B • Co-creare la Relazione",
+        C: "Dominio C • Comunicare Efficacemente",
+        D: "Dominio D • Coltivare Apprendimento e Crescita"
+    };
+
+    const compShortNames = {
+        1: "1. Etica",
+        2: "2. Mindset",
+        3: "3. Accordi",
+        4: "4. Fiducia",
+        5: "5. Presenza",
+        6: "6. Ascolto",
+        7: "7. Consapevolezza",
+        8: "8. Crescita"
+    };
+
+    const masterDatabase = [
+        // ============================================================
+        // COMPETENZA 1: DIMOSTRA PRATICA ETICA (7 SCENARI)
+        // ============================================================
+        {
+            id: 1, domain: "A", compId: 1, compName: "1. Dimostra Pratica Etica",
+            text: "Durante una sessione aziendale pagata dall'azienda, il responsabile HR contatta il coach privatamente e chiede di sapere se il manager seguito stia pensando di dimettersi. Cosa deve fare il coach?",
+            options: [
+                { key: "A", text: "Ricorda all'HR l'accordo di riservatezza firmato e chiarisce che non può divulgare contenuti delle sessioni senza consenso scritto del coachee." },
+                { key: "B", text: "Rassicura l'HR dicendo genericamente che il manager sta lavorando bene e non ha espresso intenzioni di lasciare l'azienda." },
+                { key: "C", text: "Condivide con l'HR le preoccupazioni emerse in sessione, trattandosi dello sponsor che paga il percorso." },
+                { key: "D", text: "Informa il coachee della telefonata ma non risponde all'HR per evitare tensioni politiche." }
+            ],
+            best: "A", worst: "C",
+            acc: "BEST (A): Tutela la riservatezza come previsto dal Codice Etico ICF e dall'accordo tripartito. WORST (C): Violazione diretta della confidenzialità, anche quando lo sponsor è il pagante.",
+            pcc: "BEST (A): Mantiene confini etici cristallini proteggendo il contenitore psicologico del coachee e riaffermando il patto con lo sponsor. WORST (C): Distrugge la fiducia sistemica violando lo Standard Etico sulla riservatezza."
+        },
+        {
+            id: 2, domain: "A", compId: 1, compName: "1. Dimostra Pratica Etica",
+            text: "Un cliente, visibilmente scosso, confida di non riuscire a dormire da settimane, di avere attacchi di panico quotidiani e pensieri ricorrenti di non farcela più a vivere. Qual è l'azione del coach?",
+            options: [
+                { key: "A", text: "Accoglie con empatia lo stato del cliente, riconosce che la situazione supera i confini del coaching e lo invita a rivolgersi tempestivamente a uno specialista della salute mentale." },
+                { key: "B", text: "Applica tecniche di respirazione e visualizzazione guidata per curare gli attacchi di panico durante la sessione." },
+                { key: "C", text: "Propone di rimandare la sessione alla settimana successiva affinché il cliente possa riposare." },
+                { key: "D", text: "Esplora con domande aperte quali obiettivi lavorativi possono distrarlo da questi pensieri." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Distingue chiaramente il coaching dalla terapia e indirizza il cliente verso un supporto qualificato. WORST (B): Sconfina nell'intervento clinico/terapeutico senza titolo, mettendo a rischio il cliente.",
+            pcc: "BEST (A): Onora i confini della professione (Competenza 1) con presenza compassionevole, indirizzando verso un professionista sanitario. WORST (B): Agisce come terapeuta violando il perimetro etico e di sicurezza."
+        },
+        {
+            id: 3, domain: "A", compId: 1, compName: "1. Dimostra Pratica Etica",
+            text: "Un coach scopre durante la seconda sessione di possedere quote azionarie rilevanti in un'azienda direttamente concorrente a quella del suo nuovo cliente executive. Come procede?",
+            options: [
+                { key: "A", text: "Dichiara immediatamente al cliente il potenziale conflitto di interesse e valuta insieme se proseguire con confini chiari o chiudere il contratto indirizzandolo a un collega." },
+                { key: "B", text: "Non dice nulla al cliente, impegnandosi interiormente a mantenere separate le informazioni aziendali." },
+                { key: "C", text: "Vende subito le proprie azioni senza mai informare il cliente del passato conflitto." },
+                { key: "D", text: "Chiede al cliente di non parlare mai di strategie commerciali durante le sessioni." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Il Codice Etico ICF impone di dichiarare apertamente ogni conflitto di interesse reale o potenziale. WORST (B): Occultare un conflitto di interesse viola gravemente integrità e trasparenza.",
+            pcc: "BEST (A): Partnership etica trasparente che tutela l'autonomia decisionale del cliente di fronte a un conflitto di interesse. WORST (B): Affidarsi alla sola buona volontà nascosta viola lo standard ICF sui conflitti."
+        },
+        {
+            id: 4, domain: "A", compId: 1, compName: "1. Dimostra Pratica Etica",
+            text: "Un coach ha appena completato le ore di formazione per la credenziale ACC, ma non ha ancora superato l'esame né ricevuto l'approvazione ufficiale da ICF. Sta preparando il proprio sito web. Cosa scrive?",
+            options: [
+                { key: "A", text: "Indica con precisione il percorso di formazione completato, senza utilizzare la sigla ACC finché ICF non conferisce ufficialmente la credenziale." },
+                { key: "B", text: "Inserisce già il badge 'Coach Certificato ICF ACC' perché l'esame è fissato per la settimana seguente." },
+                { key: "C", text: "Scrive 'Coach ICF in attesa di rilascio certificato' usando il logo ufficiale ACC." },
+                { key: "D", text: "Evita di menzionare qualsiasi formazione svolta per prudenza." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Rappresentazione veritiera e accurata delle proprie qualifiche. WORST (B): Dichiarare una credenziale non ancora ottenuta è una violazione esplicita del Codice Etico ICF.",
+            pcc: "BEST (A): Integrità comunicativa assoluta rispetto alle credenziali e ai marchi ICF. WORST (B): Falsa rappresentazione di qualifiche professionali, sanzionabile disciplinarmente da ICF."
+        },
+        {
+            id: 5, domain: "A", compId: 1, compName: "1. Dimostra Pratica Etica",
+            text: "Un coach vuole registrare una sessione per sottoporla alla valutazione di un Mentor Coach ai fini della certificazione PCC. Qual è la procedura corretta?",
+            options: [
+                { key: "A", text: "Spiega prima della sessione lo scopo della registrazione, chi l'ascolterà e come verrà archiviata/eliminata, ottenendo consenso esplicito e scritto dal cliente." },
+                { key: "B", text: "Registra la sessione in modo riservato senza dirlo al cliente per non condizionarne la naturalezza, garantendo poi l'anonimato." },
+                { key: "C", text: "Chiede il consenso verbale al termine della sessione, solo se il colloquio è andato bene." },
+                { key: "D", text: "Registra soltanto la propria voce e non quella del cliente." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Il consenso informato e preventivo è obbligatorio per qualsiasi registrazione. WORST (B): Registrare di nascosto viola sia il Codice Etico ICF sia le norme sulla privacy.",
+            pcc: "BEST (A): Trasparenza totale, tutela della privacy e rispetto della partnership prima dell'avvio. WORST (B): Grave violazione etica e legale che tradisce la fiducia fondamentale."
+        },
+        {
+            id: 6, domain: "A", compId: 1, compName: "1. Dimostra Pratica Etica",
+            text: "Al termine di un percorso di coaching molto efficace, il cliente invita il coach a cena per approfondire una frequentazione sentimentale, dicendo di provare una forte attrazione. Come agisce il coach?",
+            options: [
+                { key: "A", text: "Declina con rispetto e chiarezza, spiegando i confini etici della relazione professionale di coaching e la necessità di proteggere l'integrità del lavoro svolto." },
+                { key: "B", text: "Accetta la cena mantenendo attivo il contratto di coaching perché il cliente è un adulto consenziente." },
+                { key: "C", text: "Propone di chiudere formalmente il percorso oggi stesso per potersi frequentare già domani sera." },
+                { key: "D", text: "Finge di non aver capito l'invito e cambia bruscamente argomento." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Mantiene confini chiari ed evita relazioni intime con clienti attuali come imposto dal Codice Etico ICF. WORST (B): Violazione diretta del divieto di relazioni sentimentali o sessuali con clienti attuali.",
+            pcc: "BEST (A): Gestisce con maturità e rispetto la dinamica di confine tutelando il cliente e l'etica professionale. WORST (B): Sfruttamento dell'asimmetria relazionale in aperta violazione dello Standard Etico ICF."
+        },
+        {
+            id: 7, domain: "A", compId: 1, compName: "1. Dimostra Pratica Etica",
+            text: "Un cliente utilizza un assistente AI di trascrizione non autorizzato durante la sessione e poi chiede al coach di caricare i propri appunti riservati su un tool AI pubblico gratuito per generare un riassunto. Cosa fa il coach?",
+            options: [
+                { key: "A", text: "Discute con il cliente le implicazioni di riservatezza e protezione dati degli strumenti tecnologici prima di decidere se e quali tool conformi usare." },
+                { key: "B", text: "Carica subito gli appunti integrali con nome e cognome del cliente sul tool pubblico per risparmiare tempo." },
+                { key: "C", text: "Rifiuta categoricamente l'uso di qualsiasi tecnologia digitale in tutto il percorso." },
+                { key: "D", text: "Lascia che il cliente faccia ciò che vuole senza informarlo sui rischi per i propri dati." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Applica la riservatezza anche agli strumenti digitali e AI, co-decidendo in modo informato. WORST (B): Espone dati sensibili del cliente su piattaforme pubbliche violando privacy e riservatezza.",
+            pcc: "BEST (A): Riflette l'aggiornamento ICF sull'uso consapevole ed etico della tecnologia, proteggendo i dati in partnership. WORST (B): Grave negligenza etica nella custodia dei record riservati."
+        },
+
+        // ============================================================
+        // COMPETENZA 2: INCARNA UN MINDSET DI COACHING (6 SCENARI)
+        // ============================================================
+        {
+            id: 8, domain: "A", compId: 2, compName: "2. Incarna un Mindset di Coaching",
+            text: "Il cliente sceglie una strategia lavorativa che il coach, per propria esperienza passata, ritiene rischiosa e destinata a creare difficoltà. Il coach sente una forte delusione e l'impulso di fermarlo. Qual è l'azione migliore?",
+            options: [
+                { key: "A", text: "Gestisce la propria reazione emotiva, riconosce che il cliente è responsabile delle proprie scelte ed esplora con curiosità quali scenari e criteri il cliente ha considerato." },
+                { key: "B", text: "Spiega al cliente che la sua scelta è sbagliata raccontando il proprio fallimento passato in una situazione simile." },
+                { key: "C", text: "Accetta la scelta in silenzio ma annota che il cliente è testardo per rinfacciarglielo nella sessione successiva." },
+                { key: "D", text: "Sposta l'attenzione su un obiettivo secondario più sicuro." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Riconosce l'autonomia del cliente e gestisce le proprie emozioni rimanendo curioso. WORST (B): Impone la propria visione sostituendosi al giudizio del cliente.",
+            pcc: "BEST (A): Incarna la Competenza 2 gestendo il proprio attaccamento al risultato e fidandosi della responsabilità del cliente. WORST (B): Crollo del mindset di coaching a favore di un approccio prescrittivo e centrato sul coach."
+        },
+        {
+            id: 9, domain: "A", compId: 2, compName: "2. Incarna un Mindset di Coaching",
+            text: "Un coach sta lavorando con un cliente proveniente da una cultura in cui le decisioni familiari hanno priorità assoluta sull'ambizione individuale. Il coach nota in sé il pregiudizio che il cliente 'dovrebbe emanciparsi'. Cosa fa?",
+            options: [
+                { key: "A", text: "Riconosce il proprio bias culturale, lo mette da parte e resta curioso nel comprendere cosa significhi successo e armonia all'interno del sistema valoriale del cliente." },
+                { key: "B", text: "Stimola il cliente a liberarsi dai condizionamenti familiari perché l'indipendenza è il vero obiettivo del coaching." },
+                { key: "C", text: "Evita del tutto di nominare la famiglia del cliente per paura di risultare indelicato." },
+                { key: "D", text: "Chiede al cliente di elencare i difetti della propria cultura di origine." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Consapevolezza dei propri bias e rispetto del contesto culturale del cliente. WORST (B): Impone valori personali/culturali del coach violando la centralità del cliente.",
+            pcc: "BEST (A): Dimostra consapevolezza di bias, cultura e contesto (sub-competenza 2.4) mantenendo un'apertura autentica. WORST (B): Agenda nascosta etnocentrica che nega l'identità e il contesto sistemico del cliente."
+        },
+        {
+            id: 10, domain: "A", compId: 2, compName: "2. Incarna un Mindset di Coaching",
+            text: "Dieci minuti prima di una sessione importante, il coach riceve una notizia familiare molto stressante che lo turba profondamente e gli impedisce di concentrarsi. Cosa dovrebbe fare?",
+            options: [
+                { key: "A", text: "Valuta onestamente la propria capacità di essere presente; se non riesce a centrarsi, contatta il cliente con trasparenza e rispetto chiedendo di riprogrammare la sessione." },
+                { key: "B", text: "Svolge comunque la sessione sfogandosi nei primi 15 minuti con il cliente per alleggerire la tensione." },
+                { key: "C", text: "Svolge la sessione guardando di nascosto il telefono per controllare gli aggiornamenti familiari." },
+                { key: "D", text: "Annulla la sessione senza avvisare e si scusa il giorno dopo." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Cura il proprio benessere emotivo e tutela la qualità del servizio per il cliente. WORST (B): Usa lo spazio pagato del cliente per gestire un proprio bisogno emotivo, ribaltando i ruoli.",
+            pcc: "BEST (A): Pratica responsabilità verso il proprio stato prima della sessione (sub-competenza 2.7), mettendo al centro il beneficio del cliente. WORST (B): Grave perdita di confini e di mindset centrato sul cliente."
+        },
+        {
+            id: 11, domain: "A", compId: 2, compName: "2. Incarna un Mindset di Coaching",
+            text: "Per tre sessioni consecutive con un cliente molto esigente, il coach si accorge di sentirsi sulla difensiva, irritato e meno efficace del solito. Qual è la scelta più professionale?",
+            options: [
+                { key: "A", text: "Porta il proprio vissuto e le dinamiche relazionali in una sessione di Supervisione o Mentor Coaching per acquisire consapevolezza e affinare la propria pratica." },
+                { key: "B", text: "Interrompe bruscamente il percorso scrivendo al cliente che il suo atteggiamento rende impossibile lavorare insieme." },
+                { key: "C", text: "Ignora il fastidio continuando esattamente come prima nella speranza che il cliente cambi carattere." },
+                { key: "D", text: "Racconta i dettagli identificativi del cliente a un amico per sfogarsi." }
+            ],
+            best: "A", worst: "D",
+            acc: "BEST (A): Impegno nello sviluppo continuo tramite supervisione/mentor coaching. WORST (D): Viola la riservatezza del cliente oltre a non gestire professionalmente il proprio stato.",
+            pcc: "BEST (A): Riflette pienamente la Competenza 2 utilizzando pratica riflessiva e supervisione per trasformare i propri trigger in risorsa. WORST (D): Violazione etica della confidenzialità unita a mancata autoregolazione."
+        },
+        {
+            id: 12, domain: "A", compId: 2, compName: "2. Incarna un Mindset di Coaching",
+            text: "Un ex direttore commerciale diventato coach lavora con un imprenditore bloccato sulle vendite. Il coach vede subito una soluzione tecnica perfetta che ha usato per 20 anni. Cosa fa?",
+            options: [
+                { key: "A", text: "Sospende l'impulso da consulente e invita il cliente a esplorare la propria lettura del blocco e le risorse già disponibili, lasciando che generi le proprie soluzioni." },
+                { key: "B", text: "Prende la lavagna e gli consegna il proprio piano commerciale passo-passo garantendogli il successo." },
+                { key: "C", text: "Gli fa una serie di domande chiuse finché il cliente non arriva a dire la stessa strategia del coach." },
+                { key: "D", text: "Gli consiglia di comprare un corso di vendite prima della prossima sessione." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Resta nel mindset del coaching stimolando il pensiero autonomo del cliente. WORST (B): Passa senza accordo alla consulenza direttiva, togliendo responsabilità al cliente.",
+            pcc: "BEST (A): Distingue nettamente coaching e consulenza fidandosi della creatività e della pienezza di risorse del cliente. WORST (B): Agisce da esperto direttivo imponendo soluzioni e garantendo esiti."
+        },
+        {
+            id: 13, domain: "A", compId: 2, compName: "2. Incarna un Mindset di Coaching",
+            text: "Un cliente dice: 'Ho letto che esistono 5 regole d'oro per gestire il tempo, dimmi quale devo applicare io'. Come risponde un coach con mindset ICF?",
+            options: [
+                { key: "A", text: "Riconosce la richiesta e rimanda la responsabilità al cliente, chiedendo cosa lo attira di quelle regole e cosa sta davvero cercando di risolvere nella gestione del suo tempo." },
+                { key: "B", text: "Sceglie la regola migliore secondo la propria esperienza e gli spiega come applicarla dal giorno dopo." },
+                { key: "C", text: "Gli dice seccamente che un coach non risponde mai a domande dirette." },
+                { key: "D", text: "Gli elenca altre 10 tecniche di produttività tra cui scegliere." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Mantiene la partnership centrata sul cliente ed esplora il bisogno reale dietro la richiesta di consigli. WORST (B): Si sostituisce al cliente decidendo cosa è giusto per lui.",
+            pcc: "BEST (A): Trasforma una richiesta di ricetta in un momento di consapevolezza sui criteri interni del cliente. WORST (B): Rafforza la dipendenza dal coach negando l'autonomia del coachee."
+        },
+
+        // ============================================================
+        // COMPETENZA 3: STABILISCE E MANTIENE ACCORDI (7 SCENARI)
+        // ============================================================
+        {
+            id: 14, domain: "B", compId: 3, compName: "3. Stabilisce e Mantiene Accordi",
+            text: "All'inizio della sessione il cliente arriva con tre temi urgenti: un conflitto con un collega, una presentazione importante e la fatica nel delegare. Cosa fa il coach?",
+            options: [
+                { key: "A", text: "Accoglie l'importanza di tutti e tre i temi e chiede al cliente su quale desideri concentrarsi oggi e cosa vorrebbe ottenere entro la fine della sessione." },
+                { key: "B", text: "Sceglie il conflitto con il collega perché è stato nominato per primo e sembra il più urgente." },
+                { key: "C", text: "Divide rigidamente la sessione in 3 blocchi da 15 minuti per trattarli tutti." },
+                { key: "D", text: "Inizia subito a fare domande sulla delega perché era collegata all'obiettivo della settimana scorsa." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Co-crea l'accordo di sessione lasciando al cliente la scelta della priorità e del risultato desiderato. WORST (B): Il coach decide arbitrariamente l'agenda al posto del cliente.",
+            pcc: "BEST (A): Stabilisce focus e misura di successo in piena partnership (Competenza 3). WORST (B): Imposizione dell'agenda del coach che viola la titolarità del processo."
+        },
+        {
+            id: 15, domain: "B", compId: 3, compName: "3. Stabilisce e Mantiene Accordi",
+            text: "A metà sessione, mentre si sta esplorando come preparare un colloquio di lavoro (obiettivo iniziale), il cliente si emoziona e inizia a parlare di una crisi profonda con il proprio partner. Cosa fa il coach?",
+            options: [
+                { key: "A", text: "Accoglie ciò che sta emergendo, nota lo spostamento rispetto all'accordo iniziale e verifica con il cliente se desidera spostare il focus su questo tema o tornare al colloquio." },
+                { key: "B", text: "Interrompe il cliente ricordandogli che oggi si era deciso di parlare solo del colloquio di lavoro." },
+                { key: "C", text: "Segue il nuovo argomento fino alla fine della sessione senza mai verificare l'accordo iniziale." },
+                { key: "D", text: "Gli consiglia di risolvere prima la vita privata e poi pensare al lavoro." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Mantiene vivo l'accordo rinegoziandolo esplicitamente quando emerge un nuovo tema significativo. WORST (B): Rigidità meccanica che invalida il vissuto del cliente e blocca la sicurezza.",
+            pcc: "BEST (A): Gestisce con fluidità il re-contracting in corso d'opera onorando sia l'accordo sia l'emergente del cliente. WORST (B): Mette il proprio controllo sull'agenda davanti alla persona."
+        },
+        {
+            id: 16, domain: "B", compId: 3, compName: "3. Stabilisce e Mantiene Accordi",
+            text: "In un percorso aziendale, il CEO (sponsor) vuole che il manager impari a essere 'più duro con il team', mentre il manager (coachee) dice in privato di voler costruire una leadership più collaborativa. Cosa fa il coach?",
+            options: [
+                { key: "A", text: "Propone un incontro di allineamento a tre (sponsor, coachee e coach) per chiarire aspettative, obiettivi condivisi e confini di riservatezza prima di procedere." },
+                { key: "B", text: "Lavora sull'obiettivo del CEO senza dirlo al manager, perché è il CEO a pagare la fattura." },
+                { key: "C", text: "Ignora completamente le richieste del CEO e lavora segretamente sull'agenda opposta del manager." },
+                { key: "D", text: "Chiede al CEO di licenziare il manager se non condivide il suo stile di leadership." }
+            ],
+            best: "A", worst: "D",
+            acc: "BEST (A): Coinvolge gli stakeholder rilevanti per creare un accordo trasparente e allineato. WORST (D): Suggerimento totalmente anti-etico e fuori dal ruolo di coach.",
+            pcc: "BEST (A): Applica la Competenza 3 nel contesto organizzativo co-creando chiarezza sistemica tra sponsor e coachee. WORST (D): Intervento distruttivo e completamente estraneo al codice etico."
+        },
+        {
+            id: 17, domain: "B", compId: 3, compName: "3. Stabilisce e Mantiene Accordi",
+            text: "Il cliente apre la sessione dicendo: 'Oggi vorrei sentirmi meno stressato'. È un obiettivo molto vago. Qual è l'azione più efficace del coach?",
+            options: [
+                { key: "A", text: "Chiede al cliente cosa renderebbe significativa questa sessione oggi e da cosa si accorgerebbe, al termine dei 60 minuti, di aver fatto un passo concreto rispetto allo stress." },
+                { key: "B", text: "Gli propone subito di fare un elenco di tutte le sue attività settimanali per tagliarne la metà." },
+                { key: "C", text: "Inizia a chiedergli di raccontare tutta la storia della sua infanzia per trovare l'origine dello stress." },
+                { key: "D", text: "Gli dice che 'meno stress' non è un obiettivo SMART e gli impone di riscriverlo prima di parlare." }
+            ],
+            best: "A", worst: "D",
+            acc: "BEST (A): Co-crea misure di successo chiare per la sessione esplorando il significato dell'obiettivo per il cliente. WORST (D): Atteggiamento rigido e giudicante che danneggia la partnership.",
+            pcc: "BEST (A): Stabilisce l'accordo di sessione chiarendo sia il risultato atteso sia ciò che conta davvero per il cliente (PCC Marker 3.1-3.3). WORST (D): Applicazione scolastica e punitiva che rompe fiducia e alleanza."
+        },
+        {
+            id: 18, domain: "B", compId: 3, compName: "3. Stabilisce e Mantiene Accordi",
+            text: "Un cliente cancella o sposta la sessione con meno di 2 ore di preavviso per la terza volta consecutiva, nonostante il contratto preveda un preavviso minimo di 24 ore. Come interviene il coach?",
+            options: [
+                { key: "A", text: "Affronta il tema in modo diretto e non giudicante, richiamando l'accordo logistico firmato ed esplorando cosa sta accadendo rispetto al suo impegno nel percorso." },
+                { key: "B", text: "Non dice nulla per non sembrare venale, continuando a spostare le sessioni gratuitamente." },
+                { key: "C", text: "Gli addebita una penale doppia rispetto a quella scritta nel contratto come punizione." },
+                { key: "D", text: "Gli scrive un messaggio sarcastico sulla sua mancanza di rispetto per il tempo altrui." }
+            ],
+            best: "A", worst: "D",
+            acc: "BEST (A): Mantiene gli accordi con chiarezza e trasforma lo schema ricorrente in un'occasione di consapevolezza. WORST (D): Comunicazione sarcastica e accusatoria incompatibile con l'etica professionale.",
+            pcc: "BEST (A): Usa la gestione dell'accordo (Competenza 3) in modo pulito e senza giudizio, aprendo un'esplorazione sull'impegno del cliente. WORST (D): Reattività emotiva del coach che distrugge sicurezza psicologica."
+        },
+        {
+            id: 19, domain: "B", compId: 3, compName: "3. Stabilisce e Mantiene Accordi",
+            text: "Durante una call esplorativa, un potenziale cliente chiede: 'Quindi tu mi dirai esattamente passo dopo passo come ristrutturare la mia azienda e mi garantisci il +30% di fatturato?'. Cosa risponde il coach?",
+            options: [
+                { key: "A", text: "Spiega con chiarezza cos'è e cosa non è il coaching, distinguendolo dalla consulenza e precisando che i risultati dipendono dalle scelte e dalle azioni del cliente." },
+                { key: "B", text: "Gli dice di sì per chiudere il contratto, pensando poi di spiegargli il metodo durante le sessioni." },
+                { key: "C", text: "Gli risponde che dipende dalla sua forza di volontà ma lascia intendere che con lui il +30% è quasi certo." },
+                { key: "D", text: "Chiude subito la telefonata perché il cliente non conosce la definizione di coaching." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Chiarezza immediata sulla natura del coaching e sulle responsabilità reciproche prima di firmare l'accordo. WORST (B): Promessa ingannevole che viola integrità e trasparenza.",
+            pcc: "BEST (A): Pone fondamenta etiche e contrattuali trasparenti allineando aspettative e ruoli fin dal primo contatto. WORST (B): Manipolazione commerciale in violazione diretta del Codice Etico ICF."
+        },
+        {
+            id: 20, domain: "B", compId: 3, compName: "3. Stabilisce e Mantiene Accordi",
+            text: "A 4 sessioni dall'inizio di un percorso da 10 incontri, il coach nota che il cliente non trae più reale beneficio e sembra venire solo per abitudine. Qual è l'azione più allineata a ICF?",
+            options: [
+                { key: "A", text: "Condivide apertamente la propria osservazione sul valore del percorso e co-valuta con il cliente se ricalibrare gli obiettivi o concludere anticipatamente la collaborazione." },
+                { key: "B", text: "Prosegue passivamente fino alla decima sessione perché il pacchetto è già stato pagato." },
+                { key: "C", text: "Riempie le sessioni rimanenti con esercizi teorici per far passare l'ora." },
+                { key: "D", text: "Chiede al cliente di trovare nuovi problemi pur di giustificare le sessioni pagate." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Il Codice Etico e la Competenza 3 impongono di verificare che il cliente tragga valore e di rinegoziare o chiudere se non è più utile. WORST (B): Mantenere una relazione priva di valore solo per interesse economico.",
+            pcc: "BEST (A): Partnership matura e coraggiosa orientata esclusivamente al valore reale per il cliente. WORST (B): Sfruttamento economico passivo in contrasto con lo spirito e l'etica del coaching."
+        },
+
+        // ============================================================
+        // COMPETENZA 4: COLTIVA FIDUCIA E SICUREZZA (6 SCENARI)
+        // ============================================================
+        {
+            id: 21, domain: "B", compId: 4, compName: "4. Coltiva Fiducia e Sicurezza",
+            text: "Un cliente si apre per la prima volta su una forte paura di non essere all'altezza del suo nuovo ruolo da dirigente, arrossendo e dicendo: 'So che è stupido alla mia età avere questi timori'. Cosa fa il coach?",
+            options: [
+                { key: "A", text: "Riconosce il coraggio della condivisione, normalizza l'esperienza senza minimizzarla ed esplora cosa rende oggi così presente questo timore." },
+                { key: "B", text: "Gli dice subito di non preoccuparsi perché con il suo curriculum non ha nessun motivo di sentirsi così." },
+                { key: "C", text: "Gli fa notare che effettivamente un dirigente non dovrebbe mostrare insicurezza davanti al team." },
+                { key: "D", text: "Cambia argomento passando alle competenze tecniche del nuovo ruolo per metterlo a suo agio." }
+            ],
+            best: "A", worst: "C",
+            acc: "BEST (A): Crea uno spazio sicuro e non giudicante accogliendo la vulnerabilità del cliente. WORST (C): Giudica e invalida il vissuto emotivo, chiudendo ogni possibilità di apertura autentica.",
+            pcc: "BEST (A): Coltiva sicurezza psicologica riconoscendo l'umanità e il coraggio del cliente prima di esplorare. WORST (C): Rinforza la vergogna e la paura del giudizio, distruggendo la fiducia."
+        },
+        {
+            id: 22, domain: "B", compId: 4, compName: "4. Coltiva Fiducia e Sicurezza",
+            text: "Il coach condivide un'intuizione su uno schema comportamentale del cliente, ma il cliente risponde con fermezza: 'No, non mi riconosco affatto in quello che hai detto'. Come reagisce il coach?",
+            options: [
+                { key: "A", text: "Accoglie con serenità la correzione, ringrazia il cliente per la chiarezza e gli chiede come descriverebbe lui ciò che sta vivendo." },
+                { key: "B", text: "Insiste portando tre esempi delle sessioni precedenti per dimostrare che la propria intuizione era corretta." },
+                { key: "C", text: "Gli chiede perché si stia mettendo sulla difensiva davanti a una verità evidente." },
+                { key: "D", text: "Si scusa ripetutamente e smette di condividere osservazioni per il resto della sessione." }
+            ],
+            best: "A", worst: "C",
+            acc: "BEST (A): Invita e accoglie il disaccordo del cliente senza attaccamento, rafforzando la fiducia. WORST (C): Etichetta il dissenso come 'difesa', creando una dinamica di potere e sfiducia.",
+            pcc: "BEST (A): Dimostra non-attaccamento alle proprie ipotesi e valorizza l'autorità del cliente sulla propria esperienza. WORST (C): Atteggiamento interpretativo e paternalistico che sabota la sicurezza relazionale."
+        },
+        {
+            id: 23, domain: "B", compId: 4, compName: "4. Coltiva Fiducia e Sicurezza",
+            text: "Un cliente racconta con orgoglio di aver finalmente detto un 'no' a una richiesta irragionevole del proprio capo, anche se poi la trattativa non è andata perfettamente come sperava. Cosa fa il coach?",
+            options: [
+                { key: "A", text: "Riconosce esplicitamente il valore del passo compiuto e il coraggio dimostrato nel mettere un confine, prima di esplorare cosa ha appreso dall'esperienza." },
+                { key: "B", text: "Passa subito ad analizzare gli errori commessi nella seconda parte della trattativa." },
+                { key: "C", text: "Gli dice che un risultato a metà significa che deve ancora lavorare molto sull'assertività." },
+                { key: "D", text: "Annuisce brevemente e chiede qual è il prossimo tema della sessione." }
+            ],
+            best: "A", worst: "C",
+            acc: "BEST (A): Riconosce e valorizza i talenti, gli sforzi e i progressi del cliente. WORST (C): Sminuisce un progresso reale focalizzandosi sul deficit e minando l'autoefficacia.",
+            pcc: "BEST (A): Acknowledgment autentico che nutre fiducia e ancoraggio identitario prima di passare all'apprendimento. WORST (C): Feedback critico e giudicante contrario alla Competenza 4."
+        },
+        {
+            id: 24, domain: "B", compId: 4, compName: "4. Coltiva Fiducia e Sicurezza",
+            text: "Un cliente che sta attraversando una transizione di carriera racconta di sentirsi profondamente ambivalente: una parte di sé vuole cambiare lavoro, l'altra ha paura di perdere la stabilità economica. Come si pone il coach?",
+            options: [
+                { key: "A", text: "Normalizza l'ambivalenza come parte naturale del cambiamento e crea uno spazio sicuro per esplorare entrambe le parti senza spingere verso una decisione affrettata." },
+                { key: "B", text: "Gli dice che finché resta indeciso sta solo sprecando tempo e deve scegliere entro oggi." },
+                { key: "C", text: "Gli suggerisce di buttarsi nel cambiamento perché la paura è sempre un limite da superare." },
+                { key: "D", text: "Gli fa fare una tabella di pro e contro assegnando i voti insieme a lui." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Rispetta il ritmo del cliente e accoglie le sue emozioni contrastanti senza giudizio. WORST (B): Fa pressione e giudica l'esitazione, compromettendo la sicurezza della relazione.",
+            pcc: "BEST (A): Sostiene la complessità emotiva del cliente permettendo a entrambe le polarità di emergere con dignità. WORST (B): Impazienza giudicante che forza una chiusura prematura."
+        },
+        {
+            id: 25, domain: "B", compId: 4, compName: "4. Coltiva Fiducia e Sicurezza",
+            text: "Un cliente usa spesso parole della propria lingua madre o espressioni gergali del suo settore per descrivere ciò che prova, scusandosi poi dicendo 'Scusa, forse non mi spiego bene'. Cosa fa il coach?",
+            options: [
+                { key: "A", text: "Lo rassicura accogliendo il suo stile comunicativo unico e gli chiede con curiosità cosa racchiudono per lui quelle espressioni." },
+                { key: "B", text: "Gli chiede di usare un italiano più formale e preciso per facilitare gli appunti." },
+                { key: "C", text: "Finge di aver capito perfettamente ogni termine tecnico per non sembrare impreparato." },
+                { key: "D", text: "Riformula tutto usando termini di coaching standard al posto delle sue parole." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Rispetta l'identità, il linguaggio e lo stile di espressione del cliente. WORST (B): Corregge il modo di esprimersi del cliente generando imbarazzo e distanza.",
+            pcc: "BEST (A): Onora il linguaggio unico del cliente come porta d'accesso al suo mondo interno (Competenze 4 e 6). WORST (B): Impone standard del coach mortificando l'autenticità espressiva."
+        },
+        {
+            id: 26, domain: "B", compId: 4, compName: "4. Coltiva Fiducia e Sicurezza",
+            text: "Durante una sessione, il cliente chiede timidamente: 'Ma se io ti racconto che non mi fido del mio direttore, questa cosa resterà davvero solo tra di noi?'. Il percorso è aziendale. Cosa fa il coach?",
+            options: [
+                { key: "A", text: "Riafferma con chiarezza i confini di riservatezza concordati (incluse eventuali eccezioni di legge) e verifica se ci sono altri aspetti di sicurezza che il cliente desidera chiarire." },
+                { key: "B", text: "Gli risponde 'Certo, stai tranquillo' senza ricordare le eccezioni legali e senza esplorare la sua preoccupazione." },
+                { key: "C", text: "Gli dice che se non si fida nemmeno del coach è inutile continuare la sessione." },
+                { key: "D", text: "Gli consiglia di non fare nomi specifici così da evitare qualsiasi rischio." }
+            ],
+            best: "A", worst: "C",
+            acc: "BEST (A): Tutela la sicurezza psicologica chiarendo in modo trasparente e calmo i confini di riservatezza. WORST (C): Risposta difensiva e punitiva che distrugge la fiducia.",
+            pcc: "BEST (A): Accoglie il bisogno di sicurezza nel contesto sistemico aziendale con chiarezza etica e calma radicata. WORST (C): Personalizza una legittima domanda di tutela reagendo in modo aggressivo."
+        },
+
+        // ============================================================
+        // COMPETENZA 5: MANTIENE LA PRESENZA (6 SCENARI)
+        // ============================================================
+        {
+            id: 27, domain: "B", compId: 5, compName: "5. Mantiene la Presenza",
+            text: "Dopo una domanda potente del coach, il cliente resta in silenzio per 15 secondi guardando verso il basso, chiaramente immerso in una riflessione intensa. Qual è l'azione migliore del coach?",
+            options: [
+                { key: "A", text: "Mantiene una presenza calma e accogliente, lasciando spazio al silenzio finché il cliente non è pronto a parlare." },
+                { key: "B", text: "Riformula subito la domanda in tre modi diversi pensando che il cliente non l'abbia capita." },
+                { key: "C", text: "Propone due possibili risposte per aiutarlo a sbloccarsi dall'imbarazzo." },
+                { key: "D", text: "Gli chiede se la connessione audio si è interrotta, spezzando la concentrazione." }
+            ],
+            best: "A", worst: "C",
+            acc: "BEST (A): Crea spazio per il silenzio e la riflessione profonda del cliente. WORST (C): Riempie il silenzio suggerendo risposte, impedendo l'emergere della consapevolezza autonoma.",
+            pcc: "BEST (A): Dimostra piena padronanza della Presenza (Competenza 5), tollerando il silenzio come luogo in cui avviene il vero apprendimento. WORST (C): 'Salva' il cliente per ridurre il proprio disagio, togliendogli lo spazio di scoperta."
+        },
+        {
+            id: 28, domain: "B", compId: 5, compName: "5. Mantiene la Presenza",
+            text: "Il coach aveva preparato con cura un esercizio strutturato su una matrice decisionale, ma il cliente entra in sessione sopraffatto da un imprevisto appena accaduto in ufficio. Cosa fa il coach?",
+            options: [
+                { key: "A", text: "Lascia andare il proprio piano preparato, si sintonizza sullo stato presente del cliente e chiede di cosa ha più bisogno ora." },
+                { key: "B", text: "Chiede al cliente di mettere da parte l'imprevisto per fare prima l'esercizio già stampato." },
+                { key: "C", text: "Ascolta l'imprevisto per 3 minuti e poi riporta forzatamente il discorso sulla matrice decisionale." },
+                { key: "D", text: "Si scusa perché l'esercizio non serve più e mostra imbarazzo su come procedere." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Flessibilità e presenza nel 'qui e ora', seguendo il cliente anziché il proprio programma. WORST (B): Anteponendo il proprio strumento alla persona, nega la presenza.",
+            pcc: "BEST (A): Danza nel momento presente (Competenza 5) con fiducia nel non-sapere, mettendo il cliente al centro. WORST (B): Rigidità procedurale che tratta il cliente come mezzo per eseguire un modello."
+        },
+        {
+            id: 29, domain: "B", compId: 5, compName: "5. Mantiene la Presenza",
+            text: "Durante l'esplorazione di un licenziamento subito mesi prima, al cliente scendono improvvisamente le lacrime. Come risponde un coach presente?",
+            options: [
+                { key: "A", text: "Resta radicato e calmo, accoglie l'emozione senza fretta e chiede gentilmente al cliente se desidera prendersi un momento o restare con ciò che sta sentendo." },
+                { key: "B", text: "Gli dice subito 'Dai, forza, guarda al futuro positivo' per farlo smettere di piangere." },
+                { key: "C", text: "Si commuove più del cliente iniziando a raccontare un proprio dolore simile." },
+                { key: "D", text: "Passa immediatamente a pianificare le azioni pratiche della settimana per riportarlo alla razionalità." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Gestisce con calma e rispetto le emozioni intense del cliente restando nel presente. WORST (B): Positività tossica che invalida l'emozione e rivela il disagio del coach.",
+            pcc: "BEST (A): Dimostra fiducia nel lavorare con emozioni forti senza esserne travolto né evitarle (PCC Marker 5). WORST (B): Minimizza e reprime il vissuto emotivo del cliente."
+        },
+        {
+            id: 30, domain: "B", compId: 5, compName: "5. Mantiene la Presenza",
+            text: "A metà sessione il cliente chiede bruscamente con tono irritato: 'Ma dove stiamo andando con queste domande? Mi sembra che stiamo girando in tondo!'. Qual è la risposta migliore?",
+            options: [
+                { key: "A", text: "Resta centrato e non difensivo, accoglie il feedback con apertura e chiede al cliente cosa sta notando e come vorrebbe orientare la conversazione da qui." },
+                { key: "B", text: "Si difende spiegando che il metodo richiede pazienza e che le sue domande hanno una logica precisa." },
+                { key: "C", text: "Risponde con tono piccato che se il cliente non si impegna le domande non possono funzionare." },
+                { key: "D", text: "Ignora il commento e formula la domanda successiva come se nulla fosse successo." }
+            ],
+            best: "A", worst: "C",
+            acc: "BEST (A): Presenza radicata, gestione emotiva e co-creazione immediata davanti a una sfida diretta. WORST (C): Colpevolizza il cliente reagendo sulla difensiva.",
+            pcc: "BEST (A): Modella presenza autentica e curiosità nel conflitto, trasformando la frizione in partnership reale. WORST (C): Reazione ego-difensiva che compromette in modo grave l'alleanza."
+        },
+        {
+            id: 31, domain: "B", compId: 5, compName: "5. Mantiene la Presenza",
+            text: "Mentre il cliente parla di una scelta complessa, il coach si accorge che la propria mente è distratta dalla lista di email da inviare dopo la sessione e ha perso il filo delle ultime due frasi. Cosa fa?",
+            options: [
+                { key: "A", text: "Riconosce con onestà e semplicità di aver perso un passaggio, chiede al cliente di ripetere l'ultimo punto e si riporta pienamente presente all'ascolto." },
+                { key: "B", text: "Finge di aver ascoltato tutto e fa una domanda generica sperando di intuire il contesto." },
+                { key: "C", text: "Continua a pensare alle email prendendo appunti meccanici." },
+                { key: "D", text: "Chiede scusa per 5 minuti raccontando quanto è stata stressante la sua giornata lavorativa." }
+            ],
+            best: "A", worst: "C",
+            acc: "BEST (A): Onestà, integrità e immediato ritorno alla piena presenza per il cliente. WORST (C): Resta disconnesso durante il tempo dedicato al cliente.",
+            pcc: "BEST (A): Autenticità trasparente senza centrare la scena su di sé: ripara la presenza all'istante. WORST (C): Assenza totale di presenza e violazione del rispetto verso il coachee."
+        },
+        {
+            id: 32, domain: "B", compId: 5, compName: "5. Mantiene la Presenza",
+            text: "Il cliente esplora un dilemma di vita molto complesso e dice: 'Nemmeno tu sai quale sia la strada giusta per me, vero?'. Come risponde il coach?",
+            options: [
+                { key: "A", text: "Accoglie con serenità il non-sapere, confermando che la risposta più autentica appartiene al cliente ed esplorando cosa sta diventando più chiaro per lui in questo momento." },
+                { key: "B", text: "Cerca di mantenere autorevolezza indicando l'opzione che gli sembra più logica." },
+                { key: "C", text: "Si sente inadeguato e promette di studiare il caso fino alla prossima settimana per portargli una soluzione." },
+                { key: "D", text: "Dice al cliente che dovrebbe chiedere consiglio alla sua famiglia." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Dimostra fiducia nel lavorare nel 'non sapere' e sostiene l'autonomia del cliente. WORST (B): Cede al bisogno di apparire esperto, sostituendosi alle scelte del cliente.",
+            pcc: "BEST (A): Incarna la postura PCC di agio nell'incertezza e piena fiducia nella saggezza emergente del cliente. WORST (B): Confonde autorevolezza del coach con il dare risposte prescrittive."
+        },
+
+        // ============================================================
+        // COMPETENZA 6: ASCOLTA ATTIVAMENTE (6 SCENARI)
+        // ============================================================
+        {
+            id: 33, domain: "C", compId: 6, compName: "6. Ascolta Attivamente",
+            text: "Un atleta dice: 'Sono davvero felicissimo della convocazione in nazionale', ma contemporaneamente abbassa le spalle, stringe la mascella e il suo tono di voce si spegne. Cosa fa il coach?",
+            options: [
+                { key: "A", text: "Condivide senza giudizio il contrasto osservato tra le parole entusiaste e l'energia corporea/vocale, chiedendo all'atleta cosa sta accadendo dentro di lui in questo istante." },
+                { key: "B", text: "Si congratula calorosamente e gli chiede subito come festeggerà." },
+                { key: "C", text: "Gli dice: 'Dalla tua postura vedo chiaramente che hai paura di fallire'." },
+                { key: "D", text: "Ignora il linguaggio non verbale e prende nota solo delle parole espresse." }
+            ],
+            best: "A", worst: "C",
+            acc: "BEST (A): Ascolta oltre le parole notando incongruenze non verbali e le restituisce come osservazione aperta. WORST (C): Interpreta e diagnostica lo stato interiore imponendo un'etichetta al cliente.",
+            pcc: "BEST (A): Integra linguaggio verbale, tono ed energia corporea (Competenza 6) offrendo uno specchio pulito e aperto. WORST (C): Lettura del pensiero interpretativa che toglie al cliente la scoperta."
+        },
+        {
+            id: 34, domain: "C", compId: 6, compName: "6. Ascolta Attivamente",
+            text: "Mentre racconta il proprio lavoro, il cliente ripete tre volte: 'Mi sento come un criceto dentro una ruota che gira sempre più veloce'. Come utilizza il coach questo ascolto?",
+            options: [
+                { key: "A", text: "Riprende esattamente la metafora del cliente e chiede: 'Cosa sta succedendo mentre sei in quella ruota che gira sempre più veloce, e cosa vedi intorno a essa?'." },
+                { key: "B", text: "Traduce la frase dicendo: 'Quindi soffri di sovraccarico lavorativo e cattiva prioritizzazione'." },
+                { key: "C", text: "Gli consiglia di scendere dalla ruota prendendosi una settimana di ferie." },
+                { key: "D", text: "Sorride della battuta e passa alla domanda successiva della sua scaletta." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Usa il linguaggio e le metafore del cliente per approfondire la comprensione. WORST (B): Sostituisce l'immagine viva del cliente con un'etichetta diagnostica fredda e interpretativa.",
+            pcc: "BEST (A): Lavora all'interno del sistema simbolico del cliente (Competenze 6 e 7) per espandere la prospettiva. WORST (B): Riduce la ricchezza espressiva del cliente a una diagnosi del coach."
+        },
+        {
+            id: 35, domain: "C", compId: 6, compName: "6. Ascolta Attivamente",
+            text: "Un cliente parla ininterrottamente per 10 minuti raccontando nei minimi dettagli ogni litigio della settimana con i suoi collaboratori, girando in circolo con crescente frustrazione. Cosa fa il coach?",
+            options: [
+                { key: "A", text: "Chiede gentilmente il permesso di interrompere per condividere ciò che sta cogliendo nel tema di fondo e verificare come quel racconto si colleghi all'obiettivo della sessione." },
+                { key: "B", text: "Lo lascia parlare per altri 40 minuti senza mai intervenire perché il coach deve solo ascoltare." },
+                { key: "C", text: "Lo blocca bruscamente dicendo: 'Basta lamentele, veniamo al sodo'." },
+                { key: "D", text: "Interrompe il racconto per spiegargli come gestire i collaboratori difficili." }
+            ],
+            best: "A", worst: "C",
+            acc: "BEST (A): Sintetizza e riconduce al focus con rispetto e partnership (ascolto attivo, non passivo). WORST (C): Interruzione brusca e giudicante che spezza fiducia e rispetto.",
+            pcc: "BEST (A): Pratica 'bottom-lining' rispettoso, integrando ascolto profondo e gestione dell'accordo. WORST (C): Giudizio svalutante che danneggia la sicurezza psicologica."
+        },
+        {
+            id: 36, domain: "C", compId: 6, compName: "6. Ascolta Attivamente",
+            text: "Un cliente elenca cinque progetti in cui ha ottenuto successo, ma ogni volta aggiunge: 'Però non era poi così difficile, chiunque ci sarebbe riuscito'. Cosa nota ed esplora il coach?",
+            options: [
+                { key: "A", text: "Restituisce lo schema linguistico ricorrente con cui il cliente ridimensiona i propri risultati ed esplora quale valore o convinzione ci sia dietro questo modo di guardarsi." },
+                { key: "B", text: "Gli dice: 'Smettila di sminuirti, sei bravissimo e devi crederci di più!'." },
+                { key: "C", text: "Prende atto della sua modestia e gli chiede qual è il sesto progetto." },
+                { key: "D", text: "Gli diagnostica una sindrome dell'impostore spiegandogliene le cause psicologiche." }
+            ],
+            best: "A", worst: "D",
+            acc: "BEST (A): Coglie i pattern e ciò che non viene detto esplicitamente, invitando il cliente a osservarli. WORST (D): Fa una diagnosi psicologica fuori ruolo e impone un'etichetta clinica.",
+            pcc: "BEST (A): Ascolta i temi trasversali e le credenze identitarie sottostanti (Competenza 6), restituendoli senza giudizio. WORST (D): Sconfinamento diagnostico e interpretativo."
+        },
+        {
+            id: 37, domain: "C", compId: 6, compName: "6. Ascolta Attivamente",
+            text: "Il cliente porta il diario delle proprie riflessioni della settimana e dice che scriverlo gli ha fatto emergere molta tristezza e sorpresa. Qual è la risposta più efficace del coach?",
+            options: [
+                { key: "A", text: "Riconosce il lavoro di riflessione svolto dal cliente e gli chiede quale parte di quelle emozioni o scoperte desidera esplorare insieme oggi." },
+                { key: "B", text: "Chiede al cliente di leggergli tutto il diario dall'inizio alla fine per riassumerlo al coach." },
+                { key: "C", text: "Gli chiede di mandargli una foto delle pagine via email così le analizza lui." },
+                { key: "D", text: "Passa oltre dicendo che la tristezza è normale quando si scrive un diario." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Valorizza l'auto-esplorazione del cliente e lo lascia guidare ciò che è emotivamente vivo ora. WORST (B): Chiede un resoconto per soddisfare la curiosità del coach anziché servire la consapevolezza del cliente.",
+            pcc: "BEST (A): Mantiene l'attenzione sull'essenza emotiva emersa e sull'apprendimento vivo del cliente. WORST (B): Orientato alla raccolta di informazioni per il coach invece che al processo del cliente."
+        },
+        {
+            id: 38, domain: "C", compId: 6, compName: "6. Ascolta Attivamente",
+            text: "Un imprenditore familiare parla della fatica di cambiare la gestione aziendale, nominando di sfuggita il padre fondatore solo per un secondo prima di tornare subito sui numeri di bilancio. Cosa fa il coach?",
+            options: [
+                { key: "A", text: "Nota il breve accenno nel contesto sistemico del cliente e chiede con delicatezza che ruolo ha lo sguardo del padre in questa decisione di cambiamento." },
+                { key: "B", text: "Resta solo sui numeri di bilancio perché sono più concreti e misurabili." },
+                { key: "C", text: "Gli dice che sicuramente ha un conflitto irrisolto con il padre che blocca l'azienda." },
+                { key: "D", text: "Gli suggerisce di estromettere il padre dalle decisioni operative." }
+            ],
+            best: "A", worst: "D",
+            acc: "BEST (A): Ascolta il cliente all'interno del suo sistema relazionale cogliendo ciò che viene appena sfiorato. WORST (D): Consiglio invasivo e direttivo sulle dinamiche familiari e aziendali.",
+            pcc: "BEST (A): Integra l'ascolto sistemico (Competenza 6) con una domanda pulita che illumina ciò che non viene detto. WORST (D): Ingerenza direttiva priva di etica e di rispetto per il sistema del cliente."
+        },
+
+        // ============================================================
+        // COMPETENZA 7: EVOCA CONSAPEVOLEZZA (6 SCENARI)
+        // ============================================================
+        {
+            id: 39, domain: "C", compId: 7, compName: "7. Evoca Consapevolezza",
+            text: "Il cliente afferma con convinzione: 'Se delego questa attività al mio team, sbaglieranno tutto e perderemo il cliente'. Quale domanda evoca maggiore consapevolezza?",
+            options: [
+                { key: "A", text: "Quale convinzione su di te o sul tuo team stai dando per certa in questo momento, e cosa accadrebbe se la mettessi in discussione?" },
+                { key: "B", text: "Non pensi che dovresti fidarti un po' di più dei tuoi collaboratori?" },
+                { key: "C", text: "Hai provato a delegare prima un compito piccolo, poi uno medio, verificandolo ogni giorno alle 18?" },
+                { key: "D", text: "Perché hai assunto persone di cui non ti fidi?" }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Domanda aperta e pulita che sfida l'assunzione limitante stimolando nuova consapevolezza. WORST (B): Domanda chiusa e guida/suggestiva che contiene un consiglio mascherato e un giudizio.",
+            pcc: "BEST (A): Lavora sulle credenze e sui modelli mentali del 'Chi' (Competenza 7) aprendo spazio di scoperta. WORST (B): Domanda tendenziosa ('Non pensi che...') che manipola la risposta del cliente."
+        },
+        {
+            id: 40, domain: "C", compId: 7, compName: "7. Evoca Consapevolezza",
+            text: "Durante una sessione molto intensa, il coach ha un'idea e vorrebbe formulare una domanda per aiutare il cliente a chiarirsi. Quale formulazione rispetta meglio gli standard ICF?",
+            options: [
+                { key: "A", text: "Formula una singola domanda breve, aperta e diretta, usando le parole del cliente, seguita dal silenzio." },
+                { key: "B", text: "Pone quattro domande consecutive nella stessa frase per offrire al cliente più spunti di scelta." },
+                { key: "C", text: "Fa una premessa teorica di 3 minuti prima di arrivare alla domanda finale." },
+                { key: "D", text: "Chiede: 'Sarebbe meglio per te scegliere l'opzione A, che mi sembra più equilibrata, giusto?'." }
+            ],
+            best: "A", worst: "D",
+            acc: "BEST (A): Domande brevi, chiare, aperte e una alla volta massimizzano la chiarezza del cliente. WORST (D): Domanda manipolativa che spinge esplicitamente verso la preferenza del coach.",
+            pcc: "BEST (A): Semplicità potente (PCC Marker 7): meno parole del coach generano più spazio mentale per l'insight del cliente. WORST (D): Induzione esplicita che annulla il pensiero autonomo."
+        },
+        {
+            id: 41, domain: "C", compId: 7, compName: "7. Evoca Consapevolezza",
+            text: "Un cliente racconta un episodio in cui si è bloccato durante una riunione. Il coach vuole andare oltre la cronaca dei fatti ('Cosa è successo') per evocare consapevolezza profonda. Cosa chiede?",
+            options: [
+                { key: "A", text: "Chi stavi diventando in quel momento della riunione, e cosa stava proteggendo quel blocco per te?" },
+                { key: "B", text: "A che ora esatta è iniziata la riunione e quante persone erano sedute al tavolo?" },
+                { key: "C", text: "Hai mai pensato di fare un corso di public speaking?" },
+                { key: "D", text: "Perché continui a farti intimidire dai tuoi colleghi?" }
+            ],
+            best: "A", worst: "D",
+            acc: "BEST (A): Sposta il focus dal racconto superficiale all'identità, ai valori e alle intenzioni profonde del cliente. WORST (D): Domanda 'Perché' accusatoria che induce vergogna e chiusura difensiva.",
+            pcc: "BEST (A): Esplorazione del 'Chi' tipica del livello PCC: invita il cliente a scoprire il senso profondo del proprio schema. WORST (D): Presupposto giudicante ('continui a farti intimidire') che rompe sicurezza e curiosità."
+        },
+        {
+            id: 42, domain: "C", compId: 7, compName: "7. Evoca Consapevolezza",
+            text: "Il coach ha una forte intuizione: sente che il cliente sta inseguendo una promozione non per desiderio proprio, ma per compiacere la famiglia. Come la condivide secondo gli standard ICF?",
+            options: [
+                { key: "A", text: "La offre in modo leggero e senza attaccamento ('Posso condividere un'impressione che sto avendo? ... Cosa risuona o non risuona per te in questo?')." },
+                { key: "B", text: "Afferma con certezza: 'È evidente che vuoi questa promozione solo per tua madre, finché non lo ammetti resti bloccato'." },
+                { key: "C", text: "Non la condivide mai perché un coach non può esprimere osservazioni." },
+                { key: "D", text: "Lo guida con 5 domande trabocchetto finché non confessa di farlo per la famiglia." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Condivide osservazioni e intuizioni come ipotesi aperte, senza attaccamento, lasciando al cliente il giudizio finale. WORST (B): Interpretazione dogmatica e intrusiva.",
+            pcc: "BEST (A): Comunicazione diretta senza attaccamento (Competenza 7): l'intuizione è un dono offerto alla verifica del cliente. WORST (B): Atteggiamento da 'guru/analista' che impone la propria verità."
+        },
+        {
+            id: 43, domain: "C", compId: 7, compName: "7. Evoca Consapevolezza",
+            text: "Un cliente dice: 'Ho solo due possibilità: o resto in questo lavoro che mi spegne, o mi licenzio domani rischiando di restare senza soldi'. Come interviene il coach?",
+            options: [
+                { key: "A", text: "Invita il cliente ad ampliare la prospettiva chiedendo: 'Se esistessero una terza, quarta o quinta possibilità che oggi non stai ancora vedendo, da dove potrebbero nascere?'." },
+                { key: "B", text: "Gli dice che dimettersi domani sarebbe una follia finanziaria e che deve restare dov'è." },
+                { key: "C", text: "Gli propone di aprire una partita IVA lavorando la sera e nei weekend." },
+                { key: "D", text: "Gli chiede quale delle due opzioni preferisce scegliere oggi." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Aiuta il cliente a superare il pensiero binario (tutto o niente) per generare nuove opzioni. WORST (B): Giudica la scelta e impone direttivamente cosa deve fare.",
+            pcc: "BEST (A): Sfida la cornice cognitiva ristretta espandendo creatività e possibilità del cliente. WORST (B): Controllo direttivo basato sulla paura del coach anziché sull'esplorazione."
+        },
+        {
+            id: 44, domain: "C", compId: 7, compName: "7. Evoca Consapevolezza",
+            text: "Un atleta nota per la prima volta durante la sessione che ogni volta che è in vantaggio in gara inizia a giocare 'per non perdere' anziché 'per vincere'. Ha appena avuto un grande momento di lucidità. Cosa fa il coach?",
+            options: [
+                { key: "A", text: "Si ferma su questa scoperta e chiede: 'Cosa cambia per te nel vedere chiaramente questo schema, e cosa stai imparando di te come atleta?'." },
+                { key: "B", text: "Passa subito al piano d'azione dicendo: 'Perfetto, allora domenica gioca all'attacco!'." },
+                { key: "C", text: "Gli spiega la teoria psicologica dell'avversione alla perdita di Kahneman per 10 minuti." },
+                { key: "D", text: "Gli dice che lo aveva già capito nella prima sessione ma aspettava che ci arrivasse da solo." }
+            ],
+            best: "A", worst: "D",
+            acc: "BEST (A): Approfondisce e ancora l'insight appena emerso prima di correre alle azioni. WORST (D): Risposta egocentrica e paternalistica che sposta il merito dal cliente al coach.",
+            pcc: "BEST (A): Sosta nell'apprendimento emergente consolidando la consapevolezza sul 'Chi' prima del 'Cosa fare'. WORST (D): Sminuisce la scoperta del cliente mettendosi su un piedistallo."
+        },
+
+        // ============================================================
+        // COMPETENZA 8: FACILITA LA CRESCITA DEL CLIENTE (6 SCENARI)
+        // ============================================================
+        {
+            id: 45, domain: "D", compId: 8, compName: "8. Facilita la Crescita del Cliente",
+            text: "Un cliente arriva in sessione dicendo di aver fallito un obiettivo importante concordato la volta precedente. È visibilmente abbattuto. Cosa fa il coach?",
+            options: [
+                { key: "A", text: "Accoglie lo stato emotivo ed esplora insieme al cliente l'apprendimento derivante dal non aver raggiunto l'obiettivo e cosa gli sta dicendo di sé." },
+                { key: "B", text: "Propone una nuova strategia più efficace per non fallire di nuovo." },
+                { key: "C", text: "Chiede al cliente di scusarsi per non aver onorato l'impegno preso." },
+                { key: "D", text: "Ascolta in silenzio e aspetta che il cliente proponga un nuovo tema." }
+            ],
+            best: "A", worst: "C",
+            acc: "BEST (A): Trasforma l'azione mancata in apprendimento privo di giudizio anziché concentrarsi sull'errore. WORST (C): Umilia e colpevolizza il cliente distruggendo sicurezza e partnership.",
+            pcc: "BEST (A): Esplora il 'Chi' (identità, ostacoli interni e valore) di fronte all'azione non completata per generare crescita sostenibile. WORST (C): Dinamica autoritaria e punitiva in totale contrasto con ICF."
+        },
+        {
+            id: 46, domain: "D", compId: 8, compName: "8. Facilita la Crescita del Cliente",
+            text: "Mancano 10 minuti alla fine di una sessione ricca di spunti e il cliente ha avuto una forte intuizione su come comunicare meglio con il proprio team. Qual è il passo più efficace del coach?",
+            options: [
+                { key: "A", text: "Chiede al cliente come desidera trasformare questa consapevolezza in un passo concreto o in un esperimento da qui alla prossima sessione, e di quali risorse avrà bisogno." },
+                { key: "B", text: "Assegna al cliente tre compiti precisi da fare entro venerdì e chiede un report scritto." },
+                { key: "C", text: "Chiude la sessione salutando calorosamente perché l'insight da solo è già sufficiente." },
+                { key: "D", text: "Riassume lui stesso tutti gli insegnamenti della sessione spiegando al cliente cosa ha imparato." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Collabora con il cliente per tradurre la consapevolezza in azioni progettate dal cliente stesso. WORST (B): Assegna compiti in modo direttivo togliendo titolarità e autonomia.",
+            pcc: "BEST (A): Co-crea integrazione e sperimentazione autonoma (Competenza 8) verificando risorse e potenziali ostacoli. WORST (B): Approccio scolastico/autoritario che trasferisce la responsabilità sul coach."
+        },
+        {
+            id: 47, domain: "D", compId: 8, compName: "8. Facilita la Crescita del Cliente",
+            text: "Il cliente ha definito un'azione ambiziosa per la settimana successiva. Come facilita il coach una responsabilità (accountability) realmente efficace secondo gli standard ICF?",
+            options: [
+                { key: "A", text: "Chiede al cliente quale forma di monitoraggio o responsabilità gli sarebbe più utile per sostenere il proprio impegno e quali possibili ostacoli potrebbe incontrare." },
+                { key: "B", text: "Gli dice che gli scriverà ogni mattina su WhatsApp per controllare se ha fatto l'esercizio." },
+                { key: "C", text: "Lo avverte che se non porterà a termine l'azione non potranno fare la sessione seguente." },
+                { key: "D", text: "Evita di parlare di accountability per non mettere ansia al cliente." }
+            ],
+            best: "A", worst: "C",
+            acc: "BEST (A): Il cliente progetta il proprio sistema di responsabilità e anticipa gli ostacoli in partnership. WORST (C): Minaccia punitiva che distrugge fiducia e autonomia.",
+            pcc: "BEST (A): Promuove auto-responsabilità sostenibile e consapevolezza dei possibili sabotatori prima di chiudere. WORST (C): Ricatto relazionale incompatibile con il ruolo di coach."
+        },
+        {
+            id: 48, domain: "D", compId: 8, compName: "8. Facilita la Crescita del Cliente",
+            text: "Alla fine di una sessione, il coach vuole verificare l'apprendimento e l'allineamento rispetto all'obiettivo concordato all'inizio. Cosa chiede?",
+            options: [
+                { key: "A", text: "Chiede al cliente cosa porta con sé di più prezioso da questa conversazione e a che punto si sente rispetto a ciò che voleva ottenere oggi." },
+                { key: "B", text: "Chiede: 'Ti è piaciuta la sessione? Sono stato bravo oggi?'." },
+                { key: "C", text: "Legge ad alta voce i propri appunti per ricordare al cliente le 3 cose principali che dovrebbe ricordare." },
+                { key: "D", text: "Guarda l'orologio e dice semplicemente 'Il tempo è scaduto, ci vediamo martedì'." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Invita il cliente a sintetizzare il proprio apprendimento e a verificare il risultato rispetto all'accordo. WORST (B): Cerca validazione personale spostando il focus dal cliente all'ego del coach.",
+            pcc: "BEST (A): Chiusura consapevole che integra apprendimento, progresso e ownership del cliente (Competenza 8). WORST (B): Bisogno di approvazione del coach che inquina la partnership."
+        },
+        {
+            id: 49, domain: "D", compId: 8, compName: "8. Facilita la Crescita del Cliente",
+            text: "Un cliente sta completando l'ultima sessione di un percorso di 6 mesi di grande successo ed esprime il timore di 'perdere i risultati' una volta che non vedrà più il coach. Cosa fa il coach?",
+            options: [
+                { key: "A", text: "Celebra i progressi raggiunti ed esplora con il cliente quali risorse interne, abitudini e supporti ha già sviluppato per mantenere autonomamente la propria crescita nel tempo." },
+                { key: "B", text: "Gli propone subito un rinnovo di altri 12 mesi spiegandogli che senza un coach è facile ricadere nei vecchi errori." },
+                { key: "C", text: "Gli dice che può scrivergli gratuitamente ogni giorno a vita quando si sente insicuro." },
+                { key: "D", text: "Minimizza il timore dicendogli che ormai è guarito dai suoi blocchi." }
+            ],
+            best: "A", worst: "B",
+            acc: "BEST (A): Celebra i successi e rafforza l'autonomia sostenibile del cliente nel chiudere il percorso. WORST (B): Alimenta la dipendenza dal coach facendo leva sulla paura per vendere un rinnovo.",
+            pcc: "BEST (A): Onora la chiusura del percorso ancorando l'apprendimento e l'indipendenza del cliente (Competenza 8). WORST (B): Pratica anti-etica che sfrutta la vulnerabilità per generare dipendenza."
+        },
+        {
+            id: 50, domain: "D", compId: 8, compName: "8. Facilita la Crescita del Cliente",
+            text: "Un cliente scopre durante la sessione una nuova prospettiva su un conflitto aziendale, ma dice: 'Bella idea, però non so se sono pronto ad applicarla già domani con il mio capo'. Come risponde il coach?",
+            options: [
+                { key: "A", text: "Rispetta il suo ritmo e gli chiede quale piccolo esperimento o passo di osservazione si sentirebbe pronto e a proprio agio a provare nei prossimi giorni." },
+                { key: "B", text: "Lo spinge dicendogli che se non agisce entro 24 ore la consapevolezza non serve a nulla." },
+                { key: "C", text: "Gli scrive parola per parola il discorso da leggere al capo domani mattina." },
+                { key: "D", text: "Gli dice che allora non è ancora pronto per fare coaching." }
+            ],
+            best: "A", worst: "D",
+            acc: "BEST (A): Supporta l'autonomia del cliente calibrando azioni o osservazioni sostenibili sul suo reale livello di prontezza. WORST (D): Giudizio sprezzante che svaluta e respinge il cliente.",
+            pcc: "BEST (A): Riconosce che anche l'osservazione o un micro-esperimento sono azioni di crescita potenti quando nascono dal cliente. WORST (D): Chiusura punitiva che distrugge sicurezza e apprendimento."
+        }
+    ];
+
+    // =========================================================================
+    // 3. STATO DEL SIMULATORE & CONFIGURAZIONE
+    // =========================================================================
+    const config = { mode: 'practice', level: 'ACC', count: 25 };
+    let sessionItems = [];     // array di { scenario, shuffledOptions, userBest, userWorst, locked, flagged }
+    let currentIdx = 0;
+    let timerInterval = null;
+    let secondsRemaining = 0;
+    let secondsElapsed = 0;
+    let radarChartInstance = null;
+    let lastReportItems = [];
+
+    function aggiornaRecordDisplay() {
+        const best = localStorage.getItem('cc_icf_best_scaled');
+        document.getElementById('best-record-display').innerText = best ? `${best} / 600` : '—';
+    }
+
+    function setConfig(key, value) {
+        config[key] = value;
+        if (key === 'mode') {
+            document.getElementById('mode-practice').classList.toggle('active', value === 'practice');
+            document.getElementById('mode-exam').classList.toggle('active', value === 'exam');
+        }
+        if (key === 'level') {
+            document.getElementById('lvl-ACC').classList.toggle('active', value === 'ACC');
+            document.getElementById('lvl-PCC').classList.toggle('active', value === 'PCC');
+        }
+        if (key === 'count') {
+            [10, 25, 50].forEach(n => {
+                document.getElementById('cnt-' + n).classList.toggle('active', value === n);
+            });
+        }
+    }
+
+    function shuffleArray(arr) {
+        const copy = [...arr];
+        for (let i = copy.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+    }
+
+    function buildSessionItems(scenariosList) {
+        const letters = ['A', 'B', 'C', 'D'];
+        return scenariosList.map(sc => {
+            const shuffled = shuffleArray(sc.options).map((opt, idx) => ({
+                displayLetter: letters[idx],
+                origKey: opt.key,
+                text: opt.text
+            }));
+            return {
+                scenario: sc,
+                shuffledOptions: shuffled,
+                userBest: null,   // origKey
+                userWorst: null,  // origKey
+                locked: false,
+                flagged: false
+            };
+        });
+    }
+
+    function startSession(customScenarios = null) {
+        let pool;
+        if (customScenarios) {
+            pool = shuffleArray(customScenarios);
+        } else {
+            const dom = document.getElementById('domain-filter').value;
+            const filtered = dom === 'ALL' ? masterDatabase : masterDatabase.filter(s => s.domain === dom);
+            pool = shuffleArray(filtered).slice(0, Math.min(config.count, filtered.length));
+        }
+
+        sessionItems = buildSessionItems(pool);
+        currentIdx = 0;
+
+        document.getElementById('setup-view').classList.add('nascosto');
+        document.getElementById('report-view').classList.add('nascosto');
+        document.getElementById('exam-view').classList.remove('nascosto');
+
+        document.getElementById('badge-mode').innerText = config.mode === 'exam' ? 'ESAME REALE (ONVUE)' : 'ALLENAMENTO GUIDATO';
+        document.getElementById('badge-level').innerText = `LIVELLO ${config.level}`;
+
+        const isExam = config.mode === 'exam';
+        document.getElementById('exam-nav-strip').classList.toggle('nascosto', !isExam);
+        document.getElementById('btn-flag').classList.toggle('nascosto', !isExam);
+        document.getElementById('btn-prev').classList.toggle('nascosto', !isExam);
+        document.getElementById('btn-finish-exam').classList.toggle('nascosto', !isExam);
+        document.getElementById('live-score-tag').classList.toggle('nascosto', isExam);
+
+        startTimer(isExam ? sessionItems.length * 135 : 0, isExam);
+        renderCurrentScenario();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // =========================================================================
+    // 4. TIMER UFFICIALE
+    // =========================================================================
+    function startTimer(initialSeconds, countdown) {
+        stopTimer();
+        secondsRemaining = initialSeconds;
+        secondsElapsed = 0;
+        const timerEl = document.getElementById('timer-display');
+        timerEl.classList.remove('warning');
+
+        const updateDisplay = () => {
+            const secs = countdown ? secondsRemaining : secondsElapsed;
+            const m = Math.floor(secs / 60);
+            const s = secs % 60;
+            timerEl.innerText = `⏱ ${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            if (countdown && secondsRemaining <= 300) timerEl.classList.add('warning');
+        };
+        updateDisplay();
+
+        timerInterval = setInterval(() => {
+            if (countdown) {
+                secondsRemaining--;
+                updateDisplay();
+                if (secondsRemaining <= 0) {
+                    stopTimer();
+                    alert("Tempo scaduto! L'esame viene consegnato automaticamente per il calcolo del punteggio.");
+                    generateReport();
+                }
+            } else {
+                secondsElapsed++;
+                updateDisplay();
+            }
+        }, 1000);
+    }
+
+    function stopTimer() {
+        if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+    }
+
+    // =========================================================================
+    // 5. RENDER SCENARIO & LOGICA BEST / WORST
+    // =========================================================================
+    function renderNavStrip() {
+        if (config.mode !== 'exam') return;
+        const strip = document.getElementById('exam-nav-strip');
+        strip.innerHTML = sessionItems.map((it, idx) => {
+            const answered = it.userBest && it.userWorst;
+            const classes = [
+                'nav-dot',
+                answered ? 'answered' : '',
+                idx === currentIdx ? 'current' : '',
+                it.flagged ? 'flagged' : ''
+            ].join(' ');
+            return `<button type="button" class="${classes}" onclick="jumpTo(${idx})">${idx + 1}</button>`;
+        }).join('');
+    }
+
+    function jumpTo(idx) {
+        currentIdx = idx;
+        renderCurrentScenario();
+    }
+
+    function renderCurrentScenario() {
+        const item = sessionItems[currentIdx];
+        const sc = item.scenario;
+        const isExam = config.mode === 'exam';
+
+        document.getElementById('badge-domain').innerText = domainNames[sc.domain];
+        document.getElementById('scenario-counter').innerText = `Scenario ${currentIdx + 1} di ${sessionItems.length}`;
+        document.getElementById('scenario-text').innerText = sc.text;
+
+        const completedCount = sessionItems.filter(it => (isExam ? (it.userBest && it.userWorst) : it.locked)).length;
+        const pct = Math.round(((currentIdx + (item.locked ? 1 : 0)) / sessionItems.length) * 100);
+        document.getElementById('progress-fill').style.width = `${isExam ? Math.round((completedCount / sessionItems.length) * 100) : pct}%`;
+
+        if (!isExam) {
+            const rawSoFar = calcRawPoints(sessionItems.filter(it => it.locked));
+            const maxSoFar = sessionItems.filter(it => it.locked).length * 2;
+            document.getElementById('live-score-tag').innerText = `Punteggio Live: ${rawSoFar.total} / ${maxSoFar}`;
+        }
+
+        const optHtml = item.shuffledOptions.map(opt => {
+            const isB = item.userBest === opt.origKey;
+            const isW = item.userWorst === opt.origKey;
+            let rowClass = 'option-row';
+            if (isB) rowClass += ' is-best';
+            if (isW) rowClass += ' is-worst';
+
+            return `
+                <div class="${rowClass}" id="opt-row-${opt.origKey}">
+                    <p class="option-text">
+                        <span class="option-letter">${opt.displayLetter}</span>${opt.text}
+                    </p>
+                    <div class="bw-buttons">
+                        <button type="button" class="bw-btn btn-b ${isB ? 'selected' : ''}" ${item.locked ? 'disabled' : ''} onclick="pickOption('${opt.origKey}', 'B')">BEST</button>
+                        <button type="button" class="bw-btn btn-w ${isW ? 'selected' : ''}" ${item.locked ? 'disabled' : ''} onclick="pickOption('${opt.origKey}', 'W')">WORST</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        document.getElementById('options-container').innerHTML = optHtml;
+        updateSelectionStatus();
+
+        // Flag button
+        const flagBtn = document.getElementById('btn-flag');
+        if (isExam) {
+            flagBtn.classList.toggle('flagged', item.flagged);
+            flagBtn.innerText = item.flagged ? '⚑ Contrassegnato' : '⚑ Contrassegna per revisione';
+            document.getElementById('btn-prev').disabled = currentIdx === 0;
+            document.getElementById('btn-confirm').classList.add('nascosto');
+            document.getElementById('btn-next').classList.toggle('nascosto', currentIdx === sessionItems.length - 1);
+            document.getElementById('practice-feedback').classList.add('nascosto');
+        } else {
+            document.getElementById('btn-confirm').classList.toggle('nascosto', item.locked);
+            document.getElementById('btn-next').classList.toggle('nascosto', !item.locked);
+            document.getElementById('btn-next').innerText = currentIdx === sessionItems.length - 1 ? 'Visualizza Report Finale →' : 'Prossimo Scenario →';
+            if (item.locked) {
+                renderPracticeFeedback(item);
+            } else {
+                document.getElementById('practice-feedback').classList.add('nascosto');
+            }
+        }
+
+        renderNavStrip();
+    }
+
+    function pickOption(origKey, type) {
+        const item = sessionItems[currentIdx];
+        if (item.locked) return;
+
+        if (type === 'B') {
+            item.userBest = (item.userBest === origKey) ? null : origKey;
+            if (item.userWorst === origKey && item.userBest === origKey) {
+                item.userWorst = null; // impedisce BEST e WORST sulla stessa opzione
+            }
+        } else {
+            item.userWorst = (item.userWorst === origKey) ? null : origKey;
+            if (item.userBest === origKey && item.userWorst === origKey) {
+                item.userBest = null; // impedisce BEST e WORST sulla stessa opzione
+            }
+        }
+        renderCurrentScenario();
+    }
+
+    function updateSelectionStatus() {
+        const item = sessionItems[currentIdx];
+        const bOpt = item.shuffledOptions.find(o => o.origKey === item.userBest);
+        const wOpt = item.shuffledOptions.find(o => o.origKey === item.userWorst);
+        document.getElementById('selection-status').innerHTML =
+            `BEST: <strong>${bOpt ? bOpt.displayLetter : '—'}</strong> &nbsp;|&nbsp; WORST: <strong>${wOpt ? wOpt.displayLetter : '—'}</strong>`;
+    }
+
+    function toggleFlag() {
+        const item = sessionItems[currentIdx];
+        item.flagged = !item.flagged;
+        renderCurrentScenario();
+    }
+
+    function confirmPracticeAnswer() {
+        const item = sessionItems[currentIdx];
+        if (!item.userBest || !item.userWorst) {
+            alert("Seleziona sia l'azione BEST che l'azione WORST prima di confermare.");
+            return;
+        }
+        item.locked = true;
+        renderCurrentScenario();
+    }
+
+    function renderPracticeFeedback(item) {
+        const sc = item.scenario;
+        const bestOk = item.userBest === sc.best;
+        const worstOk = item.userWorst === sc.worst;
+        const pts = (bestOk ? 1 : 0) + (worstOk ? 1 : 0);
+
+        const correctBestObj = item.shuffledOptions.find(o => o.origKey === sc.best);
+        const correctWorstObj = item.shuffledOptions.find(o => o.origKey === sc.worst);
+
+        const fb = document.getElementById('practice-feedback');
+        fb.classList.remove('nascosto', 'fb-perfect', 'fb-partial', 'fb-wrong');
+
+        let title = '';
+        if (pts === 2) {
+            fb.classList.add('fb-perfect');
+            title = '✓ ECCELLENTE (+2/2 punti) — Giudizio pienamente allineato a ICF';
+        } else if (pts === 1) {
+            fb.classList.add('fb-partial');
+            title = `◐ PARZIALE (+1/2 punto) — ${bestOk ? 'BEST corretto, WORST da rivedere' : 'WORST corretto, BEST da rivedere'}`;
+        } else {
+            fb.classList.add('fb-wrong');
+            title = '✕ DA RIVEDERE (0/2 punti) — Scostamento dagli standard ICF';
+        }
+
+        const rationale = config.level === 'ACC' ? sc.acc : sc.pcc;
+
+        fb.innerHTML = `
+            <div class="fb-head">
+                <h4>${title}</h4>
+                <span class="fb-comp">${sc.compName}</span>
+            </div>
+            <div class="fb-answers">
+                <div class="fb-ans-pill" style="border-left:3px solid #10b981;">
+                    <strong style="color:#6ee7b7;">BEST Ufficiale (${correctBestObj.displayLetter}):</strong><br>${correctBestObj.text}
+                </div>
+                <div class="fb-ans-pill" style="border-left:3px solid #ef4444;">
+                    <strong style="color:#fca5a5;">WORST Ufficiale (${correctWorstObj.displayLetter}):</strong><br>${correctWorstObj.text}
+                </div>
+            </div>
+            <p class="fb-rationale"><strong>Chiave di Lettura ${config.level}:</strong> ${rationale}</p>
+        `;
+    }
+
+    function goPrev() {
+        if (currentIdx > 0) {
+            currentIdx--;
+            renderCurrentScenario();
+        }
+    }
+
+    function goNext() {
+        if (currentIdx < sessionItems.length - 1) {
+            currentIdx++;
+            renderCurrentScenario();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            generateReport();
+        }
+    }
+
+    function finishExamPrompt() {
+        const unanswered = sessionItems.filter(it => !it.userBest || !it.userWorst).length;
+        const flagged = sessionItems.filter(it => it.flagged).length;
+        let msg = "Vuoi consegnare l'esame e generare il Report Diagnostico ufficiale?";
+        if (unanswered > 0 || flagged > 0) {
+            msg = `Attenzione: hai ${unanswered} scenari incompleti e ${flagged} contrassegnati per revisione.\nNell'esame ICF non c'è penalità per risposte errate: conviene sempre rispondere a tutti.\n\nConsegnare comunque adesso?`;
+        }
+        if (confirm(msg)) {
+            generateReport();
+        }
+    }
+
+    function confirmExit() {
+        if (confirm("Vuoi interrompere questa sessione e tornare alla schermata di configurazione?")) {
+            resetToSetup();
+        }
+    }
+
+    function resetToSetup() {
+        stopTimer();
+        document.getElementById('exam-view').classList.add('nascosto');
+        document.getElementById('report-view').classList.add('nascosto');
+        document.getElementById('setup-view').classList.remove('nascosto');
+        aggiornaRecordDisplay();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // =========================================================================
+    // 6. MOTORE DI SCORING UFFICIALE ICF (200-600, PASS 460) & REPORT
+    // =========================================================================
+    function calcRawPoints(items) {
+        let bestHits = 0, worstHits = 0;
+        items.forEach(it => {
+            if (it.userBest === it.scenario.best) bestHits++;
+            if (it.userWorst === it.scenario.worst) worstHits++;
+        });
+        return { bestHits, worstHits, total: bestHits + worstHits, max: items.length * 2 };
+    }
+
+    function calcIcfScaledScore(raw, max) {
+        if (max === 0) return 200;
+        const pct = raw / max;
+        // Mappatura fedele alla soglia ICF: 75% raw = 460/600 (Pass), 100% = 600, 0% = 200
+        if (pct < 0.75) {
+            return Math.round(200 + (pct / 0.75) * 260);
+        }
+        return Math.round(460 + ((pct - 0.75) / 0.25) * 140);
+    }
+
+    function generateReport() {
+        stopTimer();
+        lastReportItems = [...sessionItems];
+
+        document.getElementById('exam-view').classList.add('nascosto');
+        document.getElementById('report-view').classList.remove('nascosto');
+
+        const stats = calcRawPoints(sessionItems);
+        const scaled = calcIcfScaledScore(stats.total, stats.max);
+        const passed = scaled >= 460;
+
+        // Salva record personale in locale
+        const prevBest = Number(localStorage.getItem('cc_icf_best_scaled') || 0);
+        if (scaled > prevBest) {
+            localStorage.setItem('cc_icf_best_scaled', String(scaled));
+        }
+
+        const vBadge = document.getElementById('verdict-badge');
+        vBadge.className = `verdict-badge ${passed ? 'verdict-pass' : 'verdict-fail'}`;
+        vBadge.innerText = passed ? '✓ SUPERATO — PRONTO PER LA CREDENZIALE ICF' : '✕ SOTTO SOGLIA (460) — AREA DI POTENZIAMENTO';
+
+        document.getElementById('report-scaled').innerText = scaled;
+        const barPct = Math.max(0, Math.min(100, ((scaled - 200) / 400) * 100));
+        document.getElementById('scale-bar-fill').style.width = `${barPct}%`;
+
+        document.getElementById('rep-raw').innerText = `${stats.total} / ${stats.max}`;
+        document.getElementById('rep-best-acc').innerText = `${Math.round((stats.bestHits / sessionItems.length) * 100)}%`;
+        document.getElementById('rep-worst-acc').innerText = `${Math.round((stats.worstHits / sessionItems.length) * 100)}%`;
+
+        // Bottone "Ripeti solo gli Errori"
+        const missedCount = sessionItems.filter(it => it.userBest !== it.scenario.best || it.userWorst !== it.scenario.worst).length;
+        const retryBtn = document.getElementById('btn-retry-missed');
+        retryBtn.classList.toggle('nascosto', missedCount === 0);
+        retryBtn.innerText = `🔁 Ripeti solo gli Errori (${missedCount})`;
+
+        renderDomainsBreakdown();
+        renderRadarChart();
+        filterReview(missedCount > 0 ? 'errors' : 'all');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderDomainsBreakdown() {
+        const container = document.getElementById('domains-breakdown');
+        const domKeys = ['A', 'B', 'C', 'D'];
+        container.innerHTML = domKeys.map(k => {
+            const items = sessionItems.filter(it => it.scenario.domain === k);
+            if (items.length === 0) return '';
+            const st = calcRawPoints(items);
+            const pct = Math.round((st.total / st.max) * 100);
+            return `
+                <div class="domain-card">
+                    <div class="domain-head">
+                        <span>${domainNames[k]}</span>
+                        <span style="color:${pct >= 75 ? '#6ee7b7' : '#fcd34d'};">${pct}% (${st.total}/${st.max})</span>
+                    </div>
+                    <div class="domain-bar"><div class="domain-bar-fill" style="width:${pct}%;"></div></div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function renderRadarChart() {
+        const labels = [];
+        const values = [];
+
+        for (let c = 1; c <= 8; c++) {
+            labels.push(compShortNames[c]);
+            const items = sessionItems.filter(it => it.scenario.compId === c);
+            if (items.length === 0) {
+                values.push(0);
+            } else {
+                const st = calcRawPoints(items);
+                values.push(Math.round((st.total / st.max) * 100));
+            }
+        }
+
+        const ctx = document.getElementById('icfRadarChart').getContext('2d');
+        if (radarChartInstance) radarChartInstance.destroy();
+
+        radarChartInstance = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Padronanza %',
+                    data: values,
+                    backgroundColor: 'rgba(223, 195, 131, 0.25)',
+                    borderColor: '#DFC383',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#F2DFAC',
+                    pointRadius: 3.5
+                }]
+            },
+            options: {
+                scales: {
+                    r: {
+                        min: 0,
+                        max: 100,
+                        ticks: { display: false, stepSize: 25 },
+                        grid: { color: 'rgba(255,255,255,0.12)' },
+                        angleLines: { color: 'rgba(255,255,255,0.12)' },
+                        pointLabels: { color: '#e2e8f0', font: { size: 10.5, weight: 'bold' } }
+                    }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+    }
+
+    function filterReview(mode) {
+        const list = mode === 'errors'
+            ? lastReportItems.filter(it => it.userBest !== it.scenario.best || it.userWorst !== it.scenario.worst)
+            : lastReportItems;
+
+        const cont = document.getElementById('review-container');
+        if (list.length === 0) {
+            cont.innerHTML = `<div class="review-item rev-ok"><h5>Nessun errore in questa sessione!</h5><p>Hai individuato correttamente sia l'azione BEST che l'azione WORST in tutti gli scenari affrontati.</p></div>`;
+            return;
+        }
+
+        cont.innerHTML = list.map((it) => {
+            const sc = it.scenario;
+            const bOk = it.userBest === sc.best;
+            const wOk = it.userWorst === sc.worst;
+            const cls = (bOk && wOk) ? 'rev-ok' : (bOk || wOk) ? 'rev-part' : '';
+
+            const optBest = it.shuffledOptions.find(o => o.origKey === sc.best);
+            const optWorst = it.shuffledOptions.find(o => o.origKey === sc.worst);
+            const uBest = it.shuffledOptions.find(o => o.origKey === it.userBest);
+            const uWorst = it.shuffledOptions.find(o => o.origKey === it.userWorst);
+
+            return `
+                <div class="review-item ${cls}">
+                    <h5>${sc.compName} • ${(bOk ? 1 : 0) + (wOk ? 1 : 0)}/2 pt</h5>
+                    <p style="font-style:italic; color:#cbd5e1;">"${sc.text}"</p>
+                    <p style="font-size:12px;">
+                        <span style="color:${bOk ? '#6ee7b7' : '#fca5a5'}; font-weight:700;">Tuo BEST:</span> ${uBest ? uBest.text : 'Nessuna risposta'}<br>
+                        <span style="color:#6ee7b7; font-weight:700;">BEST Ufficiale:</span> ${optBest.text}
+                    </p>
+                    <p style="font-size:12px;">
+                        <span style="color:${wOk ? '#6ee7b7' : '#fca5a5'}; font-weight:700;">Tuo WORST:</span> ${uWorst ? uWorst.text : 'Nessuna risposta'}<br>
+                        <span style="color:#fca5a5; font-weight:700;">WORST Ufficiale:</span> ${optWorst.text}
+                    </p>
+                    <p style="font-size:12.5px; color:#f1f5f9; border-top:1px solid rgba(255,255,255,0.08); padding-top:8px;">
+                        <strong style="color:var(--gold-bright);">Debrief ${config.level}:</strong> ${config.level === 'ACC' ? sc.acc : sc.pcc}
+                    </p>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function retryMissedScenarios() {
+        const missed = lastReportItems
+            .filter(it => it.userBest !== it.scenario.best || it.userWorst !== it.scenario.worst)
+            .map(it => it.scenario);
+        if (missed.length === 0) return;
+        setConfig('mode', 'practice');
+        startSession(missed);
+    }
+</script>
+</body>
+</html>
