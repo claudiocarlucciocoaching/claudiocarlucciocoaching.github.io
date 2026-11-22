@@ -1014,8 +1014,13 @@
             "claudio": "cla9090!"
         };
 
-        // Pre-compila data odierna e ripristina eventuali dati Coach salvati in locale
+        // Pre-compila data odierna, ripristina dati Coach salvati e gestisce Accesso Unico (SSO)
         window.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('cc_hub_user')) {
+                document.getElementById('coach-gate').classList.add('nascosto');
+                document.getElementById('contract-wrapper').classList.remove('nascosto');
+            }
+
             const oggi = new Date().toLocaleDateString('it-IT');
             const savedName = localStorage.getItem('cc_studio_name') || '';
             const savedPec = localStorage.getItem('cc_studio_pec') || '';
@@ -1043,6 +1048,7 @@
 
             if (accessiCoach[u] && accessiCoach[u] === p) {
                 err.classList.add('nascosto');
+                sessionStorage.setItem('cc_hub_user', rawUser);
                 document.getElementById('coach-gate').classList.add('nascosto');
                 document.getElementById('contract-wrapper').classList.remove('nascosto');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1058,9 +1064,7 @@
         }
 
         function tornaAllaLanding() {
-            document.getElementById('contract-wrapper').classList.add('nascosto');
-            document.getElementById('coach-gate').classList.remove('nascosto');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.location.href = 'area-riservata.html';
         }
 
         function sincronizzaDatiCoach() {
@@ -1142,35 +1146,6 @@
             }
         });
     </script>
-} else {
-                window.print();
-            }
-        });
-
-        // --- ACCESSO UNICO (SSO) CON HUB AREA RISERVATA ---
-        window.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('cc_hub_user')) {
-                document.getElementById('coach-gate').classList.add('nascosto');
-                document.getElementById('contract-wrapper').classList.remove('nascosto');
-            }
-        });
-
-        const _origSbloccaContratto = sbloccaContratto;
-        sbloccaContratto = function() {
-            const rawUser = document.getElementById('gate-user').value.trim();
-            const u = rawUser.toLowerCase();
-            const p = document.getElementById('gate-pass').value.trim();
-            if (accessiCoach[u] && accessiCoach[u] === p) {
-                sessionStorage.setItem('cc_hub_user', rawUser);
-            }
-            _origSbloccaContratto();
-        };
-
-        tornaAllaLanding = function() {
-            window.location.href = 'area-riservata.html';
-        };
-    </script>
 
 </body>
 </html>
-
