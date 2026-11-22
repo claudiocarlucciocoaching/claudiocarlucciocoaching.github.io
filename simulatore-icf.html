@@ -270,6 +270,7 @@
             font-size: 11.5px;
             font-weight: 600;
             cursor: pointer;
+            text-decoration: none;
             transition: all 0.2s;
         }
 
@@ -1075,7 +1076,7 @@
             </div>
             <div style="display:flex; gap:8px; flex-wrap:wrap;">
                 <a href="contratto-coach.html" class="btn-ghost">📄 Vai a Strumento #01</a>
-                <button type="button" class="btn-ghost" onclick="tornaAllaLanding()">← Cassetta Digitale</button>
+                <button type="button" class="btn-ghost" onclick="tornaAllaLanding()">← Torna all'Hub Coach</button>
             </div>
         </div>
 
@@ -1309,12 +1310,20 @@
 
 <script>
     // =========================================================================
-    // 1. ACCESSO & NOTIFICA SILENZIOSA
+    // 1. ACCESSO UNICO (SSO) CON HUB AREA RISERVATA & NOTIFICA SILENZIOSA
     // =========================================================================
     const accessiCoach = {
         "ospitecoachaxe": "allenatiAXE",
         "claudio": "cla9090!"
     };
+
+    window.addEventListener('DOMContentLoaded', () => {
+        if (sessionStorage.getItem('cc_hub_user')) {
+            document.getElementById('coach-gate').classList.add('nascosto');
+            document.getElementById('simulator-workspace').classList.remove('nascosto');
+            aggiornaRecordDisplay();
+        }
+    });
 
     function sbloccaSimulatore() {
         const rawUser = document.getElementById('gate-user').value.trim();
@@ -1324,6 +1333,7 @@
 
         if (accessiCoach[u] && accessiCoach[u] === p) {
             err.classList.add('nascosto');
+            sessionStorage.setItem('cc_hub_user', rawUser);
             document.getElementById('coach-gate').classList.add('nascosto');
             document.getElementById('simulator-workspace').classList.remove('nascosto');
             aggiornaRecordDisplay();
@@ -1341,9 +1351,7 @@
 
     function tornaAllaLanding() {
         stopTimer();
-        document.getElementById('simulator-workspace').classList.add('nascosto');
-        document.getElementById('coach-gate').classList.remove('nascosto');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.location.href = 'area-riservata.html';
     }
 
     // =========================================================================
@@ -2055,7 +2063,7 @@
     // 3. STATO DEL SIMULATORE & CONFIGURAZIONE
     // =========================================================================
     const config = { mode: 'practice', level: 'ACC', count: 25 };
-    let sessionItems = [];     // array di { scenario, shuffledOptions, userBest, userWorst, locked, flagged }
+    let sessionItems = [];
     let currentIdx = 0;
     let timerInterval = null;
     let secondsRemaining = 0;
@@ -2105,8 +2113,8 @@
             return {
                 scenario: sc,
                 shuffledOptions: shuffled,
-                userBest: null,   // origKey
-                userWorst: null,  // origKey
+                userBest: null,
+                userWorst: null,
                 locked: false,
                 flagged: false
             };
@@ -2252,7 +2260,6 @@
         document.getElementById('options-container').innerHTML = optHtml;
         updateSelectionStatus();
 
-        // Flag button
         const flagBtn = document.getElementById('btn-flag');
         if (isExam) {
             flagBtn.classList.toggle('flagged', item.flagged);
@@ -2282,12 +2289,12 @@
         if (type === 'B') {
             item.userBest = (item.userBest === origKey) ? null : origKey;
             if (item.userWorst === origKey && item.userBest === origKey) {
-                item.userWorst = null; // impedisce BEST e WORST sulla stessa opzione
+                item.userWorst = null;
             }
         } else {
             item.userWorst = (item.userWorst === origKey) ? null : origKey;
             if (item.userBest === origKey && item.userWorst === origKey) {
-                item.userBest = null; // impedisce BEST e WORST sulla stessa opzione
+                item.userBest = null;
             }
         }
         renderCurrentScenario();
@@ -2419,7 +2426,6 @@
     function calcIcfScaledScore(raw, max) {
         if (max === 0) return 200;
         const pct = raw / max;
-        // Mappatura fedele alla soglia ICF: 75% raw = 460/600 (Pass), 100% = 600, 0% = 200
         if (pct < 0.75) {
             return Math.round(200 + (pct / 0.75) * 260);
         }
@@ -2437,7 +2443,6 @@
         const scaled = calcIcfScaledScore(stats.total, stats.max);
         const passed = scaled >= 460;
 
-        // Salva record personale in locale
         const prevBest = Number(localStorage.getItem('cc_icf_best_scaled') || 0);
         if (scaled > prevBest) {
             localStorage.setItem('cc_icf_best_scaled', String(scaled));
@@ -2455,7 +2460,6 @@
         document.getElementById('rep-best-acc').innerText = `${Math.round((stats.bestHits / sessionItems.length) * 100)}%`;
         document.getElementById('rep-worst-acc').innerText = `${Math.round((stats.worstHits / sessionItems.length) * 100)}%`;
 
-        // Bottone "Ripeti solo gli Errori"
         const missedCount = sessionItems.filter(it => it.userBest !== it.scenario.best || it.userWorst !== it.scenario.worst).length;
         const retryBtn = document.getElementById('btn-retry-missed');
         retryBtn.classList.toggle('nascosto', missedCount === 0);
